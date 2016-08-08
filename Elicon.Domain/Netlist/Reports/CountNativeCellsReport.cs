@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Elicon.Domain.Netlist.Build;
+using Elicon.Domain.Netlist.BuildData;
 using Elicon.Domain.Netlist.Contracts.DataAccess;
 using Elicon.Domain.Netlist.DataQuery;
 

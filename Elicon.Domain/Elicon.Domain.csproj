@@ -64,7 +64,7 @@
     <Compile Include="Netlist\Parse\Helpers\ModuleInstantiationCommandParser.cs" />
     <Compile Include="Netlist\Contracts\DataAccess\IInstanceModuleRelationRepository.cs" />
     <Compile Include="Netlist\Read\MultiLineCommandSelector.cs" />
-    <Compile Include="Netlist\Build\NetlistDataBuilder.cs" />
+    <Compile Include="Netlist\BuildData\NetlistDataBuilder.cs" />
     <Compile Include="Netlist\Parse\NetListParser.cs" />
     <Compile Include="Netlist\Read\NetlistReader.cs" />
     <Compile Include="Netlist\Reports\CountNativeCellsReport.cs" />
