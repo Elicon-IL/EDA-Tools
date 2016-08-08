@@ -1,4 +1,3 @@
-using System.IO;
 using System.Text;
 using Elicon.Framework;
 
@@ -7,36 +6,37 @@ namespace Elicon.Domain.Netlist.Read
     public interface INetlistReader
     {
         void SetSource(string source);
-        void Colse();
+        void Close();
         string ReadCommand();
     }
 
     public class NetlistReader : INetlistReader
     {
         private string _currentCommand;
-        private StreamReader _reader;
+        private readonly IStreamReader _streamReader;
         private readonly ICommandTrimmer _commandTrimmer;
         private readonly IMultiLineCommandSelector _multiLineCommandSelector;
 
-        public NetlistReader(ICommandTrimmer commandTrimmer, IMultiLineCommandSelector multiLineCommandSelector)
+        public NetlistReader(IStreamReader streamReader ,ICommandTrimmer commandTrimmer, IMultiLineCommandSelector multiLineCommandSelector)
         {
+            _streamReader = streamReader;
             _commandTrimmer = commandTrimmer;
             _multiLineCommandSelector = multiLineCommandSelector;
         }
 
         public void SetSource(string source)
         {
-            _reader = new StreamReader(source);    
+            _streamReader.SetSource(source);   
         }
 
-        public void Colse()
+        public void Close()
         {
-            _reader.Close();
+            _streamReader.Close();
         }
 
         public string ReadCommand()
         {
-            if ((_currentCommand = _reader.ReadLine()) == null)
+            if ((_currentCommand = _streamReader.ReadLine()) == null)
                 return _currentCommand;
 
             _currentCommand = _commandTrimmer.Trim(_currentCommand);
@@ -50,7 +50,7 @@ namespace Elicon.Domain.Netlist.Read
         {
             var multiLineCommand = new StringBuilder(_currentCommand);
 
-            while ((_currentCommand = _reader.ReadLine()) != null)
+            while ((_currentCommand = _streamReader.ReadLine()) != null)
             {
                 _currentCommand = _commandTrimmer.Trim(_currentCommand);
                 if (_currentCommand.IsNullOrEmpty())

@@ -49,7 +49,7 @@ namespace Elicon.Domain.Netlist.Parse
             else
             {
                 HasMoreCommands = false;
-                _netlistReader.Colse();
+                _netlistReader.Close();
             }     
         }
 
