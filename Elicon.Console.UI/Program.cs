@@ -1,4 +1,5 @@
-﻿using Elicon.Console.Config;
+﻿using System.Linq;
+using Elicon.Console.Config;
 using Elicon.Domain.Netlist.Reports;
 
 namespace Elicon.Console.UI
@@ -9,8 +10,17 @@ namespace Elicon.Console.UI
         {
             Bootstrapper.Boot();
 
+            System.Console.WriteLine("Please enter netlist file path");
+            var source = System.Console.ReadLine();
+
             var report = Bootstrapper.Get<ICountNativeCellsReport>();
-            report.CountNativeCells("D:\\SoftwareProjects\\Netlist Util Tachzuka\\Count_Native_Cells\\nl.V");
+            var orderedCells = report.CountNativeCells(source).OrderBy(kvp => kvp.Key);
+
+            foreach (var kvp in orderedCells)
+                System.Console.WriteLine(($"Cell = {kvp.Key}, count = {kvp.Value}"));
+
+            System.Console.ReadLine();
         }
     }
 }
+
