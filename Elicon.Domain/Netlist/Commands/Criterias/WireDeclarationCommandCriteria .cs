@@ -10,7 +10,5 @@ namespace Elicon.Domain.Netlist.Commands.Criterias
         {
             return commnad.FirstTokenIs(WireKeyWord);
         }
-
-        public CommandType CommandType => CommandType.WireDeclaration;
     }
 }

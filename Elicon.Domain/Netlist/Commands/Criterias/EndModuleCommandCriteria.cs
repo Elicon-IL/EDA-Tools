@@ -6,7 +6,5 @@
         {
             return commnad.Equals("endmodule");
         }
-
-        public CommandType CommandType => CommandType.EndModule;
     }
 }

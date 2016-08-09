@@ -8,7 +8,5 @@ namespace Elicon.Domain.Netlist.Commands.Criterias
         {
             return commnad.FirstTokenIs("module");
         }
-
-        public CommandType CommandType => CommandType.ModuleDeclaration;
     }
 }

@@ -6,7 +6,5 @@
         {
             return commnad.StartsWith("`define");
         }
-
-        public CommandType CommandType => CommandType.DefineTop;
     }
 }

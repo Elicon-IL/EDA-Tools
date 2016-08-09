@@ -40,6 +40,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Netlist\BuildData\BuildState.cs" />
+    <Compile Include="Netlist\BuildData\CommandHandlers\AssignDeclarationCommandHandler.cs" />
+    <Compile Include="Netlist\BuildData\CommandHandlers\CommandHandlersOrderer.cs" />
+    <Compile Include="Netlist\BuildData\CommandHandlers\DefineTopCommandHandler.cs" />
+    <Compile Include="Netlist\BuildData\CommandHandlers\EmptyCommandHandler.cs" />
+    <Compile Include="Netlist\BuildData\CommandHandlers\EndModuleCommandHandler.cs" />
+    <Compile Include="Netlist\BuildData\CommandHandlers\ErrorCommandHandler.cs" />
+    <Compile Include="Netlist\BuildData\CommandHandlers\IStatementHandler.cs" />
+    <Compile Include="Netlist\BuildData\CommandHandlers\ICommandHandler.cs" />
+    <Compile Include="Netlist\BuildData\CommandHandlers\InstanceDeclarationCommandHandler.cs" />
+    <Compile Include="Netlist\BuildData\CommandHandlers\ModuleDeclarationCommandHandler.cs" />
+    <Compile Include="Netlist\BuildData\CommandHandlers\PortDeclarationCommandHandler.cs" />
+    <Compile Include="Netlist\BuildData\CommandHandlers\SupplyDeclarationCommandHandler.cs" />
+    <Compile Include="Netlist\BuildData\CommandHandlers\WireDeclarationCommandHandler.cs" />
     <Compile Include="Netlist\Commands\Criterias\WireDeclarationCommandCriteria .cs" />
     <Compile Include="Netlist\Commands\Criterias\AssignDeclarationCommandCriteria .cs" />
     <Compile Include="Netlist\Commands\Criterias\DefineTopCommandCriteria.cs" />
@@ -53,21 +67,16 @@
     <Compile Include="Netlist\Contracts\DataAccess\IInstanceRepository.cs" />
     <Compile Include="Netlist\Contracts\DataAccess\IModuleRepository.cs" />
     <Compile Include="Netlist\DataQuery\NativeCellsCounter.cs" />
-    <Compile Include="Netlist\Parse\Helpers\EndModuleCommandParser.cs" />
     <Compile Include="Netlist\Read\CommandTrimmer.cs" />
-    <Compile Include="Netlist\Commands\CommandType.cs" />
-    <Compile Include="Netlist\Commands\CommandTypeSelector.cs" />
-    <Compile Include="Netlist\Parse\Helpers\DefineTopCommandParser.cs" />
+    <Compile Include="Netlist\Parse\DefineTopCommandParser.cs" />
     <Compile Include="Netlist\Instance.cs" />
-    <Compile Include="Netlist\Parse\Helpers\InstanceCommnadParser.cs" />
+    <Compile Include="Netlist\Parse\InstanceCommnadParser.cs" />
     <Compile Include="Netlist\Module.cs" />
-    <Compile Include="Netlist\Parse\Helpers\ModuleInstantiationCommandParser.cs" />
+    <Compile Include="Netlist\Parse\ModuleDeclarationCommandParser.cs" />
     <Compile Include="Netlist\Contracts\DataAccess\IInstanceModuleRelationRepository.cs" />
     <Compile Include="Netlist\Read\MultiLineCommandSelector.cs" />
     <Compile Include="Netlist\BuildData\NetlistDataBuilder.cs" />
-    <Compile Include="Netlist\Parse\NetListParser.cs" />
     <Compile Include="Netlist\Read\NetlistReader.cs" />
-    <Compile Include="Netlist\Read\StreamReaderAdapter.cs" />
     <Compile Include="Netlist\Reports\CountNativeCellsReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

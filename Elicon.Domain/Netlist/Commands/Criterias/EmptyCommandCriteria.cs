@@ -8,7 +8,5 @@ namespace Elicon.Domain.Netlist.Commands.Criterias
         {
             return commnad.IsNullOrEmpty();
         }
-
-        public CommandType CommandType => CommandType.Empty;
     }
 }

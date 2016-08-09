@@ -10,7 +10,5 @@ namespace Elicon.Domain.Netlist.Commands.Criterias
         {
             return commnad.FirstTokenIs(AssignKeyWord);
         }
-
-        public CommandType CommandType => CommandType.AssignDeclaration;
     }
 }

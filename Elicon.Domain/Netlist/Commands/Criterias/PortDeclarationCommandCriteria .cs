@@ -14,7 +14,5 @@ namespace Elicon.Domain.Netlist.Commands.Criterias
                    commnad.FirstTokenIs(OutputKeyWord) ||
                    commnad.FirstTokenIs(InoutKeyWord);
         }
-
-        public CommandType CommandType => CommandType.PortDeclaration;
     }
 }

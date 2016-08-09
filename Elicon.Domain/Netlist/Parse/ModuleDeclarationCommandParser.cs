@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Elicon.Domain.Netlist.Parse.Helpers
+namespace Elicon.Domain.Netlist.Parse
 {
-    public class ModuleInstantiationCommandParser
+    public class ModuleDeclarationCommandParser
     {
         public string GetModuleName(string command)
         {

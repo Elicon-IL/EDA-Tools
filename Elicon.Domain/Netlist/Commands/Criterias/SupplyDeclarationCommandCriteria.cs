@@ -11,7 +11,5 @@ namespace Elicon.Domain.Netlist.Commands.Criterias
         {
             return commnad.FirstTokenIs(Supply0KeyWord) || commnad.FirstTokenIs(Supply1KeyWord);
         }
-
-        public CommandType CommandType => CommandType.SupplyDeclaration;
     }
 }

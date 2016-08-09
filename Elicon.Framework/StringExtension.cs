@@ -18,5 +18,4 @@
             return string.IsNullOrEmpty(str);
         }
     }
-
 }

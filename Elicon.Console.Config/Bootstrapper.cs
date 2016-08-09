@@ -1,5 +1,6 @@
 ﻿using Elicon.DataAccess;
 using Elicon.Domain.Netlist;
+using Elicon.Framework;
 using Ninject;
 using Ninject.Extensions.Conventions;
 
@@ -22,6 +23,11 @@ namespace Elicon.Console.Config
                     .SelectAllClasses()
                     .BindDefaultInterfaces()
                     .Configure(y => y.InSingletonScope());
+
+                x.FromAssemblyContaining<StreamReaderAdapter>()
+                   .SelectAllClasses()
+                   .BindDefaultInterfaces()
+                   .Configure(y => y.InSingletonScope());
             });
         }
 
