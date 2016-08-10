@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Elicon.Domain.Netlist.BuildData.CommandHandlers;
+using Elicon.Domain.Netlist.BuildData.StatementHandlers;
 using Elicon.Domain.Netlist.Contracts.DataAccess;
 using Elicon.Domain.Netlist.Read;
 
@@ -15,23 +15,23 @@ namespace Elicon.Domain.Netlist.BuildData
         private readonly IModuleRepository _moduleRepository;
         private readonly IInstanceRepository _instanceRepository;
         private readonly INetlistReader _netlistReader;
-        private readonly IStatementHandler _statementHandler;
+        private readonly IStatementHandlingInvoker _statementHandlingInvoker;
         private readonly BuildState _buildState = new BuildState();
 
-        public NetlistDataBuilder(IInstanceRepository instanceRepository, IModuleRepository moduleRepository, INetlistReader netlistReader, IStatementHandler statementHandler)
+        public NetlistDataBuilder(IInstanceRepository instanceRepository, IModuleRepository moduleRepository, INetlistReader netlistReader, IStatementHandlingInvoker statementHandlingInvoker)
         {
             _instanceRepository = instanceRepository;
             _moduleRepository = moduleRepository;
             _netlistReader = netlistReader;
-            _statementHandler = statementHandler;
+            _statementHandlingInvoker = statementHandlingInvoker;
         }
 
         public void Build(string source)
         {
             _netlistReader.SetSource(source);
            
-            while ((_buildState.CurrentCommand = _netlistReader.ReadCommand()) != null)
-                _statementHandler.Handle(_buildState);
+            while ((_buildState.CurrentStatement = _netlistReader.ReadStatement()) != null)
+                _statementHandlingInvoker.Handle(_buildState);
                 
             UpdateInstancesType();
         }

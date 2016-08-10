@@ -7,21 +7,21 @@ namespace Elicon.Domain.Netlist.Read
     {
         void SetSource(string source);
         void Close();
-        string ReadCommand();
+        string ReadStatement();
     }
 
     public class NetlistReader : INetlistReader
     {
-        private string _currentCommand;
+        private string _currentStatement;
         private readonly IStreamReader _streamReader;
-        private readonly ICommandTrimmer _commandTrimmer;
-        private readonly IMultiLineCommandSelector _multiLineCommandSelector;
+        private readonly IStatementTrimmer _statementTrimmer;
+        private readonly IMultiLineStatementVerifier _multiLineStatementVerifier;
 
-        public NetlistReader(IStreamReader streamReader ,ICommandTrimmer commandTrimmer, IMultiLineCommandSelector multiLineCommandSelector)
+        public NetlistReader(IStreamReader streamReader ,IStatementTrimmer statementTrimmer, IMultiLineStatementVerifier multiLineStatementVerifier)
         {
             _streamReader = streamReader;
-            _commandTrimmer = commandTrimmer;
-            _multiLineCommandSelector = multiLineCommandSelector;
+            _statementTrimmer = statementTrimmer;
+            _multiLineStatementVerifier = multiLineStatementVerifier;
         }
 
         public void SetSource(string source)
@@ -34,34 +34,34 @@ namespace Elicon.Domain.Netlist.Read
             _streamReader.Close();
         }
 
-        public string ReadCommand()
+        public string ReadStatement()
         {
-            if ((_currentCommand = _streamReader.ReadLine()) == null)
-                return _currentCommand;
+            if ((_currentStatement = _streamReader.ReadLine()) == null)
+                return _currentStatement;
 
-            _currentCommand = _commandTrimmer.Trim(_currentCommand);
-           if (_multiLineCommandSelector.IsMultiLineCommand(_currentCommand))
-                ReadTillCommandEnd();
+            _currentStatement = _statementTrimmer.Trim(_currentStatement);
+           if (_multiLineStatementVerifier.IsMultiLineStatement(_currentStatement))
+                ReadTillStatementEnd();
 
-            return _currentCommand;
+            return _currentStatement;
         }
 
-        private void ReadTillCommandEnd()
+        private void ReadTillStatementEnd()
         {
-            var multiLineCommand = new StringBuilder(_currentCommand);
+            var multiLineStatement = new StringBuilder(_currentStatement);
 
-            while ((_currentCommand = _streamReader.ReadLine()) != null)
+            while ((_currentStatement = _streamReader.ReadLine()) != null)
             {
-                _currentCommand = _commandTrimmer.Trim(_currentCommand);
-                if (_currentCommand.IsNullOrEmpty())
+                _currentStatement = _statementTrimmer.Trim(_currentStatement);
+                if (_currentStatement.IsNullOrEmpty())
                     continue;
 
-                multiLineCommand.Append(' ');
-                multiLineCommand.Append(_currentCommand);
-                if (!_currentCommand.EndsWith(";"))
+                multiLineStatement.Append(' ');
+                multiLineStatement.Append(_currentStatement);
+                if (!_currentStatement.EndsWith(";"))
                     continue;
 
-                _currentCommand = multiLineCommand.ToString();
+                _currentStatement = multiLineStatement.ToString();
                 break;
             }    
         }
