@@ -1,4 +1,5 @@
 ﻿using System;
+using Elicon.Framework;
 
 namespace Elicon.Domain.Netlist.Parse
 {
@@ -6,22 +7,9 @@ namespace Elicon.Domain.Netlist.Parse
     {
         public string GetTopModuleName(string statement)
         {
-            statement = RemoveDefineKeyword(statement);
-            return RemoveTopKeyword(statement);
-        }
-
-        private static string RemoveTopKeyword(string statement)
-        {
             return statement
-                .Substring(statement.IndexOf(' '))
-                .Trim();
-        }
-
-        private static string RemoveDefineKeyword(string statement)
-        {
-            return statement
-                .Substring(statement.IndexOf(' '))
-                .Trim();
+                .KeepFromFirst(' ')
+                .KeepFromFirst(' ');
         }
     }
 }

@@ -28,7 +28,7 @@
             return str.Substring(0, str.IndexOf(delimiter)).Trim();
         }
 
-        public static string RemoveUntilFirst(this string str, char delimiter)
+        public static string KeepFromFirst(this string str, char delimiter)
         {
             return str
                .Substring(str.IndexOf(delimiter))

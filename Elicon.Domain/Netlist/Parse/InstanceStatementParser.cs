@@ -13,7 +13,7 @@ namespace Elicon.Domain.Netlist.Parse
 
         public string GeInstanceName(string statement)
         {
-            statement = statement.RemoveUntilFirst(' ');
+            statement = statement.KeepFromFirst(' ');
             if (statement.IsEscaped())
                 return statement.KeepUntilFirst(' ');
             

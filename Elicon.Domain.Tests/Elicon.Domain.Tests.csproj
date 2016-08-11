@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModuleDeclarationStatementParserTests.cs" />
     <Compile Include="InstanceStatementParserTests.cs" />
     <Compile Include="DefineTopStatementParserTests.cs" />
     <Compile Include="MultiLineStatementVerifierTests.cs" />
