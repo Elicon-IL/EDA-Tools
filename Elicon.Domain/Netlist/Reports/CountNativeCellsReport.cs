@@ -13,21 +13,21 @@ namespace Elicon.Domain.Netlist.Reports
     public class CountNativeCellsReport : ICountNativeCellsReport
     {
         private readonly INetlistDataBuilder _netlistDataBuilder;
-        private readonly INativeCellsCounter _nativeCellsCounter;
+        private readonly INativeCellsCountQuery _nativeCellsCountQuery;
         private readonly IModuleRepository _moduleRepository;
         
-        public CountNativeCellsReport(IModuleRepository moduleRepository, INativeCellsCounter nativeCellsCounter, INetlistDataBuilder netlistDataBuilder)
+        public CountNativeCellsReport(IModuleRepository moduleRepository, INativeCellsCountQuery nativeCellsCountQuery, INetlistDataBuilder netlistDataBuilder)
         {
             _netlistDataBuilder = netlistDataBuilder;
             _moduleRepository = moduleRepository;
-            _nativeCellsCounter = nativeCellsCounter;
+            _nativeCellsCountQuery = nativeCellsCountQuery;
         }
 
         public IDictionary<string, long> CountNativeCells(string source)
         {
             _netlistDataBuilder.Build(source);
             var top = _moduleRepository.GetTop();
-            return _nativeCellsCounter.CountNativeCells(top.Name);
+            return _nativeCellsCountQuery.Query(top.Name);
         }
     }
 }

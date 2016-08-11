@@ -3,21 +3,21 @@ using Elicon.Domain.Netlist.Contracts.DataAccess;
 
 namespace Elicon.Domain.Netlist.DataQuery
 {
-    public interface INativeCellsCounter
+    public interface INativeCellsCountQuery
     {
-        IDictionary<string, long> CountNativeCells(string moduleName);
+        IDictionary<string, long> Query(string moduleName);
     }
 
-    public class NativeCellsCounter : INativeCellsCounter
+    public class NativeCellsCountQuery : INativeCellsCountQuery
     {
         private readonly IInstanceRepository _instanceRepository;
 
-        public NativeCellsCounter(IInstanceRepository instanceRepository)
+        public NativeCellsCountQuery(IInstanceRepository instanceRepository)
         {
             _instanceRepository = instanceRepository;
         }
 
-        public IDictionary<string, long> CountNativeCells(string moduleName)
+        public IDictionary<string, long> Query(string moduleName)
         {
             var result = new Dictionary<string, long>();
 
