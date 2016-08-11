@@ -1,8 +1,8 @@
 language: csharp
 solution: Elicon.sln
-before_install:
-  - sudo apt-get install nunit-console
-before_script:
+install:
   - nuget restore Elicon.sln
-after_script:
-  - nunit-console Elicon.Domain.Tests/bin/Release/Elicon.Domain.Tests.dll
+  - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
+script:
+  - xbuild /p:Configuration=Release solution-name.sln
+  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./Elicon.Domain.Tests/bin/Release/Elicon.Domain.Tests.dll
