@@ -4,12 +4,24 @@ namespace Elicon.Domain.Netlist.Parse
 {
     public class DefineTopStatementParser
     {
-        public string GetTopModuleName(string line)
+        public string GetTopModuleName(string statement)
         {
-            line = line.Substring(line.IndexOf(" ", StringComparison.Ordinal)).Trim(); // Remove `define token
-            line = line.Substring(line.IndexOf(" ", StringComparison.Ordinal)).Trim(); // Remove top token
+            statement = RemoveDefineKeyword(statement);
+            return RemoveTopKeyword(statement);
+        }
 
-            return line;
+        private static string RemoveTopKeyword(string statement)
+        {
+            return statement
+                .Substring(statement.IndexOf(" ", StringComparison.Ordinal))
+                .Trim();
+        }
+
+        private static string RemoveDefineKeyword(string statement)
+        {
+            return statement
+                .Substring(statement.IndexOf(" ", StringComparison.Ordinal))
+                .Trim();
         }
     }
 }
