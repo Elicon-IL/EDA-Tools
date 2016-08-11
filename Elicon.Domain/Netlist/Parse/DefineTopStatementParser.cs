@@ -13,14 +13,14 @@ namespace Elicon.Domain.Netlist.Parse
         private static string RemoveTopKeyword(string statement)
         {
             return statement
-                .Substring(statement.IndexOf(" ", StringComparison.Ordinal))
+                .Substring(statement.IndexOf(' '))
                 .Trim();
         }
 
         private static string RemoveDefineKeyword(string statement)
         {
             return statement
-                .Substring(statement.IndexOf(" ", StringComparison.Ordinal))
+                .Substring(statement.IndexOf(' '))
                 .Trim();
         }
     }
