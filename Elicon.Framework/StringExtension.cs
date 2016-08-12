@@ -1,4 +1,6 @@
-﻿namespace Elicon.Framework
+﻿using System;
+
+namespace Elicon.Framework
 {
     public static class StringExtension
     {
@@ -23,16 +25,26 @@
             return str.StartsWith("\\");
         }
 
+        public static string KeepUntilFirst(this string str, string delimiter)
+        {
+            return str.Substring(0, str.IndexOf(delimiter, StringComparison.Ordinal)).Trim();
+        }
+
+        public static string KeepFromFirst(this string str, string delimiter)
+        {
+            return str
+               .Substring(str.IndexOf(delimiter, StringComparison.Ordinal))
+               .Trim();
+        }
+
         public static string KeepUntilFirst(this string str, char delimiter)
         {
-            return str.Substring(0, str.IndexOf(delimiter)).Trim();
+            return str.KeepUntilFirst(delimiter.ToString());
         }
 
         public static string KeepFromFirst(this string str, char delimiter)
         {
-            return str
-               .Substring(str.IndexOf(delimiter))
-               .Trim();
+            return str.KeepFromFirst(delimiter.ToString());
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Elicon.Framework;
 
 namespace Elicon.Domain.Netlist.Read
 {
@@ -12,9 +13,7 @@ namespace Elicon.Domain.Netlist.Read
         public string Trim(string statement)
         {
             if (statement.Contains("//"))
-                return statement
-                    .Substring(0, statement.IndexOf("//", StringComparison.Ordinal))
-                    .Trim();
+                return statement.KeepUntilFirst("//");
 
             return statement.Trim();
         }
