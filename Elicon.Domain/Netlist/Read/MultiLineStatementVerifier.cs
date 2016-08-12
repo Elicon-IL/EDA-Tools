@@ -10,7 +10,7 @@ namespace Elicon.Domain.Netlist.Read
 
     public class MultiLineStatementVerifier : IMultiLineStatementVerifier
     {
-        private readonly IStatementCriteria[] _multiLineStatementsCounterSet = {
+        private readonly IStatementCriteria[] _multiLineStatementsComplementSet = {
             new EmptyStatementCriteria(), new EndModuleStatementCriteria(), new DefineTopStatementCriteria()
         };
         
@@ -19,12 +19,12 @@ namespace Elicon.Domain.Netlist.Read
             if (statement.EndsWith(";"))
                 return false;
 
-            return !InCounterSet(statement);
+            return !InComplementSet(statement);
         }
 
-        private bool InCounterSet(string statement)
+        private bool InComplementSet(string statement)
         {
-            return _multiLineStatementsCounterSet
+            return _multiLineStatementsComplementSet
                 .Any(criteria => criteria.IsSatisfied(statement));
         }
     }
