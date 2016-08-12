@@ -1,7 +1,4 @@
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Elicon.Domain.Netlist.DataQuery
+namespace Elicon.Domain.Netlist.DataQuery.Traversal
 {
     public class TraverseState
     {

@@ -2,6 +2,7 @@
 using Elicon.Domain.Netlist.BuildData;
 using Elicon.Domain.Netlist.Contracts.DataAccess;
 using Elicon.Domain.Netlist.DataQuery;
+using Elicon.Domain.Netlist.DataQuery.Traversal;
 using Elicon.Domain.Netlist.DataQuery.Visitors;
 
 namespace Elicon.Domain.Netlist.Reports
@@ -14,26 +15,22 @@ namespace Elicon.Domain.Netlist.Reports
     public class PhysicalModulePathReport : IPhysicalModulePathReport
     {
         private readonly INetlistDataBuilder _netlistDataBuilder;
-        private readonly IPhysicalPathInstanceVisitor _physicalPathInstanceVisitor;
-        private readonly IModuleTraverser _moduleTraverser;
+        private readonly IPhysicalModulePathQuery _physicalModulePathQuery;
         private readonly IModuleRepository _moduleRepository;
 
-        public PhysicalModulePathReport(INetlistDataBuilder netlistDataBuilder, IPhysicalPathInstanceVisitor physicalPathInstanceVisitor, IModuleTraverser moduleTraverser, IModuleRepository moduleRepository)
+        public PhysicalModulePathReport(INetlistDataBuilder netlistDataBuilder, IPhysicalModulePathQuery physicalModulePathQuery, IModuleRepository moduleRepository)
         {
             _netlistDataBuilder = netlistDataBuilder;
-            _physicalPathInstanceVisitor = physicalPathInstanceVisitor;
-            _moduleTraverser = moduleTraverser;
+            _physicalModulePathQuery = physicalModulePathQuery;
             _moduleRepository = moduleRepository;
         }
-        
+
         public IDictionary<string, IList<string>> GetPhysicalPaths(string source, IList<string> moduleNames)
         {
             _netlistDataBuilder.Build(source);
-            var top = _moduleRepository.GetTop();
-            _physicalPathInstanceVisitor.SetModulesToTrack(moduleNames);
-            _moduleTraverser.Traverse(top.Name, _physicalPathInstanceVisitor);
+            var top = _moduleRepository.GetTopModule();
 
-            return _physicalPathInstanceVisitor.Result();
+            return _physicalModulePathQuery.GetPhysicalPaths(top.Name, moduleNames);
         }
     }
 }

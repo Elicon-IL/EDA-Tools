@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Elicon.Domain;
 using Elicon.Domain.Netlist;
 using Elicon.Domain.Netlist.Contracts.DataAccess;
 
@@ -24,7 +23,7 @@ namespace Elicon.DataAccess
             return result;
         }
 
-        public Module GetTop()
+        public Module GetTopModule()
         {
             return _map.Values.FirstOrDefault(m => m.IsTop);
         }

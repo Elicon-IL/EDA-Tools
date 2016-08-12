@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Elicon.Domain;
 using Elicon.Domain.Netlist.Contracts.DataAccess;
 
 namespace Elicon.DataAccess

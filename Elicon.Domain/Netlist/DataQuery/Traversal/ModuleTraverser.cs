@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using Elicon.Domain.Netlist.Contracts.DataAccess;
-using Elicon.Domain.Netlist.DataQuery;
+﻿using Elicon.Domain.Netlist.Contracts.DataAccess;
 using Elicon.Domain.Netlist.DataQuery.Visitors;
 
-namespace Elicon.Domain.Netlist.DataQuery
+namespace Elicon.Domain.Netlist.DataQuery.Traversal
 {
     public class ModuleTraverser : IModuleTraverser
     {

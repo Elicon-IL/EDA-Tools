@@ -2,7 +2,6 @@
 using Elicon.Domain.Netlist.BuildData;
 using Elicon.Domain.Netlist.Contracts.DataAccess;
 using Elicon.Domain.Netlist.DataQuery;
-using Elicon.Domain.Netlist.DataQuery.Visitors;
 
 namespace Elicon.Domain.Netlist.Reports
 {
@@ -14,25 +13,23 @@ namespace Elicon.Domain.Netlist.Reports
     public class CountNativeCellsReport : ICountNativeCellsReport
     {
         private readonly INetlistDataBuilder _netlistDataBuilder;
-        private readonly IModuleTraverser _moduleTraverser;
-        private readonly ICountNativeCellsInstanceVisitor _countNativeCellsInstanceVisitor;
+        private readonly ICountNativeCellsQuery _countNativeCellsQuery;
         private readonly IModuleRepository _moduleRepository;
 
-        public CountNativeCellsReport(INetlistDataBuilder netlistDataBuilder, IModuleTraverser moduleTraverser, ICountNativeCellsInstanceVisitor countNativeCellsInstanceVisitor, IModuleRepository moduleRepository)
+        public CountNativeCellsReport(INetlistDataBuilder netlistDataBuilder, ICountNativeCellsQuery countNativeCellsQuery, IModuleRepository moduleRepository)
         {
             _netlistDataBuilder = netlistDataBuilder;
-            _moduleTraverser = moduleTraverser;
-            _countNativeCellsInstanceVisitor = countNativeCellsInstanceVisitor;
+            _countNativeCellsQuery = countNativeCellsQuery;
             _moduleRepository = moduleRepository;
         }
+
 
         public IDictionary<string, long> CountNativeCells(string source)
         {
             _netlistDataBuilder.Build(source);
-            var top = _moduleRepository.GetTop();
-            _moduleTraverser.Traverse(top.Name, _countNativeCellsInstanceVisitor);
+            var topModule = _moduleRepository.GetTopModule();
 
-            return _countNativeCellsInstanceVisitor.Result();
+            return _countNativeCellsQuery.CountNativeCells(topModule.Name);
         }
     }
 }
