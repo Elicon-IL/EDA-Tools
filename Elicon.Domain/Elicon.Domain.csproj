@@ -71,7 +71,7 @@
     <Compile Include="Netlist\Statements\Criterias\ErrorStatementCriteria.cs" />
     <Compile Include="Netlist\Statements\Criterias\IStatementCriteria.cs" />
     <Compile Include="Netlist\Statements\Criterias\ModuleDeclarationStatementCriteria.cs" />
-    <Compile Include="Netlist\Statements\Criterias\PortDeclarationCommandCriteria .cs" />
+    <Compile Include="Netlist\Statements\Criterias\PortDeclarationStatementCriteria.cs" />
     <Compile Include="Netlist\Statements\Criterias\SupplyDeclarationStatementCriteria.cs" />
     <Compile Include="Netlist\Contracts\DataAccess\IInstanceRepository.cs" />
     <Compile Include="Netlist\Contracts\DataAccess\IModuleRepository.cs" />
