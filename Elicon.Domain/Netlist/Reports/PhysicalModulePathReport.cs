@@ -2,32 +2,38 @@
 using Elicon.Domain.Netlist.BuildData;
 using Elicon.Domain.Netlist.Contracts.DataAccess;
 using Elicon.Domain.Netlist.DataQuery;
+using Elicon.Domain.Netlist.DataQuery.Visitors;
 
 namespace Elicon.Domain.Netlist.Reports
 {
     public interface IPhysicalModulePathReport
     {
-        IDictionary<string, IList<string>> Query(string source, IList<string> moduleNames);
+        IDictionary<string, IList<string>> GetPhysicalPaths(string source, IList<string> moduleNames);
     }
         
     public class PhysicalModulePathReport : IPhysicalModulePathReport
     {
         private readonly INetlistDataBuilder _netlistDataBuilder;
-        private readonly IPhysicalModulePathQuery _physicalModulePathQuery;
+        private readonly IPhysicalPathInstanceVisitor _physicalPathInstanceVisitor;
+        private readonly IModuleTraverser _moduleTraverser;
         private readonly IModuleRepository _moduleRepository;
 
-        public PhysicalModulePathReport(INetlistDataBuilder netlistDataBuilder, IModuleRepository moduleRepository, IPhysicalModulePathQuery physicalModulePathQuery)
+        public PhysicalModulePathReport(INetlistDataBuilder netlistDataBuilder, IPhysicalPathInstanceVisitor physicalPathInstanceVisitor, IModuleTraverser moduleTraverser, IModuleRepository moduleRepository)
         {
             _netlistDataBuilder = netlistDataBuilder;
+            _physicalPathInstanceVisitor = physicalPathInstanceVisitor;
+            _moduleTraverser = moduleTraverser;
             _moduleRepository = moduleRepository;
-            _physicalModulePathQuery = physicalModulePathQuery;
         }
-
-        public IDictionary<string, IList<string>> Query(string source, IList<string> moduleNames)
+        
+        public IDictionary<string, IList<string>> GetPhysicalPaths(string source, IList<string> moduleNames)
         {
             _netlistDataBuilder.Build(source);
             var top = _moduleRepository.GetTop();
-            return _physicalModulePathQuery.Query(top.Name, moduleNames);
+            _physicalPathInstanceVisitor.SetModulesToTrack(moduleNames);
+            _moduleTraverser.Traverse(top.Name, _physicalPathInstanceVisitor);
+
+            return _physicalPathInstanceVisitor.Result();
         }
     }
 }
