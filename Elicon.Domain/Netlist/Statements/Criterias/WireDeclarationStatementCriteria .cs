@@ -6,9 +6,9 @@ namespace Elicon.Domain.Netlist.Statements.Criterias
     {
         private const string WireKeyWord = "wire";
 
-        public bool IsSatisfied(string commnad)
+        public bool IsSatisfied(string statement)
         {
-            return commnad.FirstTokenIs(WireKeyWord);
+            return statement.FirstTokenIs(WireKeyWord);
         }
     }
 }

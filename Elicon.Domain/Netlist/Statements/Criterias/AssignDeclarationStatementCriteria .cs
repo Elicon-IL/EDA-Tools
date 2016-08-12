@@ -6,9 +6,9 @@ namespace Elicon.Domain.Netlist.Statements.Criterias
     {
         private const string AssignKeyWord = "assign";
 
-        public bool IsSatisfied(string commnad)
+        public bool IsSatisfied(string statement)
         {
-            return commnad.FirstTokenIs(AssignKeyWord);
+            return statement.FirstTokenIs(AssignKeyWord);
         }
     }
 }

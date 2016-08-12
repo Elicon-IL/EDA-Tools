@@ -11,14 +11,14 @@ namespace Elicon.Domain.Netlist.Statements.Criterias
         private const string Tri1Prefix = "tri1";
         private const string TranPrefix = "tran";
 
-        public bool IsSatisfied(string commnad)
+        public bool IsSatisfied(string statement)
         {
-            return commnad.FirstTokenIs(DefparamPrefix) ||
-                   commnad.FirstTokenIs(InitialPrefix) ||
-                   commnad.FirstTokenIs(TriPrefix) ||
-                   commnad.FirstTokenIs(Tri0Prefix) ||
-                   commnad.FirstTokenIs(Tri1Prefix) ||
-                   commnad.FirstTokenIs(TranPrefix);
+            return statement.FirstTokenIs(DefparamPrefix) ||
+                   statement.FirstTokenIs(InitialPrefix) ||
+                   statement.FirstTokenIs(TriPrefix) ||
+                   statement.FirstTokenIs(Tri0Prefix) ||
+                   statement.FirstTokenIs(Tri1Prefix) ||
+                   statement.FirstTokenIs(TranPrefix);
         }
     }
 }

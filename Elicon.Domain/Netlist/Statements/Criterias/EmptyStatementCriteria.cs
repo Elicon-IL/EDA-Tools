@@ -4,9 +4,9 @@ namespace Elicon.Domain.Netlist.Statements.Criterias
 {
     public class EmptyStatementCriteria : IStatementCriteria
     {
-        public bool IsSatisfied(string commnad)
+        public bool IsSatisfied(string statement)
         {
-            return commnad.IsNullOrEmpty();
+            return statement.IsNullOrEmpty();
         }
     }
 }

@@ -4,9 +4,9 @@ namespace Elicon.Domain.Netlist.Statements.Criterias
 {
     public class ModuleDeclarationStatementCriteria : IStatementCriteria
     {
-        public bool IsSatisfied(string commnad)
+        public bool IsSatisfied(string statement)
         {
-            return commnad.FirstTokenIs("module");
+            return statement.FirstTokenIs("module");
         }
     }
 }

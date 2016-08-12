@@ -2,9 +2,9 @@
 {
     public class EndModuleStatementCriteria : IStatementCriteria
     {
-        public bool IsSatisfied(string commnad)
+        public bool IsSatisfied(string statement)
         {
-            return commnad.Equals("endmodule");
+            return statement.Equals("endmodule");
         }
     }
 }

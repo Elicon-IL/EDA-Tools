@@ -8,11 +8,11 @@ namespace Elicon.Domain.Netlist.Statements.Criterias
         private const string OutputKeyWord = "output";
         private const string InoutKeyWord = "inout";
 
-        public bool IsSatisfied(string commnad)
+        public bool IsSatisfied(string statement)
         {
-            return commnad.FirstTokenIs(InputKeyWord) ||
-                   commnad.FirstTokenIs(OutputKeyWord) ||
-                   commnad.FirstTokenIs(InoutKeyWord);
+            return statement.FirstTokenIs(InputKeyWord) ||
+                   statement.FirstTokenIs(OutputKeyWord) ||
+                   statement.FirstTokenIs(InoutKeyWord);
         }
     }
 }

@@ -2,9 +2,9 @@
 {
     public class DefineTopStatementCriteria : IStatementCriteria
     {
-        public bool IsSatisfied(string commnad)
+        public bool IsSatisfied(string statement)
         {
-            return commnad.StartsWith("`define");
+            return statement.StartsWith("`define");
         }
     }
 }
