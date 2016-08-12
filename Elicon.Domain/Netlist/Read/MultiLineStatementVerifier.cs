@@ -5,7 +5,7 @@ namespace Elicon.Domain.Netlist.Read
 {
     public interface IMultiLineStatementVerifier
     {
-        bool IsMultiLineStatement(string commnad);
+        bool IsMultiLineStatement(string statement);
     }
 
     public class MultiLineStatementVerifier : IMultiLineStatementVerifier
@@ -14,13 +14,18 @@ namespace Elicon.Domain.Netlist.Read
             new EmptyStatementCriteria(), new EndModuleStatementCriteria(), new DefineTopStatementCriteria()
         };
         
-        public bool IsMultiLineStatement(string commnad)
+        public bool IsMultiLineStatement(string statement)
         {
-            if (commnad.EndsWith(";"))
+            if (statement.EndsWith(";"))
                 return false;
 
-            return !_multiLineStatementsCounterSet
-                    .Any(criteria => criteria.IsSatisfied(commnad));
+            return !InCounterSet(statement);
+        }
+
+        private bool InCounterSet(string statement)
+        {
+            return _multiLineStatementsCounterSet
+                .Any(criteria => criteria.IsSatisfied(statement));
         }
     }
 }
