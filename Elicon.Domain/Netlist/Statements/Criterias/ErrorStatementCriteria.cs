@@ -1,24 +1,17 @@
-﻿using Elicon.Framework;
+﻿using System.Linq;
+using Elicon.Framework;
 
 namespace Elicon.Domain.Netlist.Statements.Criterias
 {
     public class ErrorStatementCriteria : IStatementCriteria
     {
-        private const string DefparamPrefix = "defparam";
-        private const string InitialPrefix = "initial ";
-        private const string TriPrefix = "tri";
-        private const string Tri0Prefix = "tri0";
-        private const string Tri1Prefix = "tri1";
-        private const string TranPrefix = "tran";
-
+        private readonly string[] _errorTokens = {
+            "defparam", "initial", "tri", "tri0", "tri1", "tran"
+        };
+        
         public bool IsSatisfied(string statement)
         {
-            return statement.FirstTokenIs(DefparamPrefix) ||
-                   statement.FirstTokenIs(InitialPrefix) ||
-                   statement.FirstTokenIs(TriPrefix) ||
-                   statement.FirstTokenIs(Tri0Prefix) ||
-                   statement.FirstTokenIs(Tri1Prefix) ||
-                   statement.FirstTokenIs(TranPrefix);
+            return _errorTokens.Any(statement.FirstTokenIs);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Elicon.Domain.Netlist.Read;
 using NUnit.Framework;
 
-namespace Elicon.Domain.Tests
+namespace Elicon.Domain.Tests.Read
 {
     [TestFixture]
     public class MultiLineStatementVerifierTests
@@ -21,7 +21,7 @@ namespace Elicon.Domain.Tests
 
             var result = _target.IsMultiLineStatement(statement);
 
-            Assert.That(result, Is.EqualTo(false));
+            Assert.That(result, Is.False);
         }
 
         [Test]
@@ -31,7 +31,7 @@ namespace Elicon.Domain.Tests
 
             var result = _target.IsMultiLineStatement(statement);
 
-            Assert.That(result, Is.EqualTo(false));
+            Assert.That(result, Is.False);
         }
 
         [Test]
@@ -41,7 +41,7 @@ namespace Elicon.Domain.Tests
 
             var result = _target.IsMultiLineStatement(statement);
 
-            Assert.That(result, Is.EqualTo(false));
+            Assert.That(result, Is.False);
         }
 
 
@@ -52,7 +52,7 @@ namespace Elicon.Domain.Tests
 
             var result = _target.IsMultiLineStatement(statement);
 
-            Assert.That(result, Is.EqualTo(false));
+            Assert.That(result, Is.False);
         }
 
         [Test]
@@ -62,7 +62,7 @@ namespace Elicon.Domain.Tests
 
             var result = _target.IsMultiLineStatement(statement);
 
-            Assert.That(result, Is.EqualTo(true));
+            Assert.That(result, Is.True);
         }
     }
 }

@@ -53,11 +53,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModuleDeclarationStatementParserTests.cs" />
-    <Compile Include="InstanceStatementParserTests.cs" />
-    <Compile Include="MultiLineStatementVerifierTests.cs" />
-    <Compile Include="StatementTrimmerTests.cs" />
+    <Compile Include="Parse\ModuleDeclarationStatementParserTests.cs" />
+    <Compile Include="Parse\InstanceStatementParserTests.cs" />
+    <Compile Include="Read\MultiLineStatementVerifierTests.cs" />
+    <Compile Include="Read\StatementTrimmerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Statements\Criterias\EmptyStatementCriteriaTests.cs" />
+    <Compile Include="Statements\Criterias\ErrorStatementCriteriaTests.cs" />
+    <Compile Include="Statements\Criterias\EndModuleStatementCriteriaTests.cs" />
+    <Compile Include="Statements\Criterias\PortDeclarationStatementCriteriaTests.cs" />
+    <Compile Include="Statements\Criterias\SupplyDeclarationStatementCriteriaTests .cs" />
+    <Compile Include="Statements\Criterias\ModuleDeclarationStatementCriteriaTests.cs" />
+    <Compile Include="Statements\Criterias\WireDeclarationStatementCriteriaTests.cs" />
+    <Compile Include="Statements\Criterias\AssignDeclarationStatementCriteriaTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Elicon.Domain\Elicon.Domain.csproj">
@@ -68,6 +76,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

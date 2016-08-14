@@ -1,8 +1,7 @@
 ﻿using Elicon.Domain.Netlist.Parse;
-using Elicon.Domain.Netlist.Read;
 using NUnit.Framework;
 
-namespace Elicon.Domain.Tests
+namespace Elicon.Domain.Tests.Parse
 {
     [TestFixture]
     public class InstanceStatementParserTests

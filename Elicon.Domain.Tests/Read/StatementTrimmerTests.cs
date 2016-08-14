@@ -1,7 +1,7 @@
 ﻿using Elicon.Domain.Netlist.Read;
 using NUnit.Framework;
 
-namespace Elicon.Domain.Tests
+namespace Elicon.Domain.Tests.Read
 {
     [TestFixture]
     public class StatementTrimmerTests
@@ -20,7 +20,7 @@ namespace Elicon.Domain.Tests
         {
             var result = _target.Trim(statement);
 
-            Assert.That(result, Is.EqualTo(string.Empty));
+            Assert.That(result, Is.Empty);
         }
 
         [Test]
