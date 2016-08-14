@@ -1,7 +1,7 @@
 ﻿using Elicon.Domain.Netlist.Contracts.DataAccess;
-using Elicon.Domain.Netlist.DataQuery.Visitors;
+using Elicon.Domain.Netlist.QueryData.Visitors;
 
-namespace Elicon.Domain.Netlist.DataQuery.Traversal
+namespace Elicon.Domain.Netlist.QueryData.Traversal
 {
     public class ModuleTraverser : IModuleTraverser
     {

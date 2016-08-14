@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Elicon.Domain.Netlist.DataQuery.Traversal;
+using Elicon.Domain.Netlist.QueryData.Traversal;
 
-namespace Elicon.Domain.Netlist.DataQuery.Visitors
+namespace Elicon.Domain.Netlist.QueryData.Visitors
 {
     public interface IPhysicalPathInstanceVisitor : IInstanceVisitor
     {

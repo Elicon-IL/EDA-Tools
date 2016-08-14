@@ -14,6 +14,15 @@ namespace Elicon.Domain.Tests
             _target = new StatementTrimmer();
         }
 
+        [TestCase("`define 1 ns/1 ps")]
+        [TestCase("   `timescale 1 ns/1 ps")]
+        public void Trim_MetaStatement_ReturnsEmpty(string statement)
+        {
+            var result = _target.Trim(statement);
+
+            Assert.That(result, Is.EqualTo(string.Empty));
+        }
+
         [Test]
         public void Trim_NoCommentNorTrainlingSpacesInStatement_StatementRemainTheSame()
         {

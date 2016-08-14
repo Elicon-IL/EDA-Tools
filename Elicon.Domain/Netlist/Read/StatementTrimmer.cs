@@ -12,10 +12,28 @@ namespace Elicon.Domain.Netlist.Read
     {
         public string Trim(string statement)
         {
-            if (statement.Contains("//"))
-                return statement.KeepUntilFirst("//");
+            if (IsMetaStatement(statement))
+                return "";
+
+            if (HasComment(statement))
+                return RemoveComment(statement);
 
             return statement.Trim();
+        }
+
+        private string RemoveComment(string statement)
+        {
+            return statement.KeepUntilFirst("//");
+        }
+
+        private bool HasComment(string statement)
+        {
+            return statement.Contains("//");
+        }
+
+        private bool IsMetaStatement(string statement)
+        {
+            return statement.Trim().StartsWith("`");
         }
     }
 }

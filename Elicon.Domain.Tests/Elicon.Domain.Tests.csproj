@@ -55,7 +55,6 @@
   <ItemGroup>
     <Compile Include="ModuleDeclarationStatementParserTests.cs" />
     <Compile Include="InstanceStatementParserTests.cs" />
-    <Compile Include="DefineTopStatementParserTests.cs" />
     <Compile Include="MultiLineStatementVerifierTests.cs" />
     <Compile Include="StatementTrimmerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
