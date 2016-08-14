@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Elicon.Domain.Netlist.QueryData.Traversal;
 
 namespace Elicon.Domain.Netlist.QueryData.Visitors
 {
@@ -12,7 +11,7 @@ namespace Elicon.Domain.Netlist.QueryData.Visitors
     {
         private readonly Dictionary<string, long> _result = new Dictionary<string, long>();
 
-        public void Visit(Instance instance, TraverseState traverseState)
+        public void Visit(Instance instance)
         {
             if (instance.IsModule)
                 return;
