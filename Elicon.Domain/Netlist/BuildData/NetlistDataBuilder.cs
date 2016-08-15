@@ -33,6 +33,8 @@ namespace Elicon.Domain.Netlist.BuildData
             while ((_buildState.CurrentStatement = _netlistReader.ReadStatement()) != null)
                 _statementHandlingInvoker.Handle(_buildState);
                 
+            _netlistReader.Close();
+
             UpdateInstancesType();
         }
     

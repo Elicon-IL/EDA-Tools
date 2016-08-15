@@ -24,7 +24,7 @@ namespace Elicon.Console.Config
                     .BindDefaultInterfaces()
                     .Configure(y => y.InSingletonScope());
 
-                x.FromAssemblyContaining<StreamReaderAdapter>()
+                x.FromAssemblyContaining<AdapterStreamReader>()
                    .SelectAllClasses()
                    .BindDefaultInterfaces()
                    .Configure(y => y.InSingletonScope());

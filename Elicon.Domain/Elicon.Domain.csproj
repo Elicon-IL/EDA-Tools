@@ -64,6 +64,7 @@
     <Compile Include="Netlist\QueryData\Visitors\IInstanceVisitor.cs" />
     <Compile Include="Netlist\QueryData\Traversal\ModuleTraverser.cs" />
     <Compile Include="Netlist\QueryData\Visitors\PyisicalPathInstanceVisitor.cs" />
+    <Compile Include="Netlist\Read\NetlistReadEventPublisher.cs" />
     <Compile Include="Netlist\Reports\PhysicalModulePathReport.cs" />
     <Compile Include="Netlist\Statements\Criterias\MetaStatementCriteria.cs" />
     <Compile Include="Netlist\Statements\Criterias\WireDeclarationStatementCriteria .cs" />

@@ -16,22 +16,26 @@ namespace Elicon.Domain.Netlist.Read
         private readonly IStreamReader _streamReader;
         private readonly IStatementTrimmer _statementTrimmer;
         private readonly IMultiLineStatementVerifier _multiLineStatementVerifier;
+        private readonly INetlistReadEventPublisher _netlistReadEventPublisher;
 
-        public NetlistReader(IStreamReader streamReader ,IStatementTrimmer statementTrimmer, IMultiLineStatementVerifier multiLineStatementVerifier)
+        public NetlistReader(IStreamReader streamReader ,IStatementTrimmer statementTrimmer, IMultiLineStatementVerifier multiLineStatementVerifier, INetlistReadEventPublisher netlistReadEventPublisher)
         {
             _streamReader = streamReader;
             _statementTrimmer = statementTrimmer;
             _multiLineStatementVerifier = multiLineStatementVerifier;
+            _netlistReadEventPublisher = netlistReadEventPublisher;
         }
 
         public void SetSource(string source)
         {
-            _streamReader.SetSource(source);   
+            _streamReader.SetSource(source);
+            _netlistReadEventPublisher.PublishFileOpen(_streamReader.Source());
         }
 
         public void Close()
         {
             _streamReader.Close();
+            _netlistReadEventPublisher.PublishFileClosed(_streamReader.Source());
         }
 
         public string ReadStatement()
@@ -40,7 +44,8 @@ namespace Elicon.Domain.Netlist.Read
                 return _currentStatement;
 
             _currentStatement = _statementTrimmer.Trim(_currentStatement);
-           if (_multiLineStatementVerifier.IsMultiLineStatement(_currentStatement))
+            PublishReadLine();
+            if (_multiLineStatementVerifier.IsMultiLineStatement(_currentStatement))
                 ReadTillStatementEnd();
 
             return _currentStatement;
@@ -52,6 +57,7 @@ namespace Elicon.Domain.Netlist.Read
 
             while ((_currentStatement = _streamReader.ReadLine()) != null)
             {
+                PublishReadLine();
                 _currentStatement = _statementTrimmer.Trim(_currentStatement);
                 if (_currentStatement.IsNullOrEmpty())
                     continue;
@@ -64,6 +70,11 @@ namespace Elicon.Domain.Netlist.Read
                 _currentStatement = multiLineStatement.ToString();
                 break;
             }    
+        }
+
+        private void PublishReadLine()
+        {
+            _netlistReadEventPublisher.PublishProgress(_streamReader.Source(), _streamReader.Length(), _streamReader.Position());
         }
     }
 }
