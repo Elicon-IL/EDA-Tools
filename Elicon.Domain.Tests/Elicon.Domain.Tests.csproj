@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Parse\ModuleDeclarationStatementParserTests.cs" />
     <Compile Include="Parse\InstanceStatementParserTests.cs" />
+    <Compile Include="PrecentageCalculatorTests.cs" />
     <Compile Include="Read\MultiLineStatementVerifierTests.cs" />
     <Compile Include="Read\StatementTrimmerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
