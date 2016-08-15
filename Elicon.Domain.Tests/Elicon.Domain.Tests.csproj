@@ -59,6 +59,7 @@
     <Compile Include="Read\StatementTrimmerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Statements\Criterias\EmptyStatementCriteriaTests.cs" />
+    <Compile Include="Statements\Criterias\MetaStatementCriteriaTests .cs" />
     <Compile Include="Statements\Criterias\ErrorStatementCriteriaTests.cs" />
     <Compile Include="Statements\Criterias\EndModuleStatementCriteriaTests.cs" />
     <Compile Include="Statements\Criterias\PortDeclarationStatementCriteriaTests.cs" />

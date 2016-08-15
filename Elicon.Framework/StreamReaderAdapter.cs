@@ -16,7 +16,6 @@ namespace Elicon.Framework
         public void SetSource(string source)
         {
             _reader?.Close();
-
             _reader = new StreamReader(source);
         }
 

@@ -11,7 +11,7 @@ namespace Elicon.Domain.Netlist.Read
     public class MultiLineStatementVerifier : IMultiLineStatementVerifier
     {
         private readonly IStatementCriteria[] _multiLineStatementsComplementSet = {
-            new EmptyStatementCriteria(), new EndModuleStatementCriteria()
+            new EmptyStatementCriteria(), new EndModuleStatementCriteria(), new MetaStatementCriteria()
         };
         
         public bool IsMultiLineStatement(string statement)

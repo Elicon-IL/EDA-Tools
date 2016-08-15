@@ -25,7 +25,7 @@ namespace Elicon.Domain.Tests.Read
         }
 
         [Test]
-        public void IsMultiLineStatement_DefineTopStatement_ReturnsFalse()
+        public void IsMultiLineStatement_MetaStatement_ReturnsFalse()
         {
             var statement = "`define top x_lut4";
 

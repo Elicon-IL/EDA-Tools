@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Netlist\BuildData\BuildState.cs" />
     <Compile Include="Netlist\BuildData\StatementHandlers\AssignDeclarationStatementHandler.cs" />
+    <Compile Include="Netlist\BuildData\StatementHandlers\MetaStatementHandler.cs" />
     <Compile Include="Netlist\BuildData\StatementHandlers\StatementHandlersOrderer.cs" />
     <Compile Include="Netlist\BuildData\StatementHandlers\EmptyStatementHandler.cs" />
     <Compile Include="Netlist\BuildData\StatementHandlers\EndModuleStatementHandler.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="Netlist\BuildData\StatementHandlers\PortDeclarationStatementHandler.cs" />
     <Compile Include="Netlist\BuildData\StatementHandlers\SupplyDeclarationStatementHandler.cs" />
     <Compile Include="Netlist\BuildData\StatementHandlers\WireDeclarationStatementHandler.cs" />
+    <Compile Include="Netlist\Contracts\DataAccess\IMetaStatementRepository.cs" />
     <Compile Include="Netlist\QueryData\CountNativeCellsQuery.cs" />
     <Compile Include="Netlist\QueryData\PhysicalModulePathQuery.cs" />
     <Compile Include="Netlist\QueryData\Traversal\InstancesPath.cs" />
@@ -63,6 +65,7 @@
     <Compile Include="Netlist\QueryData\Traversal\ModuleTraverser.cs" />
     <Compile Include="Netlist\QueryData\Visitors\PyisicalPathInstanceVisitor.cs" />
     <Compile Include="Netlist\Reports\PhysicalModulePathReport.cs" />
+    <Compile Include="Netlist\Statements\Criterias\MetaStatementCriteria.cs" />
     <Compile Include="Netlist\Statements\Criterias\WireDeclarationStatementCriteria .cs" />
     <Compile Include="Netlist\Statements\Criterias\AssignDeclarationStatementCriteria .cs" />
     <Compile Include="Netlist\Statements\Criterias\EmptyStatementCriteria.cs" />

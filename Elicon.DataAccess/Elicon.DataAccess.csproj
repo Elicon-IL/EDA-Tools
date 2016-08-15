@@ -45,6 +45,7 @@
     <Compile Include="InstanceModuleRelationRepository.cs" />
     <Compile Include="InstanceRepository.cs" />
     <Compile Include="ModuleRepository.cs" />
+    <Compile Include="MetaStatementRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

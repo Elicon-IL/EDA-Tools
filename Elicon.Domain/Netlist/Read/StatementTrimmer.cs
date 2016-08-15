@@ -12,9 +12,6 @@ namespace Elicon.Domain.Netlist.Read
     {
         public string Trim(string statement)
         {
-            if (IsMetaStatement(statement))
-                return "";
-
             if (HasComment(statement))
                 return RemoveComment(statement);
 
@@ -29,11 +26,6 @@ namespace Elicon.Domain.Netlist.Read
         private bool HasComment(string statement)
         {
             return statement.Contains("//");
-        }
-
-        private bool IsMetaStatement(string statement)
-        {
-            return statement.Trim().StartsWith("`");
         }
     }
 }
