@@ -88,6 +88,7 @@
     <Compile Include="Netlist\Read\NetlistReader.cs" />
     <Compile Include="Netlist\Reports\CountNativeCellsReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PubSub.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Elicon.Framework\Elicon.Framework.csproj">
