@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3D3BA074-754A-4AA5-9790-DBE1184D5A7B}</ProjectGuid>
+    <ProjectGuid>{31D9DCB9-9FE7-4DE6-9163-F2A678229A22}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Elicon.Framework</RootNamespace>
-    <AssemblyName>Elicon.Framework</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>Elicon.Integration.Tests</RootNamespace>
+    <AssemblyName>Elicon.Integration.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework, Version=3.4.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.4.1\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,9 +44,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PrecentageCalculator.cs" />
-    <Compile Include="StringExtension.cs" />
+    <Compile Include="IntegrationTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Elicon.Console.Config\Elicon.Console.Config.csproj">
+      <Project>{342a4e45-2363-44a7-aaea-f4a6e91c58e9}</Project>
+      <Name>Elicon.Console.Config</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elicon.DataAccess\Elicon.DataAccess.csproj">
+      <Project>{cc0e896b-a827-47c1-a2d2-73e89b09bbf9}</Project>
+      <Name>Elicon.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elicon.Domain\Elicon.Domain.csproj">
+      <Project>{5fbaee42-c988-4dad-a631-dc37584502ed}</Project>
+      <Name>Elicon.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elicon.Framework\Elicon.Framework.csproj">
+      <Project>{3d3ba074-754a-4aa5-9790-dbe1184d5a7b}</Project>
+      <Name>Elicon.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="example_netlist.v" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

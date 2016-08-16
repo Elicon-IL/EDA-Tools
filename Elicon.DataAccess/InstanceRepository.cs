@@ -49,5 +49,10 @@ namespace Elicon.DataAccess
         {
             return _instances.Values.ToArray();
         }
+
+        public void Dispose()
+        {
+            _instances.Clear();
+        }
     }
 }

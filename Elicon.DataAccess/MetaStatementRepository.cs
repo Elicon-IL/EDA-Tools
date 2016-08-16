@@ -16,5 +16,10 @@ namespace Elicon.DataAccess
         {
             return _statements.ToArray();
         }
+
+        public void Dispose()
+        {
+            _statements.Clear();
+        }
     }
 }

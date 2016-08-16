@@ -1,5 +1,4 @@
 ﻿using Elicon.Domain.Netlist.Contracts.DataAccess;
-using Elicon.Domain.Netlist.QueryData.Visitors;
 
 namespace Elicon.Domain.Netlist.QueryData.Traversal
 {
@@ -26,6 +25,7 @@ namespace Elicon.Domain.Netlist.QueryData.Traversal
             var instances = _instanceRepository.GetByModule(currentInstance.CellName);
             foreach (var instance in instances)
             {
+                visitor.UpdatePath(_traversalTracker.CurrentPath());
                 visitor.Visit(instance);
                 if (instance.IsModule)
                     DoTraverse(instance, visitor);      

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Elicon.Domain.Netlist.BuildData;
-using Elicon.Domain.Netlist.QueryData;
+using Elicon.Domain.Netlist.QueryData.PhysicalModulePath;
 
 namespace Elicon.Domain.Netlist.Reports
 {

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CC0E896B-A827-47C1-A2D2-73E89B09BBF9}</ProjectGuid>
+    <ProjectGuid>{DD0956D7-6583-4F43-99BD-A1429D99494B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Elicon.DataAccess</RootNamespace>
-    <AssemblyName>Elicon.DataAccess</AssemblyName>
+    <RootNamespace>Elicon.Domain.Tests</RootNamespace>
+    <AssemblyName>Elicon.Domain.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -31,6 +31,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Moq, Version=4.5.19.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.5.19\lib\net45\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="nunit.framework, Version=3.4.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.4.1\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,30 +53,38 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ReadFiles\MultiLineStatementVerifier.cs" />
-    <Compile Include="ReadFiles\NetlistReader.cs" />
-    <Compile Include="ReadFiles\NetlistReaderProvider.cs" />
-    <Compile Include="ReadFiles\StatementTrimmer.cs" />
-    <Compile Include="ReadFiles\StreamReaderAdapter.cs" />
-    <Compile Include="IdGenerator.cs" />
-    <Compile Include="IRepository.cs" />
-    <Compile Include="InstanceModuleRelationRepository.cs" />
-    <Compile Include="InstanceRepository.cs" />
-    <Compile Include="ModuleRepository.cs" />
-    <Compile Include="MetaStatementRepository.cs" />
+    <Compile Include="Domain\Parse\ModuleDeclarationStatementParserTests.cs" />
+    <Compile Include="Domain\Parse\InstanceStatementParserTests.cs" />
+    <Compile Include="Framework\PrecentageCalculatorTests.cs" />
+    <Compile Include="DataAccess\ReadFiles\MultiLineStatementVerifierTests.cs" />
+    <Compile Include="DataAccess\ReadFiles\StatementTrimmerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RepositoryCleaner.cs" />
-    <Compile Include="ReadFiles\StreamReaderProvider.cs" />
+    <Compile Include="Domain\Statements\Criterias\EmptyStatementCriteriaTests.cs" />
+    <Compile Include="Domain\Statements\Criterias\MetaStatementCriteriaTests .cs" />
+    <Compile Include="Domain\Statements\Criterias\ErrorStatementCriteriaTests.cs" />
+    <Compile Include="Domain\Statements\Criterias\EndModuleStatementCriteriaTests.cs" />
+    <Compile Include="Domain\Statements\Criterias\PortDeclarationStatementCriteriaTests.cs" />
+    <Compile Include="Domain\Statements\Criterias\SupplyDeclarationStatementCriteriaTests .cs" />
+    <Compile Include="Domain\Statements\Criterias\ModuleDeclarationStatementCriteriaTests.cs" />
+    <Compile Include="Domain\Statements\Criterias\WireDeclarationStatementCriteriaTests.cs" />
+    <Compile Include="Domain\Statements\Criterias\AssignDeclarationStatementCriteriaTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Elicon.DataAccess\Elicon.DataAccess.csproj">
+      <Project>{CC0E896B-A827-47C1-A2D2-73E89B09BBF9}</Project>
+      <Name>Elicon.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Elicon.Domain\Elicon.Domain.csproj">
       <Project>{5fbaee42-c988-4dad-a631-dc37584502ed}</Project>
       <Name>Elicon.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Elicon.Framework\Elicon.Framework.csproj">
-      <Project>{3D3BA074-754A-4AA5-9790-DBE1184D5A7B}</Project>
+      <Project>{3d3ba074-754a-4aa5-9790-dbe1184d5a7b}</Project>
       <Name>Elicon.Framework</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -23,5 +23,9 @@ namespace Elicon.DataAccess
             return _map[moduleName];
         }
 
+        public void Dispose()
+        {
+            _map.Clear();
+        }
     }
 }

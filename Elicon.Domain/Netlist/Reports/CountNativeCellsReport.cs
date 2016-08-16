@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Elicon.Domain.Netlist.BuildData;
-using Elicon.Domain.Netlist.QueryData;
+using Elicon.Domain.Netlist.QueryData.CountNativeCells;
 
 namespace Elicon.Domain.Netlist.Reports
 {

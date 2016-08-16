@@ -27,5 +27,10 @@ namespace Elicon.DataAccess
         {
             return _map.Values.ToArray();
         }
+
+        public void Dispose()
+        {
+            _map.Clear();
+        }
     }
 }
