@@ -47,13 +47,11 @@
     <Compile Include="ReadFiles\StatementTrimmer.cs" />
     <Compile Include="ReadFiles\StreamReaderAdapter.cs" />
     <Compile Include="IdGenerator.cs" />
-    <Compile Include="IRepository.cs" />
     <Compile Include="InstanceModuleRelationRepository.cs" />
     <Compile Include="InstanceRepository.cs" />
     <Compile Include="ModuleRepository.cs" />
     <Compile Include="MetaStatementRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RepositoryCleaner.cs" />
     <Compile Include="ReadFiles\StreamReaderProvider.cs" />
   </ItemGroup>
   <ItemGroup>

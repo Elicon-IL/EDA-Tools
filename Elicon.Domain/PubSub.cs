@@ -3,7 +3,12 @@ using System.Collections.Generic;
 
 namespace Elicon.Domain
 {
-    public interface IEvent {} 
+    public interface IEvent {}
+
+    public interface IEventSubscriber
+    {
+        void Init();
+    }
 
     public interface IPubSub
     {

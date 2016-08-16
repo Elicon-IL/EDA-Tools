@@ -17,21 +17,17 @@ namespace Elicon.Domain.Netlist.BuildData
         private readonly IInstanceRepository _instanceRepository;
         private readonly INetlistReaderProvider _netlistReaderProvider;
         private readonly IStatementHandlingInvoker _statementHandlingInvoker;
-        private readonly IPubSub _pubSub;
 
-        public NetlistDataBuilder(IModuleRepository moduleRepository, IInstanceRepository instanceRepository, INetlistReaderProvider netlistReaderProvider, IStatementHandlingInvoker statementHandlingInvoker, IPubSub pubSub)
+        public NetlistDataBuilder(IModuleRepository moduleRepository, IInstanceRepository instanceRepository, INetlistReaderProvider netlistReaderProvider, IStatementHandlingInvoker statementHandlingInvoker)
         {
             _moduleRepository = moduleRepository;
             _instanceRepository = instanceRepository;
             _netlistReaderProvider = netlistReaderProvider;
             _statementHandlingInvoker = statementHandlingInvoker;
-            _pubSub = pubSub;
         }
         
         public void Build(string source)
         {
-            _pubSub.Publish(new BuildNetlistStartedEvent { Source = source });
-
             var netListReader = _netlistReaderProvider.GetReaderFor(source);
             var buildState = new BuildState();
 

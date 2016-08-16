@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Netlist\BuildData\BuildNetlistStartedEvent.cs" />
     <Compile Include="Netlist\BuildData\BuildState.cs" />
     <Compile Include="Netlist\BuildData\StatementHandlers\AssignDeclarationStatementHandler.cs" />
     <Compile Include="Netlist\BuildData\StatementHandlers\MetaStatementHandler.cs" />
