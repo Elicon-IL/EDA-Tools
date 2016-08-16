@@ -23,6 +23,8 @@ namespace Elicon.Domain.Netlist.QueryData.CountNativeCells
             _result[instance.CellName]++;
         }
 
+        public void Use(ITraversalTracker traversalTracker) { }
+
         public void UpdatePath(InstancesPath instancesPath) { }
 
         public IDictionary<string, long> Result()

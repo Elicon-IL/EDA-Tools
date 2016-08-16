@@ -5,33 +5,34 @@ namespace Elicon.Domain.Netlist.QueryData.Traversal
     public class ModuleTraverser : IModuleTraverser
     {
         private readonly IInstanceRepository _instanceRepository;
-        private readonly ITraversalTracker _traversalTracker;
-
-        public ModuleTraverser(IInstanceRepository instanceRepository, ITraversalTracker traversalTracker)
+       
+        public ModuleTraverser(IInstanceRepository instanceRepository)
         {
             _instanceRepository = instanceRepository;
-            _traversalTracker = traversalTracker;
         }
 
         public void Traverse(string rootModule, IInstanceVisitor visitor)
         {
-            DoTraverse(new Instance(rootModule, ""), visitor);
+            var tracker = new TraversalTracker();
+            visitor.Use(tracker);
+            var instance = new Instance(rootModule, "");
+
+            DoTraverse(instance, visitor, tracker);
         }
 
-        private void DoTraverse(Instance currentInstance, IInstanceVisitor visitor)
+        private void DoTraverse(Instance currentInstance, IInstanceVisitor visitor, ITraversalTracker tracker)
         {
-            _traversalTracker.UpdateIn(currentInstance);
+            tracker.UpdateIn(currentInstance);
 
             var instances = _instanceRepository.GetByModule(currentInstance.CellName);
             foreach (var instance in instances)
             {
-                visitor.UpdatePath(_traversalTracker.CurrentPath());
                 visitor.Visit(instance);
                 if (instance.IsModule)
-                    DoTraverse(instance, visitor);      
+                    DoTraverse(instance, visitor, tracker);      
             }
 
-            _traversalTracker.UpdateOut();
+            tracker.UpdateOut();
         }
     }
 

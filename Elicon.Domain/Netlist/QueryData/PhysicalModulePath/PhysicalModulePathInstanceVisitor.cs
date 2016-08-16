@@ -6,12 +6,11 @@ namespace Elicon.Domain.Netlist.QueryData.PhysicalModulePath
     public class PhysicalModulePathInstanceVisitor : IInstanceVisitor
     {
         private readonly Dictionary<string, IList<string>> _result;
-        private InstancesPath _path;
+        private ITraversalTracker _traversalTracker;
 
         public PhysicalModulePathInstanceVisitor()
         {
             _result = new Dictionary<string, IList<string>>();
-            _path = new InstancesPath();
         }
 
         public void Visit(Instance instance)
@@ -20,9 +19,9 @@ namespace Elicon.Domain.Netlist.QueryData.PhysicalModulePath
                 AddPath(instance);
         }
 
-        public void UpdatePath(InstancesPath instancesPath)
+        public void Use(ITraversalTracker traversalTracker)
         {
-            _path = instancesPath;
+            _traversalTracker = traversalTracker;
         }
 
         public void SetModulesToTrack(IList<string> moduleNames)
@@ -38,7 +37,8 @@ namespace Elicon.Domain.Netlist.QueryData.PhysicalModulePath
 
         private void AddPath(Instance instance)
         {
-            _result[instance.CellName].Add(_path
+            _result[instance.CellName].Add(
+                _traversalTracker.CurrentPath()
                 .Push(instance.InstanceName)
                 .ToString());
         }
