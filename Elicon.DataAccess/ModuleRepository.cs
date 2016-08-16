@@ -23,11 +23,6 @@ namespace Elicon.DataAccess
             return result;
         }
 
-        public Module GetTopModule()
-        {
-            return _map.Values.FirstOrDefault(m => m.IsTop);
-        }
-
         public IEnumerable<Module> GetAll()
         {
             return _map.Values.ToArray();

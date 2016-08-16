@@ -6,7 +6,6 @@ namespace Elicon.Domain.Netlist.Contracts.DataAccess
     {
         void Add(Module module);
         Module Get(string moduleName);
-        Module GetTopModule();
         IEnumerable<Module> GetAll();
     }
 }

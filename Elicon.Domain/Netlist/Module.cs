@@ -8,6 +8,5 @@
         }
 
         public string Name { get; set; }
-        public bool IsTop { get; set; }
     }
 }

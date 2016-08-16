@@ -18,7 +18,7 @@ namespace Elicon.Domain.Netlist.BuildData.StatementHandlers
         public void Handle(BuildState state)
         {
             state.CurrentModuleName = _parser.GetModuleName(state.CurrentStatement);
-            _moduleRepository.Add(new Module(state.CurrentModuleName) { IsTop = state.CurrentModuleName == state.TopModuleName });
+            _moduleRepository.Add(new Module(state.CurrentModuleName));
         }
 
         public bool CanHandle(BuildState state)
