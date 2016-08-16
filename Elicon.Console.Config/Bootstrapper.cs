@@ -1,4 +1,5 @@
 ﻿using Elicon.DataAccess;
+using Elicon.Domain;
 using Elicon.Domain.Netlist;
 using Elicon.Domain.Netlist.Contracts.DataAccess;
 using Elicon.Framework;
