@@ -16,7 +16,7 @@ namespace Elicon.Integration.Tests
         }
 
         [Test]
-        public void CountNativeCells_ZeroProgression_ReturnsAllNativeCellsCount()
+        public void CountNativeCells_NetlistWithNativeCells_ReturnsAllNativeCellsCount()
         {
             var expected = new Dictionary<string, int> {
                 {"an2", 85},{"an3", 14},{"an4", 30},{"aoi21", 54},{"aoi22", 15},{"aoi31", 20},{"b1", 1},
