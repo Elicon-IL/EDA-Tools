@@ -18,7 +18,9 @@ namespace Elicon.Domain.Netlist.BuildData.StatementHandlers
         public void Handle(BuildState state)
         {
             state.CurrentModuleName = _parser.GetModuleName(state.CurrentStatement);
-            _netlistRepositoryProvider.GetRepositoryFor(state.Netlist).AddModule(new Module(state.CurrentModuleName));
+            _netlistRepositoryProvider
+                .GetRepositoryFor(state.Netlist)
+                .AddModule(new Module(state.CurrentModuleName));
         }
 
         public bool CanHandle(BuildState state)

@@ -6,8 +6,7 @@ namespace Elicon.Domain.Netlist.Contracts.DataAccess
     {
         void AddInstance(Instance instance, string moduleName);
         void UpdateInstance(Instance instance);
-        IEnumerable<Instance> GetByIds(IEnumerable<long> ids);
-        IEnumerable<Instance> GetByModule(string moduleName);
+        IEnumerable<Instance> GetModuleInstances(string moduleName);
         IEnumerable<Instance> GetAllInstances();
         void AddModule(Module module);
         bool Exists(string moduleName);

@@ -35,20 +35,11 @@ namespace Elicon.DataAccess
             _instances[instance.Id] = instance;
         }
 
-        public IEnumerable<Instance> GetByIds(IEnumerable<long> ids)
-        {
-            var set = new HashSet<long>(ids.ToArray());
-
-            return _instances
-                .Where(kvp => set.Contains(kvp.Key))
-                .Select(kvp => kvp.Value)
-                .ToArray();
-        }
-
-        public IEnumerable<Instance> GetByModule(string moduleName)
+        public IEnumerable<Instance> GetModuleInstances(string moduleName)
         {
             var instanceIds = _moduleToInstancesMap[moduleName];
-            return GetByIds(instanceIds);
+
+            return GetInstancesByIds(instanceIds);
         }
 
         public IEnumerable<Instance> GetAllInstances()
@@ -74,6 +65,16 @@ namespace Elicon.DataAccess
         public IEnumerable<string> GetAllMetaStatement()
         {
             return _metaStatements;
+        }
+
+        private IEnumerable<Instance> GetInstancesByIds(IEnumerable<long> ids)
+        {
+            var set = new HashSet<long>(ids.ToArray());
+
+            return _instances
+                .Where(kvp => set.Contains(kvp.Key))
+                .Select(kvp => kvp.Value)
+                .ToArray();
         }
     }
 }

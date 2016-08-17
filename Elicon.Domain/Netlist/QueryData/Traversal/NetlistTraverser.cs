@@ -3,25 +3,29 @@ using Elicon.Domain.Netlist.Contracts.DataAccess;
 
 namespace Elicon.Domain.Netlist.QueryData.Traversal
 {
-    public class ModuleTraverser : IModuleTraverser
+    public class NetlistTraverser : INetlistTraverser
     {
         private readonly INetlistRepositoryProvider _netlistRepositoryProvider;
 
-        public ModuleTraverser(INetlistRepositoryProvider netlistRepositoryProvider)
+        public NetlistTraverser(INetlistRepositoryProvider netlistRepositoryProvider)
         {
             _netlistRepositoryProvider = netlistRepositoryProvider;
         }
 
         public IEnumerable<TraversalState> Traverse(string netlist, string rootModule)
         {
-            return TraverseInner(_netlistRepositoryProvider.GetRepositoryFor(netlist), new Instance(rootModule, ""), new InstancesPath());
+            var netlistRepository = _netlistRepositoryProvider.GetRepositoryFor(netlist);
+            var instance = new Instance(rootModule, "");
+            var instancesPath = new InstancesPath();
+
+            return TraverseInner(netlistRepository, instance, instancesPath);
         }
 
         private IEnumerable<TraversalState> TraverseInner(INetlistRepository repository, Instance instance, InstancesPath instancesPath)
         {
             instancesPath.UpdateIn(instance);
 
-            var instances = repository.GetByModule(instance.CellName);
+            var instances = repository.GetModuleInstances(instance.CellName);
             foreach (var curretnInstance in instances)
             {
                 yield return new TraversalState {
@@ -38,7 +42,7 @@ namespace Elicon.Domain.Netlist.QueryData.Traversal
         }
     }
 
-    public interface IModuleTraverser
+    public interface INetlistTraverser
     {
         IEnumerable<TraversalState> Traverse(string netlist, string rootModule);
     }

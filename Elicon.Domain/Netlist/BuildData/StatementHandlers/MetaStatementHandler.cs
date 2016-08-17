@@ -15,7 +15,9 @@ namespace Elicon.Domain.Netlist.BuildData.StatementHandlers
         
         public void Handle(BuildState state)
         {
-            _netlistRepositoryProvider.GetRepositoryFor(state.Netlist).AddMetaStatement(state.CurrentStatement);
+            _netlistRepositoryProvider
+                .GetRepositoryFor(state.Netlist)
+                .AddMetaStatement(state.CurrentStatement);
         }
 
         public bool CanHandle(BuildState state)

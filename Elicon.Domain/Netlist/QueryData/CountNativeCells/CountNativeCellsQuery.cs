@@ -10,17 +10,17 @@ namespace Elicon.Domain.Netlist.QueryData.CountNativeCells
 
     public class CountNativeCellsQuery : ICountNativeCellsQuery
     {
-        private readonly IModuleTraverser _moduleTraverser;
+        private readonly INetlistTraverser _netlistTraverser;
 
-        public CountNativeCellsQuery(IModuleTraverser moduleTraverser)
+        public CountNativeCellsQuery(INetlistTraverser netlistTraverser)
         {
-            _moduleTraverser = moduleTraverser;
+            _netlistTraverser = netlistTraverser;
         }
 
         public IDictionary<string, long> CountNativeCells(string netlist, string rootModule)
         {
             var aggregator = new NativeCellsCountAggregator();
-            foreach (var traversalState in _moduleTraverser.Traverse(netlist, rootModule))
+            foreach (var traversalState in _netlistTraverser.Traverse(netlist, rootModule))
                 aggregator.Collect(traversalState);
             
             return aggregator.Result();

@@ -62,7 +62,7 @@
     <Compile Include="Netlist\QueryData\PhysicalModulePath\PhysicalModulePathQuery.cs" />
     <Compile Include="Netlist\QueryData\Traversal\InstancesPath.cs" />
     <Compile Include="Netlist\QueryData\CountNativeCells\NativeCellsCountAggregator.cs" />
-    <Compile Include="Netlist\QueryData\Traversal\ModuleTraverser.cs" />
+    <Compile Include="Netlist\QueryData\Traversal\NetlistTraverser.cs" />
     <Compile Include="Netlist\QueryData\PhysicalModulePath\PhysicalModulePathAggregator.cs" />
     <Compile Include="Netlist\QueryData\Traversal\TraversalState.cs" />
     <Compile Include="Netlist\Read\FileReadProgressEvent.cs" />

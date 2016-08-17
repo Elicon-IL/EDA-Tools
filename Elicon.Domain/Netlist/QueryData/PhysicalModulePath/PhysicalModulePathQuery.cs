@@ -10,11 +10,11 @@ namespace Elicon.Domain.Netlist.QueryData.PhysicalModulePath
         
     public class PhysicalModulePathQuery : IPhysicalModulePathQuery
     {
-        private readonly IModuleTraverser _moduleTraverser;
+        private readonly INetlistTraverser _netlistTraverser;
 
-        public PhysicalModulePathQuery(IModuleTraverser moduleTraverser)
+        public PhysicalModulePathQuery(INetlistTraverser netlistTraverser)
         {
-            _moduleTraverser = moduleTraverser;
+            _netlistTraverser = netlistTraverser;
         }
 
         public IDictionary<string, IList<string>> GetPhysicalPaths(string netlist, string rootModule, IList<string> moduleNames)
@@ -22,7 +22,7 @@ namespace Elicon.Domain.Netlist.QueryData.PhysicalModulePath
             var aggregator = new PhysicalModulePathAggregator();
             aggregator.SetModulesToTrack(moduleNames);
             
-            foreach (var traversalState in _moduleTraverser.Traverse(netlist, rootModule))
+            foreach (var traversalState in _netlistTraverser.Traverse(netlist, rootModule))
                 aggregator.Collect(traversalState);
 
             return aggregator.Result();
