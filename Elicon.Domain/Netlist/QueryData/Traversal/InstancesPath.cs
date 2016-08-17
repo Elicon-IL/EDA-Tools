@@ -6,16 +6,16 @@ namespace Elicon.Domain.Netlist.QueryData.Traversal
 {
     public class InstancesPath
     {
-        private readonly Stack<string> _path;
+        private readonly List<string> _path;
 
         public InstancesPath()
         {
-            _path = new Stack<string>();
+            _path = new List<string>();
         }
 
         public InstancesPath(InstancesPath path)
         {
-            this._path = new Stack<string>(path._path);
+            this._path = new List<string>(path._path);
         }
 
         public InstancesPath UpdateIn(Instance instance)
@@ -23,7 +23,7 @@ namespace Elicon.Domain.Netlist.QueryData.Traversal
             if (instance.InstanceName.IsNullOrEmpty())
                 return this;
 
-           _path.Push(instance.InstanceName);
+           _path.Add(instance.InstanceName);
             return this;
         }
 
@@ -32,12 +32,12 @@ namespace Elicon.Domain.Netlist.QueryData.Traversal
             if (!_path.Any())
                 return;
 
-            _path.Pop();
+            _path.RemoveAt(_path.Count - 1);
         }
 
         public override string ToString()
         {
-            return _path.Aggregate("", (current, name) => current + (name + ", "));
+            return string.Join("/", _path);
         }
     }
 }

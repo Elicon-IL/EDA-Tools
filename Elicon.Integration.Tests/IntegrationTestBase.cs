@@ -9,7 +9,7 @@ namespace Elicon.Integration.Tests
     public class IntegrationTestBase
     {
         public static string ExampleNetlistFilePath = TestDllPath() + "\\example_netlist.v";
-        public static string ExampleNetlistTopModule = "newpro";
+        public static string ExampleNetlistTopModule = "cdu";
 
         static IntegrationTestBase() 
         {
