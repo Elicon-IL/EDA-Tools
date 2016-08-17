@@ -1,8 +1,5 @@
-﻿using System.Linq;
-using System.Linq.Expressions;
-using Elicon.Domain.Netlist.BuildData.StatementHandlers;
+﻿using Elicon.Domain.Netlist.BuildData.StatementHandlers;
 using Elicon.Domain.Netlist.Contracts.DataAccess;
-using Elicon.Domain.Netlist.Read;
 
 namespace Elicon.Domain.Netlist.BuildData
 {
@@ -13,39 +10,42 @@ namespace Elicon.Domain.Netlist.BuildData
 
     public class NetlistDataBuilder : INetlistDataBuilder
     {
-        private readonly IModuleRepository _moduleRepository;
-        private readonly IInstanceRepository _instanceRepository;
-        private readonly INetlistReaderProvider _netlistReaderProvider;
-        private readonly IStatementHandlingInvoker _statementHandlingInvoker;
+        private readonly INetlistFileReaderProvider _netlistFileReaderProvider;
+        private readonly IStatementHandlersInvoker _statementHandlersInvoker;
+        private readonly INetlistRepositoryProvider _netlistRepositoryProvider;
 
-        public NetlistDataBuilder(IModuleRepository moduleRepository, IInstanceRepository instanceRepository, INetlistReaderProvider netlistReaderProvider, IStatementHandlingInvoker statementHandlingInvoker)
+        public NetlistDataBuilder(INetlistFileReaderProvider netlistFileReaderProvider, IStatementHandlersInvoker statementHandlersInvoker, INetlistRepositoryProvider netlistRepositoryProvider)
         {
-            _moduleRepository = moduleRepository;
-            _instanceRepository = instanceRepository;
-            _netlistReaderProvider = netlistReaderProvider;
-            _statementHandlingInvoker = statementHandlingInvoker;
+            _netlistFileReaderProvider = netlistFileReaderProvider;
+            _statementHandlersInvoker = statementHandlersInvoker;
+            _netlistRepositoryProvider = netlistRepositoryProvider;
         }
-        
+
         public void Build(string source)
         {
-            var netListReader = _netlistReaderProvider.GetReaderFor(source);
-            var buildState = new BuildState();
+            if (_netlistRepositoryProvider.Exists(source))
+                return;
 
-            while ((buildState.CurrentStatement = netListReader.ReadStatement()) != null)
-                _statementHandlingInvoker.Handle(buildState);
+            var netlistFileReader = _netlistFileReaderProvider.GetReaderFor(source);
+            var buildState = new BuildState { Netlist = source };
+
+            while ((buildState.CurrentStatement = netlistFileReader.ReadStatement()) != null)
+                _statementHandlersInvoker.Handle(buildState);
            
-            UpdateInstancesType();
+            UpdateInstancesType(source);
         }
 
-        private void UpdateInstancesType()
+        private void UpdateInstancesType(string source)
         {
-            foreach (var instance in _instanceRepository.GetAll())
+            var netlistRepository = _netlistRepositoryProvider.GetRepositoryFor(source);
+
+            foreach (var instance in netlistRepository.GetAllInstances())
             {
-                if (_moduleRepository.Get(instance.CellName) == null)
+                if (!netlistRepository.Exists(instance.CellName))
                     continue;
 
                 instance.Type = InstanceType.Module;
-                _instanceRepository.Update(instance);
+                netlistRepository.UpdateInstance(instance);
             }
         }
     }

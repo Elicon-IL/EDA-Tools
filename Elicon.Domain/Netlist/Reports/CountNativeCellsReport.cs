@@ -23,7 +23,7 @@ namespace Elicon.Domain.Netlist.Reports
         public IDictionary<string, long> CountNativeCells(string source, string rootModule)
         {
             _netlistDataBuilder.Build(source);
-            return _countNativeCellsQuery.CountNativeCells(rootModule);
+            return _countNativeCellsQuery.CountNativeCells(source, rootModule);
         }
     }
 }

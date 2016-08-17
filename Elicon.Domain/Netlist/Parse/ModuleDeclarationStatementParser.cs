@@ -1,5 +1,4 @@
-﻿using System;
-using Elicon.Framework;
+﻿using Elicon.Framework;
 
 namespace Elicon.Domain.Netlist.Parse
 {

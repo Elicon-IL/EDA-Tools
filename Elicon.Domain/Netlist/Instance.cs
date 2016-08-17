@@ -5,7 +5,6 @@
         Unknown = 0,
         Native,
         Module
-
     };
 
     public class Instance

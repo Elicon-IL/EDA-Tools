@@ -24,7 +24,7 @@ namespace Elicon.Domain.Netlist.Reports
         {
             _netlistDataBuilder.Build(source);
           
-            return _physicalModulePathQuery.GetPhysicalPaths(rootModule, moduleNames);
+            return _physicalModulePathQuery.GetPhysicalPaths(source, rootModule, moduleNames);
         }
     }
 }

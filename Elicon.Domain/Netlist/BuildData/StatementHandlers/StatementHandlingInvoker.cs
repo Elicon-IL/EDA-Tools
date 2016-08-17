@@ -2,16 +2,16 @@ using System.Linq;
 
 namespace Elicon.Domain.Netlist.BuildData.StatementHandlers
 {
-    public interface IStatementHandlingInvoker
+    public interface IStatementHandlersInvoker
     {
         void Handle(BuildState state);
     }
 
-    public class StatementHandlingInvoker : IStatementHandlingInvoker
+    public class StatementHandlersInvoker : IStatementHandlersInvoker
     {
         private readonly IStatementHandler[] _statementHandlers;
 
-        public StatementHandlingInvoker(IStatementHandler[] statementHandlers, IStatementHandlersOrderer statementHandlersOrderer)
+        public StatementHandlersInvoker(IStatementHandler[] statementHandlers, IStatementHandlersOrderer statementHandlersOrderer)
         {
             _statementHandlers = statementHandlers;
             _statementHandlers = statementHandlersOrderer.Order(statementHandlers).ToArray();

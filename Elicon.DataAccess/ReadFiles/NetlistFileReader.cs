@@ -4,14 +4,14 @@ using Elicon.Framework;
 
 namespace Elicon.DataAccess.ReadFiles
 {
-    public class NetlistReader : INetlistReader
+    public class NetlistFileReader : INetlistFileReader
     {
         private readonly IStreamReader _streamReader;
         private readonly IStatementTrimmer _statementTrimmer;
         private readonly IMultiLineStatementVerifier _multiLineStatementVerifier;
         private string _currentStatement;
 
-        public NetlistReader(IStreamReader streamReader, IStatementTrimmer statementTrimmer, IMultiLineStatementVerifier multiLineStatementVerifier)
+        public NetlistFileReader(IStreamReader streamReader, IStatementTrimmer statementTrimmer, IMultiLineStatementVerifier multiLineStatementVerifier)
         {
             _streamReader = streamReader;
             _statementTrimmer = statementTrimmer;

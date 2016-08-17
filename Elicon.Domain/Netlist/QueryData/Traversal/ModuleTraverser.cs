@@ -5,23 +5,23 @@ namespace Elicon.Domain.Netlist.QueryData.Traversal
 {
     public class ModuleTraverser : IModuleTraverser
     {
-        private readonly IInstanceRepository _instanceRepository;
-       
-        public ModuleTraverser(IInstanceRepository instanceRepository)
+        private readonly INetlistRepositoryProvider _netlistRepositoryProvider;
+
+        public ModuleTraverser(INetlistRepositoryProvider netlistRepositoryProvider)
         {
-            _instanceRepository = instanceRepository;
+            _netlistRepositoryProvider = netlistRepositoryProvider;
         }
 
-        public IEnumerable<TraversalState> Traverse(string rootModule)
+        public IEnumerable<TraversalState> Traverse(string netlist, string rootModule)
         {
-            return TraverseInner(new Instance(rootModule, ""), new InstancesPath());
+            return TraverseInner(_netlistRepositoryProvider.GetRepositoryFor(netlist), new Instance(rootModule, ""), new InstancesPath());
         }
 
-        private IEnumerable<TraversalState> TraverseInner(Instance instance, InstancesPath instancesPath)
+        private IEnumerable<TraversalState> TraverseInner(INetlistRepository repository, Instance instance, InstancesPath instancesPath)
         {
             instancesPath.UpdateIn(instance);
 
-            var instances = _instanceRepository.GetByModule(instance.CellName);
+            var instances = repository.GetByModule(instance.CellName);
             foreach (var curretnInstance in instances)
             {
                 yield return new TraversalState {
@@ -30,7 +30,7 @@ namespace Elicon.Domain.Netlist.QueryData.Traversal
                 };
 
                 if (curretnInstance.IsModule)
-                    foreach (var state in TraverseInner(curretnInstance, instancesPath))
+                    foreach (var state in TraverseInner(repository, curretnInstance, instancesPath))
                         yield return state;
             }
 
@@ -40,6 +40,6 @@ namespace Elicon.Domain.Netlist.QueryData.Traversal
 
     public interface IModuleTraverser
     {
-        IEnumerable<TraversalState> Traverse(string rootModule);
+        IEnumerable<TraversalState> Traverse(string netlist, string rootModule);
     }
 }

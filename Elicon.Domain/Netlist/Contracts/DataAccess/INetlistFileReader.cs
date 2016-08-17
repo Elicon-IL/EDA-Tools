@@ -1,6 +1,6 @@
 namespace Elicon.Domain.Netlist.Contracts.DataAccess
 {
-    public interface INetlistReader
+    public interface INetlistFileReader
     {
         string ReadStatement();
     }
