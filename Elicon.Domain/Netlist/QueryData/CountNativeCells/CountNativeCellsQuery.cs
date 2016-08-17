@@ -19,10 +19,11 @@ namespace Elicon.Domain.Netlist.QueryData.CountNativeCells
 
         public IDictionary<string, long> CountNativeCells(string rootModule)
         {
-            var visitor = new CountNativeCellsInstanceVisitor();
-            _moduleTraverser.Traverse(rootModule, visitor);
-
-            return visitor.Result();
+            var aggregator = new NativeCellsCountAggregator();
+            foreach (var traversalState in _moduleTraverser.Traverse(rootModule))
+                aggregator.Collect(traversalState);
+            
+            return aggregator.Result();
         }
     }
 }

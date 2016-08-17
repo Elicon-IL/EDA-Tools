@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Elicon.Framework;
 
 namespace Elicon.Domain.Netlist.QueryData.Traversal
 {
@@ -17,21 +18,21 @@ namespace Elicon.Domain.Netlist.QueryData.Traversal
             this._path = new Stack<string>(path._path);
         }
 
-        public InstancesPath Push(string instanceName)
+        public InstancesPath UpdateIn(Instance instance)
         {
-           _path.Push(instanceName);
+            if (instance.InstanceName.IsNullOrEmpty())
+                return this;
+
+           _path.Push(instance.InstanceName);
             return this;
         }
 
-        public InstancesPath Pop()
+        public void UpdateOut()
         {
+            if (!_path.Any())
+                return;
+
             _path.Pop();
-            return this;
-        }
-
-        public bool IsEmpty()
-        {
-            return !_path.Any();
         }
 
         public override string ToString()

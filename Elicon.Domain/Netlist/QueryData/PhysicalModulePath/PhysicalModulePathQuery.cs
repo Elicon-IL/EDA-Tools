@@ -19,12 +19,13 @@ namespace Elicon.Domain.Netlist.QueryData.PhysicalModulePath
 
         public IDictionary<string, IList<string>> GetPhysicalPaths(string rootModule, IList<string> moduleNames)
         {
-            var visitor = new PhysicalModulePathInstanceVisitor();
-            visitor.SetModulesToTrack(moduleNames);
+            var aggregator = new PhysicalModulePathAggregator();
+            aggregator.SetModulesToTrack(moduleNames);
             
-            _moduleTraverser.Traverse(rootModule, visitor);
+            foreach (var traversalState in _moduleTraverser.Traverse(rootModule))
+                aggregator.Collect(traversalState);
 
-            return visitor.Result();
+            return aggregator.Result();
         }
     }
 }

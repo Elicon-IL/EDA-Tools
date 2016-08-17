@@ -1,27 +1,21 @@
+using System;
 using System.Collections.Generic;
 using Elicon.Domain.Netlist.QueryData.Traversal;
 
 namespace Elicon.Domain.Netlist.QueryData.PhysicalModulePath
 {
-    public class PhysicalModulePathInstanceVisitor : IInstanceVisitor
+    public class PhysicalModulePathAggregator
     {
         private readonly Dictionary<string, IList<string>> _result;
-        private ITraversalTracker _traversalTracker;
 
-        public PhysicalModulePathInstanceVisitor()
+        public PhysicalModulePathAggregator()
         {
             _result = new Dictionary<string, IList<string>>();
         }
-
-        public void Visit(Instance instance)
+        public void Collect(TraversalState traversalState)
         {
-            if (IsModuleToTrack(instance))
-                AddPath(instance);
-        }
-
-        public void Use(ITraversalTracker traversalTracker)
-        {
-            _traversalTracker = traversalTracker;
+            if (IsModuleToTrack(traversalState.CurretnInstance))
+                AddPath(traversalState);
         }
 
         public void SetModulesToTrack(IList<string> moduleNames)
@@ -35,14 +29,11 @@ namespace Elicon.Domain.Netlist.QueryData.PhysicalModulePath
             return _result;
         }
 
-        private void AddPath(Instance instance)
+        private void AddPath(TraversalState traversalState)
         {
-            _result[instance.CellName].Add(
-                _traversalTracker.CurrentPath()
-                .Push(instance.InstanceName)
-                .ToString());
+            _result[traversalState.CurretnInstance.CellName].Add(traversalState.InstancesPath.ToString());
         }
-
+        
         private bool IsModuleToTrack(Instance instance)
         {
             return _result.ContainsKey(instance.CellName);

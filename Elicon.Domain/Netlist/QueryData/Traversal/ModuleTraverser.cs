@@ -1,4 +1,5 @@
-﻿using Elicon.Domain.Netlist.Contracts.DataAccess;
+﻿using System.Collections.Generic;
+using Elicon.Domain.Netlist.Contracts.DataAccess;
 
 namespace Elicon.Domain.Netlist.QueryData.Traversal
 {
@@ -11,33 +12,34 @@ namespace Elicon.Domain.Netlist.QueryData.Traversal
             _instanceRepository = instanceRepository;
         }
 
-        public void Traverse(string rootModule, IInstanceVisitor visitor)
+        public IEnumerable<TraversalState> Traverse(string rootModule)
         {
-            var tracker = new TraversalTracker();
-            visitor.Use(tracker);
-            var instance = new Instance(rootModule, "");
-
-            DoTraverse(instance, visitor, tracker);
+            return TraverseInner(new Instance(rootModule, ""), new InstancesPath());
         }
 
-        private void DoTraverse(Instance currentInstance, IInstanceVisitor visitor, ITraversalTracker tracker)
+        private IEnumerable<TraversalState> TraverseInner(Instance instance, InstancesPath instancesPath)
         {
-            tracker.UpdateIn(currentInstance);
+            instancesPath.UpdateIn(instance);
 
-            var instances = _instanceRepository.GetByModule(currentInstance.CellName);
-            foreach (var instance in instances)
+            var instances = _instanceRepository.GetByModule(instance.CellName);
+            foreach (var curretnInstance in instances)
             {
-                visitor.Visit(instance);
-                if (instance.IsModule)
-                    DoTraverse(instance, visitor, tracker);      
+                yield return new TraversalState {
+                    CurretnInstance = curretnInstance,
+                    InstancesPath = new InstancesPath(instancesPath).UpdateIn(curretnInstance)
+                };
+
+                if (curretnInstance.IsModule)
+                    foreach (var state in TraverseInner(curretnInstance, instancesPath))
+                        yield return state;
             }
 
-            tracker.UpdateOut();
+            instancesPath.UpdateOut();
         }
     }
 
     public interface IModuleTraverser
     {
-        void Traverse(string rootModule, IInstanceVisitor visitor);
+        IEnumerable<TraversalState> Traverse(string rootModule);
     }
 }
