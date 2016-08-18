@@ -2,6 +2,7 @@
 using System.Linq;
 using Elicon.Domain.Netlist;
 using Elicon.Domain.Netlist.Contracts.DataAccess;
+using Elicon.Framework;
 
 namespace Elicon.DataAccess
 {
@@ -24,10 +25,7 @@ namespace Elicon.DataAccess
             instance.Id = _idGenerator.GenerateId();
             _instances.Add(instance.Id, instance);
 
-            if (!_moduleToInstancesMap.ContainsKey(moduleName))
-                _moduleToInstancesMap.Add(moduleName, new List<long>());
-
-            _moduleToInstancesMap[moduleName].Add(instance.Id);
+            _moduleToInstancesMap.ItemOrNew(moduleName).Add(instance.Id);
         }
 
         public void UpdateInstance(Instance instance)

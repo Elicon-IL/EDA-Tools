@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Elicon.Framework;
 
 namespace Elicon.Domain
 {
@@ -24,8 +25,7 @@ namespace Elicon.Domain
         {
             List<Delegate> actions;
 
-            _subscriptions.TryGetValue(typeof(T), out actions);
-            if (actions == null)
+            if (!_subscriptions.TryGetValue(typeof(T), out actions))
                 return;
 
             foreach (var action in actions)
@@ -34,10 +34,7 @@ namespace Elicon.Domain
 
         public void Subscribe<T>(Action<T> action) where T : IEvent
         {
-            if (!_subscriptions.ContainsKey(typeof(T)))
-                _subscriptions.Add(typeof(T), new List<Delegate>());
-
-            _subscriptions[typeof(T)].Add(action);
+            _subscriptions.ItemOrNew(typeof(T)).Add(action);
         }
     }
 }

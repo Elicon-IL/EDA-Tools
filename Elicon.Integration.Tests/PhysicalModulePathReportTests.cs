@@ -18,8 +18,8 @@ namespace Elicon.Integration.Tests
         [Test]
         public void GetPhysicalPaths_NetlistEx_ReturnsPhysicalPaths()
         {
-            var module = "x_lut4_0xff0c";
-            var anotherModule = "x_lut4_0x6a5f";
+            const string module = "x_lut4_0xff0c";
+            const string anotherModule = "x_lut4_0x6a5f";
             var modulesToTrack = new List<string> { module, anotherModule };
 
             var result = _target.GetPhysicalPaths(ExampleNetlistFilePath, ExampleNetlistTopModule , modulesToTrack);
