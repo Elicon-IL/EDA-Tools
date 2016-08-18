@@ -14,7 +14,7 @@ namespace Elicon.Domain.Netlist.QueryData.PhysicalModulePath
         }
         public void Collect(TraversalState traversalState)
         {
-            if (IsModuleToTrack(traversalState.CurretnInstance))
+            if (IsModuleToTrack(traversalState.CurrentInstance))
                 AddPath(traversalState);
         }
 
@@ -31,7 +31,7 @@ namespace Elicon.Domain.Netlist.QueryData.PhysicalModulePath
 
         private void AddPath(TraversalState traversalState)
         {
-            _result[traversalState.CurretnInstance.ModuleName].Add(traversalState.InstancesPathTracker.ToString());
+            _result[traversalState.CurrentInstance.ModuleName].Add(traversalState.InstancesPathTracker.ToString());
         }
         
         private bool IsModuleToTrack(Instance instance)

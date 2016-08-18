@@ -15,10 +15,10 @@ namespace Elicon.Domain.Netlist.QueryData.CountNativeModules
 
         public void Collect(TraversalState traversalState)
         {
-            if (traversalState.CurretnInstance.IsModule)
+            if (traversalState.CurrentInstance.IsModule)
                 return;
 
-            _result.UpdateValue(traversalState.CurretnInstance.ModuleName, count => ++count, 0);
+            _result.UpdateValue(traversalState.CurrentInstance.ModuleName, count => ++count, 0);
         }
 
         public IDictionary<string, long> Result()

@@ -2,7 +2,7 @@
 {
     public class TraversalState
     {
-        public Instance CurretnInstance { get; set; }
+        public Instance CurrentInstance { get; set; }
         public InstancesPathTracker InstancesPathTracker { get; set; }
     }
 }

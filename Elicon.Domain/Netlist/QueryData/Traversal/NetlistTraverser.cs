@@ -25,7 +25,7 @@ namespace Elicon.Domain.Netlist.QueryData.Traversal
             foreach (var curretnInstance in instances)
             {
                 yield return new TraversalState {
-                    CurretnInstance = curretnInstance,
+                    CurrentInstance = curretnInstance,
                     InstancesPathTracker = new InstancesPathTracker(pathTracker).UpdateIn(curretnInstance)
                 };
 
