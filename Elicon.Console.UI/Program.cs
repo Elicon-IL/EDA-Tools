@@ -14,8 +14,8 @@ namespace Elicon.Console.UI
             System.Console.WriteLine("Please enter netlist file path");
             var source = System.Console.ReadLine();
 
-            var report = Bootstrapper.Get<ICountNativeCellsReport>();
-            var orderedCells = report.CountNativeCells(source, "newpro").OrderBy(kvp => kvp.Key);
+            var report = Bootstrapper.Get<ICountNativeModulesReport>();
+            var orderedCells = report.CountNativeModules(source, "newpro").OrderBy(kvp => kvp.Key);
             
             foreach (var kvp in orderedCells)
                 System.Console.WriteLine(($"Cell = {kvp.Key}, count = {kvp.Value}"));
@@ -23,8 +23,8 @@ namespace Elicon.Console.UI
             System.Console.WriteLine("Please enter netlist file path");
             source = System.Console.ReadLine();
 
-            report = Bootstrapper.Get<ICountNativeCellsReport>();
-            orderedCells = report.CountNativeCells(source, "newpro").OrderBy(kvp => kvp.Key);
+            report = Bootstrapper.Get<ICountNativeModulesReport>();
+            orderedCells = report.CountNativeModules(source, "newpro").OrderBy(kvp => kvp.Key);
 
             foreach (var kvp in orderedCells)
                 System.Console.WriteLine(($"Cell = {kvp.Key}, count = {kvp.Value}"));

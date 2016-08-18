@@ -7,18 +7,18 @@ namespace Elicon.Integration.Tests
     [TestFixture]
     public class CountNativeCellsReportTests : IntegrationTestBase
     {
-        private ICountNativeCellsReport _target;
+        private ICountNativeModulesReport _target;
 
         [SetUp]
         public void SetUp()
         {
-            _target = Get<ICountNativeCellsReport>();
+            _target = Get<ICountNativeModulesReport>();
         }
 
         [Test]
         public void CountNativeCells_NetlistWithNativeCells_ReturnsAllNativeCellsCount()
         {
-            var result = _target.CountNativeCells(ExampleNetlistFilePath, ExampleNetlistTopModule);
+            var result = _target.CountNativeModules(ExampleNetlistFilePath, ExampleNetlistTopModule);
 
             var expected = new Dictionary<string, int> {
                 {"an2", 1135}, {"an3", 446}, {"an4", 158}, {"aoi21", 50}, {"aoi22", 4}, {"aoi31", 11}, {"b1", 153},

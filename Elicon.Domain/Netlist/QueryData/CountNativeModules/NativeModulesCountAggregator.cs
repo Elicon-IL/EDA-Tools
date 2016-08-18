@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using Elicon.Domain.Netlist.QueryData.Traversal;
 using Elicon.Framework;
 
-namespace Elicon.Domain.Netlist.QueryData.CountNativeCells
+namespace Elicon.Domain.Netlist.QueryData.CountNativeModules
 {
-    public class NativeCellsCountAggregator
+    public class NativeModulesCountAggregator
     { 
         private readonly Dictionary<string, long> _result;
 
-        public NativeCellsCountAggregator()
+        public NativeModulesCountAggregator()
         {
             _result = new Dictionary<string, long>();
         }

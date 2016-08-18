@@ -60,10 +60,10 @@
     <Compile Include="Netlist\Contracts\DataAccess\IModuleRepository.cs" />
     <Compile Include="Netlist\Contracts\DataAccess\INetlistFileReaderProvider.cs" />
     <Compile Include="Netlist\Contracts\DataAccess\INetlistRepository.cs" />
-    <Compile Include="Netlist\QueryData\CountNativeCells\CountNativeCellsQuery.cs" />
+    <Compile Include="Netlist\QueryData\CountNativeModules\CountNativeModulesQuery.cs" />
     <Compile Include="Netlist\QueryData\PhysicalModulePath\PhysicalModulePathQuery.cs" />
     <Compile Include="Netlist\QueryData\Traversal\InstancesPathTracker.cs" />
-    <Compile Include="Netlist\QueryData\CountNativeCells\NativeCellsCountAggregator.cs" />
+    <Compile Include="Netlist\QueryData\CountNativeModules\NativeModulesCountAggregator.cs" />
     <Compile Include="Netlist\QueryData\Traversal\NetlistTraverser.cs" />
     <Compile Include="Netlist\QueryData\PhysicalModulePath\PhysicalModulePathAggregator.cs" />
     <Compile Include="Netlist\QueryData\Traversal\TraversalState.cs" />
@@ -85,7 +85,7 @@
     <Compile Include="Netlist\Module.cs" />
     <Compile Include="Netlist\Parse\ModuleDeclarationStatementParser.cs" />
     <Compile Include="Netlist\BuildData\NetlistDataBuilder.cs" />
-    <Compile Include="Netlist\Reports\CountNativeCellsReport.cs" />
+    <Compile Include="Netlist\Reports\CountNativeModulesReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PubSub.cs" />
   </ItemGroup>
