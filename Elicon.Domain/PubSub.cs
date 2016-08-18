@@ -22,7 +22,7 @@ namespace Elicon.Domain
     public class PubSub : IPubSub
     {
         private readonly Dictionary<Type, List<Delegate>> _subscriptions = new Dictionary<Type, List<Delegate>>();
-        private readonly ReaderWriterLockSlim _lock =  new ReaderWriterLockSlim();
+        private readonly ReaderWriterLockSlim _lock =  new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
 
         public void Publish<T>(T evenToPublish) where T : IEvent
         {
