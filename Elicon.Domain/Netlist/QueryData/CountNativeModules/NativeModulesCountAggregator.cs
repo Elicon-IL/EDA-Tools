@@ -18,7 +18,7 @@ namespace Elicon.Domain.Netlist.QueryData.CountNativeModules
             if (traversalState.CurretnInstance.IsModule)
                 return;
 
-            _result.UpdateValue(traversalState.CurretnInstance.ModuleName, count => count + 1, 0);
+            _result.UpdateValue(traversalState.CurretnInstance.ModuleName, count => ++count, 0);
         }
 
         public IDictionary<string, long> Result()
