@@ -39,7 +39,7 @@ namespace Elicon.DataAccess.ReadFiles
 
         private void PublishProgress()
         {
-            var newProgress = _precentageCalculator.ClaculatePrecentage(_reader.BaseStream.Position, _reader.BaseStream.Length);
+            var newProgress = _precentageCalculator.CalculatePrecentage(_reader.BaseStream.Position, _reader.BaseStream.Length);
             if (NoChange(newProgress, _prevProgress))
                 return;
 

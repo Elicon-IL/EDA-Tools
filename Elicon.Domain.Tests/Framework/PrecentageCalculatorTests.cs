@@ -17,7 +17,7 @@ namespace Elicon.Domain.Tests.Framework
         [Test]
         public void ClaculateProgression_ZeroProgression_ReturnsZero()
         {
-            var result = _target.ClaculatePrecentage(0, 1000);
+            var result = _target.CalculatePrecentage(0, 1000);
 
             Assert.That(result, Is.Zero);
         }
@@ -25,7 +25,7 @@ namespace Elicon.Domain.Tests.Framework
         [Test]
         public void ClaculateProgression_LessThanOnePrecent_ReturnsZero()
         {
-            var result = _target.ClaculatePrecentage(9, 1000);
+            var result = _target.CalculatePrecentage(9, 1000);
 
             Assert.That(result, Is.Zero);
         }
@@ -33,7 +33,7 @@ namespace Elicon.Domain.Tests.Framework
         [Test]
         public void ClaculateProgression_ProgressionIsOnePrecent_ReturnsOne()
         {
-            var result = _target.ClaculatePrecentage(10, 1000);
+            var result = _target.CalculatePrecentage(10, 1000);
 
             Assert.That(result, Is.EqualTo(1));
         }
@@ -41,7 +41,7 @@ namespace Elicon.Domain.Tests.Framework
         [Test]
         public void ClaculateProgression_ProgressionIsNintyNinePrecent_ReturnsNintyNine()
         {
-            var result = _target.ClaculatePrecentage(990, 1000);
+            var result = _target.CalculatePrecentage(990, 1000);
 
             Assert.That(result, Is.EqualTo(99));
         }
@@ -50,7 +50,7 @@ namespace Elicon.Domain.Tests.Framework
         [Test]
         public void ClaculateProgression_ProgressionAlmostOneHundredPrecent_ReturnsNintyNine()
         {
-            var result = _target.ClaculatePrecentage(999, 1000);
+            var result = _target.CalculatePrecentage(999, 1000);
 
             Assert.That(result, Is.EqualTo(99));
         }
@@ -58,7 +58,7 @@ namespace Elicon.Domain.Tests.Framework
         [Test]
         public void ClaculateProgression_ProgressionIsOneHundredPrecent_ReturnsOneHundred()
         {
-            var result = _target.ClaculatePrecentage(1000, 1000);
+            var result = _target.CalculatePrecentage(1000, 1000);
 
             Assert.That(result, Is.EqualTo(100));
         }
