@@ -1,44 +1,9 @@
 //
-// Altera to Verilog conversion utility - Version 1.73
-// Sunday, January 23, 2011,  13:20:02
-// KaiSemi, ISRAEL.
-// 
-
-//
-// The following black-box cells must be included / filled:
-// 
-
-// Copyright (C) 1991-2005 Altera Corporation
-// Any megafunction design, and related netlist (encrypted or decrypted),
-// support information, device programming or simulation file, and any other
-// associated documentation or information provided by Altera or a partner
-// under Altera's Megafunction Partnership Program may be used only
-// to program PLD devices (but not masked PLD devices) from Altera. Any
-// other use of such megafunction design, netlist, support information,
-// device programming or simulation file, or any other related documentation
-// or information is prohibited for any other purpose, including, but not
-// limited to modification, reverse engineering, de-compiling, or use with
-// any other silicon devices, unless such use is explicitly licensed under
-// a separate agreement with Altera or a megafunction partner. Title to the
-// intellectual property, including patents, copyrights, trademarks, trade
-// secrets, or maskworks, embodied in any such megafunction design, netlist,
-// support information, device programming or simulation file, or any other
-// related documentation or information provided by Altera or a megafunction
-// partner, remains with Altera, the megafunction partner, or their respective
-// licensors. No other licenses, including any licenses needed under any third
-// party's intellectual property, are provided herein.
-// VENDOR "Altera"
-// PROGRAM "Quartus II"
-// VERSION "Version 4.2 Build 178 01/19/2005 Service Pack 1 SJ Full Version"
-// DATE "05/04/2005 14:38:42"
-// 
-// Device: Altera EPM570T144C5 Package TQFP144
-// 
 `define top cdu
 // 
 // This Verilog file should be used for Custom Verilog HDL only
 // 
-// `timescale 1 ps/ 1 ps
+`timescale 1 ps/ 1 ps
 module stratix_async_input (regin, ddioregin, padio, delayctrlin, combout, regout, ddioregout);
 input regin, ddioregin, delayctrlin ,padio ;
 output combout, regout, ddioregout;

@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace Elicon.Integration.Tests
 {
     [TestFixture]
-    public class CountNativeCellsReportTests : IntegrationTestBase
+    public class CountNativeModulesReportTests : IntegrationTestBase
     {
         private ICountNativeModulesReport _target;
 
@@ -16,7 +16,7 @@ namespace Elicon.Integration.Tests
         }
 
         [Test]
-        public void CountNativeCells_NetlistWithNativeCells_ReturnsAllNativeCellsCount()
+        public void CountNativeModules_NetlistWithNativeCells_ReturnsAllNativeCellsCount()
         {
             var result = _target.CountNativeModules(ExampleNetlistFilePath, ExampleNetlistTopModule);
 

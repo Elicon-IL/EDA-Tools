@@ -10,12 +10,12 @@ namespace Elicon.DataAccess
 
         public void AddMetaStatement(string netlist, string metaStatement)
         {
-            _netlistsMetaStatementsMap.ItemOrNew(netlist).Add(metaStatement);
+            _netlistsMetaStatementsMap.ValueOrNew(netlist).Add(metaStatement);
         }
 
         public IEnumerable<string> GeeMetaStatements(string netlist)
         {
-            return _netlistsMetaStatementsMap.ItemOrNew(netlist);
+            return _netlistsMetaStatementsMap.ValueOrNew(netlist);
         }
     }
 }

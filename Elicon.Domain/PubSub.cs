@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using Elicon.Framework;
 
 namespace Elicon.Domain
@@ -20,13 +22,20 @@ namespace Elicon.Domain
     public class PubSub : IPubSub
     {
         private readonly Dictionary<Type, List<Delegate>> _subscriptions = new Dictionary<Type, List<Delegate>>();
+        private readonly ReaderWriterLockSlim _lock =  new ReaderWriterLockSlim();
 
         public void Publish<T>(T evenToPublish) where T : IEvent
         {
             List<Delegate> actions;
-
-            if (!_subscriptions.TryGetValue(typeof(T), out actions))
-                return;
+            _lock.EnterReadLock();
+            try
+            {
+                actions = _subscriptions.ValueOrNew(typeof(T)).ToList();
+            }
+            finally
+            {
+                _lock.EnterReadLock();
+            }
 
             foreach (var action in actions)
                 ((Action<T>)action)(evenToPublish);
@@ -34,7 +43,15 @@ namespace Elicon.Domain
 
         public void Subscribe<T>(Action<T> action) where T : IEvent
         {
-            _subscriptions.ItemOrNew(typeof(T)).Add(action);
+            _lock.EnterWriteLock();
+            try
+            {
+                _subscriptions.ValueOrNew(typeof(T)).Add(action);
+            }
+            finally
+            {
+                _lock.ExitWriteLock();
+            }
         }
     }
 }

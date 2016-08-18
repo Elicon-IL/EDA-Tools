@@ -42,8 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PrecentageCalculator.cs" />
-    <Compile Include="DictionaryExtension.cs" />
-    <Compile Include="StringExtension.cs" />
+    <Compile Include="DictionaryExtensions.cs" />
+    <Compile Include="StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
