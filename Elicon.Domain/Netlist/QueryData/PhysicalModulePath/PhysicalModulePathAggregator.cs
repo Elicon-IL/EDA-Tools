@@ -31,12 +31,12 @@ namespace Elicon.Domain.Netlist.QueryData.PhysicalModulePath
 
         private void AddPath(TraversalState traversalState)
         {
-            _result[traversalState.CurretnInstance.CellName].Add(traversalState.InstancesPath.ToString());
+            _result[traversalState.CurretnInstance.ModuleName].Add(traversalState.InstancesPathTracker.ToString());
         }
         
         private bool IsModuleToTrack(Instance instance)
         {
-            return _result.ContainsKey(instance.CellName);
+            return _result.ContainsKey(instance.ModuleName);
         }
     }
 }

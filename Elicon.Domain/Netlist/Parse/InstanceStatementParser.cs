@@ -4,7 +4,7 @@ namespace Elicon.Domain.Netlist.Parse
 {
    public class InstanceStatementParser
     {
-        public string GetCellName(string statement)
+        public string GetModuleName(string statement)
         {
             return statement
                 .KeepUntilFirst(' ');

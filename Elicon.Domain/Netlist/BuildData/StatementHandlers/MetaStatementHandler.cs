@@ -6,18 +6,17 @@ namespace Elicon.Domain.Netlist.BuildData.StatementHandlers
     public class MetaStatementHandler : IStatementHandler
     {
         private readonly MetaStatementCriteria _criteria = new MetaStatementCriteria();
-        private readonly INetlistRepositoryProvider _netlistRepositoryProvider;
+        private readonly IMetaStatementRepository _metaStatementRepository;
 
-        public MetaStatementHandler(INetlistRepositoryProvider netlistRepositoryProvider)
+        public MetaStatementHandler(IMetaStatementRepository metaStatementRepository)
         {
-            _netlistRepositoryProvider = netlistRepositoryProvider;
+            _metaStatementRepository = metaStatementRepository;
         }
-        
+
         public void Handle(BuildState state)
         {
-            _netlistRepositoryProvider
-                .GetRepositoryFor(state.Netlist)
-                .AddMetaStatement(state.CurrentStatement);
+            _metaStatementRepository
+                 .AddMetaStatement(state.Netlist, state.CurrentStatement);
         }
 
         public bool CanHandle(BuildState state)

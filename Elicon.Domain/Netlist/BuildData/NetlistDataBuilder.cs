@@ -12,19 +12,25 @@ namespace Elicon.Domain.Netlist.BuildData
     {
         private readonly INetlistFileReaderProvider _netlistFileReaderProvider;
         private readonly IStatementHandlersInvoker _statementHandlersInvoker;
-        private readonly INetlistRepositoryProvider _netlistRepositoryProvider;
+        private readonly IInstanceRepository _instanceRepository;
+        private readonly IModuleRepository _moduleRepository;
+        private readonly INetlistRepository _netlistRepository;
 
-        public NetlistDataBuilder(INetlistFileReaderProvider netlistFileReaderProvider, IStatementHandlersInvoker statementHandlersInvoker, INetlistRepositoryProvider netlistRepositoryProvider)
+        public NetlistDataBuilder(INetlistFileReaderProvider netlistFileReaderProvider, IStatementHandlersInvoker statementHandlersInvoker, IInstanceRepository instanceRepository, IModuleRepository moduleRepository, INetlistRepository netlistRepository)
         {
             _netlistFileReaderProvider = netlistFileReaderProvider;
             _statementHandlersInvoker = statementHandlersInvoker;
-            _netlistRepositoryProvider = netlistRepositoryProvider;
+            _instanceRepository = instanceRepository;
+            _moduleRepository = moduleRepository;
+            _netlistRepository = netlistRepository;
         }
 
         public void Build(string source)
         {
-            if (_netlistRepositoryProvider.Exists(source))
+            if (_netlistRepository.Exists(source))
                 return;
+
+            _netlistRepository.Add(source);
 
             var netlistFileReader = _netlistFileReaderProvider.GetReaderFor(source);
             var buildState = new BuildState { Netlist = source };
@@ -37,15 +43,13 @@ namespace Elicon.Domain.Netlist.BuildData
 
         private void UpdateInstancesType(string source)
         {
-            var netlistRepository = _netlistRepositoryProvider.GetRepositoryFor(source);
-
-            foreach (var instance in netlistRepository.GetAllInstances())
+            foreach (var instance in _instanceRepository.GetBy(source))
             {
-                if (!netlistRepository.Exists(instance.CellName))
+                if (!_moduleRepository.Exists(source, instance.ModuleName))
                     continue;
 
                 instance.Type = InstanceType.Module;
-                netlistRepository.UpdateInstance(instance);
+                _instanceRepository.UpdateInstance(instance);
             }
         }
     }

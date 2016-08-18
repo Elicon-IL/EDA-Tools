@@ -8,19 +8,18 @@ namespace Elicon.Domain.Netlist.BuildData.StatementHandlers
     {
         private readonly ModuleDeclarationStatementCriteria _criteria = new ModuleDeclarationStatementCriteria();
         private readonly ModuleDeclarationStatementParser _parser = new ModuleDeclarationStatementParser();
-        private readonly INetlistRepositoryProvider _netlistRepositoryProvider;
+        private readonly IModuleRepository _moduleRepository;
 
-        public ModuleDeclarationStatementHandler(INetlistRepositoryProvider netlistRepositoryProvider)
+        public ModuleDeclarationStatementHandler(IModuleRepository moduleRepository)
         {
-            _netlistRepositoryProvider = netlistRepositoryProvider;
+            _moduleRepository = moduleRepository;
         }
 
         public void Handle(BuildState state)
         {
             state.CurrentModuleName = _parser.GetModuleName(state.CurrentStatement);
-            _netlistRepositoryProvider
-                .GetRepositoryFor(state.Netlist)
-                .AddModule(new Module(state.CurrentModuleName));
+            _moduleRepository
+                 .AddModule(new Module(state.Netlist, state.CurrentModuleName));
         }
 
         public bool CanHandle(BuildState state)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Elicon.Framework
 {
@@ -12,6 +13,15 @@ namespace Elicon.Framework
             
             target.Add(key, new TValue());
             return target[key];
+        }
+
+        public static void UpdateValue<TKey, TValue>(this IDictionary<TKey, TValue> target, TKey key, Func<TValue,TValue> updater, TValue intialValue)
+        {
+            TValue value;
+            if (!target.TryGetValue(key, out value))
+                target[key] = intialValue;
+
+            target[key] = updater(target[key]);
         }
     }
 }

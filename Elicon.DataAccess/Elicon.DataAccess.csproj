@@ -41,8 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InstanceRepository.cs" />
+    <Compile Include="MetaStatementRepository.cs" />
+    <Compile Include="ModuleRepository.cs" />
     <Compile Include="NetlistRepository.cs" />
-    <Compile Include="NetlistRepositoryProvider.cs" />
     <Compile Include="ReadFiles\MultiLineStatementVerifier.cs" />
     <Compile Include="ReadFiles\NetlistFileReader.cs" />
     <Compile Include="ReadFiles\NetlistFileReaderProvider.cs" />

@@ -15,11 +15,11 @@ namespace Elicon.Domain.Tests.Domain.Parse
         }
 
         [Test]
-        public void GetCellName_InstanceStatement_ReturnsCellName()
+        public void GetModuleName_InstanceStatement_ReturnsModuleName()
         {
             var statement = "no2 inst100408  ( .b(n36), .a(i0), .zn(o) );";
 
-            var result = _target.GetCellName(statement);
+            var result = _target.GetModuleName(statement);
 
             Assert.That(result, Is.EqualTo("no2"));
         }

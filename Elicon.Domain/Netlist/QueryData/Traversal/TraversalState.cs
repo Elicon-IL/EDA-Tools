@@ -3,6 +3,6 @@
     public class TraversalState
     {
         public Instance CurretnInstance { get; set; }
-        public InstancesPath InstancesPath { get; set; }
+        public InstancesPathTracker InstancesPathTracker { get; set; }
     }
 }

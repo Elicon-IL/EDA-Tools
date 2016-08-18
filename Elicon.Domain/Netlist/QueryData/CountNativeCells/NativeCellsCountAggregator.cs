@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Elicon.Domain.Netlist.QueryData.Traversal;
+using Elicon.Framework;
 
 namespace Elicon.Domain.Netlist.QueryData.CountNativeCells
 {
@@ -17,10 +18,7 @@ namespace Elicon.Domain.Netlist.QueryData.CountNativeCells
             if (traversalState.CurretnInstance.IsModule)
                 return;
 
-            if (!_result.ContainsKey(traversalState.CurretnInstance.CellName))
-                _result.Add(traversalState.CurretnInstance.CellName, 0);
-
-            _result[traversalState.CurretnInstance.CellName]++;
+            _result.UpdateValue(traversalState.CurretnInstance.ModuleName, count => count + 1, 0);
         }
 
         public IDictionary<string, long> Result()

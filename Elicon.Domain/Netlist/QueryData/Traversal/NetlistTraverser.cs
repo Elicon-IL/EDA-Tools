@@ -5,40 +5,36 @@ namespace Elicon.Domain.Netlist.QueryData.Traversal
 {
     public class NetlistTraverser : INetlistTraverser
     {
-        private readonly INetlistRepositoryProvider _netlistRepositoryProvider;
+        private readonly IInstanceRepository _instanceRepository;
 
-        public NetlistTraverser(INetlistRepositoryProvider netlistRepositoryProvider)
+        public NetlistTraverser(IInstanceRepository instanceRepository)
         {
-            _netlistRepositoryProvider = netlistRepositoryProvider;
+            _instanceRepository = instanceRepository;
         }
 
         public IEnumerable<TraversalState> Traverse(string netlist, string rootModule)
         {
-            var netlistRepository = _netlistRepositoryProvider.GetRepositoryFor(netlist);
-            var instance = new Instance(rootModule, "");
-            var instancesPath = new InstancesPath();
-
-            return TraverseInner(netlistRepository, instance, instancesPath);
+            return TraverseInner(new Instance(netlist, "", rootModule, ""), new InstancesPathTracker());
         }
 
-        private IEnumerable<TraversalState> TraverseInner(INetlistRepository repository, Instance instance, InstancesPath instancesPath)
+        private IEnumerable<TraversalState> TraverseInner(Instance instance, InstancesPathTracker pathTracker)
         {
-            instancesPath.UpdateIn(instance);
+            pathTracker.UpdateIn(instance);
 
-            var instances = repository.GetModuleInstances(instance.CellName);
+            var instances = _instanceRepository.GetBy(instance.Netlist, instance.ModuleName);
             foreach (var curretnInstance in instances)
             {
                 yield return new TraversalState {
                     CurretnInstance = curretnInstance,
-                    InstancesPath = new InstancesPath(instancesPath).UpdateIn(curretnInstance)
+                    InstancesPathTracker = new InstancesPathTracker(pathTracker).UpdateIn(curretnInstance)
                 };
 
                 if (curretnInstance.IsModule)
-                    foreach (var state in TraverseInner(repository, curretnInstance, instancesPath))
+                    foreach (var state in TraverseInner(curretnInstance, pathTracker))
                         yield return state;
             }
 
-            instancesPath.UpdateOut();
+            pathTracker.UpdateOut();
         }
     }
 

@@ -12,7 +12,6 @@ namespace Elicon.Framework
             return str.Length == token.Length
                 || str[token.Length] == ' '
                 || str[token.Length] == '\t';
-
         }
 
         public static bool IsNullOrEmpty(this string str)

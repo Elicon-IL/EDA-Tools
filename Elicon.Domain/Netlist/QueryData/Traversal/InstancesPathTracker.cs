@@ -4,21 +4,21 @@ using Elicon.Framework;
 
 namespace Elicon.Domain.Netlist.QueryData.Traversal
 {
-    public class InstancesPath
+    public class InstancesPathTracker
     {
         private readonly List<string> _path;
 
-        public InstancesPath()
+        public InstancesPathTracker()
         {
             _path = new List<string>();
         }
 
-        public InstancesPath(InstancesPath path)
+        public InstancesPathTracker(InstancesPathTracker pathTracker)
         {
-            this._path = new List<string>(path._path);
+            this._path = new List<string>(pathTracker._path);
         }
 
-        public InstancesPath UpdateIn(Instance instance)
+        public InstancesPathTracker UpdateIn(Instance instance)
         {
             if (instance.InstanceName.IsNullOrEmpty())
                 return this;

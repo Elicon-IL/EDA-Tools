@@ -6,19 +6,23 @@ namespace Elicon.Domain.Netlist.BuildData.StatementHandlers
     public class InstanceDeclarationStatementHandler : IStatementHandler
     {
         private readonly InstanceStatementParser _parser = new InstanceStatementParser();
-        private readonly INetlistRepositoryProvider _netlistRepositoryProvider;
+        private readonly IInstanceRepository _instanceRepository;
 
-        public InstanceDeclarationStatementHandler(INetlistRepositoryProvider netlistRepositoryProvider)
+        public InstanceDeclarationStatementHandler(IInstanceRepository instanceRepository)
         {
-            _netlistRepositoryProvider = netlistRepositoryProvider;
+            _instanceRepository = instanceRepository;
         }
-
+        
         public void Handle(BuildState state)
         {
-            var instance = new Instance(_parser.GetCellName(state.CurrentStatement), _parser.GeInstanceName(state.CurrentStatement));
-            _netlistRepositoryProvider
-                .GetRepositoryFor(state.Netlist)
-                .AddInstance(instance, state.CurrentModuleName);
+            var instance = new Instance(
+                    state.Netlist, 
+                    state.CurrentModuleName, 
+                    _parser.GetModuleName(state.CurrentStatement),
+                    _parser.GeInstanceName(state.CurrentStatement)
+                );
+
+            _instanceRepository.AddInstance(instance);
         }
 
         public bool CanHandle(BuildState state)
