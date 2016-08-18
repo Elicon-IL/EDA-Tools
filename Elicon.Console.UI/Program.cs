@@ -15,17 +15,8 @@ namespace Elicon.Console.UI
             var source = System.Console.ReadLine();
 
             var report = Bootstrapper.Get<ICountNativeModulesReport>();
-            var orderedCells = report.CountNativeModules(source, "newpro").OrderBy(kvp => kvp.Key);
+            var orderedCells = report.CountNativeModules(source, "patgen_rtl").OrderBy(kvp => kvp.Key);
             
-            foreach (var kvp in orderedCells)
-                System.Console.WriteLine(($"Cell = {kvp.Key}, count = {kvp.Value}"));
-
-            System.Console.WriteLine("Please enter netlist file path");
-            source = System.Console.ReadLine();
-
-            report = Bootstrapper.Get<ICountNativeModulesReport>();
-            orderedCells = report.CountNativeModules(source, "newpro").OrderBy(kvp => kvp.Key);
-
             foreach (var kvp in orderedCells)
                 System.Console.WriteLine(($"Cell = {kvp.Key}, count = {kvp.Value}"));
 

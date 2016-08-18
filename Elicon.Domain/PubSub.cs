@@ -15,7 +15,7 @@ namespace Elicon.Domain
 
     public interface IPubSub
     {
-        void Publish<T>(T evenToPublish) where T : IEvent;
+        void Publish<T>(T eventToPublish) where T : IEvent;
         void Subscribe<T>(Action<T> action) where T : IEvent;
     }
 
@@ -24,7 +24,7 @@ namespace Elicon.Domain
         private readonly Dictionary<Type, List<Delegate>> _subscriptions = new Dictionary<Type, List<Delegate>>();
         private readonly ReaderWriterLockSlim _lock =  new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
 
-        public void Publish<T>(T evenToPublish) where T : IEvent
+        public void Publish<T>(T eventToPublish) where T : IEvent
         {
             List<Delegate> actions;
             _lock.EnterReadLock();
@@ -38,7 +38,7 @@ namespace Elicon.Domain
             }
 
             foreach (var action in actions)
-                ((Action<T>)action)(evenToPublish);
+                ((Action<T>)action)(eventToPublish);
         }
 
         public void Subscribe<T>(Action<T> action) where T : IEvent
