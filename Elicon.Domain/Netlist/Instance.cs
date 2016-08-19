@@ -20,21 +20,21 @@
         public Instance(Instance instance)
         {
             Id = instance.Id;
+            Netlist = instance.Netlist;
+            HostModuleName = instance.HostModuleName;
             ModuleName = instance.ModuleName;
             InstanceName = instance.InstanceName;
             Type = instance.Type;
-            HostModuleName = instance.HostModuleName;
-            Netlist = instance.Netlist;
         }
 
 
         public long Id { get; set; }
+        public string Netlist { get; set; }
+        public string HostModuleName { get; set; }
         public string ModuleName { get; set; }
         public string InstanceName { get; set; }
         public InstanceType Type { get; set; }
-        public bool IsModule => Type == InstanceType.Module;
-        public string HostModuleName { get; set; }
-        public string Netlist { get; set; }
-
+        public bool IsModule => Type == InstanceType.Module;   
+    
     }
 }

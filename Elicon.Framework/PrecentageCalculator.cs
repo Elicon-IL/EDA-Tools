@@ -9,6 +9,9 @@ namespace Elicon.Framework
     {
         public short CalculatePrecentage(long part, long total)
         {
+            if (part < 0)
+                return 0;
+
             return (short) ((decimal)part / total * 100);
         }
     }
