@@ -1,6 +1,6 @@
 ﻿using Elicon.Framework;
 
-namespace Elicon.DataAccess.ReadFiles
+namespace Elicon.DataAccess.Files.Netlist.Read
 {
     public interface IStatementTrimmer
     {

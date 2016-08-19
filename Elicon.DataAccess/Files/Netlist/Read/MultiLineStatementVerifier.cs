@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Elicon.Domain.Netlist.Statements.Criterias;
 
-namespace Elicon.DataAccess.ReadFiles
+namespace Elicon.DataAccess.Files.Netlist.Read
 {
     public interface IMultiLineStatementVerifier
     {

@@ -3,7 +3,7 @@ using Elicon.Domain;
 using Elicon.Domain.Netlist.Read;
 using Elicon.Framework;
 
-namespace Elicon.DataAccess.ReadFiles
+namespace Elicon.DataAccess.Files.Common.Read
 {
     public interface IStreamReader
     {

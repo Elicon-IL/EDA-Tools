@@ -1,6 +1,7 @@
+using Elicon.DataAccess.Files.Common.Read;
 using Elicon.Domain.Netlist.Contracts.DataAccess;
 
-namespace Elicon.DataAccess.ReadFiles
+namespace Elicon.DataAccess.Files.Netlist.Read
 {
     public class NetlistFileReaderProvider : INetlistFileReaderProvider
     {

@@ -1,8 +1,9 @@
 using System.Text;
+using Elicon.DataAccess.Files.Common.Read;
 using Elicon.Domain.Netlist.Contracts.DataAccess;
 using Elicon.Framework;
 
-namespace Elicon.DataAccess.ReadFiles
+namespace Elicon.DataAccess.Files.Netlist.Read
 {
     public class NetlistFileReader : INetlistFileReader
     {
