@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\PubSubTests.cs" />
     <Compile Include="Domain\Parse\ModuleDeclarationStatementParserTests.cs" />
     <Compile Include="Domain\Parse\InstanceStatementParserTests.cs" />
     <Compile Include="Framework\PrecentageCalculatorTests.cs" />

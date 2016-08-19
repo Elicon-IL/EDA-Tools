@@ -10,7 +10,7 @@ namespace Elicon.Domain
 
     public interface IEventSubscriber
     {
-        void Init();
+        void Init(IPubSub pubSub);
     }
 
     public interface IPubSub
