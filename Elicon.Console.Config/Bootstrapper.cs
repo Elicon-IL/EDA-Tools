@@ -35,9 +35,9 @@ namespace Elicon.Console.Config
                    .Configure(y => y.InSingletonScope());
             });
 
+            var pubSub = Kernel.Get<IPubSub>();
             foreach (var subscriber in Kernel.GetAll<IEventSubscriber>())
-                subscriber.Init();
-            
+                subscriber.Init(pubSub);
             
         }
 
