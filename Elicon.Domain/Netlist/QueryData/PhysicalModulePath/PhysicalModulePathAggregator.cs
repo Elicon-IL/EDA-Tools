@@ -6,22 +6,18 @@ namespace Elicon.Domain.Netlist.QueryData.PhysicalModulePath
 {
     public class PhysicalModulePathAggregator
     {
-        private readonly Dictionary<string, IList<string>> _result;
+        private readonly Dictionary<string, IList<string>> _result  = new Dictionary<string, IList<string>>();
 
-        public PhysicalModulePathAggregator()
+        public PhysicalModulePathAggregator(IList<string> moduleNames)
         {
-            _result = new Dictionary<string, IList<string>>();
+            foreach (var moduleName in moduleNames)
+                _result.Add(moduleName, new List<string>());
         }
+
         public void Collect(TraversalState traversalState)
         {
             if (IsModuleToTrack(traversalState.CurrentInstance))
                 AddPath(traversalState);
-        }
-
-        public void SetModulesToTrack(IList<string> moduleNames)
-        {
-            foreach (var moduleName in moduleNames)
-                _result.Add(moduleName, new List<string>());
         }
 
         public IDictionary<string, IList<string>> Result()

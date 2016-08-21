@@ -6,12 +6,7 @@ namespace Elicon.Domain.Netlist.QueryData.CountNativeModules
 {
     public class NativeModulesCountAggregator
     { 
-        private readonly Dictionary<string, long> _result;
-
-        public NativeModulesCountAggregator()
-        {
-            _result = new Dictionary<string, long>();
-        }
+        private readonly Dictionary<string, long> _result = new Dictionary<string, long>();
 
         public void Collect(TraversalState traversalState)
         {

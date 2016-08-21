@@ -16,11 +16,13 @@ namespace Elicon.Domain.Netlist.BuildData.StatementHandlers
         public void Handle(BuildState state)
         {
             var instance = new Instance(
-                    state.Netlist, 
-                    state.CurrentModuleName, 
-                    _parser.GetModuleName(state.CurrentStatement),
-                    _parser.GeInstanceName(state.CurrentStatement)
-                );
+                state.Netlist,
+                state.CurrentModuleName,
+                _parser.GetModuleName(state.CurrentStatement),
+                _parser.GeInstanceName(state.CurrentStatement)
+                ) {
+                Net = _parser.GetNet(state.CurrentStatement)
+            };
 
             _instanceRepository.AddInstance(instance);
         }

@@ -60,7 +60,10 @@
     <Compile Include="Netlist\Contracts\DataAccess\IModuleRepository.cs" />
     <Compile Include="Netlist\Contracts\DataAccess\INetlistFileReaderProvider.cs" />
     <Compile Include="Netlist\Contracts\DataAccess\INetlistRepository.cs" />
+    <Compile Include="Netlist\PortWirePair.cs" />
     <Compile Include="Netlist\QueryData\CountNativeModules\CountNativeModulesQuery.cs" />
+    <Compile Include="Netlist\QueryData\NativeModulesPortsList\NativeModulesPortsListAggregator.cs" />
+    <Compile Include="Netlist\QueryData\NativeModulesPortsList\NativeModulesPortsListQuery.cs" />
     <Compile Include="Netlist\QueryData\PhysicalModulePath\PhysicalModulePathQuery.cs" />
     <Compile Include="Netlist\QueryData\Traversal\InstancesPathTracker.cs" />
     <Compile Include="Netlist\QueryData\CountNativeModules\NativeModulesCountAggregator.cs" />
@@ -69,6 +72,7 @@
     <Compile Include="Netlist\QueryData\Traversal\TraversalState.cs" />
     <Compile Include="Netlist\Read\FileReadProgressEvent.cs" />
     <Compile Include="Netlist\Contracts\DataAccess\INetlistFileReader.cs" />
+    <Compile Include="Netlist\Reports\NativeModulesPortsListReport.cs" />
     <Compile Include="Netlist\Reports\PhysicalModulePathReport.cs" />
     <Compile Include="Netlist\Statements\Criterias\MetaStatementCriteria.cs" />
     <Compile Include="Netlist\Statements\Criterias\WireDeclarationStatementCriteria .cs" />

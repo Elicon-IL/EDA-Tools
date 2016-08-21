@@ -1,4 +1,8 @@
-﻿namespace Elicon.Domain.Netlist
+﻿using System.Collections.Generic;
+using System.Linq;
+using Elicon.Domain.Netlist.BuildData.StatementHandlers;
+
+namespace Elicon.Domain.Netlist
 {
     public enum InstanceType
     {
@@ -15,6 +19,7 @@
             HostModuleName = hostModule;
             ModuleName = moduleName;
             InstanceName = instanceName;
+            Net = new List<PortWirePair>();
         }
 
         public Instance(Instance instance)
@@ -25,6 +30,7 @@
             ModuleName = instance.ModuleName;
             InstanceName = instance.InstanceName;
             Type = instance.Type;
+            Net = instance.Net.ToList();
         }
 
 
@@ -34,7 +40,7 @@
         public string ModuleName { get; set; }
         public string InstanceName { get; set; }
         public InstanceType Type { get; set; }
-        public bool IsModule => Type == InstanceType.Module;   
-    
+        public bool IsModule => Type == InstanceType.Module;
+        public IList<PortWirePair> Net { get; set; }
     }
 }
