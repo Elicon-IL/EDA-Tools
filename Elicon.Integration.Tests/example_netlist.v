@@ -418,7 +418,7 @@ input sclr,sload,clk,aclr,aload,ena,datain,datac,devclrn,devpor;
 output regout;
 supply0 VSS;
 supply1 VDD;
-dspbrs tlib000113 ( .q(regout),.c(clk),.d(regout),.rn(reset),.sd(data),.se(ena),.sn(set) );
+dspbrs tlib000113 ( .q(regout),.c(clk),.d(regout),.rn(reset),.sd(data),.se(ena),.sn(set), .qn(nc_0001) );
 mx41 tlib000114 ( .z(data),.i0(datain),.i1(datac),.i2(1'b0),.i3(1'b0),.s0(sload),.s1(sclr) );
 an3 tlib000115 ( .z(res),.a(devpor),.b(devclrn),.c(aclrn) );
 i1 tlib000116 ( .zn(aclrn),.a(aclr) );
