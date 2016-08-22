@@ -23,7 +23,6 @@ namespace Elicon.Domain.Netlist.Reports
         public IDictionary<string, string[]> GetNativeModulesPortsList(string source)
         {
             _netlistDataBuilder.Build(source);
-
             return _nativeModulesPortsListQuery.GetNativeModulesPortsList(source);
         }
     }
