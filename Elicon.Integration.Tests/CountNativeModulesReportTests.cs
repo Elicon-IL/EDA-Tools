@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Elicon.Domain.Netlist.Reports;
 using NUnit.Framework;
 
@@ -27,7 +28,12 @@ namespace Elicon.Integration.Tests
                 {"no3", 42}, {"no4", 8}, {"oai21", 27}, {"oai211", 1}, {"oai22", 1}, {"or2", 779}, {"or3", 4},
                 {"or4", 7}, {"oth", 23}, {"por", 1}, {"xn2", 9}, {"xo2", 605}
             };
-            Assert.That(result, Is.EquivalentTo(expected));
+
+            Assert.That(result.ToList(), Is.EquivalentTo(expected.ToList()).IgnoreCase);
+//            foreach (var kvp in result)
+//                Assert.That(kvp.Value, Is.EqualTo(expected[kvp.Key]));
+//            foreach (var kvp in expected)
+//                Assert.That(expected.Value, Is.EqualTo(result[kvp.Key]));
         }
     }
  }

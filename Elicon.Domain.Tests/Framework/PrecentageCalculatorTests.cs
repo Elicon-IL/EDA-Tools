@@ -19,7 +19,7 @@ namespace Elicon.Domain.Tests.Framework
         {
             var result = _target.CalculatePrecentage(0, 1000);
 
-            Assert.That(result, Is.Zero);
+            Assert.That(result, Is.EqualTo(0));
         }
 
         [Test]
@@ -27,7 +27,7 @@ namespace Elicon.Domain.Tests.Framework
         {
             var result = _target.CalculatePrecentage(9, 1000);
 
-            Assert.That(result, Is.Zero);
+            Assert.That(result, Is.EqualTo(0));
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace Elicon.Domain.Tests.Framework
         {
             var result = _target.CalculatePrecentage(-10, 1000);
 
-            Assert.That(result, Is.Zero);
+            Assert.That(result, Is.EqualTo(0));
         }
 
         [Test]

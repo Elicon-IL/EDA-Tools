@@ -22,7 +22,7 @@ namespace Elicon.Domain.Tests.Domain
          
             _target.Publish(new DummyEvent());
 
-            Assert.That(result, Is.EqualTo(""));
+            Assert.That(result, Is.EqualTo(excpectedText));
         }
 
         [Test]
