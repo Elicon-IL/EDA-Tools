@@ -17,8 +17,8 @@ namespace Elicon.Console.UI
             var report = Bootstrapper.Get<ICountNativeModulesReport>();
             var orderedCells = report.CountNativeModules(source, "patgen_rtl").OrderBy(kvp => kvp.Key);
             
-            foreach (var kvp in orderedCells)
-                System.Console.WriteLine(($"Cell = {kvp.Key}, count = {kvp.Value}"));
+//            foreach (var kvp in orderedCells)
+//                System.Console.WriteLine(($"Cell = {kvp.Key}, count = {kvp.Value}"));
 
             //            var report = Bootstrapper.Get<IPhysicalModulePathReport>();
             //

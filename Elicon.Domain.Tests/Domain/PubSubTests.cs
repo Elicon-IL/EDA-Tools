@@ -1,6 +1,4 @@
-﻿using System.Net.Mime;
-using Elicon.Domain.Netlist.Statements.Criterias;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Elicon.Domain.Tests.Domain
 {
@@ -78,14 +76,13 @@ namespace Elicon.Domain.Tests.Domain
 
         public class DummyEvent : IEvent
         {
-            public string Text { get; } = "Dummy Event";
+            public string Text = "Dummy Event";
         }
 
         public class AnotherDummyEvent : IEvent
         {
-            public string Text { get; } = "Another Dummy Event";
+            public string Text = "Another Dummy Event";
         }
     }
-
-    
+    }
 }
