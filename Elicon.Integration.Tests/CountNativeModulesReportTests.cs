@@ -29,11 +29,10 @@ namespace Elicon.Integration.Tests
                 {"or4", 7}, {"oth", 23}, {"por", 1}, {"xn2", 9}, {"xo2", 605}
             };
 
-            Assert.That(result.ToList(), Is.EquivalentTo(expected.ToList()).IgnoreCase);
-//            foreach (var kvp in result)
-//                Assert.That(kvp.Value, Is.EqualTo(expected[kvp.Key]));
-//            foreach (var kvp in expected)
-//                Assert.That(expected.Value, Is.EqualTo(result[kvp.Key]));
+            foreach (var kvp in result)
+                Assert.That(kvp.Value, Is.EqualTo(expected[kvp.Key]));
+            foreach (var kvp in expected)
+                Assert.That(kvp.Value, Is.EqualTo(result[kvp.Key]));
         }
     }
  }
