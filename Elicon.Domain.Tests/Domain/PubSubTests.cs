@@ -1,6 +1,4 @@
-﻿using System.Net.Mime;
-using Elicon.Domain.Netlist.Statements.Criterias;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace Elicon.Domain.Tests.Domain
 {
