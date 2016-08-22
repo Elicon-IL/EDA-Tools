@@ -34,7 +34,7 @@ namespace Elicon.Domain.Netlist.Parse
             var stringPosition = 0;
             var maxLen = instanceConnections.Length;
 
-            // Start looping on the string chars.
+            // Start looping on the instance connection string chars.
             while (stringPosition < maxLen)
             {
                 switch (instanceConnections[stringPosition])
@@ -42,13 +42,13 @@ namespace Elicon.Domain.Netlist.Parse
                     case '\t':
                     case ' ':
                     case ',':
-                        // Just skip the WS.
+                        // Just skip.
                         stringPosition++;
                         break;
                     case '.':
                         {
                             stringPosition++;
-                            // Parse loop for the .port(wire) token.
+                            // Parse loop for extracting the port(wire) connection.
                             var inEscape = false;
                             var inBus = false;
                             var exitDo = false;
@@ -134,7 +134,6 @@ namespace Elicon.Domain.Netlist.Parse
             var stringPosition = 0;
             var maxLen = portAndWire.Length;
 
-            // Start looping on the string chars.
             while (stringPosition < maxLen)
             {
                 switch (portAndWire[stringPosition])
@@ -142,8 +141,7 @@ namespace Elicon.Domain.Netlist.Parse
                     case '\t':
                     case ' ':
                     case '.':
-
-                        // Just skip these chars.
+                        // Just skip.
                         stringPosition++;
                         break;
                     default:
@@ -157,13 +155,10 @@ namespace Elicon.Domain.Netlist.Parse
                                 {
                                     // Wire name starts after this bracket.
                                     stringPosition++;
-                                    escapePos = stringPosition;
-                                    // Wire name might start here, or after leading spaces.
+                                    // Skip leading spaces (if any).
                                     while (portAndWire[stringPosition] == ' ')
-                                    {
                                         stringPosition++;
-                                        escapePos = stringPosition;
-                                    }
+                                    escapePos = stringPosition;
                                     startPos = stringPosition;
                                 }
                                 else
