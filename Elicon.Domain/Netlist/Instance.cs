@@ -39,7 +39,7 @@ namespace Elicon.Domain.Netlist
         public string ModuleName { get; set; }
         public string InstanceName { get; set; }
         public InstanceType Type { get; set; }
-        public bool IsModule { get { return Type == InstanceType.Module; } }
+        public bool IsModule => Type == InstanceType.Module;
         public IList<PortWirePair> Net { get; set; }
     }
 }
