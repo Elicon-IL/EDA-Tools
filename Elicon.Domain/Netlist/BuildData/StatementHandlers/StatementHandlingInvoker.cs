@@ -19,8 +19,7 @@ namespace Elicon.Domain.Netlist.BuildData.StatementHandlers
 
         public void Handle(BuildState state)
         {
-            _statementHandlers.FirstOrDefault(h => h.CanHandle(state))?
-                   .Handle(state);
+            _statementHandlers.First(h => h.CanHandle(state)).Handle(state);
         }
     }
 }

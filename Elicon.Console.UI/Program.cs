@@ -9,14 +9,14 @@ namespace Elicon.Console.UI
     {
         static void Main(string[] args)
         {
-            Bootstrapper.Boot();
-
-            System.Console.WriteLine("Please enter netlist file path");
-            var source = System.Console.ReadLine();
-
-            var report = Bootstrapper.Get<ICountNativeModulesReport>();
-            var orderedCells = report.CountNativeModules(source, "patgen_rtl").OrderBy(kvp => kvp.Key);
-            
+//            Bootstrapper.Boot();
+//
+//            System.Console.WriteLine("Please enter netlist file path");
+//            var source = System.Console.ReadLine();
+//
+//            var report = Bootstrapper.Get<ICountNativeModulesReport>();
+//            var orderedCells = report.CountNativeModules(source, "patgen_rtl").OrderBy(kvp => kvp.Key);
+//            
 //            foreach (var kvp in orderedCells)
 //                System.Console.WriteLine(($"Cell = {kvp.Key}, count = {kvp.Value}"));
 

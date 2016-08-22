@@ -86,6 +86,4 @@ namespace Elicon.Domain.Tests.Domain
             public string Text { get; } = "Another Dummy Event";
         }
     }
-
-    
 }
