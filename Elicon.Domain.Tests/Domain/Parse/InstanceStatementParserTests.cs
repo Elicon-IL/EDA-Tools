@@ -122,13 +122,5 @@ namespace Elicon.Domain.Tests.Domain.Parse
             Assert.That(result[1].Port, Is.EqualTo(@"\port[2]"));
             Assert.That(result[1].Wire, Is.EqualTo("wire2"));
         }
-
-        //        var data = new List<string>
-        //                {
-        //                    @"cell1 inst1 (.p1(w1), .p2(w2));",
-        //                    @"cell2 inst2 ( . \p1(2) (\wire[8] ), .\port[2] ( wire2));",
-        //                    @"cell3 inst3 ( . p1 (\wire [8] ), .\port[2] ( wire[2]));",
-        //                    @"cell4 inst4 ( . p1 ({\wire[8], , w2} ), .\port[2] ( wire2));"
-        //                };
     }
 }
