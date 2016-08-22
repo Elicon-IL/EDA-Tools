@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Elicon.Domain.Netlist.Contracts.DataAccess;
 using Elicon.Framework;
 
@@ -15,7 +16,7 @@ namespace Elicon.DataAccess
 
         public IEnumerable<string> GeeMetaStatements(string netlist)
         {
-            return _netlistsMetaStatementsMap.ValueOrNew(netlist);
+            return _netlistsMetaStatementsMap.ValueOrNew(netlist).ToList();
         }
     }
 }

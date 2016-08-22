@@ -28,7 +28,7 @@ namespace Elicon.Domain.Netlist.Parse
             return connections.Select(ParsePortWirePair).ToList();
         }
 
-        private static IEnumerable<string> SplitConnections(string instanceConnections)
+        private IEnumerable<string> SplitConnections(string instanceConnections)
         {
             var connectionsList = new List<string>();
             var stringPosition = 0;
@@ -126,7 +126,7 @@ namespace Elicon.Domain.Netlist.Parse
             return connectionsList;
         }
 
-        private static PortWirePair ParsePortWirePair(string portAndWire)
+        private PortWirePair ParsePortWirePair(string portAndWire)
         {
             string portName = null;
             string wireName = null;
