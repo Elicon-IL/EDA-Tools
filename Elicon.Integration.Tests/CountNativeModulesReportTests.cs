@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Elicon.Domain.Netlist.Reports;
 using NUnit.Framework;
 

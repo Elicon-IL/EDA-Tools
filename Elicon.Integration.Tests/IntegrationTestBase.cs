@@ -3,9 +3,11 @@ using System.IO;
 using System.Reflection;
 using Elicon.Console.Config;
 using Elicon.Domain.Netlist.BuildData;
+using NUnit.Framework;
 
 namespace Elicon.Integration.Tests
 {
+    [TestFixture]
     public class IntegrationTestBase
     {
         public static string ExampleNetlistFilePath = TestDllPath() + "\\example_netlist.v";
