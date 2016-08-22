@@ -16,7 +16,7 @@ namespace Elicon.Integration.Tests
         }
 
         [Test]
-        public void CountNativeModules_NetlistWithNativeCells_ReturnsAllNativeModulesCount()
+        public void CountNativeModules_NetlistWithNativeModules_ReturnsAllNativeModulesCount()
         {
             var result = _target.CountNativeModules(ExampleNetlistFilePath, ExampleNetlistTopModule);
 
