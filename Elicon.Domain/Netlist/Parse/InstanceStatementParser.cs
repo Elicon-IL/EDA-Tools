@@ -275,20 +275,17 @@ namespace Elicon.Domain.Netlist.Parse
                         break;
                 }
             }
-            return new PortWirePair(portName, wireName);
+            return new PortWirePair(portName, wireName.Trim());
         }
 
         private string GetWiringPartFrom(string line)
         {
-            line = line.Trim();
-            // Remove cell name token.
-            line = line.Substring(line.IndexOf(" ", StringComparison.Ordinal)).Trim();
-            // Remove instance name token only if it is escaped (because then it might contains '(')
+            line = line.KeepFromFirst(" ");
             if (line.IsEscaped())
-                line = line.Substring(line.IndexOf(" ", StringComparison.Ordinal)).Trim();
-            // Return the contents of the wrapping round brackets.
-            line = line.Substring(line.IndexOf("(", StringComparison.Ordinal) + 1).Trim();
-            return line.Substring(0, line.LastIndexOf(")", StringComparison.Ordinal)).Trim();
+                line = line.KeepFromFirst(" ");
+
+            return line.KeepFromFirst("(")
+                .KeepUntilLast(")");        
         }
     }
 }

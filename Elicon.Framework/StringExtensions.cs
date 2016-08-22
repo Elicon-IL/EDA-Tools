@@ -29,6 +29,11 @@ namespace Elicon.Framework
             return str.Substring(0, str.IndexOf(delimiter, StringComparison.Ordinal)).Trim();
         }
 
+        public static string KeepUntilLast(this string str, string delimiter)
+        {
+            return str.Substring(0, str.LastIndexOf(delimiter, StringComparison.Ordinal)).Trim();
+        }
+
         public static string KeepFromFirst(this string str, string delimiter)
         {
             return str
@@ -39,6 +44,11 @@ namespace Elicon.Framework
         public static string KeepUntilFirst(this string str, char delimiter)
         {
             return str.KeepUntilFirst(delimiter.ToString());
+        }
+
+        public static string KeepUntilLast(this string str, char delimiter)
+        {
+            return str.KeepUntilLast(delimiter.ToString());
         }
 
         public static string KeepFromFirst(this string str, char delimiter)
