@@ -278,7 +278,7 @@ namespace Elicon.Domain.Netlist.Parse
             return new PortWirePair(portName, wireName);
         }
 
-        private static string GetWiringPartFrom(string line)
+        private string GetWiringPartFrom(string line)
         {
             line = line.Trim();
             // Remove cell name token.
