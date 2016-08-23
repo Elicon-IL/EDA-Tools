@@ -1,8 +1,0 @@
-language: csharp
-solution: Elicon.sln
-before_install:
-  - sudo apt-get install nunit-console
-before_script:
-  - nuget restore Elicon.sln
-after_script:
-  - nunit-console Elicon.Domain.Tests/bin/Release/Elicon.Domain.Tests.dll
