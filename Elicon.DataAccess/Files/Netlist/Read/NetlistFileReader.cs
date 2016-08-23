@@ -41,8 +41,7 @@ namespace Elicon.DataAccess.Files.Netlist.Read
                 if (_currentStatement.IsNullOrEmpty())
                     continue;
 
-                multiLineStatement.Append(' ');
-                multiLineStatement.Append(_currentStatement);
+                multiLineStatement.Append(' ').Append(_currentStatement);
                 if (!_currentStatement.EndsWith(";"))
                     continue;
 
