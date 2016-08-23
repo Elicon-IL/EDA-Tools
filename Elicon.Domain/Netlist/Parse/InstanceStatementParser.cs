@@ -156,7 +156,7 @@ namespace Elicon.Domain.Netlist.Parse
                                     // Wire name starts after this bracket.
                                     stringPosition++;
                                     // Skip leading spaces (if any).
-                                    while (portAndWire[stringPosition] == ' ')
+                                    while (stringPosition < maxLen && portAndWire[stringPosition] == ' ')
                                         stringPosition++;
                                     escapePos = stringPosition;
                                     startPos = stringPosition;

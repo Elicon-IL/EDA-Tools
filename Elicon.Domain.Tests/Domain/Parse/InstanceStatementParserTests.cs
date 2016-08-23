@@ -112,6 +112,7 @@ namespace Elicon.Domain.Tests.Domain.Parse
         [Test]
         public void GetNet_StatementWithTwoPortWireAndOpenedWireBusNotation_ReturnsTwoPortWire()
         {
+         
             var statement = @"cell4 inst4 ( . p1 ({\wire[8], , w2} ), .\port[2] ( wire2));";
 
             var result = _target.GetNet(statement);
@@ -121,6 +122,18 @@ namespace Elicon.Domain.Tests.Domain.Parse
             Assert.That(result[0].Wire, Is.EqualTo(@"{\wire[8], , w2}"));
             Assert.That(result[1].Port, Is.EqualTo(@"\port[2]"));
             Assert.That(result[1].Wire, Is.EqualTo("wire2"));
+        }
+
+        [Test]
+        public void GetNet_StatementWithOnePortWireAndEscapedOpenedWireBusNotation_ReturnsPortWire()
+        {
+            var statement = @"cell4 inst4 ( . p1 ({\wire[8], ,\w2} } ));";
+
+            var result = _target.GetNet(statement);
+
+            Assert.That(result.Count, Is.EqualTo(1));
+            Assert.That(result[0].Port, Is.EqualTo("p1"));
+            Assert.That(result[0].Wire, Is.EqualTo(@"{\wire[8], ,\w2} }"));
         }
     }
 }
