@@ -1,6 +1,6 @@
 using System.IO;
 using Elicon.Domain;
-using Elicon.Domain.Netlist.Read;
+using Elicon.Domain.GateLevel.Read;
 using Elicon.Framework;
 
 namespace Elicon.DataAccess.Files.Common.Read

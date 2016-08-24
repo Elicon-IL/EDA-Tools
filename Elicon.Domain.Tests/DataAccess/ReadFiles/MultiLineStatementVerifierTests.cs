@@ -1,4 +1,4 @@
-﻿using Elicon.DataAccess.Files.Netlist.Read;
+﻿using Elicon.DataAccess.Files.GateLevel.Read;
 using NUnit.Framework;
 
 namespace Elicon.Domain.Tests.DataAccess.ReadFiles

@@ -43,14 +43,16 @@
   <ItemGroup>
     <Compile Include="Files\Common\Write\StreamWriterAdapter.cs" />
     <Compile Include="Files\Common\Write\StreamReaderProvider.cs" />
-    <Compile Include="Files\Netlist\Write\NetlistFileWriter.cs" />
+    <Compile Include="Files\GateLevel\Write\NetlistFileWriter.cs" />
+    <Compile Include="Files\GateLevel\Write\StatementsBuilder.cs" />
+    <Compile Include="Files\GateLevel\Write\StatementsDirector.cs" />
     <Compile Include="InstanceRepository.cs" />
     <Compile Include="ModuleRepository.cs" />
     <Compile Include="NetlistRepository.cs" />
-    <Compile Include="Files\Netlist\Read\MultiLineStatementVerifier.cs" />
-    <Compile Include="Files\Netlist\Read\NetlistFileReader.cs" />
-    <Compile Include="Files\Netlist\Read\NetlistFileReaderProvider.cs" />
-    <Compile Include="Files\Netlist\Read\StatementTrimmer.cs" />
+    <Compile Include="Files\GateLevel\Read\MultiLineStatementVerifier.cs" />
+    <Compile Include="Files\GateLevel\Read\NetlistFileReader.cs" />
+    <Compile Include="Files\GateLevel\Read\NetlistFileReaderProvider.cs" />
+    <Compile Include="Files\GateLevel\Read\StatementTrimmer.cs" />
     <Compile Include="Files\Common\Read\StreamReaderAdapter.cs" />
     <Compile Include="IdGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Elicon.Domain.Netlist.Reports;
+using Elicon.Domain.GateLevel.Reports;
 using NUnit.Framework;
 
 namespace Elicon.Integration.Tests

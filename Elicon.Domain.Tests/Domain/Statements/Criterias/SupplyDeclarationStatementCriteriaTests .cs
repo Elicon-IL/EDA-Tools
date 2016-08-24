@@ -1,4 +1,4 @@
-﻿using Elicon.Domain.Netlist.Statements.Criterias;
+﻿using Elicon.Domain.GateLevel.Statements.Criterias;
 using NUnit.Framework;
 
 namespace Elicon.Domain.Tests.Domain.Statements.Criterias

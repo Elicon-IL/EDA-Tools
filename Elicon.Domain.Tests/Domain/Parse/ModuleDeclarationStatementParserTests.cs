@@ -1,4 +1,4 @@
-﻿using Elicon.Domain.Netlist.Parse;
+﻿using Elicon.Domain.GateLevel.Parse;
 using NUnit.Framework;
 
 namespace Elicon.Domain.Tests.Domain.Parse

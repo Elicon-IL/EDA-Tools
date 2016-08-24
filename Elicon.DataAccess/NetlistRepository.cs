@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Elicon.Domain.Netlist;
-using Elicon.Domain.Netlist.Contracts.DataAccess;
+using Elicon.Domain.GateLevel;
+using Elicon.Domain.GateLevel.Contracts.DataAccess;
 
 namespace Elicon.DataAccess
 {
