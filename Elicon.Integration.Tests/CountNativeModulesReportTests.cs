@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Elicon.DataAccess.Files.GateLevel.Write;
 using Elicon.Domain.GateLevel.Reports;
 using NUnit.Framework;
 
@@ -27,6 +28,7 @@ namespace Elicon.Integration.Tests
                 {"no3", 42}, {"no4", 8}, {"oai21", 27}, {"oai211", 1}, {"oai22", 1}, {"or2", 779}, {"or3", 4},
                 {"or4", 7}, {"oth", 23}, {"por", 1}, {"xn2", 9}, {"xo2", 605}
             };
+
             Assert.That(result, Is.EquivalentTo(expected));
         }
     }

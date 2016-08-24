@@ -1,5 +1,6 @@
 using System.Text;
 using Elicon.Domain.GateLevel;
+using Elicon.Framework;
 
 namespace Elicon.DataAccess.Files.GateLevel.Write
 {
@@ -12,9 +13,13 @@ namespace Elicon.DataAccess.Files.GateLevel.Write
             var net = new StringBuilder("( ");
             foreach (var portWirePair in instance.Net)
                 net.Append("." + portWirePair.Port + "( " + portWirePair.Wire + " ), ");
-            net.Append(" );");
 
-            _result.AppendLine(instance.ModuleName + " " + instance.InstanceName + " " + net);
+            _result.AppendLine(instance.ModuleName + " " + instance.InstanceName + " " + RemoveLastComma(net) + " );");
+        }
+
+        private string RemoveLastComma(StringBuilder net)
+        {
+            return net.ToString().KeepUntilLast(", ");
         }
 
         public void BuildEndModule()
