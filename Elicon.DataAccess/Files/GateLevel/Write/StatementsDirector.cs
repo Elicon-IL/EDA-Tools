@@ -2,25 +2,25 @@ using Elicon.Domain.GateLevel.Contracts.DataAccess;
 
 namespace Elicon.DataAccess.Files.GateLevel.Write
 {
-    public interface IStatementsDirector
+    public interface IStatementDirector
     {
-        void Construct(string source, StatementsBuilder builder);
+        void Construct(string source, IStatementBuilder builder);
     }
 
-    public class StatementsDirector : IStatementsDirector
+    public class StatementDirector : IStatementDirector
     {
         private readonly INetlistRepository _netlistRepository;
         private readonly IModuleRepository _moduleRepository;
         private readonly IInstanceRepository _instanceRepository;
 
-        public StatementsDirector(INetlistRepository netlistRepository, IModuleRepository moduleRepository, IInstanceRepository instanceRepository)
+        public StatementDirector(INetlistRepository netlistRepository, IModuleRepository moduleRepository, IInstanceRepository instanceRepository)
         {
             _netlistRepository = netlistRepository;
             _moduleRepository = moduleRepository;
             _instanceRepository = instanceRepository;
         }
 
-        public void Construct(string source, StatementsBuilder builder)
+        public void Construct(string source, IStatementBuilder builder)
         {
             var netlist = _netlistRepository.Get(source);
             var modules = _moduleRepository.GetAll(source);

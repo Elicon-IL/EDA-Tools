@@ -5,11 +5,11 @@ namespace Elicon.DataAccess.Files.GateLevel.Write
     public class NetlistFileWriter : INetlistFileWriter
     {
         private readonly IStreamWriterProvider _streamWriterProvider;
-        private readonly IStatementsDirector _statementsDirector;
+        private readonly IStatementDirector _statementDirector;
 
-        public NetlistFileWriter(IStatementsDirector statementsDirector, IStreamWriterProvider streamWriterProvider)
+        public NetlistFileWriter(IStatementDirector statementDirector, IStreamWriterProvider streamWriterProvider)
         {
-            _statementsDirector = statementsDirector;
+            _statementDirector = statementDirector;
             _streamWriterProvider = streamWriterProvider;
         }
 
@@ -18,7 +18,7 @@ namespace Elicon.DataAccess.Files.GateLevel.Write
             var writer = _streamWriterProvider.Get(source);
             var statementsBuilder = new StatementsBuilder();
 
-            _statementsDirector.Construct(source, statementsBuilder);
+            _statementDirector.Construct(source, statementsBuilder);
             writer.WriteLine(statementsBuilder.GetResult());
             writer.Close();
         }
