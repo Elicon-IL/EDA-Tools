@@ -33,5 +33,16 @@ namespace Elicon.Domain.Tests.Domain.Parse
 
             Assert.That(result, Is.EqualTo("\\x_lut4_0x5500(08"));
         }
+
+
+        [Test]
+        public void GetPorts_ModuleDeclarationStatement_ReturnsPorts()
+        {
+            var statement = "no2 \\x_lut4_0x5500(08  ( .b(n36), .a(i0), .zn(o) );";
+
+            var result = _target.GetPorts(statement);
+
+            Assert.That(result, Is.EqualTo("( .b(n36), .a(i0), .zn(o) );"));
+        }
     }
 }
