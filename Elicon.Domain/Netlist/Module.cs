@@ -12,6 +12,7 @@ namespace Elicon.Domain.Netlist
             Netlist = module.Netlist;
             PortDeclarations = module.PortDeclarations.ToList();
             SupplyDeclarations = module.SupplyDeclarations.ToList();
+            AssignDeclarations = module.AssignDeclarations.ToList();
         }
 
         public Module(string netlist, string name)
@@ -20,6 +21,7 @@ namespace Elicon.Domain.Netlist
             Netlist = netlist;
             PortDeclarations = new List<string>();
             SupplyDeclarations = new List<string>();
+            AssignDeclarations = new List<string>();
         }
 
         public long Id { get; set; }
@@ -27,6 +29,7 @@ namespace Elicon.Domain.Netlist
         public string Netlist { get; set; }
         public IList<string> PortDeclarations { get; set; }
         public IList<string> SupplyDeclarations { get; set; }
+        public IList<string> AssignDeclarations { get; set; }
     }
 }
 
