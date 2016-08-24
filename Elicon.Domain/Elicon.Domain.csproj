@@ -55,10 +55,10 @@
     <Compile Include="Netlist\BuildData\StatementHandlers\PortDeclarationStatementHandler.cs" />
     <Compile Include="Netlist\BuildData\StatementHandlers\SupplyDeclarationStatementHandler.cs" />
     <Compile Include="Netlist\Contracts\DataAccess\IInstanceRepository.cs" />
-    <Compile Include="Netlist\Contracts\DataAccess\IMetaStatementRepository.cs" />
     <Compile Include="Netlist\Contracts\DataAccess\IModuleRepository.cs" />
     <Compile Include="Netlist\Contracts\DataAccess\INetlistFileReaderProvider.cs" />
     <Compile Include="Netlist\Contracts\DataAccess\INetlistRepository.cs" />
+    <Compile Include="Netlist\Netlist.cs" />
     <Compile Include="Netlist\PortWirePair.cs" />
     <Compile Include="Netlist\QueryData\CountNativeModules\CountNativeModulesQuery.cs" />
     <Compile Include="Netlist\QueryData\NativeModulesPortsList\NativeModulesPortsListAggregator.cs" />

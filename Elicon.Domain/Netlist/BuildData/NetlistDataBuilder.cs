@@ -30,10 +30,10 @@ namespace Elicon.Domain.Netlist.BuildData
             if (_netlistRepository.Exists(source))
                 return;
 
-            _netlistRepository.Add(source);
+            _netlistRepository.Add(new Netlist(source));
 
             var netlistFileReader = _netlistFileReaderProvider.GetReaderFor(source);
-            var buildState = new BuildState { Netlist = source };
+            var buildState = new BuildState { NetlistSource = source };
 
             while ((buildState.CurrentStatement = netlistFileReader.ReadStatement()) != null)
                 _statementHandlersInvoker.Handle(buildState);

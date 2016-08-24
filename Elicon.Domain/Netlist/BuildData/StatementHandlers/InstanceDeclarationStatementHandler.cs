@@ -16,7 +16,7 @@ namespace Elicon.Domain.Netlist.BuildData.StatementHandlers
         public void Handle(BuildState state)
         {
             var instance = new Instance(
-                state.Netlist,
+                state.NetlistSource,
                 state.CurrentModuleName,
                 _parser.GetModuleName(state.CurrentStatement),
                 _parser.GeInstanceName(state.CurrentStatement)

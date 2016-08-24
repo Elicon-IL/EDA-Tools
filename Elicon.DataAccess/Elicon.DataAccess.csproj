@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InstanceRepository.cs" />
-    <Compile Include="MetaStatementRepository.cs" />
     <Compile Include="ModuleRepository.cs" />
     <Compile Include="NetlistRepository.cs" />
     <Compile Include="Files\Netlist\Read\MultiLineStatementVerifier.cs" />

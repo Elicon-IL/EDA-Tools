@@ -1,20 +1,39 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Elicon.Domain.Netlist;
 using Elicon.Domain.Netlist.Contracts.DataAccess;
 
 namespace Elicon.DataAccess
 {
     public class NetlistRepository : INetlistRepository
     {
-        private readonly HashSet<string> _netlists = new HashSet<string>();
-        
-        public void Add(string netlist)
+        private readonly Dictionary<long, Netlist> _netlists = new Dictionary<long, Netlist>();
+        private readonly IIdGenerator _idGenerator;
+
+        public NetlistRepository(IIdGenerator idGenerator)
         {
-            _netlists.Add(netlist);
+            _idGenerator = idGenerator;
         }
 
-        public bool Exists(string netlist)
+        public void Add(Netlist netlist)
         {
-            return _netlists.Contains(netlist);
+            netlist.Id = _idGenerator.GenerateId();
+            _netlists.Add(netlist.Id, netlist);
+        }
+
+        public Netlist Get(string source)
+        {
+            return _netlists.Values.Single(netlist => netlist.Source == source);
+        }
+
+        public void Update(Netlist netlist)
+        {
+            _netlists[netlist.Id] = netlist;
+        }
+
+        public bool Exists(string source)
+        {
+            return _netlists.Values.Any(netlist => netlist.Source == source);
         }
     }
 }

@@ -15,10 +15,11 @@ namespace Elicon.Domain.Netlist.BuildData.StatementHandlers
 
         public void Handle(BuildState state)
         {
-            var module = _moduleRepository.Get(state.Netlist, state.CurrentModuleName);
+            var module = _moduleRepository.Get(state.NetlistSource, state.CurrentModuleName);
             module.AssignDeclarations.Add(state.CurrentStatement);
             _moduleRepository.Update(module);
         }
+
         public bool CanHandle(BuildState state)
         {
             return _criteria.IsSatisfied(state.CurrentStatement);
