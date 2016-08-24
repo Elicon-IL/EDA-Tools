@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Files\Common\Write\StreamWriterAdapter.cs" />
+    <Compile Include="Files\Common\Write\StreamReaderProvider.cs" />
+    <Compile Include="Files\Netlist\Write\NetlistFileWriter.cs" />
     <Compile Include="InstanceRepository.cs" />
     <Compile Include="ModuleRepository.cs" />
     <Compile Include="NetlistRepository.cs" />

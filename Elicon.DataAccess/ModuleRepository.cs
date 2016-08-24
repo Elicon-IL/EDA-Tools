@@ -40,5 +40,10 @@ namespace Elicon.DataAccess
 
             return new Module(result);
         }
+
+        public IEnumerable<Module> GetAll(string netlist)
+        {
+            return _modules.Values.Where(m => m.Netlist == netlist);
+        }
     }
 }
