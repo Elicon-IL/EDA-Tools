@@ -54,7 +54,6 @@
     <Compile Include="Netlist\BuildData\StatementHandlers\ModuleDeclarationStatementHandler.cs" />
     <Compile Include="Netlist\BuildData\StatementHandlers\PortDeclarationStatementHandler.cs" />
     <Compile Include="Netlist\BuildData\StatementHandlers\SupplyDeclarationStatementHandler.cs" />
-    <Compile Include="Netlist\BuildData\StatementHandlers\WireDeclarationStatementHandler.cs" />
     <Compile Include="Netlist\Contracts\DataAccess\IInstanceRepository.cs" />
     <Compile Include="Netlist\Contracts\DataAccess\IMetaStatementRepository.cs" />
     <Compile Include="Netlist\Contracts\DataAccess\IModuleRepository.cs" />
@@ -75,7 +74,6 @@
     <Compile Include="Netlist\Reports\NativeModulesPortsListReport.cs" />
     <Compile Include="Netlist\Reports\PhysicalModulePathReport.cs" />
     <Compile Include="Netlist\Statements\Criterias\MetaStatementCriteria.cs" />
-    <Compile Include="Netlist\Statements\Criterias\WireDeclarationStatementCriteria .cs" />
     <Compile Include="Netlist\Statements\Criterias\AssignDeclarationStatementCriteria .cs" />
     <Compile Include="Netlist\Statements\Criterias\EmptyStatementCriteria.cs" />
     <Compile Include="Netlist\Statements\Criterias\EndModuleStatementCriteria.cs" />
