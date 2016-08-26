@@ -19,7 +19,7 @@ namespace Elicon.DataAccess
         public void Add(Instance instance) 
         {
             instance.Id = _idGenerator.GenerateId();
-            _instances.Add(instance.Id, instance);
+            _instances.Add(instance.Id, new Instance(instance));
         }
 
         public void Update(Instance instance)
@@ -27,13 +27,22 @@ namespace Elicon.DataAccess
             _instances[instance.Id] = new Instance(instance);
         }
 
-        public IEnumerable<Instance> GetBy(string netlist, string moduleName)
+        public IEnumerable<Instance> GetByHostModule(string netlist, string hostModuleName)
         {
             return _instances.Values
                 .Where(i => i.Netlist == netlist)
-                .Where(i => i.HostModuleName == moduleName)
+                .Where(i => i.HostModuleName == hostModuleName)
                 .Select(i => new Instance(i))
                 .ToArray();
+        }
+
+        public IEnumerable<Instance> GetByModuleName(string netlist, string moduleName)
+        {
+            return _instances.Values
+                 .Where(i => i.Netlist == netlist)
+                 .Where(i => i.ModuleName == moduleName)
+                 .Select(i => new Instance(i))
+                 .ToArray();
         }
 
         public IEnumerable<Instance> GetBy(string netlist)

@@ -35,7 +35,7 @@ namespace Elicon.DataAccess.Files.GateLevel.Write
                 builder.BuildSupplyDeclarations(module);
                 builder.BuildAssignDeclarations(module);
 
-                foreach (var instance in _instanceRepository.GetBy(source, module.Name))
+                foreach (var instance in _instanceRepository.GetByHostModule(source, module.Name))
                     builder.BuildInstanceDeclaration(instance);
 
                 builder.BuildEndModule();

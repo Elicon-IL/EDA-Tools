@@ -6,7 +6,8 @@ namespace Elicon.Domain.GateLevel.Contracts.DataAccess
     {
         void Add(Instance instance);
         void Update(Instance instance);
-        IEnumerable<Instance> GetBy(string netlist, string moduleName);
+        IEnumerable<Instance> GetByHostModule(string netlist, string hostModuleName);
+        IEnumerable<Instance> GetByModuleName(string netlist, string moduleName);
         IEnumerable<Instance> GetBy(string netlist);
     }
 }

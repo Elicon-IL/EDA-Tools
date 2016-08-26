@@ -21,7 +21,7 @@ namespace Elicon.Domain.GateLevel.QueryData.Traversal
         {
             pathTracker.UpdateIn(instance);
 
-            var instances = _instanceRepository.GetBy(instance.Netlist, instance.ModuleName);
+            var instances = _instanceRepository.GetByHostModule(instance.Netlist, instance.ModuleName);
             foreach (var curretnInstance in instances)
             {
                 yield return new TraversalState {
