@@ -16,15 +16,15 @@ namespace Elicon.DataAccess
             _idGenerator = idGenerator;
         }
 
-        public void AddInstance(Instance instance) 
+        public void Add(Instance instance) 
         {
             instance.Id = _idGenerator.GenerateId();
             _instances.Add(instance.Id, instance);
         }
 
-        public void UpdateInstance(Instance instance)
+        public void Update(Instance instance)
         {
-            _instances[instance.Id] = instance;
+            _instances[instance.Id] = new Instance(instance);
         }
 
         public IEnumerable<Instance> GetBy(string netlist, string moduleName)

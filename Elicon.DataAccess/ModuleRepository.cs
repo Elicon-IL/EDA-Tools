@@ -24,7 +24,7 @@ namespace Elicon.DataAccess
 
         public void Update(Module module)
         {
-            _modules[module.Id] = module;
+            _modules[module.Id] = new Module(module);
         }
 
         public bool Exists(string netlist, string moduleName)

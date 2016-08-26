@@ -28,7 +28,7 @@ namespace Elicon.DataAccess
 
         public void Update(Netlist netlist)
         {
-            _netlists[netlist.Id] = netlist;
+            _netlists[netlist.Id] = new Netlist(netlist);
         }
 
         public bool Exists(string source)
