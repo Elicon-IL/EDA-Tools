@@ -24,7 +24,7 @@ namespace Elicon.Domain.GateLevel.BuildData.StatementHandlers
                 Net = _parser.GetNet(state.CurrentStatement)
             };
 
-            _instanceRepository.AddInstance(instance);
+            _instanceRepository.Add(instance);
         }
 
         public bool CanHandle(BuildState state)

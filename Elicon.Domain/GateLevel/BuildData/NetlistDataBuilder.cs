@@ -49,7 +49,7 @@ namespace Elicon.Domain.GateLevel.BuildData
                     continue;
 
                 instance.Type = InstanceType.Module;
-                _instanceRepository.UpdateInstance(instance);
+                _instanceRepository.Update(instance);
             }
         }
     }
