@@ -22,7 +22,7 @@ namespace Elicon.Domain.GateLevel.BuildData.StatementHandlers
                 Ports = _parser.GetPorts(state.CurrentStatement)
             };
 
-            _moduleRepository.AddModule(module);
+            _moduleRepository.Add(module);
         }
 
         public bool CanHandle(BuildState state)

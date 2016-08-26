@@ -16,10 +16,10 @@ namespace Elicon.DataAccess
             _idGenerator = idGenerator;
         }
 
-        public void AddModule(Module module)
+        public void Add(Module module)
         {
             module.Id = _idGenerator.GenerateId();
-            _modules.Add(module.Id, module);
+            _modules.Add(module.Id, new Module(module));
         }
 
         public void Update(Module module)
