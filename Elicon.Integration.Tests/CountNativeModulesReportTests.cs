@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Elicon.DataAccess.Files.GateLevel.Write;
 using Elicon.Domain.GateLevel.Reports;
 using NUnit.Framework;
 
