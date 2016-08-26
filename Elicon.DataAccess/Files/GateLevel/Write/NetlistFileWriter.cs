@@ -1,4 +1,5 @@
 ﻿using Elicon.DataAccess.Files.Common.Write;
+using Elicon.Domain.GateLevel.Contracts.DataAccess;
 
 namespace Elicon.DataAccess.Files.GateLevel.Write
 {
@@ -22,10 +23,5 @@ namespace Elicon.DataAccess.Files.GateLevel.Write
             writer.WriteLine(statementsBuilder.GetResult());
             writer.Close();
         }
-    }
-
-    public interface INetlistFileWriter
-    {
-        void Write(string source);
     }
 }
