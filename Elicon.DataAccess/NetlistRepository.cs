@@ -18,12 +18,14 @@ namespace Elicon.DataAccess
         public void Add(Netlist netlist)
         {
             netlist.Id = _idGenerator.GenerateId();
-            _netlists.Add(netlist.Id, netlist);
+            _netlists.Add(netlist.Id, new Netlist(netlist));
         }
 
         public Netlist Get(string source)
         {
-            return _netlists.Values.Single(netlist => netlist.Source == source);
+            var result = _netlists.Values.Single(netlist => netlist.Source == source);
+
+            return new Netlist(result);
         }
 
         public void Update(Netlist netlist)
