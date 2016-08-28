@@ -27,7 +27,7 @@ namespace Elicon.Domain.Tests.Domain.Parse
         [Test]
         public void GetModuleName_ModuleDeclarationWithEscapedName_ReturnsModuleeName()
         {
-            var statement = "no2 \\x_lut4_0x5500(08  ( .b(n36), .a(i0), .zn(o) );";
+            var statement = "module \\x_lut4_0x5500(08  ( .b(n36), .a(i0), .zn(o) );";
 
             var result = _target.GetModuleName(statement);
 
@@ -36,13 +36,29 @@ namespace Elicon.Domain.Tests.Domain.Parse
 
 
         [Test]
-        public void GetPorts_ModuleDeclarationStatement_ReturnsPorts()
+        public void GetPorts_NoneEscapedPorts_ReturnsPorts()
         {
-            var statement = "no2 \\x_lut4_0x5500(08  ( .b(n36), .a(i0), .zn(o) );";
+            var statement = "module \\x_lut4_0x5500(08  ( b, a, zn ) ;";
 
             var result = _target.GetPorts(statement);
 
-            Assert.That(result, Is.EqualTo("( .b(n36), .a(i0), .zn(o) );"));
+            Assert.That(result, Has.Count.EqualTo(3));
+            Assert.That(result[0].PortName, Is.EqualTo("b"));
+            Assert.That(result[1].PortName, Is.EqualTo("a"));
+            Assert.That(result[2].PortName, Is.EqualTo("zn"));
+       }
+
+        [Test]
+        public void GetPorts_EscapedPorts_ReturnsPorts()
+        {
+            var statement = "module \\x_lut4_0x5500(08  ( \\(b, , a, \\zn) ) ;";
+
+            var result = _target.GetPorts(statement);
+
+            Assert.That(result, Has.Count.EqualTo(3));
+            Assert.That(result[0].PortName, Is.EqualTo("\\(b,"));
+            Assert.That(result[1].PortName, Is.EqualTo("a"));
+            Assert.That(result[2].PortName, Is.EqualTo("\\zn)"));
         }
     }
 }

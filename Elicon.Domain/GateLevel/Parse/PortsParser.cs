@@ -64,7 +64,7 @@ namespace Elicon.Domain.GateLevel.Parse
                                 }
                             }
                             // Add the token we found to the list.
-                            portsList.Add(ports.Substring(startPos, stringPosition - startPos));
+                            portsList.Add(ports.Substring(startPos, stringPosition - startPos).Trim());
                             stringPosition++;
                         }
                         break;

@@ -72,7 +72,6 @@ namespace Elicon.Integration.Tests
             var expectedCount = _instanceRepository.GetByModuleName(DummyNetlist, moduleToReplace).ToList().Count;
             const string newModule = "or3new";
          
-
             _target.Replace(DummyNetlist, moduleToReplace, newModule, new Dictionary<string, string>());
 
             var result = _instanceRepository.GetByModuleName(DummyNetlist, moduleToReplace).ToList();

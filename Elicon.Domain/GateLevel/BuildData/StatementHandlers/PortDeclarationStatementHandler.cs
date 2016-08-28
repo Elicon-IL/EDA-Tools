@@ -32,10 +32,8 @@ namespace Elicon.Domain.GateLevel.BuildData.StatementHandlers
         private void SetModulePortsType(Module module, IList<Port> ports, PortType portType)
         {
             foreach (var port in module.Ports)
-            {
                 if (ports.Any(p => p.PortName == port.PortName))
                     port.PortType = portType;
-            }
         }
 
         public bool CanHandle(BuildState state)
