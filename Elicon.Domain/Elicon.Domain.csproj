@@ -65,6 +65,9 @@
     <Compile Include="GateLevel\Manipulations\NativeModuleReplaceManipulation.cs" />
     <Compile Include="GateLevel\Manipulations\NativeModuleReplacer.cs" />
     <Compile Include="GateLevel\Netlist.cs" />
+    <Compile Include="GateLevel\Parse\PortsDeclarationStatementParser.cs" />
+    <Compile Include="GateLevel\Parse\PortsParser.cs" />
+    <Compile Include="GateLevel\Port.cs" />
     <Compile Include="GateLevel\PortWirePair.cs" />
     <Compile Include="GateLevel\QueryData\CountNativeModules\CountNativeModulesQuery.cs" />
     <Compile Include="GateLevel\QueryData\NativeModulesPortsList\NativeModulesPortsListAggregator.cs" />

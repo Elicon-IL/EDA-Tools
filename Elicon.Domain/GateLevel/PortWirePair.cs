@@ -8,7 +8,7 @@
             Wire = wire;
         }
 
-        public string Port { get; set; }
+        public string Port { get; set; } // ToDo This should be Port Object In Future versions
         public string Wire { get; set; }
     }
 }

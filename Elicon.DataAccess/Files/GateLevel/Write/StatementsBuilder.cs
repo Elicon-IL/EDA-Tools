@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Elicon.Domain.GateLevel;
 using Elicon.Framework;
@@ -7,19 +9,15 @@ namespace Elicon.DataAccess.Files.GateLevel.Write
     public class StatementsBuilder : IStatementBuilder
     {
         private readonly StringBuilder _result = new StringBuilder();
+        private const string ItemsSeparator = ", ";
 
         public void BuildInstanceDeclaration(Instance instance)
         {
-            var net = new StringBuilder("( ");
+            var net = new StringBuilder();
             foreach (var portWirePair in instance.Net)
-                net.Append("." + portWirePair.Port + "( " + portWirePair.Wire + " ), ");
+                net.Append("." + portWirePair.Port + "( " + portWirePair.Wire + " )" + ItemsSeparator);
 
-            _result.AppendLine(instance.ModuleName + " " + instance.InstanceName + " " + RemoveLastComma(net) + " );");
-        }
-
-        private string RemoveLastComma(StringBuilder net)
-        {
-            return net.ToString().KeepUntilLast(", ");
+            _result.AppendLine(instance.ModuleName + " " + instance.InstanceName + " " + "( " + RemoveLastItemsSeparator(net) + " );");
         }
 
         public void BuildEndModule()
@@ -29,8 +27,9 @@ namespace Elicon.DataAccess.Files.GateLevel.Write
 
         public void BuildPortDeclarations(Module module)
         {
-            foreach (var portDeclaration in module.PortDeclarations)
-                _result.AppendLine(portDeclaration);
+            BuildSpecificPortTypeDeclaration(module.Ports, PortType.Input, "input");
+            BuildSpecificPortTypeDeclaration(module.Ports, PortType.Output, "output");
+            BuildSpecificPortTypeDeclaration(module.Ports, PortType.Inout, "inout");
         }
 
         public void BuildAssignDeclarations(Module module)
@@ -47,7 +46,11 @@ namespace Elicon.DataAccess.Files.GateLevel.Write
 
         public void BuildModuleDeclaration(Module module)
         {
-            _result.AppendLine("module " + module.Name + " " + module.Ports);
+            var ports = new StringBuilder();
+            foreach (var port in module.Ports)
+                ports.Append(port.PortName + ItemsSeparator);
+
+            _result.AppendLine("module " + module.Name + " " + "( " + RemoveLastItemsSeparator(ports) + " );");
         }
 
         public void BuildMetaStatements(Netlist netlist)
@@ -64,6 +67,22 @@ namespace Elicon.DataAccess.Files.GateLevel.Write
         public string GetResult()
         {
             return _result.ToString();
+        }
+
+        private string RemoveLastItemsSeparator(StringBuilder sb)
+        {
+            return sb.ToString().KeepUntilLast(ItemsSeparator);
+        }
+
+        private void BuildSpecificPortTypeDeclaration(IList<Port> modulePorts, PortType portType, string title)
+        {
+            var ports = new StringBuilder();
+
+            foreach (var port in modulePorts.Where(p => p.PortType == portType))
+                ports.Append(port + ItemsSeparator);
+
+            if (ports.Length > 0)
+                _result.AppendLine(title + " " + RemoveLastItemsSeparator(ports) + ";");
         }
     }
 
