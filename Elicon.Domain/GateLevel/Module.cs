@@ -10,7 +10,7 @@ namespace Elicon.Domain.GateLevel
             Id = module.Id;
             Name = module.Name;
             Netlist = module.Netlist;
-            Ports = module.Ports;
+            Ports = module.Ports.Select(p => new Port(p)).ToList();
             SupplyDeclarations = module.SupplyDeclarations.ToList();
             AssignDeclarations = module.AssignDeclarations.ToList();
         }
