@@ -1,12 +1,7 @@
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
 
-namespace Elicon.Domain.GateLevel.Manipulations
+namespace Elicon.DataAccess
 {
-    public interface INetlistCloner
-    {
-        void Clone(string source, string newSource);
-    }
-
     public class NetlistCloner : INetlistCloner
     {
         private readonly INetlistRepository _netlistRepository;

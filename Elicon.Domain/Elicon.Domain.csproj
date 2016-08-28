@@ -56,10 +56,10 @@
     <Compile Include="GateLevel\BuildData\StatementHandlers\SupplyDeclarationStatementHandler.cs" />
     <Compile Include="GateLevel\Contracts\DataAccess\IInstanceRepository.cs" />
     <Compile Include="GateLevel\Contracts\DataAccess\IModuleRepository.cs" />
+    <Compile Include="GateLevel\Contracts\DataAccess\INetlistCloner.cs" />
     <Compile Include="GateLevel\Contracts\DataAccess\INetlistFileReaderProvider.cs" />
     <Compile Include="GateLevel\Contracts\DataAccess\INetlistFileWriter.cs" />
     <Compile Include="GateLevel\Contracts\DataAccess\INetlistRepository.cs" />
-    <Compile Include="GateLevel\Manipulations\NetlistCloner.cs" />
     <Compile Include="GateLevel\Manipulations\ModuleReplaceRequest.cs" />
     <Compile Include="GateLevel\Manipulations\NativeModuleReplaceManipulation.cs" />
     <Compile Include="GateLevel\Manipulations\NativeModuleReplacer.cs" />

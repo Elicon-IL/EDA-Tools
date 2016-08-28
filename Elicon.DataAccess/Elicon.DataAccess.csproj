@@ -42,12 +42,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Files\Common\Write\StreamWriterAdapter.cs" />
-    <Compile Include="Files\Common\Write\StreamReaderProvider.cs" />
+    <Compile Include="Files\Common\Write\StreamWriterProvider.cs" />
     <Compile Include="Files\GateLevel\Write\NetlistFileWriter.cs" />
     <Compile Include="Files\GateLevel\Write\StatementsBuilder.cs" />
     <Compile Include="Files\GateLevel\Write\StatementsDirector.cs" />
     <Compile Include="InstanceRepository.cs" />
     <Compile Include="ModuleRepository.cs" />
+    <Compile Include="NetlistCloner.cs" />
     <Compile Include="NetlistRepository.cs" />
     <Compile Include="Files\GateLevel\Read\MultiLineStatementVerifier.cs" />
     <Compile Include="Files\GateLevel\Read\NetlistFileReader.cs" />
