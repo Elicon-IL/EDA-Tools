@@ -2,6 +2,12 @@
 {
     public class Port
     {
+        public Port(Port p)
+        {
+            PortName = p.PortName;
+            PortType = p.PortType;
+        }
+
         public Port(string portName, PortType portType = PortType.Inout)
         {
             PortName = portName;
