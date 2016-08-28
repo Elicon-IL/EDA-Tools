@@ -29,16 +29,13 @@ namespace Elicon.Domain.GateLevel.BuildData.StatementHandlers
             _moduleRepository.Update(module);
         }
 
-        private static void SetModulePortsType(Module module, IList<Port> ports, PortType portType)
+        private void SetModulePortsType(Module module, IList<Port> ports, PortType portType)
         {
-            module.Ports = module.Ports.Join(ports,
-                p => p.PortName,
-                p => p.PortName,
-                (p1, p2) => {
-                    p1.PortType = portType;
-                    return p1;
-                })
-                .ToList();
+            foreach (var port in module.Ports)
+            {
+                if (ports.Any(p => p.PortName == port.PortName))
+                    port.PortType = portType;
+            }
         }
 
         public bool CanHandle(BuildState state)

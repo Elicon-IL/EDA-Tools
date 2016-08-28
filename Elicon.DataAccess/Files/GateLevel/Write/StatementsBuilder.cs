@@ -79,7 +79,7 @@ namespace Elicon.DataAccess.Files.GateLevel.Write
             var ports = new StringBuilder();
 
             foreach (var port in modulePorts.Where(p => p.PortType == portType))
-                ports.Append(port + ItemsSeparator);
+                ports.Append(port.PortName + ItemsSeparator);
 
             if (ports.Length > 0)
                 _result.AppendLine(title + " " + RemoveLastItemsSeparator(ports) + ";");
