@@ -13,11 +13,13 @@ namespace Elicon.Domain.GateLevel.Manipulations
     {
         private readonly IInstanceRepository _instanceRepository;
         private readonly IModuleRepository _moduleRepository;
+        private readonly IInstancePortsReplacer _instancePortsReplacer;
 
-        public NativeModuleReplacer(IInstanceRepository instanceRepository, IModuleRepository moduleRepository)
+        public NativeModuleReplacer(IInstanceRepository instanceRepository, IModuleRepository moduleRepository, IInstancePortsReplacer instancePortsReplacer)
         {
             _instanceRepository = instanceRepository;
             _moduleRepository = moduleRepository;
+            _instancePortsReplacer = instancePortsReplacer;
         }
 
         public void Replace(string netlist, string moduleToReplace, string newModule, IDictionary<string, string> portsMap)
@@ -28,9 +30,7 @@ namespace Elicon.Domain.GateLevel.Manipulations
             foreach (var instance in _instanceRepository.GetByModuleName(netlist, moduleToReplace))
             {
                 instance.ModuleName = newModule;
-                foreach (var pwp in instance.Net)
-                    if (portsMap.ContainsKey(pwp.Port))
-                        pwp.Port = portsMap[pwp.Port];
+                _instancePortsReplacer.ReplacePorts(instance, portsMap);
                 
                 _instanceRepository.Update(instance);
             }

@@ -61,6 +61,7 @@
     <Compile Include="GateLevel\Contracts\DataAccess\INetlistFileReaderProvider.cs" />
     <Compile Include="GateLevel\Contracts\DataAccess\INetlistFileWriter.cs" />
     <Compile Include="GateLevel\Contracts\DataAccess\INetlistRepository.cs" />
+    <Compile Include="GateLevel\Manipulations\InstancePortsReplacer.cs" />
     <Compile Include="GateLevel\Manipulations\ModuleReplaceRequest.cs" />
     <Compile Include="GateLevel\Manipulations\NativeModuleReplaceManipulation.cs" />
     <Compile Include="GateLevel\Manipulations\NativeModuleReplacer.cs" />
