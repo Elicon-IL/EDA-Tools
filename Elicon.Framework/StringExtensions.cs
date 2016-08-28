@@ -24,6 +24,16 @@ namespace Elicon.Framework
             return str.StartsWith("\\");
         }
 
+        public static string RemoveLastChar(this string str)
+        {
+            return str.Substring(0, str.Length - 1).Trim();
+        }
+
+        public static string RemoveFirstChar(this string str)
+        {
+            return str.Substring(1).Trim();
+        }
+
         public static string KeepUntilFirst(this string str, string delimiter)
         {
             return str.Substring(0, str.IndexOf(delimiter, StringComparison.Ordinal)).Trim();
