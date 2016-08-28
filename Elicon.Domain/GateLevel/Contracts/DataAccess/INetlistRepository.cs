@@ -5,6 +5,7 @@ namespace Elicon.Domain.GateLevel.Contracts.DataAccess
         void Add(Netlist netlist);
         Netlist Get(string source);
         void Update(Netlist netlist);
+        void Remove(string source);
         bool Exists(string source);
     }
 }

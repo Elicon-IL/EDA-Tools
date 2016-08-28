@@ -48,5 +48,11 @@ namespace Elicon.DataAccess
                 .Select(m => new Module(m))
                 .ToList();
         }
+
+        public void RemoveAll(string netlist)
+        {
+            foreach (var module in GetAll(netlist))
+                _modules.Remove(module.Id);
+        }
     }
 }

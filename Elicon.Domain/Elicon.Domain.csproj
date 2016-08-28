@@ -56,6 +56,7 @@
     <Compile Include="GateLevel\BuildData\StatementHandlers\SupplyDeclarationStatementHandler.cs" />
     <Compile Include="GateLevel\Contracts\DataAccess\IInstanceRepository.cs" />
     <Compile Include="GateLevel\Contracts\DataAccess\IModuleRepository.cs" />
+    <Compile Include="GateLevel\Contracts\DataAccess\INetlistRemover.cs" />
     <Compile Include="GateLevel\Contracts\DataAccess\INetlistCloner.cs" />
     <Compile Include="GateLevel\Contracts\DataAccess\INetlistFileReaderProvider.cs" />
     <Compile Include="GateLevel\Contracts\DataAccess\INetlistFileWriter.cs" />

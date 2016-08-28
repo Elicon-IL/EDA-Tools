@@ -52,5 +52,11 @@ namespace Elicon.DataAccess
                 .Select(i => new Instance(i))
                 .ToArray();
         }
+
+        public void RemoveAll(string netlist)
+        {
+            foreach (var instance in GetBy(netlist))
+                _instances.Remove(instance.Id);
+        }
     }
 }

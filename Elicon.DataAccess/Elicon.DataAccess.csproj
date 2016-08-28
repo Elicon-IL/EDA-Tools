@@ -48,6 +48,7 @@
     <Compile Include="Files\GateLevel\Write\StatementsDirector.cs" />
     <Compile Include="InstanceRepository.cs" />
     <Compile Include="ModuleRepository.cs" />
+    <Compile Include="NetlistRemover.cs" />
     <Compile Include="NetlistCloner.cs" />
     <Compile Include="NetlistRepository.cs" />
     <Compile Include="Files\GateLevel\Read\MultiLineStatementVerifier.cs" />

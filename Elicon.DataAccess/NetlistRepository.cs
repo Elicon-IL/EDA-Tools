@@ -33,6 +33,12 @@ namespace Elicon.DataAccess
             _netlists[netlist.Id] = new Netlist(netlist);
         }
 
+        public void Remove(string source)
+        {
+            var key = _netlists.Single(kvp => kvp.Value.Source == source).Key;
+            _netlists.Remove(key);
+        }
+
         public bool Exists(string source)
         {
             return _netlists.Values.Any(netlist => netlist.Source == source);
