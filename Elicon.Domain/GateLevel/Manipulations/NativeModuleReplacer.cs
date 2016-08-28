@@ -6,7 +6,7 @@ namespace Elicon.Domain.GateLevel.Manipulations
 {
     public interface INativeModuleReplacer
     {
-        void Replace(string netlist, string currentModule, string newModule, IDictionary<string, string> portsMap);
+        void Replace(string netlist, string moduleToReplace, string newModule, IDictionary<string, string> portsMap);
     }
 
     public class NativeModuleReplacer : INativeModuleReplacer
@@ -20,12 +20,12 @@ namespace Elicon.Domain.GateLevel.Manipulations
             _moduleRepository = moduleRepository;
         }
 
-        public void Replace(string netlist, string currentModule, string newModule, IDictionary<string, string> portsMap)
+        public void Replace(string netlist, string moduleToReplace, string newModule, IDictionary<string, string> portsMap)
         {
-            if (_moduleRepository.Exists(netlist, currentModule))
+            if (_moduleRepository.Exists(netlist, moduleToReplace))
                 throw new InvalidOperationException("cannot replace non native modules");
 
-            foreach (var instance in _instanceRepository.GetByModuleName(netlist, currentModule))
+            foreach (var instance in _instanceRepository.GetByModuleName(netlist, moduleToReplace))
             {
                 instance.ModuleName = newModule;
                 foreach (var pwp in instance.Net)
