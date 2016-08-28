@@ -2,6 +2,12 @@
 {
     public class PortWirePair
     {
+        public PortWirePair(PortWirePair portWirePair)
+        {
+            Port = portWirePair.Port;
+            Wire = portWirePair.Wire;
+        }
+
         public PortWirePair(string port, string wire)
         {
             Port = port;

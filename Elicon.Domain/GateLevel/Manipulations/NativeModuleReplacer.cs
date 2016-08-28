@@ -29,8 +29,9 @@ namespace Elicon.Domain.GateLevel.Manipulations
             {
                 instance.ModuleName = newModule;
                 foreach (var pwp in instance.Net)
-                    pwp.Port = portsMap[pwp.Port];
-
+                    if (portsMap.ContainsKey(pwp.Port))
+                        pwp.Port = portsMap[pwp.Port];
+                
                 _instanceRepository.Update(instance);
             }
         }

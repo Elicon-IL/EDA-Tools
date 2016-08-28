@@ -29,7 +29,7 @@ namespace Elicon.Domain.GateLevel
             ModuleName = instance.ModuleName;
             InstanceName = instance.InstanceName;
             Type = instance.Type;
-            Net = instance.Net.ToList();
+            Net = instance.Net.Select(pwp => new PortWirePair(pwp)).ToList();
         }
 
 
