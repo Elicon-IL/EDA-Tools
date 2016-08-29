@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Manipulations\InstancePortsReplacerTests.cs" />
     <Compile Include="Domain\Parse\PortsDeclarationStatementParserTests.cs" />
     <Compile Include="Domain\Parse\PortsParserTests.cs" />
     <Compile Include="Domain\PubSubTests.cs" />
