@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\Manipulations\InstancePortsReplacerTests.cs" />
+    <Compile Include="Domain\QueryData\NativeModulesPortsListAggregatorTests.cs" />
     <Compile Include="Domain\QueryData\NativeModulesCountAggregatorTests.cs" />
     <Compile Include="Domain\Parse\PortsDeclarationStatementParserTests.cs" />
     <Compile Include="Domain\Parse\PortsParserTests.cs" />
