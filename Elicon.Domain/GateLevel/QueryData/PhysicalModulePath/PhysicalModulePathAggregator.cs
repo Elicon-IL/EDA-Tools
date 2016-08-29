@@ -7,9 +7,9 @@ namespace Elicon.Domain.GateLevel.QueryData.PhysicalModulePath
     {
         private readonly Dictionary<string, IList<string>> _result  = new Dictionary<string, IList<string>>();
 
-        public PhysicalModulePathAggregator(IList<string> moduleNames)
+        public PhysicalModulePathAggregator(IList<string> moduleNamesToCollect)
         {
-            foreach (var moduleName in moduleNames)
+            foreach (var moduleName in moduleNamesToCollect)
                 _result.Add(moduleName, new List<string>());
         }
 
