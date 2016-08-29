@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Elicon.Domain.GateLevel;
 using Elicon.Domain.GateLevel.Manipulations;
-using Elicon.Domain.GateLevel.Parse;
 using NUnit.Framework;
 
 namespace Elicon.Domain.Tests.Domain.Manipulations
