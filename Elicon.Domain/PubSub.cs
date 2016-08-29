@@ -34,7 +34,7 @@ namespace Elicon.Domain
             }
             finally
             {
-                _lock.EnterReadLock();
+                _lock.ExitReadLock();
             }
 
             foreach (var action in actions)
