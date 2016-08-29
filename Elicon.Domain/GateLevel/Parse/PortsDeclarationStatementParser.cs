@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Elicon.Framework;
 
 namespace Elicon.Domain.GateLevel.Parse
@@ -21,8 +22,8 @@ namespace Elicon.Domain.GateLevel.Parse
 
         public IList<Port> GetPorts(string statement)
         {
-            statement = statement.KeepFromFirst(' ').RemoveLastChar();
-            return _portsParser.GetPorts(statement);
+            statement = statement.KeepFromFirstInclusive(' ').RemoveLastChar();
+            return _portsParser.GetPorts(statement).ToList();
         }
     }
 }

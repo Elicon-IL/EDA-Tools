@@ -1,3 +1,4 @@
+using System.Linq;
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
 using Elicon.Domain.GateLevel.Parse;
 
@@ -21,7 +22,7 @@ namespace Elicon.Domain.GateLevel.BuildData.StatementHandlers
                 _parser.GetModuleName(state.CurrentStatement),
                 _parser.GeInstanceName(state.CurrentStatement)
                 ) {
-                Net = _parser.GetNet(state.CurrentStatement)
+                Net = _parser.GetNet(state.CurrentStatement).ToList()
             };
 
             _instanceRepository.Add(instance);

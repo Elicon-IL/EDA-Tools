@@ -1,4 +1,5 @@
-﻿using Elicon.Domain.GateLevel;
+﻿using System.Linq;
+using Elicon.Domain.GateLevel;
 using Elicon.Domain.GateLevel.Parse;
 using NUnit.Framework;
 
@@ -20,7 +21,7 @@ namespace Elicon.Domain.Tests.Domain.Parse
         {
             var ports = "";
 
-            var result = _target.GetPorts(ports);
+            var result = _target.GetPorts(ports).ToList();
 
             Assert.That(result, Is.Empty);
         }
@@ -30,7 +31,7 @@ namespace Elicon.Domain.Tests.Domain.Parse
         {
             var ports = "qqq";
 
-            var result = _target.GetPorts(ports);
+            var result = _target.GetPorts(ports).ToList();
 
             Assert.That(result, Has.Count.EqualTo(1));
             Assert.That(result[0].PortName, Is.EqualTo(ports));
@@ -42,7 +43,7 @@ namespace Elicon.Domain.Tests.Domain.Parse
         {
             var ports = "qqq, www";
 
-            var result = _target.GetPorts(ports);
+            var result = _target.GetPorts(ports).ToList();
 
             Assert.That(result, Has.Count.EqualTo(2));
             Assert.That(result[0].PortName, Is.EqualTo("qqq"));
@@ -56,7 +57,7 @@ namespace Elicon.Domain.Tests.Domain.Parse
         {
             var ports = "\\qqq, ,  \\w,ww";
 
-            var result = _target.GetPorts(ports);
+            var result = _target.GetPorts(ports).ToList();
 
             Assert.That(result, Has.Count.EqualTo(2));
             Assert.That(result[0].PortName, Is.EqualTo("\\qqq,"));

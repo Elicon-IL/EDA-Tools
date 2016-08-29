@@ -1,4 +1,5 @@
-﻿using Elicon.Domain.GateLevel.Parse;
+﻿using System.Linq;
+using Elicon.Domain.GateLevel.Parse;
 using NUnit.Framework;
 
 namespace Elicon.Domain.Tests.Domain.Parse
@@ -59,7 +60,7 @@ namespace Elicon.Domain.Tests.Domain.Parse
         [TestCase("cell1 inst1 (. p1 ( w1 ) );")]
         public void GetNet_StatementWithOnePortWireNoEscapesNoBus_ReturnsOnePortWire(string statement)
         {
-            var result = _target.GetNet(statement);
+            var result = _target.GetNet(statement).ToList();
 
             Assert.That(result.Count, Is.EqualTo(1));
             Assert.That(result[0].Port, Is.EqualTo("p1"));
@@ -71,7 +72,7 @@ namespace Elicon.Domain.Tests.Domain.Parse
         [TestCase("cell1 inst1 (. p1(w1)   ,   .  p2     (  w2 )   );")]
         public void GetNet_StatementWithTwoPortWireNoEscapesNoBus_ReturnsTwoPortWire(string statement)
         {
-           var result = _target.GetNet(statement);
+           var result = _target.GetNet(statement).ToList();
 
             Assert.That(result.Count, Is.EqualTo(2));
             Assert.That(result[0].Port, Is.EqualTo("p1"));
@@ -86,7 +87,7 @@ namespace Elicon.Domain.Tests.Domain.Parse
         {
             var statement = @"cell2 inst2 ( . \p1(2) (\wire[8] ), .\port[2] (wire2));";
 
-            var result = _target.GetNet(statement);
+            var result = _target.GetNet(statement).ToList();
 
             Assert.That(result.Count, Is.EqualTo(2));
             Assert.That(result[0].Port, Is.EqualTo(@"\p1(2)"));
@@ -100,7 +101,7 @@ namespace Elicon.Domain.Tests.Domain.Parse
         {
             var statement = @"cell3 inst3 ( . p1 (\wire [8] ), .\port[2] ( wire[2]));";
 
-            var result = _target.GetNet(statement);
+            var result = _target.GetNet(statement).ToList();
 
             Assert.That(result.Count, Is.EqualTo(2));
             Assert.That(result[0].Port, Is.EqualTo("p1"));
@@ -115,7 +116,7 @@ namespace Elicon.Domain.Tests.Domain.Parse
          
             var statement = @"cell4 inst4 ( . p1 ({\wire[8], , w2} ), .\port[2] ( wire2));";
 
-            var result = _target.GetNet(statement);
+            var result = _target.GetNet(statement).ToList();
 
             Assert.That(result.Count, Is.EqualTo(2));
             Assert.That(result[0].Port, Is.EqualTo("p1"));
@@ -129,7 +130,7 @@ namespace Elicon.Domain.Tests.Domain.Parse
         {
             var statement = @"cell4 inst4 ( . p1 ({\wire[8], ,\w2} } ));";
 
-            var result = _target.GetNet(statement);
+            var result = _target.GetNet(statement).ToList();
 
             Assert.That(result.Count, Is.EqualTo(1));
             Assert.That(result[0].Port, Is.EqualTo("p1"));

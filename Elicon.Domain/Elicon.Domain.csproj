@@ -68,6 +68,8 @@
     <Compile Include="GateLevel\Netlist.cs" />
     <Compile Include="GateLevel\Parse\PortsDeclarationStatementParser.cs" />
     <Compile Include="GateLevel\Parse\PortsParser.cs" />
+    <Compile Include="GateLevel\Parse\PortsTokenizer.cs" />
+    <Compile Include="GateLevel\Parse\PortsTokenizeRequest.cs" />
     <Compile Include="GateLevel\Port.cs" />
     <Compile Include="GateLevel\PortWirePair.cs" />
     <Compile Include="GateLevel\QueryData\CountNativeModules\CountNativeModulesQuery.cs" />

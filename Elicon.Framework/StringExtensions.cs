@@ -39,12 +39,12 @@ namespace Elicon.Framework
             return str.Substring(0, str.IndexOf(delimiter, StringComparison.Ordinal)).Trim();
         }
 
-        public static string KeepUntilLast(this string str, string delimiter)
+        public static string KeepUntilLastExclusive(this string str, string delimiter)
         {
             return str.Substring(0, str.LastIndexOf(delimiter, StringComparison.Ordinal)).Trim();
         }
 
-        public static string KeepFromFirst(this string str, string delimiter)
+        public static string KeepFromFirstInclusive(this string str, string delimiter)
         {
             return str
                .Substring(str.IndexOf(delimiter, StringComparison.Ordinal))
@@ -56,14 +56,14 @@ namespace Elicon.Framework
             return str.KeepUntilFirst(delimiter.ToString());
         }
 
-        public static string KeepUntilLast(this string str, char delimiter)
+        public static string KeepUntilLastExclusive(this string str, char delimiter)
         {
-            return str.KeepUntilLast(delimiter.ToString());
+            return str.KeepUntilLastExclusive(delimiter.ToString());
         }
 
-        public static string KeepFromFirst(this string str, char delimiter)
+        public static string KeepFromFirstInclusive(this string str, char delimiter)
         {
-            return str.KeepFromFirst(delimiter.ToString());
+            return str.KeepFromFirstInclusive(delimiter.ToString());
         }
     }
 }

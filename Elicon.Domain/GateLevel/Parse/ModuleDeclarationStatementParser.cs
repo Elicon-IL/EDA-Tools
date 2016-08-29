@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Elicon.Framework;
 
 namespace Elicon.Domain.GateLevel.Parse
@@ -9,7 +10,7 @@ namespace Elicon.Domain.GateLevel.Parse
 
         public string GetModuleName(string statement)
         {
-            statement = statement.KeepFromFirst(' ');
+            statement = statement.KeepFromFirstInclusive(' ');
             if (statement.IsEscaped())
                 return statement.KeepUntilFirst(' ');
 
@@ -18,21 +19,21 @@ namespace Elicon.Domain.GateLevel.Parse
 
         public IList<Port> GetPorts(string statement)
         {
-            statement = statement.KeepFromFirst(' ');
+            statement = statement.KeepFromFirstInclusive(' ');
 
             if (statement.IsEscaped())
-                statement = statement.KeepFromFirst(' ');
+                statement = statement.KeepFromFirstInclusive(' ');
             else
-                statement = statement.KeepFromFirst('(');
+                statement = statement.KeepFromFirstInclusive('(');
 
             statement = RemoveWrappingBracketsAndSemiColon(statement);
 
-            return _portsParser.GetPorts(statement);
+            return _portsParser.GetPorts(statement).ToList();
         }
 
         private string RemoveWrappingBracketsAndSemiColon(string statement)
         {
-            return statement.RemoveFirstChar().RemoveLastChar().RemoveLastChar();
+            return statement.RemoveFirstChar().KeepUntilLastExclusive(")");
         }
     }
 }
