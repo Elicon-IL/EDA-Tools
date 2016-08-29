@@ -34,6 +34,15 @@ namespace Elicon.Domain.Tests.Domain.Parse
             Assert.That(result, Is.EqualTo("\\x_lut4_0x5500(08"));
         }
 
+        [Test]
+        public void GetPorts_NoPorts_ReturnsEmpty()
+        {
+            var statement = "module \\x_lut4_0x5500(08  ();";
+
+            var result = _target.GetPorts(statement);
+
+            Assert.That(result, Is.Empty);
+        }
 
         [Test]
         public void GetPorts_NoneEscapedPorts_ReturnsPorts()

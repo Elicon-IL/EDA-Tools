@@ -21,7 +21,7 @@ namespace Elicon.Domain.GateLevel.Parse
 
         public IList<Port> GetPorts(string statement)
         {
-            statement = statement.KeepFromFirst(' ');
+            statement = statement.KeepFromFirst(' ').RemoveLastChar();
             return _portsParser.GetPorts(statement);
         }
     }

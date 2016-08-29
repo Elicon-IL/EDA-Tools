@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Elicon.Framework;
 
 namespace Elicon.Domain.GateLevel.Parse
 {
@@ -7,6 +8,9 @@ namespace Elicon.Domain.GateLevel.Parse
     {
         public IList<Port> GetPorts(string ports)
         {
+            if (ports.IsNullOrEmpty())
+                return new List<Port>();
+
            return SplitPorts(ports).Select(s => new Port(s)).ToList();
         }
 

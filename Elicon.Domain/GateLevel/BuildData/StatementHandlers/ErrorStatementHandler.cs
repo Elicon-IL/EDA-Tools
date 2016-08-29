@@ -17,7 +17,7 @@ namespace Elicon.Domain.GateLevel.BuildData.StatementHandlers
         public void Handle(BuildState state)
         {
             _netlistRemover.Remove(state.NetlistSource);
-            throw new InvalidOperationException($"cannot proccess this line {state.CurrentStatement}");    
+            throw new InvalidOperationException($"cannot process this line {state.CurrentStatement}");    
         }
 
         public bool CanHandle(BuildState state)
