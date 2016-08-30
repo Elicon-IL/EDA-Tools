@@ -29,7 +29,7 @@ namespace Elicon.Domain.GateLevel.QueryData.Traversal
                     InstancesPathTracker = new InstancesPathTracker(pathTracker).UpdateIn(curretnInstance)
                 };
 
-                if (curretnInstance.IsModule)
+                if (curretnInstance.IsModule())
                     foreach (var state in TraverseInner(curretnInstance, pathTracker))
                         yield return state;
             }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Elicon.Domain.GateLevel.QueryData.Traversal;
 using Elicon.Framework;
+using Elicon.Domain.GateLevel;
 
 namespace Elicon.Domain.GateLevel.QueryData.CountNativeModules
 {
@@ -10,7 +11,7 @@ namespace Elicon.Domain.GateLevel.QueryData.CountNativeModules
 
         public void Collect(TraversalState traversalState)
         {
-            if (traversalState.CurrentInstance.IsModule)
+            if (traversalState.CurrentInstance.IsModule())
                 return;
 
             _result.UpdateValue(traversalState.CurrentInstance.ModuleName, count => ++count, 0);

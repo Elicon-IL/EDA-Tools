@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Elicon.Framework;
+using Elicon.Domain.GateLevel;
 
 namespace Elicon.Domain.GateLevel.QueryData.NativeModulesPortsList
 {
@@ -10,7 +11,7 @@ namespace Elicon.Domain.GateLevel.QueryData.NativeModulesPortsList
        
         public void Collect(Instance instance)
         {
-            if (instance.IsModule)
+            if (instance.IsModule())
                 return;
             
             _result.UpdateValue(instance.ModuleName, 
