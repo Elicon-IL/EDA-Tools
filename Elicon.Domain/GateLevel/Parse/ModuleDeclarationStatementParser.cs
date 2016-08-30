@@ -12,9 +12,9 @@ namespace Elicon.Domain.GateLevel.Parse
         {
             statement = statement.KeepFromFirstInclusive(' ');
             if (statement.IsEscaped())
-                return statement.KeepUntilFirst(' ');
+                return statement.KeepUntilFirstExclusive(' ');
 
-            return statement.KeepUntilFirst('(');
+            return statement.KeepUntilFirstExclusive('(');
         }
 
         public IList<Port> GetPorts(string statement)

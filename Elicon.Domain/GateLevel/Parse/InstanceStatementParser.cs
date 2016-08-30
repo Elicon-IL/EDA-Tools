@@ -10,16 +10,16 @@ namespace Elicon.Domain.GateLevel.Parse
         public string GetModuleName(string statement)
         {
             return statement
-                .KeepUntilFirst(' ');
+                .KeepUntilFirstExclusive(' ');
         }
 
         public string GeInstanceName(string statement)
         {
             statement = statement.KeepFromFirstInclusive(' ');
             if (statement.IsEscaped())
-                return statement.KeepUntilFirst(' ');
+                return statement.KeepUntilFirstExclusive(' ');
 
-            return statement.KeepUntilFirst('(');
+            return statement.KeepUntilFirstExclusive('(');
         }
 
         public IEnumerable<PortWirePair> GetNet(string statement)

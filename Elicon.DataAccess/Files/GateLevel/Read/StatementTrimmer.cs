@@ -24,7 +24,7 @@ namespace Elicon.DataAccess.Files.GateLevel.Read
 
         private string RemoveComment(string statement)
         {
-            return statement.KeepUntilFirst("//");
+            return statement.KeepUntilFirstExclusive("//");
         }
 
         private bool HasComment(string statement)

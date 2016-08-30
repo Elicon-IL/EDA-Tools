@@ -10,7 +10,7 @@ namespace Elicon.Domain.GateLevel.Parse
 
         public PortType GetPortType(string statement)
         {
-            var type = statement.KeepUntilFirst(' ');
+            var type = statement.KeepUntilFirstExclusive(' ');
 
             if (type == "input")
                 return PortType.Input;
