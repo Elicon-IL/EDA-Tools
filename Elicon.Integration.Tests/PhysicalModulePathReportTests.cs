@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Elicon.Domain.GateLevel.Reports;
 using Elicon.Domain.GateLevel.Reports.PhysicalModulePath;
 using NUnit.Framework;
 

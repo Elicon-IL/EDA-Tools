@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Elicon.Domain.GateLevel;
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
-using Elicon.Domain.GateLevel.Manipulations;
 using Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule;
 using NUnit.Framework;
 
