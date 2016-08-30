@@ -37,7 +37,6 @@ namespace Elicon.Integration.Tests
             Assert.That(result, Is.Empty);
 
             result = _instanceRepository.GetByModuleName(DummyNetlist, newModule).ToList();
-
             Assert.That(result, Has.Count.EqualTo(1));
             Assert.That(result[0].Net, Has.Exactly(1).Matches<PortWirePair>(pwp => pwp.Port == "b2" & pwp.Wire == "n37"));
             Assert.That(result[0].Net, Has.Exactly(1).Matches<PortWirePair>(pwp => pwp.Port == "b1" & pwp.Wire == "i3"));
