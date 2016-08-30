@@ -62,9 +62,10 @@
     <Compile Include="GateLevel\Contracts\DataAccess\INetlistFileWriter.cs" />
     <Compile Include="GateLevel\Contracts\DataAccess\INetlistRepository.cs" />
     <Compile Include="GateLevel\Manipulations\InstancePortsReplacer.cs" />
-    <Compile Include="GateLevel\Manipulations\ModuleReplaceRequest.cs" />
-    <Compile Include="GateLevel\Manipulations\NativeModuleReplaceManipulation.cs" />
-    <Compile Include="GateLevel\Manipulations\NativeModuleReplacer.cs" />
+    <Compile Include="GateLevel\Manipulations\RemoveBuffer\NativeModuleReplaceManipulation.cs" />
+    <Compile Include="GateLevel\Manipulations\ReplaceNativeModule\ModuleReplaceRequest.cs" />
+    <Compile Include="GateLevel\Manipulations\ReplaceNativeModule\NativeModuleReplaceManipulation.cs" />
+    <Compile Include="GateLevel\Manipulations\ReplaceNativeModule\NativeModuleReplacer.cs" />
     <Compile Include="GateLevel\Netlist.cs" />
     <Compile Include="GateLevel\Parse\PortsDeclarationStatementParser.cs" />
     <Compile Include="GateLevel\Parse\PortsParser.cs" />

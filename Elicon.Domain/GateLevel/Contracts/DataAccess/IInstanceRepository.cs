@@ -9,6 +9,7 @@ namespace Elicon.Domain.GateLevel.Contracts.DataAccess
         IEnumerable<Instance> GetByHostModule(string netlist, string hostModuleName);
         IEnumerable<Instance> GetByModuleName(string netlist, string moduleName);
         IEnumerable<Instance> GetBy(string netlist);
+        void Remove(Instance instance);
         void RemoveAll(string netlist);
     }
 }

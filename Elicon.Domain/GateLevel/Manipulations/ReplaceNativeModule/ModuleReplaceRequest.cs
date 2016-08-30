@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Elicon.Domain.GateLevel.Manipulations
+namespace Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule
 {
     public class ModuleReplaceRequest
     {

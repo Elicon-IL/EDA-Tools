@@ -1,6 +1,6 @@
 ﻿using Elicon.Domain.GateLevel.Contracts.DataAccess;
 
-namespace Elicon.Domain.GateLevel.Manipulations
+namespace Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule
 {
     public interface INativeModuleReplaceManipulation
     {
