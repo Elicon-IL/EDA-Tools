@@ -33,8 +33,11 @@ namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
                 var wiresMap = new Dictionary<string, string> {{buffer.GetWire(inputPort), buffer.GetWire(outputPort)}};
                 var instances = _instanceRepository.GetByHostModule(netlist, buffer.HostModuleName);
                 foreach (var instance in instances)
+                {
                     _instanceWiresReplacer.ReplaceWires(instance, wiresMap);
-                
+                    _instanceRepository.Update(instance);
+                }
+                    
                 _instanceRepository.Remove(buffer);
             }
         }
