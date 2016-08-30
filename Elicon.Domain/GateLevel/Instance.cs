@@ -39,7 +39,19 @@ namespace Elicon.Domain.GateLevel
         public string ModuleName { get; set; }
         public string InstanceName { get; set; }
         public InstanceType Type { get; set; }
-        public bool IsModule => Type == InstanceType.Module;
         public IList<PortWirePair> Net { get; set; }
+    }
+
+    public static class InstanceExtensions
+    {
+        public static bool IsModule(this Instance target)
+        {
+            return target.Type == InstanceType.Module;
+        }
+
+        public static string GetWire(this Instance target, string port)
+        {
+            return target.Net.Single(pwp => pwp.Port == port).Wire;
+        }
     }
 }

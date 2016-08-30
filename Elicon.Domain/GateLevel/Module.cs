@@ -31,5 +31,13 @@ namespace Elicon.Domain.GateLevel
         public IList<string> SupplyDeclarations { get; set; }
         public IList<string> AssignDeclarations { get; set; }
     }
+
+    public static class ModuleExtensions
+    {
+        public static bool HasPort(this Module target, string portName)
+        {
+            return target.Ports.Any(p => p.PortName == portName);
+        }
+    }
 }
 
