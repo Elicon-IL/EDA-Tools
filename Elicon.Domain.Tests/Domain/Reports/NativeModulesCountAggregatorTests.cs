@@ -1,9 +1,9 @@
 ﻿using Elicon.Domain.GateLevel;
-using Elicon.Domain.GateLevel.QueryData.CountNativeModules;
-using Elicon.Domain.GateLevel.QueryData.Traversal;
+using Elicon.Domain.GateLevel.Reports.CountNativeModules;
+using Elicon.Domain.GateLevel.Traversal.PhysicalTraversal;
 using NUnit.Framework;
 
-namespace Elicon.Domain.Tests.Domain.QueryData
+namespace Elicon.Domain.Tests.Domain.Reports
 {
     [TestFixture]
     public class NativeModulesCountAggregatorTests

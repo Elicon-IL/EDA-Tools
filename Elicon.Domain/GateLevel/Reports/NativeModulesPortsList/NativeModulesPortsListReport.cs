@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using Elicon.Domain.GateLevel.BuildData;
-using Elicon.Domain.GateLevel.QueryData.NativeModulesPortsList;
 
-namespace Elicon.Domain.GateLevel.Reports
+namespace Elicon.Domain.GateLevel.Reports.NativeModulesPortsList
 {
     public interface INativeModulesPortsListReport
     {

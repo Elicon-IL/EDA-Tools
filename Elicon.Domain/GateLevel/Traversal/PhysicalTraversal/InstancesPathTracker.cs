@@ -2,7 +2,7 @@
 using System.Linq;
 using Elicon.Framework;
 
-namespace Elicon.Domain.GateLevel.QueryData.Traversal
+namespace Elicon.Domain.GateLevel.Traversal.PhysicalTraversal
 {
     public class InstancesPathTracker
     {

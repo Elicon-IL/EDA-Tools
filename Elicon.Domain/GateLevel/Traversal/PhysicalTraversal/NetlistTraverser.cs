@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
 
-namespace Elicon.Domain.GateLevel.QueryData.Traversal
+namespace Elicon.Domain.GateLevel.Traversal.PhysicalTraversal
 {
     public class NetlistTraverser : INetlistTraverser
     {

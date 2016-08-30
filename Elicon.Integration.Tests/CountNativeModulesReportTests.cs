@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Elicon.Domain.GateLevel.Reports;
+using Elicon.Domain.GateLevel.Reports.CountNativeModules;
 using NUnit.Framework;
 
 namespace Elicon.Integration.Tests

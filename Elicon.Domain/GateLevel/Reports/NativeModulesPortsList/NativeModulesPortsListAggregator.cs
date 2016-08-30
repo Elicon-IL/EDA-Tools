@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Elicon.Framework;
-using Elicon.Domain.GateLevel;
 
-namespace Elicon.Domain.GateLevel.QueryData.NativeModulesPortsList
+namespace Elicon.Domain.GateLevel.Reports.NativeModulesPortsList
 {
     public class NativeModulesPortsListAggregator
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Elicon.Domain.GateLevel.QueryData.Traversal;
+using Elicon.Domain.GateLevel.Traversal.PhysicalTraversal;
 
-namespace Elicon.Domain.GateLevel.QueryData.CountNativeModules
+namespace Elicon.Domain.GateLevel.Reports.CountNativeModules
 {
     public interface ICountNativeModulesQuery
     {

@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using Elicon.Domain.GateLevel.BuildData;
-using Elicon.Domain.GateLevel.QueryData.CountNativeModules;
 
-namespace Elicon.Domain.GateLevel.Reports
+namespace Elicon.Domain.GateLevel.Reports.CountNativeModules
 {
     public interface ICountNativeModulesReport
     {
