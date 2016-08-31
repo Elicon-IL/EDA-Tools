@@ -23,9 +23,12 @@ namespace Elicon.DataAccess
 
         public Netlist Get(string source)
         {
-            var result = _netlists.Values.Single(netlist => netlist.Source == source);
+            var result = _netlists.Values.SingleOrDefault(netlist => netlist.Source == source);
 
-            return new Netlist(result);
+            if (result != null)
+                return new Netlist(result);
+
+            return null;
         }
 
         public void Update(Netlist netlist)

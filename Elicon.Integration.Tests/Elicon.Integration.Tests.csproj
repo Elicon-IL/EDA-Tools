@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NetlistRemoverTests.cs" />
     <Compile Include="NativeModuleReplacerTests.cs" />
     <Compile Include="NativeModulesPortsListReportTests.cs" />
     <Compile Include="PhysicalModulePathReportTests.cs" />
