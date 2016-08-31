@@ -29,12 +29,10 @@ namespace Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule
                 throw new InvalidOperationException("cannot replace non native modules");
 
             var instances = _instanceRepository.GetByModuleName(netlist, moduleToReplace).ToList();
-
             foreach (var instance in instances)
                 instance.ModuleName = newModule;
 
             _instancePortsReplacer.ReplacePorts(instances, portsMap);
-                
             _instanceRepository.Update(instances);    
         }
     }
