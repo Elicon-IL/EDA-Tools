@@ -44,6 +44,7 @@
     <Compile Include="GateLevel\BuildData\BuildState.cs" />
     <Compile Include="GateLevel\BuildData\StatementHandlers\AssignDeclarationStatementHandler.cs" />
     <Compile Include="GateLevel\BuildData\StatementHandlers\MetaStatementHandler.cs" />
+    <Compile Include="GateLevel\Manipulations\ModulePortsTypeUpdater.cs" />
     <Compile Include="GateLevel\BuildData\StatementHandlers\StatementHandlersOrderer.cs" />
     <Compile Include="GateLevel\BuildData\StatementHandlers\EmptyStatementHandler.cs" />
     <Compile Include="GateLevel\BuildData\StatementHandlers\EndModuleStatementHandler.cs" />
