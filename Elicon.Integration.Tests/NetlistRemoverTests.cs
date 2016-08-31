@@ -25,7 +25,13 @@ namespace Elicon.Integration.Tests
         }
 
         [Test]
-        public void Replace_ModuleIsNativeWithoutMapping_ReplaceModule()
+        public void Remove_NetlistNotExists_RemoveNetlist()
+        {
+            Assert.DoesNotThrow(()=>_target.Remove(DummyNetlist));
+        }
+
+        [Test]
+        public void Remove_NetlistExists_RemoveNetlist()
         {
             _netlistCloner.Clone(ExampleNetlistFilePath, DummyNetlist);
 
