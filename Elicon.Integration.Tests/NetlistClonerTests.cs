@@ -23,9 +23,8 @@ namespace Elicon.Integration.Tests
             _netlistRepository = Get<INetlistRepository>();
             _moduleRepository = Get<IModuleRepository>();
             _instanceRepository = Get<IInstanceRepository>();
-            _target = Get<INetlistCloner>();
             _netlistRemover = Get<INetlistRemover>();
-            
+            _target = Get<INetlistCloner>();
         }
 
         [Test]

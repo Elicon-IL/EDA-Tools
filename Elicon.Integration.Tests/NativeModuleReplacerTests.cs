@@ -18,9 +18,9 @@ namespace Elicon.Integration.Tests
         [SetUp]
         public void SetUp()
         {
-            _target = Get<INativeModuleReplacer>();
             _instanceRepository = Get<IInstanceRepository>();
             Get<INetlistCloner>().Clone(ExampleNetlistFilePath, DummyNetlist);
+            _target = Get<INativeModuleReplacer>();
         }
 
         [Test]
