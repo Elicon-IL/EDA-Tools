@@ -21,19 +21,19 @@ namespace Elicon.Domain.GateLevel.BuildData.StatementHandlers
         public void Handle(BuildState state)
         {
             var portType = _parser.GetPortType(state.CurrentStatement);
-            var ports = _parser.GetPorts(state.CurrentStatement);
+            var portNames = _parser.GetPorts(state.CurrentStatement).Select(p => p.PortName).ToList();
             var module = _moduleRepository.Get(state.NetlistSource, state.CurrentModuleName);
 
-            SetModulePortsType(module, ports, portType);
+            SetModulePortsType(module, portNames, portType);
 
             _moduleRepository.Update(module);
         }
 
-        private void SetModulePortsType(Module module, IList<Port> ports, PortType portType)
+        private void SetModulePortsType(Module module, IList<string> portNamesToUpdate, PortType portType)
         {
-            foreach (var port in module.Ports)
-                if (ports.Any(p => p.PortName == port.PortName))
-                    port.PortType = portType;
+            foreach (var modulePort in module.Ports)
+                if (portNamesToUpdate.Contains(modulePort.PortName))
+                    modulePort.PortType = portType;
         }
 
         public bool CanHandle(BuildState state)
