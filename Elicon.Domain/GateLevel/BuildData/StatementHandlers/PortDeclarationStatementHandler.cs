@@ -22,8 +22,8 @@ namespace Elicon.Domain.GateLevel.BuildData.StatementHandlers
         {
             var portType = _parser.GetPortType(state.CurrentStatement);
             var portNames = _parser.GetPorts(state.CurrentStatement).Select(p => p.PortName).ToList();
-            var module = _moduleRepository.Get(state.NetlistSource, state.CurrentModuleName);
 
+            var module = _moduleRepository.Get(state.NetlistSource, state.CurrentModuleName);
             SetModulePortsType(module, portNames, portType);
 
             _moduleRepository.Update(module);
