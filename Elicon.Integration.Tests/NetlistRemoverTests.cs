@@ -21,7 +21,6 @@ namespace Elicon.Integration.Tests
             _instanceRepository = Get<IInstanceRepository>();
             _netlistCloner = Get<INetlistCloner>();
             _target = Get<INetlistRemover>();
-            
         }
 
         [Test]
@@ -38,10 +37,12 @@ namespace Elicon.Integration.Tests
             _target.Remove(DummyNetlist);
 
             var netlist = _netlistRepository.Get(DummyNetlist);
-            var modules  = _moduleRepository.GetAll(DummyNetlist);
-            var instances = _instanceRepository.GetBy(DummyNetlist);
             Assert.That(netlist, Is.Null);
+
+            var modules  = _moduleRepository.GetAll(DummyNetlist);
             Assert.That(modules, Is.Empty);
+
+            var instances = _instanceRepository.GetBy(DummyNetlist);
             Assert.That(instances, Is.Empty);
         }
     }
