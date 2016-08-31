@@ -17,6 +17,9 @@ namespace Elicon.DataAccess
 
         public void Remove(string source)
         {
+            if (!_netlistRepository.Exists(source))
+                return;
+
             _netlistRepository.Remove(source);
             _moduleRepository.RemoveAll(source);
             _instanceRepository.RemoveAll(source);

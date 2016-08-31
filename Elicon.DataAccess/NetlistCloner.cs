@@ -1,3 +1,4 @@
+using System;
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
 
 namespace Elicon.DataAccess
@@ -18,6 +19,10 @@ namespace Elicon.DataAccess
         public void Clone(string source, string newSource)
         {
             var netlist = _netlistRepository.Get(source);
+
+            if (netlist == null)
+                throw new InvalidOperationException("source netlist does not exists");
+
             netlist.Source = newSource;
             _netlistRepository.Add(netlist);
 
