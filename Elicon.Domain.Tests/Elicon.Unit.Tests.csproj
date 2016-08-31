@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Manipulations\PassThroughBufferVerifierTests.cs" />
     <Compile Include="Domain\Manipulations\InstancePortsReplacerTests.cs" />
     <Compile Include="Domain\Reports\PhysicalModulePathAggregatorTests.cs" />
     <Compile Include="Domain\Reports\NativeModulesPortsListAggregatorTests.cs" />
