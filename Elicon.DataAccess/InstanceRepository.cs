@@ -27,6 +27,12 @@ namespace Elicon.DataAccess
             _instances[instance.Id] = new Instance(instance);
         }
 
+        public void Update(IEnumerable<Instance> instances)
+        {
+            foreach (var instance in instances)
+                Update(instance);
+        }
+
         public IEnumerable<Instance> GetByHostModule(string netlist, string hostModuleName)
         {
             return _instances.Values

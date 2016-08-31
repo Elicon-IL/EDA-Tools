@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
 
 namespace Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule
@@ -27,13 +28,14 @@ namespace Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule
             if (_moduleRepository.Exists(netlist, moduleToReplace))
                 throw new InvalidOperationException("cannot replace non native modules");
 
-            foreach (var instance in _instanceRepository.GetByModuleName(netlist, moduleToReplace))
-            {
+            var instances = _instanceRepository.GetByModuleName(netlist, moduleToReplace).ToList();
+
+            foreach (var instance in instances)
                 instance.ModuleName = newModule;
-                _instancePortsReplacer.ReplacePorts(instance, portsMap);
+
+            _instancePortsReplacer.ReplacePorts(instances, portsMap);
                 
-                _instanceRepository.Update(instance);
-            }
+            _instanceRepository.Update(instances);    
         }
     }
 }

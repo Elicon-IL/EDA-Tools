@@ -5,19 +5,17 @@ namespace Elicon.Domain.GateLevel.Manipulations
 {
     public interface IInstanceWiresReplacer
     {
-        void ReplaceWires(Instance instance, IDictionary<string, string> wiresMap);
+        void ReplaceWires(IList<Instance> instances, string oldWire, string newWire);
     }
 
     public class InstanceWiresReplacer : IInstanceWiresReplacer
     {
-        public void ReplaceWires(Instance instance, IDictionary<string, string> wiresMap)
+        public void ReplaceWires(IList<Instance> instances, string oldWire, string newWire)
         {
-            if (!wiresMap.Any())
-                return;
-            
-            foreach (var pwp in instance.Net)
-                if (wiresMap.ContainsKey(pwp.Wire))
-                    pwp.Wire = wiresMap[pwp.Wire];
+            foreach (var instance in instances)
+                foreach (var pwp in instance.Net)
+                    if (pwp.Wire == oldWire)
+                        pwp.Wire = newWire;
         }
     }
 }

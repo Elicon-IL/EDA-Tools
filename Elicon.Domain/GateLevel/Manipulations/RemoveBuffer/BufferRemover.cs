@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.Linq;
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
 
 namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
@@ -30,15 +30,14 @@ namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
                if (_passThroughBufferVerifier.IsPassThroughBuffer(buffer, inputPort, outputPort))
                     continue;
 
-                var wiresMap = new Dictionary<string, string> {{buffer.GetWire(inputPort), buffer.GetWire(outputPort)}};
-                var instances = _instanceRepository.GetByHostModule(netlist, buffer.HostModuleName);
-                foreach (var instance in instances)
-                {
-                    _instanceWiresReplacer.ReplaceWires(instance, wiresMap);
-                    _instanceRepository.Update(instance);
-                }
-                    
                 _instanceRepository.Remove(buffer);
+
+                var oldWire = buffer.GetWire(inputPort);
+                var newWire = buffer.GetWire(outputPort);
+                var instances = _instanceRepository.GetByHostModule(buffer.Netlist, buffer.HostModuleName).ToList();
+
+               _instanceWiresReplacer.ReplaceWires(instances, oldWire, newWire);
+               _instanceRepository.Update(instances);
             }
         }
     }

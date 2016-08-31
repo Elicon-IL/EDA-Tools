@@ -17,73 +17,35 @@ namespace Elicon.Domain.Tests.Domain.Manipulations
         }
 
         [Test]
-        public void ReplaceWires_NoMapping_NoReplace()
+        public void ReplaceWires_NoPortConnectedToOldWire_NoReplace()
         {
-            var wiresMap = new Dictionary<string, string>();
-            var instance = new Instance("netlist","host","name","instName") {
-                Net = new List<PortWirePair>() { new PortWirePair("a","w1"), new PortWirePair("b", "w2") }
-            };
-            
-            _target.ReplaceWires(instance, wiresMap);
+            var instances = new List<Instance> { new Instance("netlist", "host", "name", "instName") {
+                Net = new List<PortWirePair>() { new PortWirePair("a", "w1"), new PortWirePair("b", "w2") }
+            }};
 
-            Assert.That(instance.Net, Has.Count.EqualTo(2));
-            Assert.That(instance.Net[0].Port, Is.EqualTo("a"));
-            Assert.That(instance.Net[0].Wire, Is.EqualTo("w1"));
-            Assert.That(instance.Net[1].Port, Is.EqualTo("b"));
-            Assert.That(instance.Net[1].Wire, Is.EqualTo("w2"));
+            _target.ReplaceWires(instances, "w3", "w33");
+
+            Assert.That(instances[0].Net, Has.Count.EqualTo(2));
+            Assert.That(instances[0].Net[0].Port, Is.EqualTo("a"));
+            Assert.That(instances[0].Net[0].Wire, Is.EqualTo("w1"));
+            Assert.That(instances[0].Net[1].Port, Is.EqualTo("b"));
+            Assert.That(instances[0].Net[1].Wire, Is.EqualTo("w2"));
         }
 
         [Test]
-        public void ReplaceWires_MappingOfNoExistingWires_NoReplace()
+        public void ReplaceWires_PortConnectedToOldWire_ReplaceWires()
         {
-            var wiresMap = new Dictionary<string, string> { { "w3", "w33" }, { "w4", "w44" } };
-            var instance = new Instance("netlist", "host", "name", "instName")
-            {
+            var instances = new List<Instance> { new Instance("netlist", "host", "name", "instName") {
                 Net = new List<PortWirePair>() { new PortWirePair("a", "w1"), new PortWirePair("b", "w2") }
-            };
+            }};
 
-            _target.ReplaceWires(instance, wiresMap);
+            _target.ReplaceWires(instances, "w1", "w11");
 
-            Assert.That(instance.Net, Has.Count.EqualTo(2));
-            Assert.That(instance.Net[0].Port, Is.EqualTo("a"));
-            Assert.That(instance.Net[0].Wire, Is.EqualTo("w1"));
-            Assert.That(instance.Net[1].Port, Is.EqualTo("b"));
-            Assert.That(instance.Net[1].Wire, Is.EqualTo("w2"));
-        }
-
-        [Test]
-        public void ReplaceWires_PartialMapping_ReplaceSpecifiedPorts()
-        {
-            var wiresMap = new Dictionary<string, string> { { "w1", "w11" } };
-            var instance = new Instance("netlist", "host", "name", "instName")
-            {
-                Net = new List<PortWirePair>() { new PortWirePair("a", "w1"), new PortWirePair("b", "w2") }
-            };
-
-            _target.ReplaceWires(instance, wiresMap);
-
-            Assert.That(instance.Net, Has.Count.EqualTo(2));
-            Assert.That(instance.Net[0].Port, Is.EqualTo("a"));
-            Assert.That(instance.Net[0].Wire, Is.EqualTo("w11"));
-            Assert.That(instance.Net[1].Port, Is.EqualTo("b"));
-            Assert.That(instance.Net[1].Wire, Is.EqualTo("w2"));
-        }
-
-        [Test]
-        public void ReplaceWires_MappingForAllWires_ReplaceAll()
-        {
-            var wiresMap = new Dictionary<string, string> { { "w1", "w11" }, { "w2", "w22" } };
-            var instance = new Instance("netlist", "host", "name", "instName") {
-                Net = new List<PortWirePair>() { new PortWirePair("a", "w1"), new PortWirePair("b", "w2") }
-            };
-
-            _target.ReplaceWires(instance, wiresMap);
-
-            Assert.That(instance.Net, Has.Count.EqualTo(2));
-            Assert.That(instance.Net[0].Port, Is.EqualTo("a"));
-            Assert.That(instance.Net[0].Wire, Is.EqualTo("w11"));
-            Assert.That(instance.Net[1].Port, Is.EqualTo("b"));
-            Assert.That(instance.Net[1].Wire, Is.EqualTo("w22"));
+            Assert.That(instances[0].Net, Has.Count.EqualTo(2));
+            Assert.That(instances[0].Net[0].Port, Is.EqualTo("a"));
+            Assert.That(instances[0].Net[0].Wire, Is.EqualTo("w11"));
+            Assert.That(instances[0].Net[1].Port, Is.EqualTo("b"));
+            Assert.That(instances[0].Net[1].Wire, Is.EqualTo("w2"));
         }
     }
 }
