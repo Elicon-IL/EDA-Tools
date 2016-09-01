@@ -59,6 +59,14 @@ namespace Elicon.DataAccess
                 .ToArray();
         }
 
+        public IEnumerable<Instance> GetNativeInstances(string netlist)
+        {
+            return _instances.Values
+                 .Where(i => i.Netlist == netlist && !i.IsModule())
+                 .Select(i => new Instance(i))
+                 .ToArray();
+        }
+
         public void Remove(Instance instance)
         {
             _instances.Remove(instance.Id);

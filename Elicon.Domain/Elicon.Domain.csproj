@@ -70,7 +70,7 @@
     <Compile Include="GateLevel\Manipulations\ReplaceNativeModule\ModuleReplaceRequest.cs" />
     <Compile Include="GateLevel\Manipulations\ReplaceNativeModule\NativeModuleReplaceManipulation.cs" />
     <Compile Include="GateLevel\Manipulations\ReplaceNativeModule\NativeModuleReplacer.cs" />
-    <Compile Include="GateLevel\Manipulations\UpperCaseNativeModulePorts\NativeModulePortsManipulator.cs" />
+    <Compile Include="GateLevel\Manipulations\UpperCaseNativeModulePorts\NativeModulePortsReplacer.cs" />
     <Compile Include="GateLevel\Manipulations\UpperCaseNativeModulePorts\NativeModulePortsManipulation.cs" />
     <Compile Include="GateLevel\Netlist.cs" />
     <Compile Include="GateLevel\Parse\PortsDeclarationStatementParser.cs" />
