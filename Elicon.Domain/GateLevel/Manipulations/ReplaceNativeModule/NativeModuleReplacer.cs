@@ -14,13 +14,13 @@ namespace Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule
     {
         private readonly IInstanceRepository _instanceRepository;
         private readonly IModuleRepository _moduleRepository;
-        private readonly IInstancePortsReplacer _instancePortsReplacer;
+        private readonly IInstanceMutator _instanceMutator;
 
-        public NativeModuleReplacer(IInstanceRepository instanceRepository, IModuleRepository moduleRepository, IInstancePortsReplacer instancePortsReplacer)
+        public NativeModuleReplacer(IInstanceRepository instanceRepository, IModuleRepository moduleRepository, IInstanceMutator instanceMutator)
         {
             _instanceRepository = instanceRepository;
             _moduleRepository = moduleRepository;
-            _instancePortsReplacer = instancePortsReplacer;
+            _instanceMutator = instanceMutator;
         }
 
         public void Replace(string netlist, string moduleToReplace, string newModule, IDictionary<string, string> portsMap)
@@ -29,10 +29,11 @@ namespace Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule
                 throw new InvalidOperationException("cannot replace non native modules");
 
             var instances = _instanceRepository.GetByModuleName(netlist, moduleToReplace).ToList();
-            foreach (var instance in instances)
-                instance.ModuleName = newModule;
 
-            _instancePortsReplacer.ReplacePorts(instances, portsMap);
+            _instanceMutator.Take(instances)
+                .MutateModuleName(newModule)
+                .ReplacePorts(portsMap);
+
             _instanceRepository.Update(instances);    
         }
     }

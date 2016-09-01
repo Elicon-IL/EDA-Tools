@@ -12,13 +12,13 @@ namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
     {
         private readonly IInstanceRepository _instanceRepository;
         private readonly IPassThroughBufferVerifier _passThroughBufferVerifier;
-        private readonly IInstanceWiresReplacer _instanceWiresReplacer;
+        private readonly IInstanceMutator _instanceMutator;
 
-        public BufferRemover(IInstanceRepository instanceRepository, IPassThroughBufferVerifier passThroughBufferVerifier, IInstanceWiresReplacer instanceWiresReplacer)
+        public BufferRemover(IInstanceMutator instanceMutator, IInstanceRepository instanceRepository, IPassThroughBufferVerifier passThroughBufferVerifier)
         {
+            _instanceMutator = instanceMutator;
             _instanceRepository = instanceRepository;
             _passThroughBufferVerifier = passThroughBufferVerifier;
-            _instanceWiresReplacer = instanceWiresReplacer;
         }
 
         public void Remove(string netlist, string bufferName, string inputPort, string outputPort)
@@ -36,7 +36,7 @@ namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
                 var newWire = buffer.GetWire(outputPort);
                 var instances = _instanceRepository.GetByHostModule(buffer.Netlist, buffer.HostModuleName).ToList();
 
-               _instanceWiresReplacer.ReplaceWires(instances, oldWire, newWire);
+               _instanceMutator.Take(instances).ReplaceWires(oldWire, newWire);
                _instanceRepository.Update(instances);
             }
         }
