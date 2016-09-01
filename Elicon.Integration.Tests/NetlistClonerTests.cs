@@ -54,9 +54,9 @@ namespace Elicon.Integration.Tests
             Assert.That(modules, Has.Exactly(1).Matches<Module>(m => m.Name == "m2"));
 
             var instances = _instanceRepository.GetBy(NewDummyNetlist).ToList();
-            Assert.That(instances, Has.Exactly(1).Matches<Instance>(m => m.InstanceName == "inst1"));
-            Assert.That(instances, Has.Exactly(1).Matches<Instance>(m => m.InstanceName == "inst2"));
-            Assert.That(instances, Has.Exactly(1).Matches<Instance>(m => m.InstanceName == "inst3"));
+            Assert.That(instances, Has.Exactly(1).Matches<Instance>(i => i.InstanceName == "inst1"));
+            Assert.That(instances, Has.Exactly(1).Matches<Instance>(i => i.InstanceName == "inst2"));
+            Assert.That(instances, Has.Exactly(1).Matches<Instance>(i => i.InstanceName == "inst3"));
         }
 
         [TearDown]
