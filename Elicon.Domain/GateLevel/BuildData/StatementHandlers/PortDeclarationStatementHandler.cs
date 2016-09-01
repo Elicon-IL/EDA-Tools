@@ -22,8 +22,8 @@ namespace Elicon.Domain.GateLevel.BuildData.StatementHandlers
 
         public void Handle(BuildState state)
         {
-            var portType = _parser.GetPortType(state.CurrentStatement);
-            var portNames = _parser.GetPorts(state.CurrentStatement).Select(p => p.PortName).ToList();
+            var portType = _parser.GetPortType(state.CurrentStatementTrimmed);
+            var portNames = _parser.GetPorts(state.CurrentStatementTrimmed).Select(p => p.PortName).ToList();
 
             var module = _moduleRepository.Get(state.NetlistSource, state.CurrentModuleName);
             _modulePortsTypeUpdater.UpdatePortsType(module, portNames, portType);
@@ -33,7 +33,7 @@ namespace Elicon.Domain.GateLevel.BuildData.StatementHandlers
         
         public bool CanHandle(BuildState state)
         {
-            return _criteria.IsSatisfied(state.CurrentStatement);
+            return _criteria.IsSatisfied(state.CurrentStatementTrimmed);
         }
     }
 }

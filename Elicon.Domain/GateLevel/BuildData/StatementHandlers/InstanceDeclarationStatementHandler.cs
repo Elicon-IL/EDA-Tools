@@ -19,10 +19,10 @@ namespace Elicon.Domain.GateLevel.BuildData.StatementHandlers
             var instance = new Instance(
                 state.NetlistSource,
                 state.CurrentModuleName,
-                _parser.GetModuleName(state.CurrentStatement),
-                _parser.GeInstanceName(state.CurrentStatement)
+                _parser.GetModuleName(state.CurrentStatementTrimmed),
+                _parser.GeInstanceName(state.CurrentStatementTrimmed)
                 ) {
-                Net = _parser.GetNet(state.CurrentStatement).ToList()
+                Net = _parser.GetNet(state.CurrentStatementTrimmed).ToList()
             };
 
             _instanceRepository.Add(instance);

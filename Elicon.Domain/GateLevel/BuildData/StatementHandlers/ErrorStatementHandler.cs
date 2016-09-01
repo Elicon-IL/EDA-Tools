@@ -17,12 +17,12 @@ namespace Elicon.Domain.GateLevel.BuildData.StatementHandlers
         public void Handle(BuildState state)
         {
             _netlistRemover.Remove(state.NetlistSource);
-            throw new InvalidOperationException($"cannot process this line {state.CurrentStatement}");    
+            throw new InvalidOperationException($"cannot process this line {state.CurrentStatementTrimmed}");    
         }
 
         public bool CanHandle(BuildState state)
         {
-            return _criteria.IsSatisfied(state.CurrentStatement);
+            return _criteria.IsSatisfied(state.CurrentStatementTrimmed);
         }
     }
 }

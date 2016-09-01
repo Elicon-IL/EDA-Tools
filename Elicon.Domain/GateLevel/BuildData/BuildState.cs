@@ -4,6 +4,6 @@ namespace Elicon.Domain.GateLevel.BuildData
     {
         public string NetlistSource { get; set; }
         public string CurrentModuleName { get; set; }
-        public string CurrentStatement { get; set; }
+        public string CurrentStatementTrimmed { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace Elicon.DataAccess.Files.GateLevel.Read
             _multiLineStatementVerifier = multiLineStatementVerifier;
         }
 
-        public string ReadStatement()
+        public string ReadTrimmedStatement()
         {
             if ((_currentStatement = _streamReader.ReadLine()) == null)
                 return _currentStatement;

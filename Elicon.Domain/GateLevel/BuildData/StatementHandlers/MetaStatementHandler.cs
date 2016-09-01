@@ -18,13 +18,13 @@ namespace Elicon.Domain.GateLevel.BuildData.StatementHandlers
         {
            var netlist = _netlistRepository.Get(state.NetlistSource);
 
-            netlist.MetaStatements.Add(state.CurrentStatement);
+            netlist.MetaStatements.Add(state.CurrentStatementTrimmed);
            _netlistRepository.Update(netlist);
         }
 
         public bool CanHandle(BuildState state)
         {
-            return _criteria.IsSatisfied(state.CurrentStatement);
+            return _criteria.IsSatisfied(state.CurrentStatementTrimmed);
         }
     }
 }

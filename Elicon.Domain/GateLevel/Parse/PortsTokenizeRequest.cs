@@ -2,13 +2,13 @@
 {
     public class PortsTokenizeRequest
     {
-        public PortsTokenizeRequest(string statement)
+        public PortsTokenizeRequest(string trimmedStatement)
         {
-            SourceString = statement;
-            MaxLen = statement.Length;
+            TrimmedStatement = trimmedStatement;
+            MaxLen = trimmedStatement.Length;
         }
 
-        public string SourceString { get; private set; }
+        public string TrimmedStatement { get; private set; }
         public bool InEscape { get; set; }
         public bool InBus { get; set; }
         public bool PortDone { get; set; }

@@ -35,7 +35,7 @@ namespace Elicon.Domain.GateLevel.BuildData
             var netlistFileReader = _netlistFileReaderProvider.GetReaderFor(source);
             var buildState = new BuildState { NetlistSource = source };
 
-            while ((buildState.CurrentStatement = netlistFileReader.ReadStatement()) != null)
+            while ((buildState.CurrentStatementTrimmed = netlistFileReader.ReadTrimmedStatement()) != null)
                 _statementHandlersInvoker.Handle(buildState);
            
             UpdateInstancesType(source);

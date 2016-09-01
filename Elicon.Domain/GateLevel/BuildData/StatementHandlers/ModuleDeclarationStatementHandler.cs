@@ -17,9 +17,9 @@ namespace Elicon.Domain.GateLevel.BuildData.StatementHandlers
 
         public void Handle(BuildState state)
         {
-            state.CurrentModuleName = _parser.GetModuleName(state.CurrentStatement);
+            state.CurrentModuleName = _parser.GetModuleName(state.CurrentStatementTrimmed);
             var module = new Module(state.NetlistSource, state.CurrentModuleName) {
-                Ports = _parser.GetPorts(state.CurrentStatement)
+                Ports = _parser.GetPorts(state.CurrentStatementTrimmed)
             };
 
             _moduleRepository.Add(module);
@@ -27,7 +27,7 @@ namespace Elicon.Domain.GateLevel.BuildData.StatementHandlers
 
         public bool CanHandle(BuildState state)
         {
-            return _criteria.IsSatisfied(state.CurrentStatement);
+            return _criteria.IsSatisfied(state.CurrentStatementTrimmed);
         }
     }
 }

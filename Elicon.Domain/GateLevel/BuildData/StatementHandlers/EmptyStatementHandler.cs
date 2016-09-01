@@ -9,7 +9,7 @@ namespace Elicon.Domain.GateLevel.BuildData.StatementHandlers
         public void Handle(BuildState state) { }
         public bool CanHandle(BuildState state)
         {
-            return _criteria.IsSatisfied(state.CurrentStatement);
+            return _criteria.IsSatisfied(state.CurrentStatementTrimmed);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Elicon.Domain.GateLevel.Parse
         {
             while (HasNext(request))
             {
-                switch (request.SourceString[request.StringPosition])
+                switch (request.TrimmedStatement[request.StringPosition])
                 {
                     case TabChar:
                     case SpaceChar:
@@ -37,12 +37,12 @@ namespace Elicon.Domain.GateLevel.Parse
                         request.EscapePos = request.StringPosition;
                         if (request.PortDone || request.IsPortList)
                         {
-                            if (request.SourceString[request.StringPosition] == LeftRoundBracketChar)
+                            if (request.TrimmedStatement[request.StringPosition] == LeftRoundBracketChar)
                             {
                                 // Wire name starts after this bracket.
                                 request.StringPosition++;
                                 // Skip leading spaces (if any).
-                                while (HasNext(request) && request.SourceString[request.StringPosition] == ' ')
+                                while (HasNext(request) && request.TrimmedStatement[request.StringPosition] == ' ')
                                     request.StringPosition++;
                                 request.EscapePos = request.StringPosition;
                                 request.StartPos = request.StringPosition;
@@ -63,7 +63,7 @@ namespace Elicon.Domain.GateLevel.Parse
                             {
                                 if (request.InEscape)
                                 {
-                                    if (request.SourceString[request.StringPosition] == SpaceChar)
+                                    if (request.TrimmedStatement[request.StringPosition] == SpaceChar)
                                     {
                                         request.InEscape = false;
                                         request.StringPosition++;
@@ -73,7 +73,7 @@ namespace Elicon.Domain.GateLevel.Parse
                                 }
                                 else if (request.InBus)
                                 {
-                                    switch (request.SourceString[request.StringPosition])
+                                    switch (request.TrimmedStatement[request.StringPosition])
                                     {
                                         case BackslashChar:
                                             // Must be the first char to be legal.
@@ -93,7 +93,7 @@ namespace Elicon.Domain.GateLevel.Parse
                                 }
                                 else
                                 {
-                                    switch (request.SourceString[request.StringPosition])
+                                    switch (request.TrimmedStatement[request.StringPosition])
                                     {
                                         case BackslashChar:
                                             // Must be the first char to be legal.    
@@ -105,11 +105,11 @@ namespace Elicon.Domain.GateLevel.Parse
                                         case RightRoundBracketChar:
                                             request.PortDone = false;
                                             request.StringPosition++;
-                                            return request.SourceString.Substring(request.StartPos, request.StringPosition - 1 - request.StartPos).Trim();
+                                            return request.TrimmedStatement.Substring(request.StartPos, request.StringPosition - 1 - request.StartPos).Trim();
                                         case CommaChar:
                                             request.StringPosition++;
                                             if (request.IsPortList)
-                                                return request.SourceString.Substring(request.StartPos, request.StringPosition - 1 - request.StartPos).Trim();
+                                                return request.TrimmedStatement.Substring(request.StartPos, request.StringPosition - 1 - request.StartPos).Trim();
                                             break;
                                         case LeftCurlyBracketChar:
                                             request.InBus = true;
@@ -133,17 +133,17 @@ namespace Elicon.Domain.GateLevel.Parse
                                     break;
                                 if (request.InEscape)
                                 {
-                                    if (request.SourceString[request.StringPosition] == SpaceChar)
+                                    if (request.TrimmedStatement[request.StringPosition] == SpaceChar)
                                     {
                                         request.InEscape = false;
                                         request.PortDone = true;
-                                        return request.SourceString.Substring(request.StartPos, request.StringPosition - request.StartPos).Trim();
+                                        return request.TrimmedStatement.Substring(request.StartPos, request.StringPosition - request.StartPos).Trim();
                                     }
                                     request.StringPosition++;
                                 }
                                 else
                                 {
-                                    switch (request.SourceString[request.StringPosition])
+                                    switch (request.TrimmedStatement[request.StringPosition])
                                     {
                                         case BackslashChar:
                                             // Must be the first char to be legal.
@@ -154,7 +154,7 @@ namespace Elicon.Domain.GateLevel.Parse
                                         case SpaceChar:
                                         case LeftRoundBracketChar:
                                             request.PortDone = true;
-                                            return request.SourceString.Substring(request.StartPos, request.StringPosition - request.StartPos).Trim();
+                                            return request.TrimmedStatement.Substring(request.StartPos, request.StringPosition - request.StartPos).Trim();
                                         default:
                                             request.StringPosition++;
                                             break;
@@ -171,7 +171,7 @@ namespace Elicon.Domain.GateLevel.Parse
             if (request.StringPosition <= request.StartPos)
                 return null;
 
-            return request.SourceString.Substring(request.StartPos, request.StringPosition - request.StartPos).Trim();
+            return request.TrimmedStatement.Substring(request.StartPos, request.StringPosition - request.StartPos).Trim();
         }
     }
 }

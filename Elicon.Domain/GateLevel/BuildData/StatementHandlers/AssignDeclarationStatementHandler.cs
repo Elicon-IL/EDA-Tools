@@ -16,13 +16,13 @@ namespace Elicon.Domain.GateLevel.BuildData.StatementHandlers
         public void Handle(BuildState state)
         {
             var module = _moduleRepository.Get(state.NetlistSource, state.CurrentModuleName);
-            module.AssignDeclarations.Add(state.CurrentStatement);
+            module.AssignDeclarations.Add(state.CurrentStatementTrimmed);
             _moduleRepository.Update(module);
         }
 
         public bool CanHandle(BuildState state)
         {
-            return _criteria.IsSatisfied(state.CurrentStatement);
+            return _criteria.IsSatisfied(state.CurrentStatementTrimmed);
         }
     }
 }
