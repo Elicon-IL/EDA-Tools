@@ -10,7 +10,7 @@ namespace Elicon.Domain.GateLevel.Parse
 
         public PortType GetPortType(string statement)
         {
-            var type = statement.KeepUntilFirstExclusive(' ');
+            var type = statement.KeepUntilFirstExclusiveAndTrim(' ');
 
             if (type == "input")
                 return PortType.Input;
@@ -22,7 +22,7 @@ namespace Elicon.Domain.GateLevel.Parse
 
         public IList<Port> GetPorts(string statement)
         {
-            statement = statement.KeepFromFirstInclusive(' ').RemoveLastChar();
+            statement = statement.KeepFromFirstInclusiveAndTrim(' ').RemoveLastCharAndTrim();
             return _portsParser.GetPorts(statement).ToList();
         }
     }

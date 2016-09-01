@@ -66,6 +66,7 @@
     <Compile Include="Domain\Parse\ModuleDeclarationStatementParserTests.cs" />
     <Compile Include="Domain\Parse\InstanceStatementParserTests.cs" />
     <Compile Include="Domain\Traversal\InstancesPathTrackerTests.cs" />
+    <Compile Include="Framework\StringExtensionsTests.cs" />
     <Compile Include="Framework\DictionaryExtensionsTests.cs" />
     <Compile Include="Framework\PrecentageCalculatorTests.cs" />
     <Compile Include="DataAccess\ReadFiles\MultiLineStatementVerifierTests.cs" />

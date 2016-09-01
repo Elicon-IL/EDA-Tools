@@ -10,16 +10,16 @@ namespace Elicon.Domain.GateLevel.Parse
         public string GetModuleName(string statement)
         {
             return statement
-                .KeepUntilFirstExclusive(' ');
+                .KeepUntilFirstExclusiveAndTrim(' ');
         }
 
         public string GeInstanceName(string statement)
         {
-            statement = statement.KeepFromFirstInclusive(' ');
+            statement = statement.KeepFromFirstInclusiveAndTrim(' ');
             if (statement.IsEscaped())
-                return statement.KeepUntilFirstExclusive(' ');
+                return statement.KeepUntilFirstExclusiveAndTrim(' ');
 
-            return statement.KeepUntilFirstExclusive('(');
+            return statement.KeepUntilFirstExclusiveAndTrim('(');
         }
 
         public IEnumerable<PortWirePair> GetNet(string statement)
@@ -39,12 +39,12 @@ namespace Elicon.Domain.GateLevel.Parse
         
         private string GetNetPartFrom(string line)
         {
-            line = line.KeepFromFirstInclusive(" ");
+            line = line.KeepFromFirstInclusiveAndTrim(" ");
             if (line.IsEscaped())
-                line = line.KeepFromFirstInclusive(" ");
+                line = line.KeepFromFirstInclusiveAndTrim(" ");
 
-            return line.KeepFromFirstInclusive("(").RemoveFirstChar()
-                .KeepUntilLastExclusive(")");        
+            return line.KeepFromFirstInclusiveAndTrim("(").RemoveFirstCharAndTrim()
+                .KeepUntilLastExclusiveAndTrim(")");        
         }
     }
 }

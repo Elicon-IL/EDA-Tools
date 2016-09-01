@@ -4,66 +4,93 @@ namespace Elicon.Framework
 {
     public static class StringExtensions
     {
-        public static bool FirstTokenIs(this string str, string token)
+        public static bool FirstTokenIs(this string target, string token)
         {
-            if (!str.StartsWith(token))
+            if (!target.StartsWith(token))
                 return false;
 
-            return str.Length == token.Length
-                || str[token.Length] == ' '
-                || str[token.Length] == '\t';
+            return target.Length == token.Length
+                || target[token.Length] == ' '
+                || target[token.Length] == '\t';
         }
 
-        public static bool IsNullOrEmpty(this string str)
+        public static bool IsNullOrEmpty(this string target)
         {
-            return string.IsNullOrEmpty(str);
+            return string.IsNullOrEmpty(target);
         }
 
-        public static bool IsEscaped(this string str)
+        public static bool IsEscaped(this string target)
         {
-            return str.StartsWith("\\");
+            return target.StartsWith("\\");
         }
 
-        public static string RemoveLastChar(this string str)
+        public static string RemoveLastCharAndTrim(this string target)
         {
-            return str.Substring(0, str.Length - 1).Trim();
+            if (target.IsNullOrEmpty())
+                return target;
+
+            return target.Substring(0, target.Length - 1).Trim();
         }
 
-        public static string RemoveFirstChar(this string str)
+        public static string RemoveFirstCharAndTrim(this string target)
         {
-            return str.Substring(1).Trim();
+            if (target.IsNullOrEmpty())
+                return target;
+
+            return target.Substring(1).Trim();
         }
 
-        public static string KeepUntilFirstExclusive(this string str, string delimiter)
+        public static string KeepUntilFirstExclusiveAndTrim(this string target, string delimiter)
         {
-            return str.Substring(0, str.IndexOf(delimiter, StringComparison.Ordinal)).Trim();
+            if (target.IsNullOrEmpty())
+                return target;
+
+            var delimiterIndex = target.IndexOf(delimiter, StringComparison.Ordinal);
+            if (delimiterIndex == -1)
+                return target;
+            
+            return target.Substring(0, delimiterIndex).Trim();
         }
 
-        public static string KeepUntilLastExclusive(this string str, string delimiter)
+        public static string KeepUntilLastExclusiveAndTrim(this string target, string delimiter)
         {
-            return str.Substring(0, str.LastIndexOf(delimiter, StringComparison.Ordinal)).Trim();
+            if (target.IsNullOrEmpty())
+                return target;
+
+            var lastIndexOfDelimiter = target.LastIndexOf(delimiter, StringComparison.Ordinal);
+            if (lastIndexOfDelimiter == -1)
+                return target;
+
+            return target.Substring(0, lastIndexOfDelimiter).Trim();
         }
 
-        public static string KeepFromFirstInclusive(this string str, string delimiter)
+        public static string KeepFromFirstInclusiveAndTrim(this string target, string delimiter)
         {
-            return str
-               .Substring(str.IndexOf(delimiter, StringComparison.Ordinal))
+            if (target.IsNullOrEmpty())
+                return target;
+
+            var delimiterIndex = target.IndexOf(delimiter, StringComparison.Ordinal);
+            if (delimiterIndex == -1)
+                return target;
+
+            return target
+               .Substring(delimiterIndex)
                .Trim();
         }
 
-        public static string KeepUntilFirstExclusive(this string str, char delimiter)
+        public static string KeepUntilFirstExclusiveAndTrim(this string target, char delimiter)
         {
-            return str.KeepUntilFirstExclusive(delimiter.ToString());
+            return target.KeepUntilFirstExclusiveAndTrim(delimiter.ToString());
         }
 
-        public static string KeepUntilLastExclusive(this string str, char delimiter)
+        public static string KeepUntilLastExclusiveAndTrim(this string target, char delimiter)
         {
-            return str.KeepUntilLastExclusive(delimiter.ToString());
+            return target.KeepUntilLastExclusiveAndTrim(delimiter.ToString());
         }
 
-        public static string KeepFromFirstInclusive(this string str, char delimiter)
+        public static string KeepFromFirstInclusiveAndTrim(this string target, char delimiter)
         {
-            return str.KeepFromFirstInclusive(delimiter.ToString());
+            return target.KeepFromFirstInclusiveAndTrim(delimiter.ToString());
         }
     }
 }

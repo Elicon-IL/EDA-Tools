@@ -10,21 +10,21 @@ namespace Elicon.Domain.GateLevel.Parse
 
         public string GetModuleName(string statement)
         {
-            statement = statement.KeepFromFirstInclusive(' ');
+            statement = statement.KeepFromFirstInclusiveAndTrim(' ');
             if (statement.IsEscaped())
-                return statement.KeepUntilFirstExclusive(' ');
+                return statement.KeepUntilFirstExclusiveAndTrim(' ');
 
-            return statement.KeepUntilFirstExclusive('(');
+            return statement.KeepUntilFirstExclusiveAndTrim('(');
         }
 
         public IList<Port> GetPorts(string statement)
         {
-            statement = statement.KeepFromFirstInclusive(' ');
+            statement = statement.KeepFromFirstInclusiveAndTrim(' ');
 
             if (statement.IsEscaped())
-                statement = statement.KeepFromFirstInclusive(' ');
+                statement = statement.KeepFromFirstInclusiveAndTrim(' ');
             else
-                statement = statement.KeepFromFirstInclusive('(');
+                statement = statement.KeepFromFirstInclusiveAndTrim('(');
 
             statement = RemoveWrappingBracketsAndSemiColon(statement);
 
@@ -33,7 +33,7 @@ namespace Elicon.Domain.GateLevel.Parse
 
         private string RemoveWrappingBracketsAndSemiColon(string statement)
         {
-            return statement.RemoveFirstChar().KeepUntilLastExclusive(")");
+            return statement.RemoveFirstCharAndTrim().KeepUntilLastExclusiveAndTrim(")");
         }
     }
 }

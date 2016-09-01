@@ -71,7 +71,7 @@ namespace Elicon.DataAccess.Files.GateLevel.Write
 
         private string RemoveLastItemsSeparator(StringBuilder sb)
         {
-            return sb.ToString().KeepUntilLastExclusive(ItemsSeparator);
+            return sb.ToString().KeepUntilLastExclusiveAndTrim(ItemsSeparator);
         }
 
         private void BuildSpecificPortTypeDeclaration(IList<Port> modulePorts, PortType portType, string title)
