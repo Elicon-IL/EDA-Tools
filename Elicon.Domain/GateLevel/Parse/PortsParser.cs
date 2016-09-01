@@ -6,9 +6,9 @@ namespace Elicon.Domain.GateLevel.Parse
     {
         private readonly PortsTokenizer _portsTokenizer = new PortsTokenizer();
 
-        public IEnumerable<Port> GetPorts(string statement)
+        public IEnumerable<Port> GetPorts(string trimmedStatement)
         {
-            var request = new PortsTokenizeRequest(statement) { IsPortList = true };
+            var request = new PortsTokenizeRequest(trimmedStatement) { IsPortList = true };
 
             while (_portsTokenizer.HasNext(request))
             {

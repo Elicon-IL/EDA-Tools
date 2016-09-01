@@ -8,9 +8,9 @@ namespace Elicon.Domain.GateLevel.Parse
     {
         private readonly PortsParser _portsParser = new PortsParser();
 
-        public PortType GetPortType(string statement)
+        public PortType GetPortType(string trimmedStatement)
         {
-            var type = statement.KeepUntilFirstExclusiveAndTrim(' ');
+            var type = trimmedStatement.KeepUntilFirstExclusiveAndTrim(' ');
 
             if (type == "input")
                 return PortType.Input;
@@ -20,10 +20,10 @@ namespace Elicon.Domain.GateLevel.Parse
             return PortType.Inout;
         }
 
-        public IList<Port> GetPorts(string statement)
+        public IList<Port> GetPorts(string trimmedStatement)
         {
-            statement = statement.KeepFromFirstInclusiveAndTrim(' ').RemoveLastCharAndTrim();
-            return _portsParser.GetPorts(statement).ToList();
+            trimmedStatement = trimmedStatement.KeepFromFirstInclusiveAndTrim(' ').RemoveLastCharAndTrim();
+            return _portsParser.GetPorts(trimmedStatement).ToList();
         }
     }
 }

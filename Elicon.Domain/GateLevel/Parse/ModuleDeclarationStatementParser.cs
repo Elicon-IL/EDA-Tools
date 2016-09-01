@@ -8,32 +8,32 @@ namespace Elicon.Domain.GateLevel.Parse
     {
         private readonly PortsParser _portsParser = new PortsParser();
 
-        public string GetModuleName(string statement)
+        public string GetModuleName(string trimmedStatement)
         {
-            statement = statement.KeepFromFirstInclusiveAndTrim(' ');
-            if (statement.IsEscaped())
-                return statement.KeepUntilFirstExclusiveAndTrim(' ');
+            trimmedStatement = trimmedStatement.KeepFromFirstInclusiveAndTrim(' ');
+            if (trimmedStatement.IsEscaped())
+                return trimmedStatement.KeepUntilFirstExclusiveAndTrim(' ');
 
-            return statement.KeepUntilFirstExclusiveAndTrim('(');
+            return trimmedStatement.KeepUntilFirstExclusiveAndTrim('(');
         }
 
-        public IList<Port> GetPorts(string statement)
+        public IList<Port> GetPorts(string trimmedStatement)
         {
-            statement = statement.KeepFromFirstInclusiveAndTrim(' ');
+            trimmedStatement = trimmedStatement.KeepFromFirstInclusiveAndTrim(' ');
 
-            if (statement.IsEscaped())
-                statement = statement.KeepFromFirstInclusiveAndTrim(' ');
+            if (trimmedStatement.IsEscaped())
+                trimmedStatement = trimmedStatement.KeepFromFirstInclusiveAndTrim(' ');
             else
-                statement = statement.KeepFromFirstInclusiveAndTrim('(');
+                trimmedStatement = trimmedStatement.KeepFromFirstInclusiveAndTrim('(');
 
-            statement = RemoveWrappingBracketsAndSemiColon(statement);
+            trimmedStatement = RemoveWrappingBracketsAndSemiColon(trimmedStatement);
 
-            return _portsParser.GetPorts(statement).ToList();
+            return _portsParser.GetPorts(trimmedStatement).ToList();
         }
 
-        private string RemoveWrappingBracketsAndSemiColon(string statement)
+        private string RemoveWrappingBracketsAndSemiColon(string trimmedStatement)
         {
-            return statement.RemoveFirstCharAndTrim().KeepUntilLastExclusiveAndTrim(")");
+            return trimmedStatement.RemoveFirstCharAndTrim().KeepUntilLastExclusiveAndTrim(")");
         }
     }
 }
