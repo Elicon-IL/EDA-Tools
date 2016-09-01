@@ -50,7 +50,7 @@
     <Compile Include="GateLevel\BuildData\StatementHandlers\EmptyStatementHandler.cs" />
     <Compile Include="GateLevel\BuildData\StatementHandlers\EndModuleStatementHandler.cs" />
     <Compile Include="GateLevel\BuildData\StatementHandlers\ErrorStatementHandler.cs" />
-    <Compile Include="GateLevel\BuildData\StatementHandlers\StatementHandlingInvoker.cs" />
+    <Compile Include="GateLevel\BuildData\StatementHandlers\StatementHandlersInvoker.cs" />
     <Compile Include="GateLevel\BuildData\StatementHandlers\IStatementHandler.cs" />
     <Compile Include="GateLevel\BuildData\StatementHandlers\InstanceDeclarationStatementHandler.cs" />
     <Compile Include="GateLevel\BuildData\StatementHandlers\ModuleDeclarationStatementHandler.cs" />
