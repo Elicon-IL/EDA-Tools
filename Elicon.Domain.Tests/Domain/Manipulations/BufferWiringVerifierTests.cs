@@ -19,7 +19,7 @@ namespace Elicon.Domain.Tests.Domain.Manipulations
         }
 
         [Test]
-        public void BufferIsDrivenByHostModule_BufferInputNotConnectedToModulePort_ReturnsFalse()
+        public void HostModuleDrivesBuffer_BufferInputNotConnectedToModulePort_ReturnsFalse()
         {
             var buffer = new Instance("some netlist", "some host", "b1", "inst1") {
                 Net = new List<PortWirePair> {new PortWirePair("a", "ina"), new PortWirePair("b", "w3")}};
@@ -27,12 +27,12 @@ namespace Elicon.Domain.Tests.Domain.Manipulations
             module.Ports.Add(new Port("w3"));
             StubBufferHostModule(buffer, module);
 
-            var result = new BufferWiringVerifier(_moduleRepository.Object).BufferIsDrivenByHostModule(buffer, "a");
+            var result = new BufferWiringVerifier(_moduleRepository.Object).HostModuleDrivesBuffer(buffer, "a");
             Assert.That(result, Is.False);
         }
 
         [Test]
-        public void BufferIsDrivenByHostModule_BufferInputConnectedToModulePort_ReturnsTrue()
+        public void HostModuleDrivesBuffer_BufferInputConnectedToModulePort_ReturnsTrue()
         {
             var buffer = new Instance("some netlist", "some host", "b1", "inst1") {
                 Net = new List<PortWirePair> { new PortWirePair("a", "w1"), new PortWirePair("b", "w2") }
@@ -41,7 +41,7 @@ namespace Elicon.Domain.Tests.Domain.Manipulations
             module.Ports.Add(new Port("w1"));
             StubBufferHostModule(buffer, module);
 
-            var result = new BufferWiringVerifier(_moduleRepository.Object).BufferIsDrivenByHostModule(buffer, "a");
+            var result = new BufferWiringVerifier(_moduleRepository.Object).HostModuleDrivesBuffer(buffer, "a");
 
             Assert.That(result, Is.True);
         }
@@ -49,8 +49,7 @@ namespace Elicon.Domain.Tests.Domain.Manipulations
         [Test]
         public void IsPassThroughBuffer_BothBufferInputAndOutputConnectedToModulePort_ReturnsTrue()
         {
-            var buffer = new Instance("some netlist", "some host", "b1", "inst1")
-            {
+            var buffer = new Instance("some netlist", "some host", "b1", "inst1"){
                 Net = new List<PortWirePair> { new PortWirePair("a", "w1"), new PortWirePair("b", "w2") }
             };
             var module = new Module("some netlist", "some host");
@@ -66,8 +65,7 @@ namespace Elicon.Domain.Tests.Domain.Manipulations
         [Test]
         public void IsPassThroughBuffer_BufferInputNotConnectedToModulePort_ReturnsFalse()
         {
-            var buffer = new Instance("some netlist", "some host", "b1", "inst1")
-            {
+            var buffer = new Instance("some netlist", "some host", "b1", "inst1"){
                 Net = new List<PortWirePair> { new PortWirePair("a", "ain"), new PortWirePair("b", "w2") }
             };
             var module = new Module("some netlist", "some host");
@@ -83,8 +81,7 @@ namespace Elicon.Domain.Tests.Domain.Manipulations
         [Test]
         public void IsPassThroughBuffer_BufferOutputNotConnectedToModulePort_ReturnsFalse()
         {
-            var buffer = new Instance("some netlist", "some host", "b1", "inst1")
-            {
+            var buffer = new Instance("some netlist", "some host", "b1", "inst1"){
                 Net = new List<PortWirePair> { new PortWirePair("a", "w1"), new PortWirePair("b", "bout") }
             };
             var module = new Module("some netlist", "some host");
