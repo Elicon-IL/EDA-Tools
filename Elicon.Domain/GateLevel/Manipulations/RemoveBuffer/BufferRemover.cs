@@ -36,9 +36,9 @@ namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
                 var instances = _instanceRepository.GetByHostModule(buffer.Netlist, buffer.HostModuleName).ToList();
                 if (bufferWiring == BufferWiring.DrivenByHostModule)
                 {
-                    var modulePort = buffer.GetWire(inputPort);
+                    var moduleInputPort = buffer.GetWire(inputPort);
                     var bufferOutputWire = buffer.GetWire(outputPort);
-                    _instanceMutator.Take(instances).ReplaceWires(bufferOutputWire, modulePort);
+                    _instanceMutator.Take(instances).ReplaceWires(bufferOutputWire, moduleInputPort);
                 }
                 else 
                 {
