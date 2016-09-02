@@ -50,7 +50,7 @@ namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
         {
             buffer = _instanceRepository
                 .GetByModuleName(netlist, bufferName)
-                .FirstOrDefault(b => _bufferWiringVerifier.NotPassThroughBuffer(b, inputPort, outputPort));
+                .FirstOrDefault(b => !_bufferWiringVerifier.IsPassThroughBuffer(b, inputPort, outputPort));
             
             return buffer != null;
         }

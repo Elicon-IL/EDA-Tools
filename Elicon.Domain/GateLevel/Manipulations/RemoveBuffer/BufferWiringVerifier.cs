@@ -13,7 +13,7 @@ namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
     public interface IBufferWiringVerifier
     {
         BufferWiring Verify(Instance buffer, string inputPort, string outputPort);
-        bool NotPassThroughBuffer(Instance buffer, string inputPort, string outputPort);
+        bool IsPassThroughBuffer(Instance buffer, string inputPort, string outputPort);
         bool BufferIsDrivenByHostModule(Instance buffer, string inputPort);
     }
 
@@ -40,10 +40,10 @@ namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
             return BufferWiring.NotConnectedToHostModule;
         }
 
-        public bool NotPassThroughBuffer(Instance buffer, string inputPort, string outputPort)
+        public bool IsPassThroughBuffer(Instance buffer, string inputPort, string outputPort)
         {
             var module = _moduleRepository.Get(buffer.Netlist, buffer.HostModuleName);
-            return !module.HasPort(buffer.GetWire(inputPort)) || !module.HasPort(buffer.GetWire(outputPort));
+            return module.HasPort(buffer.GetWire(inputPort)) && module.HasPort(buffer.GetWire(outputPort));
         }
 
         public bool BufferIsDrivenByHostModule(Instance buffer, string inputPort)
