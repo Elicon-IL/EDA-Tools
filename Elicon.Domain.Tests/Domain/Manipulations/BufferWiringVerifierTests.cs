@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace Elicon.Domain.Tests.Domain.Manipulations
 {
     [TestFixture]
-    public class PassThroughBufferVerifierTests
+    public class BufferWiringVerifierTests
     {
         private Mock<IModuleRepository> _moduleRepository;
         
@@ -19,7 +19,7 @@ namespace Elicon.Domain.Tests.Domain.Manipulations
         }
 
         [Test]
-        public void IsPassThroughBuffer_BufferNotConnectedToModulePorts_ReturnsFalse()
+        public void Verify_BufferNotConnectedToModulePorts_ReturnsNotConnectedWiring()
         {
             var buffer = new Instance("some netlist", "some host", "b1", "inst1") {
                 Net = new List<PortWirePair> {new PortWirePair("a", "w1"), new PortWirePair("b", "w2")} 
@@ -28,13 +28,13 @@ namespace Elicon.Domain.Tests.Domain.Manipulations
             module.Ports.Add(new Port("w3"));
             StubBufferHostModule(buffer, module);
 
-            var result = new PassThroughBufferVerifier(_moduleRepository.Object).IsPassThroughBuffer(buffer, "a","b");
+            var result = new BufferWiringVerifier(_moduleRepository.Object).Verify(buffer, "a","b");
 
-            Assert.That(result, Is.False);
+            Assert.That(result, Is.EqualTo(BufferWiring.NotConnectedToHostModule));
         }
 
         [Test]
-        public void IsPassThroughBuffer_OnlyBufferInputConnectedToModulePort_ReturnsFalse()
+        public void Verify_OnlyBufferInputConnectedToModulePort_ReturnsDrivenByModuleOption()
         {
             var buffer = new Instance("some netlist", "some host", "b1", "inst1") {
                 Net = new List<PortWirePair> { new PortWirePair("a", "w1"), new PortWirePair("b", "w2") }
@@ -43,13 +43,13 @@ namespace Elicon.Domain.Tests.Domain.Manipulations
             module.Ports.Add(new Port("w1"));
             StubBufferHostModule(buffer, module);
 
-            var result = new PassThroughBufferVerifier(_moduleRepository.Object).IsPassThroughBuffer(buffer, "a", "b");
+            var result = new BufferWiringVerifier(_moduleRepository.Object).Verify(buffer, "a", "b");
 
-            Assert.That(result, Is.False);
+            Assert.That(result, Is.EqualTo(BufferWiring.DrivenByHostModule));
         }
 
         [Test]
-        public void IsPassThroughBuffer_OnlyBufferOutputConnectedToModulePort_ReturnsFalse()
+        public void IsPassThroughBuffer_OnlyBufferOutputConnectedToModulePort_ReturnsDrivesHostModule()
         {
             var buffer = new Instance("some netlist", "some host", "b1", "inst1") {
                 Net = new List<PortWirePair> { new PortWirePair("a", "w1"), new PortWirePair("b", "w2") }
@@ -58,13 +58,13 @@ namespace Elicon.Domain.Tests.Domain.Manipulations
             module.Ports.Add(new Port("w2"));
             StubBufferHostModule(buffer, module);
 
-            var result = new PassThroughBufferVerifier(_moduleRepository.Object).IsPassThroughBuffer(buffer, "a", "b");
+            var result = new BufferWiringVerifier(_moduleRepository.Object).Verify(buffer, "a", "b");
 
-            Assert.That(result, Is.False);
+            Assert.That(result, Is.EqualTo(BufferWiring.DrivesHostModule));
         }
 
         [Test]
-        public void IsPassThroughBuffer_BothBufferInputAndOutputConnectedToModulePort_ReturnsTrue()
+        public void IsPassThroughBuffer_BothBufferInputAndOutputConnectedToModulePort_ReturnsPassThroughBuffer()
         {
             var buffer = new Instance("some netlist", "some host", "b1", "inst1")
             {
@@ -75,9 +75,9 @@ namespace Elicon.Domain.Tests.Domain.Manipulations
             module.Ports.Add(new Port("w2"));
             StubBufferHostModule(buffer, module);
 
-            var result = new PassThroughBufferVerifier(_moduleRepository.Object).IsPassThroughBuffer(buffer, "a", "b");
+            var result = new BufferWiringVerifier(_moduleRepository.Object).Verify(buffer, "a", "b");
 
-            Assert.That(result, Is.True);
+            Assert.That(result, Is.EqualTo(BufferWiring.PassThroughBuffer));
         }
 
         private void StubBufferHostModule(Instance buffer, Module module)
