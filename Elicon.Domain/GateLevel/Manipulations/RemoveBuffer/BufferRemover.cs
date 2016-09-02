@@ -23,32 +23,36 @@ namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
 
         public void Remove(string netlist, string bufferName, string inputPort, string outputPort)
         {
-            var buffers = _instanceRepository.GetByModuleName(netlist, bufferName);
-
-            foreach (var buffer in buffers)
+            Instance buffer;
+            while (TryGetBufferToRemove(netlist, bufferName, inputPort, outputPort, out buffer))
             {
-                var bufferWiring = _bufferWiringVerifier.Verify(buffer, inputPort, outputPort);
-                if (bufferWiring == BufferWiring.PassThroughBuffer)
-                    continue;
-
                 _instanceRepository.Remove(buffer);
 
                 var instances = _instanceRepository.GetByHostModule(buffer.Netlist, buffer.HostModuleName).ToList();
-                if (bufferWiring == BufferWiring.DrivenByHostModule)
+                if (_bufferWiringVerifier.BufferIsDrivenByHostModule(buffer, inputPort))
                 {
                     var moduleInputPort = buffer.GetWire(inputPort);
                     var bufferOutputWire = buffer.GetWire(outputPort);
                     _instanceMutator.Take(instances).ReplaceWires(bufferOutputWire, moduleInputPort);
                 }
-                else 
+                else
                 {
                     var oldWire = buffer.GetWire(inputPort);
                     var newWire = buffer.GetWire(outputPort);
                     _instanceMutator.Take(instances).ReplaceWires(oldWire, newWire);
                 }
-                   
-               _instanceRepository.Update(instances);
+
+                _instanceRepository.Update(instances);
             }
+        }
+        
+        private bool TryGetBufferToRemove(string netlist, string bufferName, string inputPort, string outputPort, out Instance buffer)
+        {
+            buffer = _instanceRepository
+                .GetByModuleName(netlist, bufferName)
+                .FirstOrDefault(b => _bufferWiringVerifier.NotPassThroughBuffer(b, inputPort, outputPort));
+            
+            return buffer != null;
         }
     }
 }
