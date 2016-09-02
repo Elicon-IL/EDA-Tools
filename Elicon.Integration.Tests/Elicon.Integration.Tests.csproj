@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BufferRemoverTests.cs" />
+    <Compile Include="InstanceBuilder.cs" />
     <Compile Include="NativeModulePortsReplacerTests.cs" />
     <Compile Include="NetlistClonerTests.cs" />
     <Compile Include="NetlistRemoverTests.cs" />
