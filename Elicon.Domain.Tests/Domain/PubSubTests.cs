@@ -1,6 +1,7 @@
-﻿using NUnit.Framework;
+﻿using Elicon.Domain;
+using NUnit.Framework;
 
-namespace Elicon.Domain.Tests.Domain
+namespace Elicon.Unit.Tests.Domain
 {
     [TestFixture]
     public class PubSubTests

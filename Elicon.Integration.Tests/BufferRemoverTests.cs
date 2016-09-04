@@ -4,6 +4,7 @@ using Elicon.Domain.GateLevel;
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
 using Elicon.Domain.GateLevel.Manipulations.RemoveBuffer;
 using NUnit.Framework;
+using Elicon.Tests.Framework;
 
 namespace Elicon.Integration.Tests
 {

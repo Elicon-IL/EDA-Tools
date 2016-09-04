@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Elicon.Domain.GateLevel;
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
 using Elicon.Domain.GateLevel.Manipulations.UpperCaseNativeModulePorts;
+using Elicon.Tests.Framework;
 using NUnit.Framework;
 
 namespace Elicon.Integration.Tests
@@ -31,12 +30,12 @@ namespace Elicon.Integration.Tests
         [Test]
         public void PortsToUpper_BothNativeAndNonNativeInstances_UppercasePortsOnlyForNativeInstances()
         {
-            _netlistRepository.Add(new Netlist(DummyNetlist));
+           _netlistRepository.Add(new Netlist(DummyNetlist));
             _moduleRepository.Add(new Module(DummyNetlist,"m1"));
             _moduleRepository.Add(new Module(DummyNetlist, "m2"));
-            _instanceRepository.Add(new Instance(DummyNetlist,"m1","an2","inst1") {Net = new List<PortWirePair>() {new PortWirePair("a","w")} });
-            _instanceRepository.Add(new Instance(DummyNetlist, "m1", "some-non-native", "inst2") {Type = InstanceType.Module, Net = new List<PortWirePair>() { new PortWirePair("b", "w") } });
-            _instanceRepository.Add(new Instance(DummyNetlist, "m2", "an2", "inst3") { Net = new List<PortWirePair>() { new PortWirePair("c", "w") } });
+            _instanceRepository.Add(new InstanceBuilder(DummyNetlist, "m1").New("an2","inst1").Add("a","w").Build());
+            _instanceRepository.Add(new InstanceBuilder(DummyNetlist, "m1").New("some-non-native", "inst2",InstanceType.Module).Add("b", "w").Build());
+            _instanceRepository.Add(new InstanceBuilder(DummyNetlist, "m2").New("an2", "inst3").Add("c", "w").Build());
 
             _target.PortsToUpper(DummyNetlist);
       

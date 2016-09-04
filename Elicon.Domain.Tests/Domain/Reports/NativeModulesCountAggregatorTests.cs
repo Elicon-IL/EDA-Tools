@@ -3,7 +3,7 @@ using Elicon.Domain.GateLevel.Reports.CountNativeModules;
 using Elicon.Domain.GateLevel.Traversal.PhysicalTraversal;
 using NUnit.Framework;
 
-namespace Elicon.Domain.Tests.Domain.Reports
+namespace Elicon.Unit.Tests.Domain.Reports
 {
     [TestFixture]
     public class NativeModulesCountAggregatorTests

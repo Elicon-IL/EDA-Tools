@@ -2,7 +2,7 @@
 using Elicon.Domain.GateLevel.Parse;
 using NUnit.Framework;
 
-namespace Elicon.Domain.Tests.Domain.Parse
+namespace Elicon.Unit.Tests.Domain.Parse
 {
     [TestFixture]
     public class PortsDeclarationStatementParserTests

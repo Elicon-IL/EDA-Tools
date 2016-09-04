@@ -1,7 +1,7 @@
 ﻿using Elicon.Framework;
 using NUnit.Framework;
 
-namespace Elicon.Domain.Tests.Framework
+namespace Elicon.Unit.Tests.Framework
 {
     [TestFixture]
     public class StringExtensionsTests

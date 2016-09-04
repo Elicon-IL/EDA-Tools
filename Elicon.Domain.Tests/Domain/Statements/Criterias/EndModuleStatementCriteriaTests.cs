@@ -1,7 +1,7 @@
 ﻿using Elicon.Domain.GateLevel.Statements.Criterias;
 using NUnit.Framework;
 
-namespace Elicon.Domain.Tests.Domain.Statements.Criterias
+namespace Elicon.Unit.Tests.Domain.Statements.Criterias
 {
     [TestFixture]
     public class EndModuleStatementCriteriaTests

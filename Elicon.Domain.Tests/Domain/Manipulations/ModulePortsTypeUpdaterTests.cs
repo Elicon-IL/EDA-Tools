@@ -3,7 +3,7 @@ using Elicon.Domain.GateLevel;
 using Elicon.Domain.GateLevel.Manipulations;
 using NUnit.Framework;
 
-namespace Elicon.Domain.Tests.Domain.Manipulations
+namespace Elicon.Unit.Tests.Domain.Manipulations
 {
     [TestFixture]
     public class ModulePortsTypeUpdaterTests

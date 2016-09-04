@@ -2,7 +2,7 @@
 using Elicon.Domain.GateLevel.Traversal.PhysicalTraversal;
 using NUnit.Framework;
 
-namespace Elicon.Domain.Tests.Domain.Traversal
+namespace Elicon.Unit.Tests.Domain.Traversal
 {
     [TestFixture]
     public class InstancesPathTrackerTests

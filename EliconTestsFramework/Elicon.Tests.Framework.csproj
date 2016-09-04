@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{31D9DCB9-9FE7-4DE6-9163-F2A678229A22}</ProjectGuid>
+    <ProjectGuid>{C0B34913-5ABF-4794-9A6C-806F411B84D4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Elicon.Integration.Tests</RootNamespace>
-    <AssemblyName>Elicon.Integration.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>EliconTestsFramework</RootNamespace>
+    <AssemblyName>EliconTestsFramework</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,10 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=3.4.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.3.4.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,22 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BufferRemoverTests.cs" />
-    <Compile Include="NativeModulePortsReplacerTests.cs" />
-    <Compile Include="NetlistClonerTests.cs" />
-    <Compile Include="NetlistRemoverTests.cs" />
-    <Compile Include="NativeModuleReplacerTests.cs" />
-    <Compile Include="NativeModulesPortsListReportTests.cs" />
-    <Compile Include="PhysicalModulePathReportTests.cs" />
-    <Compile Include="CountNativeModulesReportTests.cs" />
-    <Compile Include="IntegrationTestBase.cs" />
+    <Compile Include="InstanceBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Elicon.Console.Config\Elicon.Console.Config.csproj">
-      <Project>{342a4e45-2363-44a7-aaea-f4a6e91c58e9}</Project>
-      <Name>Elicon.Console.Config</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Elicon.DataAccess\Elicon.DataAccess.csproj">
       <Project>{cc0e896b-a827-47c1-a2d2-73e89b09bbf9}</Project>
       <Name>Elicon.DataAccess</Name>
@@ -73,17 +56,6 @@
       <Project>{3d3ba074-754a-4aa5-9790-dbe1184d5a7b}</Project>
       <Name>Elicon.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Elicon.Tests.Framework\Elicon.Tests.Framework.csproj">
-      <Project>{8181145a-71c7-4b10-b3f5-f87ccbcb8114}</Project>
-      <Name>Elicon.Tests.Framework</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="example_netlist.v" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

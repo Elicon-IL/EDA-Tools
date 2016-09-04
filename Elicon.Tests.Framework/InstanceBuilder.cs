@@ -1,6 +1,6 @@
 ﻿using Elicon.Domain.GateLevel;
 
-namespace Elicon.Integration.Tests
+namespace Elicon.Tests.Framework
 {
     public class InstanceBuilder
     {
@@ -14,9 +14,9 @@ namespace Elicon.Integration.Tests
             _hostModule = hostModule;
         }
 
-        public InstanceBuilder New(string moduleName, string instanceName)
+        public InstanceBuilder New(string moduleName, string instanceName, InstanceType instanceType = InstanceType.Unknown)
         {
-            _instance = new Instance(_netlist, _hostModule, moduleName, instanceName);
+            _instance = new Instance(_netlist, _hostModule, moduleName, instanceName) { Type = instanceType };
             return this;
         }
 
