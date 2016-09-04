@@ -1,0 +1,124 @@
+﻿<Application x:Class="EdaTools.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             DispatcherUnhandledException="AppDispatcherUnhandledException"
+             >
+    <Application.Resources>
+        <LinearGradientBrush x:Key="BlueBrushBackground" StartPoint="0.5,0" EndPoint="0.5,1">
+            <GradientStop Color="MediumBlue" Offset="0" />
+            <GradientStop Color="SkyBlue" Offset="1" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="GrayBrushBackground" StartPoint="0,0" EndPoint="0,1" >
+            <GradientStop Color="White" Offset="0" />
+            <GradientStop Color="#FFA7A7AA" Offset="1" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="BlueBrushAboutDialogBackground"  EndPoint="0,1">
+            <GradientStop Offset="0" Color="#FF6CD4F5" />
+            <GradientStop Offset="0.65" Color="White" />
+            <GradientStop Offset="0.75" Color="White" />
+            <GradientStop Offset="1" Color="LightBlue" />
+        </LinearGradientBrush>
+        <Style x:Key="AppBorderStyle" TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="WhiteSmoke" />
+            <Setter Property="BorderBrush" Value="LightGray" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="CornerRadius" Value="5" />
+            <!-- <Setter Property="Margin" Value="1" /> -->
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+        </Style>
+        <Style x:Key="NiceButton" TargetType="{x:Type Button}" BasedOn="{x:Null}">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid x:Name="grid">
+                            <Border x:Name="border" BorderThickness="1,1,1,1" CornerRadius="5,5,5,5" Padding="10,3,10,6">
+                                <Border.BorderBrush>
+                                    <LinearGradientBrush  StartPoint="0.5,0" EndPoint="0.5,1">
+                                        <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                                        <GradientStop Color="#FF7293BB" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.BorderBrush>
+                                <Border.Background>
+                                    <LinearGradientBrush  StartPoint="0.5,0" EndPoint="0.5,1">
+                                        <GradientStop Color="#FF4B9DFF" Offset="0"/>
+                                        <GradientStop Color="#FF002655" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <TextBlock Text="{TemplateBinding ContentControl.Content}" TextWrapping="Wrap" HorizontalAlignment="Center"
+                                    VerticalAlignment="Center" Foreground="#FFFFFFFF"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="UIElement.IsFocused" Value="true">
+                                <Setter TargetName="border" Property="Border.BorderBrush">
+                                    <Setter.Value>
+                                        <LinearGradientBrush  StartPoint="0.5,0" EndPoint="0.5,1">
+                                            <GradientStop Color="#FF5CDFFB" Offset="0"/>
+                                            <GradientStop Color="#FF13AFDC" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="border" Property="Border.Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush  StartPoint="0.5,0" EndPoint="0.5,1">
+                                            <GradientStop Color="#FFFF9D4B" Offset="0"/>
+                                            <GradientStop Color="#FF550F00" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="border" Property="Border.BorderBrush">
+                                    <Setter.Value>
+                                        <LinearGradientBrush  StartPoint="0.5,0" EndPoint="0.5,1">
+                                            <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                                            <GradientStop Color="#FFBB9372" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <!-- <Trigger Property="Button.IsDefaulted" Value="true"/> -->
+                            <Trigger Property="UIElement.IsMouseOver" Value="true">
+                                <Setter TargetName="border" Property="Border.Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush  StartPoint="0.5,0" EndPoint="0.5,1">
+                                            <GradientStop Color="#FFFF9D4B" Offset="0"/>
+                                            <GradientStop Color="#FF550F00" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="border" Property="Border.BorderBrush">
+                                    <Setter.Value>
+                                        <LinearGradientBrush  StartPoint="0.5,0" EndPoint="0.5,1">
+                                            <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                                            <GradientStop Color="#FFBB9372" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="ButtonBase.IsPressed" Value="true">
+                                <Setter TargetName="border" Property="Border.Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush  StartPoint="0.5,0" EndPoint="0.5,1">
+                                            <GradientStop Color="#FFE27920" Offset="0"/>
+                                            <GradientStop Color="#FF410D02" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="border" Property="Border.BorderBrush">
+                                    <Setter.Value>
+                                        <LinearGradientBrush  StartPoint="0.5,0" EndPoint="0.5,1">
+                                            <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                                            <GradientStop Color="#FFBB9A72" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="UIElement.IsEnabled" Value="false">
+                                <Setter TargetName="grid" Property="UIElement.Opacity" Value="0.3"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Application.Resources>
+</Application>

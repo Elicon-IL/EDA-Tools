@@ -1,0 +1,61 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewModel="clr-namespace:EdaTools.ViewModel" x:Class="EdaTools.View.EdaToolsMainView"
+        Title="{Binding DisplayName, Mode=OneWay}" Height="561.065" Width="777.072" 
+        MinWidth="650" MinHeight="500"
+        ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <viewModel:EdaToolsMainViewModel/>
+    </Window.DataContext>
+    <DockPanel x:Name="MainDockPanel">
+        <DockPanel DockPanel.Dock="Top" KeyboardNavigation.TabNavigation="None">
+            <Menu x:Name="MainMenu" Background="{DynamicResource GrayBrushBackground}">
+                <MenuItem x:Name="FileMenu" Header="File">
+                    <MenuItem x:Name="ReadFile" Header="Read Verilog Netlist..." Command="{Binding FileMenuReadNetlist, Mode=Default}" />
+                    <Separator/>
+                    <MenuItem x:Name="CopyLog" Header="Copy Log Window" Command="{Binding FileMenuCopyLog, Mode=OneWay}"/>
+                    <MenuItem x:Name="SaveLog" Header="Save Log Window..." Command="{Binding FileMenuSaveLog, Mode=OneWay}"/>
+                    <Separator/>
+                    <MenuItem x:Name="About" Header="About EDA Tools..." Command="{Binding FileMenuAbout, Mode=OneWay}"/>
+                    <Separator/>
+                    <MenuItem x:Name="ExitApp" Header="Exit Application" Command="{Binding Close, Mode=OneWay}" />
+                </MenuItem>
+                <MenuItem x:Name="UtilitisMenu" Header="Utilities">
+                    <MenuItem x:Name="UpperCaseNativeCellsPorts" Header="Upper Case Native Cell Ports" Command="{Binding UtilityMenuUCasePorts, Mode=OneWay}" />
+                    <MenuItem x:Name="RemoveBuffers" Header="Remove Buffers" Command="{Binding UtilityMenuRemoveBuffers, Mode=OneWay}" />
+                    <MenuItem x:Name="ReplaceModuleInstances" Header="Replace Module Instances" Command="{Binding UtilityMenuReplaceModule, Mode=OneWay}" />
+                </MenuItem>
+                <MenuItem x:Name="ReportsMenu" Header="Reports">
+                    <MenuItem x:Name="ListPhysicalInstances" Header="List Module(s) Physical Instances" Command="{Binding ReportMenuListPhysicalInstances, Mode=OneWay}" />
+                    <MenuItem x:Name="CountPhysicalInstances" Header="Count Physical Instances" Command="{Binding ReportMenuCountPhysicalInstances, Mode=OneWay}" />
+                    <MenuItem x:Name="ListUndeclaredModules" Header="List Undeclared Modules" Command="{Binding ReportMenuListUndeclaredModules, Mode=OneWay}" />
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+        <StatusBar x:Name="StatusBar" Height="19" Margin="0" DockPanel.Dock="Bottom" VerticalContentAlignment="Bottom" VerticalAlignment="Center" Background="{DynamicResource GrayBrushBackground}">
+            <TextBlock TextWrapping="Wrap" Text="TextBlock 1" Width="143" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <ProgressBar x:Name="ProgressBar1" Height="17" Width="176" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Visibility="Hidden"/>
+            <TextBlock TextWrapping="Wrap" Text="TextBlock 2" Width="168" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        </StatusBar>
+        <DockPanel x:Name="AppLogDockPanel">
+            <Border  Style="{StaticResource AppBorderStyle}" Height="30" DockPanel.Dock="Top" Margin="0,2" Background="{DynamicResource BlueBrushBackground}">
+                <TextBlock 
+                          FontSize="18"
+                          FontWeight="Bold"
+                          Foreground="White" 
+                          HorizontalAlignment="Stretch"  
+                          Text="Application Status Window" TextAlignment="Center" />
+            </Border>
+            <Border  Style="{StaticResource AppBorderStyle}" DockPanel.Dock="Bottom">
+                <TextBox x:Name="TextBoxMain" Margin="2,2,2,0"  AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" 
+                             VerticalScrollBarVisibility="Auto" Text="{Binding LogWindowContents}" IsReadOnly="True" BorderBrush="{x:Null}" 
+                             Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0">
+                    <TextBox.Background>
+                        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}"/>
+                    </TextBox.Background>
+                </TextBox>
+            </Border>
+        </DockPanel>
+    </DockPanel>
+</Window>
