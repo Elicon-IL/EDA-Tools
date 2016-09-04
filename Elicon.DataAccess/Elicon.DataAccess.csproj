@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Files\Common\Write\StreamWriterAdapter.cs" />
+    <Compile Include="Files\Common\Write\IStreamWriter.cs" />
     <Compile Include="Files\Common\Write\StreamWriterProvider.cs" />
     <Compile Include="Files\GateLevel\Write\NetlistFileWriter.cs" />
     <Compile Include="Files\GateLevel\Write\StatementsBuilder.cs" />
@@ -52,10 +52,9 @@
     <Compile Include="NetlistCloner.cs" />
     <Compile Include="NetlistRepository.cs" />
     <Compile Include="Files\GateLevel\Read\MultiLineStatementVerifier.cs" />
-    <Compile Include="Files\GateLevel\Read\NetlistFileReader.cs" />
     <Compile Include="Files\GateLevel\Read\NetlistFileReaderProvider.cs" />
     <Compile Include="Files\GateLevel\Read\StatementTrimmer.cs" />
-    <Compile Include="Files\Common\Read\StreamReaderAdapter.cs" />
+    <Compile Include="Files\Common\Read\IStreamReader.cs" />
     <Compile Include="IdGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Files\Common\Read\StreamReaderProvider.cs" />
