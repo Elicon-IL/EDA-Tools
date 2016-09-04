@@ -39,7 +39,7 @@ namespace Elicon.Domain.GateLevel.Parse
                         {
                             if (request.TrimmedStatement[request.StringPosition] == LeftRoundBracketChar)
                             {
-                                // Wire name starts after this bracket.
+                                // Wire / port name starts after this bracket.
                                 request.StringPosition++;
                                 // Skip leading spaces (if any).
                                 while (HasNext(request) && request.TrimmedStatement[request.StringPosition] == ' ')
@@ -57,7 +57,7 @@ namespace Elicon.Domain.GateLevel.Parse
                                 }
                             }
 
-                            // Parse loop for the wire name.
+                            // Parse loop for the wire / port name.
                             request.InBus = false;
                             while (HasNext(request))
                             {
@@ -101,7 +101,6 @@ namespace Elicon.Domain.GateLevel.Parse
                                                 request.InEscape = true;
                                             request.StringPosition++;
                                             break;
-                                        //x case SpaceChar:
                                         case RightRoundBracketChar:
                                             request.PortDone = false;
                                             request.StringPosition++;
