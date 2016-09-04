@@ -1,4 +1,5 @@
-﻿using Elicon.Framework;
+﻿using System;
+using Elicon.Framework;
 using NUnit.Framework;
 
 namespace Elicon.Unit.Tests.Framework
@@ -7,6 +8,22 @@ namespace Elicon.Unit.Tests.Framework
     public class StringExtensionsTests
     {
         private string _target;
+
+        [Test]
+        public void FormatWith_OneArgument_ReturnsFormatted()
+        {
+            var result = "this is {0}% formatted!".FormatWith(100);
+
+            Assert.That(result, Is.EqualTo("this is 100% formatted!"));
+        }
+
+        [Test]
+        public void FormatWith_MultipleArguments_ReturnsFormatted()
+        {
+            var result = "Hi {0}, this is {1}% formatted! have a great {2}".FormatWith("udi",100, DayOfWeek.Sunday);
+
+            Assert.That(result, Is.EqualTo("Hi udi, this is 100% formatted! have a great Sunday"));
+        }
 
         [Test]
         public void FirstTokenIs_ExactMatch_ReturnsTrue()

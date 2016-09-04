@@ -4,6 +4,11 @@ namespace Elicon.Framework
 {
     public static class StringExtensions
     {
+        public static string FormatWith(this string target, params object[] args)
+        {
+            return string.Format(target, args);
+        }
+
         public static bool FirstTokenIs(this string target, string token)
         {
             if (!target.StartsWith(token))
