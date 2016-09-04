@@ -42,6 +42,8 @@ namespace EdaTools.ViewModel
 
         public Action CloseAction { get; set; }
 
+        public bool DialogResult { get; set; }
+
         public PromptDialogViewModel()
         {
             _promptDialogModel = new PromptDialogModel();
@@ -231,7 +233,10 @@ namespace EdaTools.ViewModel
 
         private void InvokeRequestClose(RequestCloseEventArgs e)
         {
-            ViewModelOutputData = e.ViewModelOutputData;
+            if ((bool) e.ViewModelOutputData)
+            {
+                DialogResult = true;
+            }
             if (CloseAction != null)
                 CloseAction();
         }

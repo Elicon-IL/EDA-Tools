@@ -19,7 +19,7 @@ using Microsoft.Win32;
 
 namespace EdaTools.ViewModel
 {
-    public class EdaToolsMainViewModel : ViewModelBase
+    public sealed class EdaToolsMainViewModel : ViewModelBase
     {
 
         // ====================================================
@@ -52,11 +52,11 @@ namespace EdaTools.ViewModel
         public EdaToolsMainViewModel()
         {
             var vi = new VersionInfo();
-            base.DisplayName = String.Format("{0} - {1}  Version {2}", Resources.MainWindowViewModel_DisplayName, vi.Description, vi.Version);
+            DisplayName = $"{Resources.MainWindowViewModel_DisplayName} - {vi.Description}  Version {vi.Version}";
             _edaToolsModel = new EdaToolsModel();
             InitAmazingFramework();
             CreateUiCommands();
-            LogWindowContents = String.Format("{0}:  Session started.", DateTime.Now);
+            LogWindowContents = $"{DateTime.Now}:  Session started.";
         }
 
         // =========================================
@@ -67,9 +67,6 @@ namespace EdaTools.ViewModel
             //
             // TODO: Init the amazing EDA framework.
             //
-            Bootstrapper.Boot();
-
-
 
 
             RefreshFrameworkData();
@@ -138,7 +135,7 @@ namespace EdaTools.ViewModel
             UtilityMenuRemoveBuffers = new RelayCommand(param => RemoveBuffersCommand(), param => CanExecute());
             UtilityMenuReplaceModule = new RelayCommand(param => ReplaceModuleCommand(), param => CanExecute());
             // =====================================================================
-            ReportMenuListPhysicalInstances = new RelayCommand(param => ListPhysicalInstancesCommand(), param => CanExecute());
+            ReportMenuListPhysicalInstances = new RelayCommand(param => ListModulePhysicalInstancesCommand(), param => CanExecute());
             ReportMenuCountPhysicalInstances = new RelayCommand(param => CountPhysicalInstancesCommand(), param => CanExecute());
             ReportMenuListUndeclaredModules = new RelayCommand(param => ListUndeclaredModulesCommand(), param => CanExecute());
         }
@@ -160,78 +157,97 @@ namespace EdaTools.ViewModel
         private void ListUndeclaredModulesCommand()
         {
             Window promptDialog = new PromptDialogView(ParentWindow, PromptDialogModel.Actions.ListUndeclaredModules, LoadedNetlists);
-            var result = promptDialog.ShowModal();
-            if (result is bool)
+            var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
+            if (dataContext.DialogResult)
             {
-                //
-            }
-            if (result.GetType().IsClass)
-            {
-                // 
                 var report = Bootstrapper.Get<INativeModulesPortsListReport>();
-                var orderedCells = report.GetNativeModulesPortsList("source");
+                //                                                      , dataContext.TargetSaveFile
+                report.GetNativeModulesPortsList(SourceFile(dataContext));
             }
+        }
+
+        private static string SourceFile(PromptDialogViewModel dataContext)
+        {
+            return dataContext.LoadedNetlists[dataContext.SelectedNetlistIndex];
         }
 
         private void CountPhysicalInstancesCommand()
         {
             Window promptDialog = new PromptDialogView(ParentWindow, PromptDialogModel.Actions.CountPhysicalInstances, LoadedNetlists);
-            var result = promptDialog.ShowModal();
-            if (result is bool)
+            var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
+            if (dataContext.DialogResult)
             {
-                //
-            }
-            if (result.GetType().IsClass)
-            {
-                // 
                 var report = Bootstrapper.Get<ICountNativeModulesReport>();
-                var orderedCells = report.CountNativeModules("source", "patgen_rtl");
+                //                                                 dataContext.UserData1
+                //                                                                      , dataContext.TargetSaveFile
+                report.CountNativeModules(SourceFile(dataContext), dataContext.UserData1);
             }
         }
 
-        private void ListPhysicalInstancesCommand()
+        private void ListModulePhysicalInstancesCommand()
         {
             Window promptDialog = new PromptDialogView(ParentWindow, PromptDialogModel.Actions.ListPhysicalInstances, LoadedNetlists);
-            var result = promptDialog.ShowModal();
-            if (result is bool)
+            var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
+            if (dataContext.DialogResult)
             {
-                //
-            }
-            if (result.GetType().IsClass)
-            {
+                var modules = CommaSeparatedStringToList(dataContext.UserData2);
                 var report = Bootstrapper.Get<IPhysicalModulePathReport>();
-                var orderedCells = report.GetPhysicalPaths("source", "patgen_rtl", new List<string> { "module1", "module2" });
+                //                                                                              , dataContext.TargetSaveFile
+                report.GetPhysicalPaths(SourceFile(dataContext), dataContext.UserData1, modules);
             }
         }
 
         private void ReplaceModuleCommand()
         {
             Window promptDialog = new PromptDialogView(ParentWindow, PromptDialogModel.Actions.ReplaceModule, LoadedNetlists);
-            var result = promptDialog.ShowModal();
-            if (result is bool)
+            var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
+            if (dataContext.DialogResult)
             {
-                //
+                var oldData = CommaSeparatedStringToList(dataContext.UserData1);
+                var newData = CommaSeparatedStringToList(dataContext.UserData2);
+                var replaceRequest = new ModuleReplaceRequest
+                {
+                    Netlist = SourceFile(dataContext),
+                    NewNetlist = dataContext.TargetSaveFile,
+                    ModuleToReplace = oldData[0],
+                    NewModule = newData[0],
+                    PortsMapping = MakePortMapping(oldData, newData)
+                };
+
+                var action = Bootstrapper.Get<INativeModuleReplaceManipulation>();
+                action.Replace(replaceRequest);
             }
-            if (result.GetType().IsClass)
-            {
-                var action = Bootstrapper.Get<INativeModuleReplacer>();
-                PortsMapping portsMapping  = new PortsMapping();
-                action.Replace("source", "module_old", "module_new", portsMapping);
-            }
+        }
+
+        private List<string> CommaSeparatedStringToList(string listOfNames)
+        {
+            return listOfNames.Split(' ').Select(item => item.Trim()).Where(trimmedItem => trimmedItem.Length > 0).ToList();
+        }
+
+        private static PortsMapping MakePortMapping(List<string> oldModule, List<string> newModule)
+        {
+            var pm = new PortsMapping();
+            for (int i = 1; i < oldModule.Count; i++)
+                pm.AddMapping(oldModule[i], newModule[i]);
+            return pm;
         }
 
         private void RemoveBuffersCommand()
         {
             Window promptDialog = new PromptDialogView(ParentWindow, PromptDialogModel.Actions.RemoveBuffers, LoadedNetlists);
-            var result = promptDialog.ShowModal();
-            if (result is bool)
+            var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
+            if (dataContext.DialogResult)
             {
-                //
-            }
-            if (result.GetType().IsClass)
-            {
+                var bufferData = CommaSeparatedStringToList(dataContext.UserData1);
+                RemoveBufferRequest removeBufferRequest = new RemoveBufferRequest
+                {
+                    Netlist = SourceFile(dataContext),
+                    NewNetlist = dataContext.TargetSaveFile,
+                    BufferName = bufferData[0],
+                    InputPort = bufferData[1],
+                    OutputPort = bufferData[2]
+                };
                 var action = Bootstrapper.Get<IRemoveBufferManipulation>();
-                RemoveBufferRequest removeBufferRequest = new RemoveBufferRequest();
                 action.Remove(removeBufferRequest);
             }
         }
@@ -239,15 +255,11 @@ namespace EdaTools.ViewModel
         private void UCasePortsCommand()
         {
             Window promptDialog = new PromptDialogView(ParentWindow, PromptDialogModel.Actions.UCasePorts, LoadedNetlists);
-            var result = promptDialog.ShowModal();
-            if (result is bool)
+            var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
+            if (dataContext.DialogResult)
             {
-                //
-            }
-            if (result.GetType().IsClass)
-            {
-                var action = Bootstrapper.Get<INativeModulePortsReplacer>();
-                action.PortsToUpper("source");
+                var action = Bootstrapper.Get<INativeModulePortsManipulation>();
+                action.PortsToUpper(SourceFile(dataContext), dataContext.TargetSaveFile);
             }
         }
 

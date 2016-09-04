@@ -16,8 +16,6 @@ namespace EdaTools.ViewModel
             get { return _close ?? (_close = new RelayCommand(param => OnUiCloseRequest())); }
         }
 
-        public object ViewModelOutputData { get; set; }
-
         private void OnUiCloseRequest()
         {
             if (UiCloseRequest != null)

@@ -24,14 +24,8 @@ namespace EdaTools.Utility
         public static object ShowModal(this Window view)
         {
             view.ShowDialog();
-            var dataContext = (ViewModelBase) view.DataContext;
-            return dataContext != null ? (dataContext.ViewModelOutputData ?? false) : false;
+            return view.DataContext;
         }
-
     }
-
-
-
-    
 
 }
