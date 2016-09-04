@@ -31,6 +31,11 @@ namespace Elicon.DataAccess
             return null;
         }
 
+        public IEnumerable<Netlist> GetAll()
+        {
+            return _netlists.Values.Select(n => new Netlist(n)).ToList();
+        }
+
         public void Update(Netlist netlist)
         {
             _netlists[netlist.Id] = new Netlist(netlist);
