@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Elicon.Domain.GateLevel;
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
+using Elicon.Domain.GateLevel.Manipulations;
 using Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule;
 using NUnit.Framework;
 
@@ -30,7 +31,7 @@ namespace Elicon.Integration.Tests
             const string moduleToReplace = "oai22";
             const string newModule = "oai22new";
 
-            _target.Replace(DummyNetlist, moduleToReplace, newModule, new Dictionary<string, string>());
+            _target.Replace(DummyNetlist, moduleToReplace, newModule, new PortsMapping());
 
             var result = _instanceRepository.GetByModuleName(DummyNetlist, moduleToReplace).ToList();
             Assert.That(result, Is.Empty);
@@ -50,7 +51,7 @@ namespace Elicon.Integration.Tests
             // oai22 inst056453  ( .b2(n37), .b1(i3), .a2(n36), .a1(i1), .zn(o) );
             const string moduleToReplace = "oai22";
             const string newModule = "oai22new";
-            var portsMap = new Dictionary<string, string> { {"b2","banana2"}, { "zn", "zinzana" } };
+            var portsMap = new PortsMapping().AddMapping("b2", "banana2").AddMapping("zn", "zinzana");
 
             _target.Replace(DummyNetlist, moduleToReplace, newModule, portsMap);
 
@@ -71,7 +72,7 @@ namespace Elicon.Integration.Tests
             var expectedCount = _instanceRepository.GetByModuleName(DummyNetlist, moduleToReplace).ToList().Count;
             const string newModule = "or3new";
          
-            _target.Replace(DummyNetlist, moduleToReplace, newModule, new Dictionary<string, string>());
+            _target.Replace(DummyNetlist, moduleToReplace, newModule, new PortsMapping());
 
             var result = _instanceRepository.GetByModuleName(DummyNetlist, moduleToReplace).ToList();
             Assert.That(result, Is.Empty);
@@ -83,7 +84,7 @@ namespace Elicon.Integration.Tests
         [Test]
         public void Replace_ModuleIsNotNative_ThrowsInvalidOperationException()
         {
-            var portsMap = new Dictionary<string, string> { { "a", "apricot" }, { "b", "banana" } };
+            var portsMap = new PortsMapping().AddMapping("a", "apricot").AddMapping("b", "banana");
             const string nonNativeModule = "x_lut4_0xfefa";
             const string newModule = "x_lut4_0xfefa_new";
 

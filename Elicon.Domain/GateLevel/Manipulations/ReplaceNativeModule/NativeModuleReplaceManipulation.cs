@@ -24,7 +24,7 @@ namespace Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule
         {
             _netlistCloner.Clone(replaceRequest.Netlist, replaceRequest.NewNetlist);
 
-            _nativeModuleReplacer.Replace(replaceRequest.NewNetlist, replaceRequest.ModuleToReplace, replaceRequest.NewModule, replaceRequest.PortsMap);
+            _nativeModuleReplacer.Replace(replaceRequest.NewNetlist, replaceRequest.ModuleToReplace, replaceRequest.NewModule, replaceRequest.PortsMapping);
 
             _netlistFileWriter.Write(replaceRequest.NewNetlist);
         }

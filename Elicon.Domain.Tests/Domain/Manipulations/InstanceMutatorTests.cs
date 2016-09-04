@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Elicon.Domain.GateLevel;
 using Elicon.Domain.GateLevel.Manipulations;
+using Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule;
 using NUnit.Framework;
 
 namespace Elicon.Domain.Tests.Domain.Manipulations
@@ -19,7 +20,7 @@ namespace Elicon.Domain.Tests.Domain.Manipulations
         [Test]
         public void ReplacePorts_NoMapping_NoReplace()
         {
-            var portsMap = new Dictionary<string, string>();
+            var portsMap = new PortsMapping();
             var instances = new List<Instance> { new Instance("netlist","host","name","instName") {
                 Net = new List<PortWirePair>() { new PortWirePair("a","w1"), new PortWirePair("b", "w2") }
             }};
@@ -36,7 +37,7 @@ namespace Elicon.Domain.Tests.Domain.Manipulations
         [Test]
         public void ReplacePorts_MappingOfNoExistingPorts_NoReplace()
         {
-            var portsMap = new Dictionary<string, string> { { "aa", "apple" }, { "bb", "boom" } };
+            var portsMap = new PortsMapping().AddMapping("aa", "apple").AddMapping( "bb", "boom");
             var instances = new List<Instance> { new Instance("netlist","host","name","instName") {
                 Net = new List<PortWirePair>() { new PortWirePair("a","w1"), new PortWirePair("b", "w2") }
             }};
@@ -53,7 +54,7 @@ namespace Elicon.Domain.Tests.Domain.Manipulations
         [Test]
         public void ReplacePorts_PartialMapping_ReplaceSpecifiedPorts()
         {
-            var portsMap = new Dictionary<string, string> { { "a", "apple" } };
+            var portsMap = new PortsMapping().AddMapping("a", "apple");
             var instances = new List<Instance> { new Instance("netlist","host","name","instName") {
                 Net = new List<PortWirePair>() { new PortWirePair("a","w1"), new PortWirePair("b", "w2") }
             }};
@@ -70,7 +71,7 @@ namespace Elicon.Domain.Tests.Domain.Manipulations
         [Test]
         public void ReplacePorts_MappingForAllPorts_ReplaceAll()
         {
-            var portsMap = new Dictionary<string, string> { { "a", "apple" }, { "b", "banana" } };
+            var portsMap = new PortsMapping().AddMapping("a", "apple").AddMapping("b", "banana");
             var instances = new List<Instance> { new Instance("netlist","host","name","instName") {
                 Net = new List<PortWirePair>() { new PortWirePair("a","w1"), new PortWirePair("b", "w2") }
             }};
