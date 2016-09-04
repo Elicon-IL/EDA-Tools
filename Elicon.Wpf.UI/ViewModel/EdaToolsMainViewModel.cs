@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using EdaTools.Model;
 using EdaTools.Properties;
 using EdaTools.Utility;
 using EdaTools.View;
+using Elicon.Console.Config;
+using Elicon.Domain.GateLevel.Reports.CountNativeModules;
 using Microsoft.Win32;
 
 namespace EdaTools.ViewModel
@@ -58,6 +61,11 @@ namespace EdaTools.ViewModel
             //
             // TODO: Init the amazing EDA framework.
             //
+            Bootstrapper.Boot();
+
+
+
+
             RefreshFrameworkData();
         }
 
@@ -168,6 +176,8 @@ namespace EdaTools.ViewModel
             if (result.GetType().IsClass)
             {
                 // 
+                var report = Bootstrapper.Get<ICountNativeModulesReport>();
+                var orderedCells = report.CountNativeModules(source, "patgen_rtl").OrderBy(kvp => kvp.Key);
             }
         }
 

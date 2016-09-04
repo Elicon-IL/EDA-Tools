@@ -130,6 +130,16 @@
   <ItemGroup>
     <Resource Include="Resources\AboutLogo.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Elicon.Console.Config\Elicon.Console.Config.csproj">
+      <Project>{342a4e45-2363-44a7-aaea-f4a6e91c58e9}</Project>
+      <Name>Elicon.Console.Config</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Elicon.Domain\Elicon.Domain.csproj">
+      <Project>{5fbaee42-c988-4dad-a631-dc37584502ed}</Project>
+      <Name>Elicon.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
