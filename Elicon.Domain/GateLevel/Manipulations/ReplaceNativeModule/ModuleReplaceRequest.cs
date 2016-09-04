@@ -8,6 +8,6 @@ namespace Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule
         public string ModuleToReplace { get; set; }
         public string NewNetlist { get; set; }
         public string NewModule { get; set; }
-        public IDictionary<string, string> PortsMap { get; set; }
+        public PortsMapping PortsMapping { get; set; }
     }
 }

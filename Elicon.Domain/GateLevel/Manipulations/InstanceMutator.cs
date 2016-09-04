@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule;
 
 namespace Elicon.Domain.GateLevel.Manipulations
 {
@@ -10,7 +11,7 @@ namespace Elicon.Domain.GateLevel.Manipulations
 
     public interface IInstanceMutations
     {
-        IInstanceMutations ReplacePorts(IDictionary<string, string> portsMap);
+        IInstanceMutations ReplacePorts(PortsMapping portsMap);
         IInstanceMutations ReplaceWires(string oldWire, string newWire);
         IInstanceMutations PortsToUpper();
         IInstanceMutations MutateModuleName(string newModuleName);
@@ -27,11 +28,11 @@ namespace Elicon.Domain.GateLevel.Manipulations
                 _instances = instances;
             }
 
-            public IInstanceMutations ReplacePorts(IDictionary<string, string> portsMap)
+            public IInstanceMutations ReplacePorts(PortsMapping portsMap)
             {
                 MutatePorts(pwp => {
-                    if (portsMap.ContainsKey(pwp.Port))
-                        pwp.Port = portsMap[pwp.Port];
+                    if (portsMap.HasMappingFor(pwp.Port))
+                        pwp.Port = portsMap.Map(pwp.Port);
                 });
 
                 return this;

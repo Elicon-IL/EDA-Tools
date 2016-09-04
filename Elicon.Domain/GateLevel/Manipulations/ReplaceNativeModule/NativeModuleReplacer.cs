@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
 
@@ -7,7 +6,7 @@ namespace Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule
 {
     public interface INativeModuleReplacer
     {
-        void Replace(string netlist, string moduleToReplace, string newModule, IDictionary<string, string> portsMap);
+        void Replace(string netlist, string moduleToReplace, string newModule, PortsMapping portsMapping);
     }
 
     public class NativeModuleReplacer : INativeModuleReplacer
@@ -23,7 +22,7 @@ namespace Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule
             _instanceMutator = instanceMutator;
         }
 
-        public void Replace(string netlist, string moduleToReplace, string newModule, IDictionary<string, string> portsMap)
+        public void Replace(string netlist, string moduleToReplace, string newModule, PortsMapping portsMapping)
         {
             if (_moduleRepository.Exists(netlist, moduleToReplace))
                 throw new InvalidOperationException("cannot replace non native modules");
@@ -32,7 +31,7 @@ namespace Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule
 
             _instanceMutator.Take(instances)
                 .MutateModuleName(newModule)
-                .ReplacePorts(portsMap);
+                .ReplacePorts(portsMapping);
 
             _instanceRepository.Update(instances);    
         }
