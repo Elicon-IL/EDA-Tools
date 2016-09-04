@@ -8,7 +8,13 @@ using EdaTools.Properties;
 using EdaTools.Utility;
 using EdaTools.View;
 using Elicon.Console.Config;
+using Elicon.Domain.GateLevel.Manipulations;
+using Elicon.Domain.GateLevel.Manipulations.RemoveBuffer;
+using Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule;
+using Elicon.Domain.GateLevel.Manipulations.UpperCaseNativeModulePorts;
 using Elicon.Domain.GateLevel.Reports.CountNativeModules;
+using Elicon.Domain.GateLevel.Reports.NativeModulesPortsList;
+using Elicon.Domain.GateLevel.Reports.PhysicalModulePath;
 using Microsoft.Win32;
 
 namespace EdaTools.ViewModel
@@ -162,6 +168,8 @@ namespace EdaTools.ViewModel
             if (result.GetType().IsClass)
             {
                 // 
+                var report = Bootstrapper.Get<INativeModulesPortsListReport>();
+                var orderedCells = report.GetNativeModulesPortsList("source");
             }
         }
 
@@ -177,7 +185,7 @@ namespace EdaTools.ViewModel
             {
                 // 
                 var report = Bootstrapper.Get<ICountNativeModulesReport>();
-                var orderedCells = report.CountNativeModules(source, "patgen_rtl").OrderBy(kvp => kvp.Key);
+                var orderedCells = report.CountNativeModules("source", "patgen_rtl");
             }
         }
 
@@ -191,7 +199,8 @@ namespace EdaTools.ViewModel
             }
             if (result.GetType().IsClass)
             {
-                // 
+                var report = Bootstrapper.Get<IPhysicalModulePathReport>();
+                var orderedCells = report.GetPhysicalPaths("source", "patgen_rtl", new List<string> { "module1", "module2" });
             }
         }
 
@@ -205,7 +214,9 @@ namespace EdaTools.ViewModel
             }
             if (result.GetType().IsClass)
             {
-                // 
+                var action = Bootstrapper.Get<INativeModuleReplacer>();
+                PortsMapping portsMapping  = new PortsMapping();
+                action.Replace("source", "module_old", "module_new", portsMapping);
             }
         }
 
@@ -219,7 +230,9 @@ namespace EdaTools.ViewModel
             }
             if (result.GetType().IsClass)
             {
-                // 
+                var action = Bootstrapper.Get<IRemoveBufferManipulation>();
+                RemoveBufferRequest removeBufferRequest = new RemoveBufferRequest();
+                action.Remove(removeBufferRequest);
             }
         }
 
@@ -233,7 +246,8 @@ namespace EdaTools.ViewModel
             }
             if (result.GetType().IsClass)
             {
-                // 
+                var action = Bootstrapper.Get<INativeModulePortsReplacer>();
+                action.PortsToUpper("source");
             }
         }
 
