@@ -112,8 +112,7 @@ namespace EdaTools.Utility
                 }
                 catch (Exception ex)
                 {
-                    _toolRunnerEventArgs.Error = true;
-                    _toolRunnerEventArgs.ErrorMessage = ex.FormatMessage();
+                    SetErrorData(ex);
                 }
             });
             // Debug.Print("Read Done");
@@ -141,6 +140,12 @@ namespace EdaTools.Utility
         {
             TaskRunning = true;
             _toolRunnerEventArgs = new ToolRunnerEventArgs(false, "test");
+        }
+
+        private void SetErrorData(Exception ex)
+        {
+            _toolRunnerEventArgs.Error = true;
+            _toolRunnerEventArgs.ErrorMessage = ex.FormatMessage();
         }
 
         private void OnTaskRunningFinished(ToolRunnerEventArgs e)

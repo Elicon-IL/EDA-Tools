@@ -84,7 +84,7 @@ namespace EdaTools.ViewModel
                     return;
                 _edaToolsModel.NetlistReadFilePath = value;
                 RaisePropertyChanged("NetlistReadFilePath");
-                LogWindowContents = LogWindowContents.AppendLine(String.Format("{0}:  Reading netlist... ({1})", DateTime.Now, value));
+                LogWindowContents = LogWindowContents.AppendLine($"{DateTime.Now}:  Reading netlist... ({value})");
             }
         }
 
