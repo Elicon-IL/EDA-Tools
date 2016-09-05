@@ -53,10 +53,5 @@ namespace EdaTools.Model
             }
         }
 
-        public bool CanExecute()
-        {
-            return _loadedNetlists.Count > 0;
-        }
-
     }
 }

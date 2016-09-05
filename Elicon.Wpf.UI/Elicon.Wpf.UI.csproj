@@ -62,6 +62,7 @@
     <Compile Include="Utility\NotifyPropertyChanged.cs" />
     <Compile Include="Model\PromptDialogModel.cs" />
     <Compile Include="Utility\ModalView.cs" />
+    <Compile Include="Utility\ToolRunner.cs" />
     <Compile Include="Utility\Utils.cs" />
     <Compile Include="ViewModel\EdaToolsMainViewModel.cs" />
     <Compile Include="Utility\RelayCommand.cs" />

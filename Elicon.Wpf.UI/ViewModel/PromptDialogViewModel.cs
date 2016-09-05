@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using EdaTools.Model;
 using EdaTools.Properties;
@@ -11,10 +12,11 @@ namespace EdaTools.ViewModel
     public class PromptDialogViewModel : ViewModelBase
     {
         private readonly RelayCommand _okButtonCommand;
-        private readonly RelayCommand _browseButtonCommand;
+        private readonly RelayCommand _netlistBrowseButtonCommand;
+        private readonly RelayCommand _targetBrowseButtonCommand;
         private readonly PromptDialogModel _promptDialogModel;
         private PromptDialogModel.Actions _currentUiAction;
-        private readonly List<string> _loadedNetlists;
+        private readonly ObservableCollection<string> _loadedNetlists;
         private string _targetSaveAsFilter = "";
         private Visibility _firstPromptVisibility;
         private Visibility _secondPromptVisibility;
@@ -35,10 +37,16 @@ namespace EdaTools.ViewModel
             get { return _okButtonCommand; }
         }
 
-        public RelayCommand BrowseButtonCommand
+        public RelayCommand TargetBrowseButtonCommand
         {
-            get { return _browseButtonCommand; }
+            get { return _targetBrowseButtonCommand; }
         }
+
+        public RelayCommand NetlistBrowseButtonCommand
+        {
+            get { return _netlistBrowseButtonCommand; }
+        }
+
 
         public Action CloseAction { get; set; }
 
@@ -48,8 +56,9 @@ namespace EdaTools.ViewModel
         {
             _promptDialogModel = new PromptDialogModel();
             _okButtonCommand = new RelayCommand(param => InvokeRequestClose(new RequestCloseEventArgs(true)), param => _promptDialogModel.CanExecute(CurrentUiAction));
-            _browseButtonCommand = new RelayCommand(param => SaveAsCommand());
-            _loadedNetlists = new List<string>();
+            _netlistBrowseButtonCommand = new RelayCommand(param => OpenFileCommand());
+            _targetBrowseButtonCommand = new RelayCommand(param => SaveAsCommand());
+            _loadedNetlists = new ObservableCollection<string>();
         }
 
         // =========================================
@@ -149,17 +158,20 @@ namespace EdaTools.ViewModel
             }
         }
 
-        public List<string> LoadedNetlists
+        public ObservableCollection<string> LoadedNetlists
         {
             get { return _loadedNetlists; }
-            set
-            {
-                _loadedNetlists.Clear();
-                _loadedNetlists.AddRange(value);
-                RaisePropertyChanged("LoadedNetlists");
-                if (_loadedNetlists.Count > 0)
-                    SelectedNetlistIndex = 0;
-            }
+        }
+
+        public void InitLoadedNetlists(List<string> netlists)
+        {
+            _loadedNetlists.Reload(netlists);
+            SelectedNetlistIndex = _loadedNetlists.Count - 1;
+        }
+
+        public string SelectedNetlist
+        {
+            get { return _loadedNetlists.Count > 0 ? _loadedNetlists[SelectedNetlistIndex] : ""; }
         }
 
         public int SelectedNetlistIndex
@@ -251,6 +263,20 @@ namespace EdaTools.ViewModel
             if (saveFileDialog.ShowDialog() == true)
             {
                 TargetSaveFile = saveFileDialog.FileName;
+            }
+        }
+
+        private void OpenFileCommand()
+        {
+            var openFileDialog = new OpenFileDialog
+            {
+                Filter = "Verilog files (*.v)|*.v|Text files (*.txt)|*.txt|All files (*.*)|*.*",
+                InitialDirectory = AppDomain.CurrentDomain.BaseDirectory
+            };
+            if (openFileDialog.ShowDialog() == true)
+            {
+                LoadedNetlists.Add(openFileDialog.FileName);
+                SelectedNetlistIndex = _loadedNetlists.Count - 1;
             }
         }
     }

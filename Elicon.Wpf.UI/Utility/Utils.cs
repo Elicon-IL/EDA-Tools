@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Data;
@@ -20,7 +22,7 @@ namespace EdaTools.Utility
 
         public static DependencyProperty MakeStringDependencyProperty(Type owner, string propertyName)
         {
-            return DependencyProperty.Register(propertyName, typeof(string), owner, new UIPropertyMetadata(string.Empty));
+            return DependencyProperty.Register(propertyName, typeof(string), owner, new UIPropertyMetadata(String.Empty));
         }
 
         public static DependencyProperty MakeBooleanDependencyProperty(Type owner, string propertyName)
@@ -46,6 +48,25 @@ namespace EdaTools.Utility
             var collectionView = CollectionViewSource.GetDefaultView(childWindows);
             if (collectionView != null)
                 collectionView.MoveCurrentTo(view);
+        }
+
+        public static void Reload<T>(this ObservableCollection<T> collection, IEnumerable<T> items)
+        {
+            // NOTE: If the observable collection might be reloaded with many items a better implementation
+            //       should use a IList<T> and implement a custom INotifyCollectionChanged that will raise
+            //       a single CollectionChanged event after the reload is done.
+            if (items != null)
+                foreach (var item in items) { collection.Add(item); }
+        }
+
+        public static List<string> CommaSeparatedStringToList(this string listOfNames)
+        {
+            return listOfNames.Split(' ').Select(item => item.Trim()).Where(trimmedItem => trimmedItem.Length > 0).ToList();
+        }
+
+        public static string FormatMessage(this Exception ex)
+        {
+            return ex.InnerException == null ? $"Exception = {ex.Message}\n" : $"Exception = {ex.Message}\nInner Exception = {ex.InnerException.Message}\n";
         }
 
         public static string AppendLine(this string source, string newLine)

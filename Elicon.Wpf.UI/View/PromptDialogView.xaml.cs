@@ -18,7 +18,8 @@ namespace EdaTools.View
             : this()
         {
             Owner = parent;
-            var viewModel = new PromptDialogViewModel { CurrentUiAction = currentAction, CloseAction = Close, LoadedNetlists = loadedNetlists};
+            var viewModel = new PromptDialogViewModel { CurrentUiAction = currentAction, CloseAction = Close};
+            viewModel.InitLoadedNetlists(loadedNetlists);
             viewModel.CreateViewCloseCommand(this);
             DataContext = viewModel;
         }

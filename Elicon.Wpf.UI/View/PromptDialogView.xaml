@@ -15,9 +15,11 @@
             <Border BorderBrush="{x:Null}" Height="45" Width="100" HorizontalAlignment="Left">
                 <TextBlock Text="Select Netlist To Process:" HorizontalAlignment="Left" Margin="0,0,0,4" VerticalAlignment="Center" Width="100" TextWrapping="Wrap" TextAlignment="Center"/>
             </Border>
-            <ComboBox HorizontalAlignment="Left" Height="24" Margin="110,9,0,0" VerticalAlignment="Top" Width="405" 
+            <ComboBox HorizontalAlignment="Left" Height="24" Margin="110,9,0,0" VerticalAlignment="Top" Width="377" 
+                      ToolTip="{Binding Path=SelectedItem, RelativeSource={RelativeSource Self}}"
                       ItemsSource="{Binding LoadedNetlists}" 
                       SelectedIndex="{Binding SelectedNetlistIndex}" />
+            <Button Content=" ... " Command="{Binding NetlistBrowseButtonCommand}" HorizontalAlignment="Left" Margin="492,10,0,0" VerticalAlignment="Top" Height="22" Width="22"/>
         </Grid>
         <!-- </Border> -->
 
@@ -26,7 +28,7 @@
                 <TextBlock Text="Save Results To:" HorizontalAlignment="Left" Margin="0,0,0,4" VerticalAlignment="Center" Width="100" TextWrapping="Wrap" TextAlignment="Center"/>
             </Border>
             <TextBox HorizontalAlignment="Left" Height="22" Margin="110,10,0,0" Text="{Binding TargetSaveFile, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" VerticalAlignment="Top" Width="377"/>
-            <Button Content=" ... " Command="{Binding BrowseButtonCommand}" HorizontalAlignment="Left" Margin="492,10,0,0" VerticalAlignment="Top" Height="22" Width="22"/>
+            <Button Content=" ... " Command="{Binding TargetBrowseButtonCommand}" HorizontalAlignment="Left" Margin="492,10,0,0" VerticalAlignment="Top" Height="22" Width="22"/>
         </Grid>
 
         <!-- <Border  Style="{StaticResource AppBorderStyle}" Margin="10"> -->

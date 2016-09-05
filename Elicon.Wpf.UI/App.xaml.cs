@@ -23,14 +23,5 @@ namespace EdaTools
             appMainWindow.Show();
         }
 
-        private void AppDispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
-        {
-            //
-            // TODO: Replace with a custom alert-box and add exception to the status window. 
-            //
-            MessageBox.Show("An unhandled exception just occurred: " + e.Exception.Message, "Exception Sample", MessageBoxButton.OK, MessageBoxImage.Warning);
-            e.Handled = true;
-        }
-
     }
 }

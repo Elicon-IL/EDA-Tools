@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using EdaTools.Model;
 using EdaTools.Properties;
 using EdaTools.Utility;
 using EdaTools.View;
-using Elicon.Console.Config;
 using Elicon.Domain.GateLevel.Manipulations;
 using Elicon.Domain.GateLevel.Manipulations.RemoveBuffer;
 using Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule;
-using Elicon.Domain.GateLevel.Manipulations.UpperCaseNativeModulePorts;
-using Elicon.Domain.GateLevel.Reports.CountNativeModules;
-using Elicon.Domain.GateLevel.Reports.NativeModulesPortsList;
-using Elicon.Domain.GateLevel.Reports.PhysicalModulePath;
 using Microsoft.Win32;
 
 namespace EdaTools.ViewModel
@@ -40,10 +34,13 @@ namespace EdaTools.ViewModel
         public RelayCommand ReportMenuListUndeclaredModules { get; private set; }
 
         private readonly EdaToolsModel _edaToolsModel;
+        private readonly ToolRunner _toolRunner;
+
         private bool CanExecute()
         {
-            return _edaToolsModel.CanExecute();
+            return _toolRunner.TaskRunning == false;
         }
+
         private List<string> LoadedNetlists
         {
             get { return _edaToolsModel.LoadedNetlists; }
@@ -54,6 +51,7 @@ namespace EdaTools.ViewModel
             var vi = new VersionInfo();
             DisplayName = $"{Resources.MainWindowViewModel_DisplayName} - {vi.Description}  Version {vi.Version}";
             _edaToolsModel = new EdaToolsModel();
+            _toolRunner = new ToolRunner(TaskRunningFinished);
             InitAmazingFramework();
             CreateUiCommands();
             LogWindowContents = $"{DateTime.Now}:  Session started.";
@@ -64,23 +62,17 @@ namespace EdaTools.ViewModel
         // =========================================
         private void InitAmazingFramework()
         {
-            //
-            // TODO: Init the amazing EDA framework.
-            //
-
-
             RefreshFrameworkData();
         }
 
         private void RefreshFrameworkData()
         {
-            //
-            // TODO: Fill items from the EDA framework.
-            //
-            _edaToolsModel.LoadedNetlists = new List<string> 
+            LoadedNetlists.Clear();
+            foreach (var netlist in _toolRunner.GetNetlists())
             {
-                "netlist file 1", "netlist file 2", "netlist file 3", "netlist file 4"
-            };
+                _edaToolsModel.LoadedNetlists.Add(netlist.Source);
+            }
+            
         }
 
         public string NetlistReadFilePath
@@ -126,7 +118,7 @@ namespace EdaTools.ViewModel
 
         private void CreateUiCommands()
         {
-            FileMenuReadNetlist = new RelayCommand(param => OpenFileCommand());
+            FileMenuReadNetlist = new RelayCommand(param => OpenFileCommand(), param => CanExecute());
             FileMenuCopyLog = new RelayCommand(param => CopyLogCommand());
             FileMenuSaveLog = new RelayCommand(param => SaveLogCommand());
             FileMenuAbout = new RelayCommand(param => AboutCommand());
@@ -145,30 +137,14 @@ namespace EdaTools.ViewModel
             get { return Application.Current.MainWindow; }
         }
 
-        //private void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        //{
-        //    //
-        //    // TODO: Relay progress data to app main window.
-        //    //
-        //    // var pbar = new ProgressBar();
-        //    // pbar.Value = e.ProgressPercentage;
-        //}
-
         private void ListUndeclaredModulesCommand()
         {
             Window promptDialog = new PromptDialogView(ParentWindow, PromptDialogModel.Actions.ListUndeclaredModules, LoadedNetlists);
             var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
             if (dataContext.DialogResult)
             {
-                var report = Bootstrapper.Get<INativeModulesPortsListReport>();
-                //                                                      , dataContext.TargetSaveFile
-                report.GetNativeModulesPortsList(SourceFile(dataContext));
+                _toolRunner.GetNativeModulesPortsList(dataContext.SelectedNetlist, dataContext.TargetSaveFile);
             }
-        }
-
-        private static string SourceFile(PromptDialogViewModel dataContext)
-        {
-            return dataContext.LoadedNetlists[dataContext.SelectedNetlistIndex];
         }
 
         private void CountPhysicalInstancesCommand()
@@ -177,10 +153,7 @@ namespace EdaTools.ViewModel
             var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
             if (dataContext.DialogResult)
             {
-                var report = Bootstrapper.Get<ICountNativeModulesReport>();
-                //                                                 dataContext.UserData1
-                //                                                                      , dataContext.TargetSaveFile
-                report.CountNativeModules(SourceFile(dataContext), dataContext.UserData1);
+                _toolRunner.CountPhysicalInstancesCommand(dataContext.SelectedNetlist, dataContext.UserData1, dataContext.TargetSaveFile);
             }
         }
 
@@ -190,10 +163,7 @@ namespace EdaTools.ViewModel
             var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
             if (dataContext.DialogResult)
             {
-                var modules = CommaSeparatedStringToList(dataContext.UserData2);
-                var report = Bootstrapper.Get<IPhysicalModulePathReport>();
-                //                                                                              , dataContext.TargetSaveFile
-                report.GetPhysicalPaths(SourceFile(dataContext), dataContext.UserData1, modules);
+                _toolRunner.ListModulePhysicalInstancesCommand(dataContext.SelectedNetlist, dataContext.UserData1, dataContext.UserData2, dataContext.TargetSaveFile);
             }
         }
 
@@ -203,25 +173,19 @@ namespace EdaTools.ViewModel
             var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
             if (dataContext.DialogResult)
             {
-                var oldData = CommaSeparatedStringToList(dataContext.UserData1);
-                var newData = CommaSeparatedStringToList(dataContext.UserData2);
+                var oldData = dataContext.UserData1.CommaSeparatedStringToList();
+                var newData = dataContext.UserData2.CommaSeparatedStringToList();
                 var replaceRequest = new ModuleReplaceRequest
                 {
-                    Netlist = SourceFile(dataContext),
+                    Netlist = dataContext.SelectedNetlist,
                     NewNetlist = dataContext.TargetSaveFile,
                     ModuleToReplace = oldData[0],
                     NewModule = newData[0],
                     PortsMapping = MakePortMapping(oldData, newData)
                 };
 
-                var action = Bootstrapper.Get<INativeModuleReplaceManipulation>();
-                action.Replace(replaceRequest);
+                _toolRunner.ReplaceModuleCommand(replaceRequest);
             }
-        }
-
-        private List<string> CommaSeparatedStringToList(string listOfNames)
-        {
-            return listOfNames.Split(' ').Select(item => item.Trim()).Where(trimmedItem => trimmedItem.Length > 0).ToList();
         }
 
         private static PortsMapping MakePortMapping(List<string> oldModule, List<string> newModule)
@@ -238,17 +202,16 @@ namespace EdaTools.ViewModel
             var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
             if (dataContext.DialogResult)
             {
-                var bufferData = CommaSeparatedStringToList(dataContext.UserData1);
-                RemoveBufferRequest removeBufferRequest = new RemoveBufferRequest
+                var bufferData = dataContext.UserData1.CommaSeparatedStringToList();
+                var removeBufferRequest = new RemoveBufferRequest
                 {
-                    Netlist = SourceFile(dataContext),
+                    Netlist = dataContext.SelectedNetlist,
                     NewNetlist = dataContext.TargetSaveFile,
                     BufferName = bufferData[0],
                     InputPort = bufferData[1],
                     OutputPort = bufferData[2]
                 };
-                var action = Bootstrapper.Get<IRemoveBufferManipulation>();
-                action.Remove(removeBufferRequest);
+                _toolRunner.RemoveBuffersCommand(removeBufferRequest);
             }
         }
 
@@ -258,8 +221,7 @@ namespace EdaTools.ViewModel
             var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
             if (dataContext.DialogResult)
             {
-                var action = Bootstrapper.Get<INativeModulePortsManipulation>();
-                action.PortsToUpper(SourceFile(dataContext), dataContext.TargetSaveFile);
+                _toolRunner.UCasePortsCommand(dataContext.SelectedNetlist, dataContext.TargetSaveFile);
             }
         }
 
@@ -273,10 +235,7 @@ namespace EdaTools.ViewModel
             if (openFileDialog.ShowDialog() == true)
             {
                 NetlistReadFilePath = openFileDialog.FileName;
-                //
-                // TODO: 1) Ask the EDA framework to load the netlist.
-                // TODO: 2) Request loaded-netlists from framework and update _edaToolsModel.LoadedNetlists
-                //
+                _toolRunner.ReadNetlist(NetlistReadFilePath);
             }
         }
 
@@ -304,6 +263,27 @@ namespace EdaTools.ViewModel
             Clipboard.SetText(LogWindowContents);
         }
 
+        // ====================================================
+        // ViewModel Event Handlers.
+        // ====================================================
+
+        //private void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        //{
+        //    //
+        //    // TODO: Relay progress data to app main window.
+        //    //
+        //    // var pbar = new ProgressBar();
+        //    // pbar.Value = e.ProgressPercentage;
+        //}
+
+        private void TaskRunningFinished(object sender, ToolRunnerEventArgs e)
+        {
+            if (e.Error)
+            {
+                LogWindowContents = LogWindowContents.AppendLine($"{DateTime.Now}: ({e.ErrorMessage})");
+            }
+            RefreshFrameworkData(); 
+        }
 
     }
 }
