@@ -50,9 +50,9 @@
     <Compile Include="NetlistClonerTests.cs" />
     <Compile Include="NetlistRemoverTests.cs" />
     <Compile Include="NativeModuleReplacerTests.cs" />
-    <Compile Include="NativeModulesPortsListReportTests.cs" />
-    <Compile Include="PhysicalModulePathReportTests.cs" />
-    <Compile Include="CountNativeModulesReportTests.cs" />
+    <Compile Include="NativeModulesPortsListQueryTests.cs" />
+    <Compile Include="PhysicalModulePathQueryTests.cs" />
+    <Compile Include="CountNativeModulesQueryTests.cs" />
     <Compile Include="IntegrationTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
