@@ -5,14 +5,14 @@ using NUnit.Framework;
 namespace Elicon.Integration.Tests
 {
     [TestFixture]
-    public class CountNativeModulesReportTests : IntegrationTestBase
+    public class CountNativeModulesQueryTests : IntegrationTestBase
     {
-        private ICountNativeModulesReport _target;
+        private ICountNativeModulesQuery _target;
 
         [SetUp]
         public void SetUp()
         {
-            _target = Get<ICountNativeModulesReport>();
+            _target = Get<ICountNativeModulesQuery>();
         }
 
         [Test]

@@ -5,14 +5,14 @@ using NUnit.Framework;
 namespace Elicon.Integration.Tests
 {
     [TestFixture]
-    public class PhysicalModulePathReportTests : IntegrationTestBase
+    public class PhysicalModulePathQueryTests : IntegrationTestBase
     {
-        private IPhysicalModulePathReport _target;
+        private IPhysicalModulePathQuery _target;
 
         [SetUp]
         public void SetUp()
         {
-            _target = Get<IPhysicalModulePathReport>();
+            _target = Get<IPhysicalModulePathQuery>();
         }
 
         [Test]
