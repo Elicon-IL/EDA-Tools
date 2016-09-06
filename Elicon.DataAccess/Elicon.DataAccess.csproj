@@ -45,6 +45,8 @@
     <Compile Include="Files\Common\Write\StreamWriterProvider.cs" />
     <Compile Include="Files\GateLevel\Write\FileTitleBuilder.cs" />
     <Compile Include="Files\GateLevel\Write\Netlist\NetlistFileWriter.cs" />
+    <Compile Include="Files\GateLevel\Write\Report\CountNativeModulesReportBuilder.cs" />
+    <Compile Include="Files\GateLevel\Write\Report\PhysicalModulePathReportBuilder.cs" />
     <Compile Include="Files\GateLevel\Write\Report\ReportBuilder.cs" />
     <Compile Include="Files\GateLevel\Write\Report\ReportWriter.cs" />
     <Compile Include="Files\GateLevel\Write\Netlist\StatementsBuilder.cs" />

@@ -62,7 +62,7 @@ namespace EdaTools.Utility
             InitRunner();
             var report = Bootstrapper.Get<ICountNativeModulesReport>();
             //                                           , targetSaveFile
-            await Task.Run(() => report.CountNativeModules(netlist, rootModule));
+            await Task.Run(() => report.CountNativeModules(netlist, rootModule,""));
             OnTaskRunningFinished(_toolRunnerEventArgs);
         }
 
@@ -72,7 +72,7 @@ namespace EdaTools.Utility
             var modules = moduleNames.CommaSeparatedStringToList();
             var report = Bootstrapper.Get<IPhysicalModulePathReport>();
             //                                                                       , dataContext.TargetSaveFile
-            await Task.Run(() => report.GetPhysicalPaths(netlist, rootModule, modules));
+            await Task.Run(() => report.GetPhysicalPaths(netlist, rootModule, modules,""));
             OnTaskRunningFinished(_toolRunnerEventArgs);
         }
 

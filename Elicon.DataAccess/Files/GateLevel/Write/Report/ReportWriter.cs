@@ -19,9 +19,9 @@ namespace Elicon.DataAccess.Files.GateLevel.Write.Report
         public void Write(IReportWriteRequest reportWriteRequest)
         {
             var writer = _streamWriterProvider.Get(reportWriteRequest.Destination);
+            var reportBuilder = _reportBuilders.Single(r => r.CanBuild(reportWriteRequest));
 
-            writer.WriteLine(_reportBuilders.Single(r => 
-                r.CanBuild(reportWriteRequest)).Build(reportWriteRequest));
+            writer.WriteLine(reportBuilder.Build(reportWriteRequest));
 
             writer.Close();
         }
