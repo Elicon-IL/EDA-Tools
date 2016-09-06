@@ -25,6 +25,32 @@
             <!-- <Setter Property="Margin" Value="1" /> -->
             <Setter Property="SnapsToDevicePixels" Value="True" />
         </Style>
+        <Style TargetType="ToolTip">
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="Visibility" Value="Visible" />
+            <Setter Property="HasDropShadow" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToolTip">
+                        <Border Background="#FFF7F7CC" CornerRadius="3">
+                            <TextBlock FontFamily="Segoe UI"
+                               FontSize="12"
+                               Foreground="Black"
+                               Padding="4"
+                               Text="{TemplateBinding Content}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Content}" Value="{x:Null}">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Content}" Value="">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
         <Style x:Key="NiceButton" TargetType="{x:Type Button}" BasedOn="{x:Null}">
             <Setter Property="Control.Template">
                 <Setter.Value>

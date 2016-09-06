@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using EdaTools.ViewModel;
 
 namespace EdaTools.Utility
 {

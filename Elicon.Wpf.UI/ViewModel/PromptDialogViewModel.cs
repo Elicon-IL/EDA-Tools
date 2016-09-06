@@ -5,16 +5,14 @@ using System.Windows;
 using EdaTools.Model;
 using EdaTools.Properties;
 using EdaTools.Utility;
+using Elicon.Domain.GateLevel.Manipulations.RemoveBuffer;
+using Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule;
 using Microsoft.Win32;
 
 namespace EdaTools.ViewModel
 {
     public class PromptDialogViewModel : ViewModelBase
     {
-        private readonly RelayCommand _okButtonCommand;
-        private readonly RelayCommand _netlistBrowseButtonCommand;
-        private readonly RelayCommand _targetBrowseButtonCommand;
-        private readonly PromptDialogModel _promptDialogModel;
         private PromptDialogModel.Actions _currentUiAction;
         private readonly ObservableCollection<string> _loadedNetlists;
         private string _targetSaveAsFilter = "";
@@ -27,25 +25,13 @@ namespace EdaTools.ViewModel
         // ViewModel Properties.
         // ====================================================
 
-        public PromptDialogModel PromptDialogModel
-        {
-            get { return _promptDialogModel; }
-        }
+        public PromptDialogModel PromptDialogModel { get; }
 
-        public RelayCommand OkButtonCommand
-        {
-            get { return _okButtonCommand; }
-        }
+        public RelayCommand OkButtonCommand { get; }
 
-        public RelayCommand TargetBrowseButtonCommand
-        {
-            get { return _targetBrowseButtonCommand; }
-        }
+        public RelayCommand TargetBrowseButtonCommand { get; }
 
-        public RelayCommand NetlistBrowseButtonCommand
-        {
-            get { return _netlistBrowseButtonCommand; }
-        }
+        public RelayCommand NetlistBrowseButtonCommand { get; }
 
 
         public Action CloseAction { get; set; }
@@ -54,10 +40,10 @@ namespace EdaTools.ViewModel
 
         public PromptDialogViewModel()
         {
-            _promptDialogModel = new PromptDialogModel();
-            _okButtonCommand = new RelayCommand(param => InvokeRequestClose(new RequestCloseEventArgs(true)), param => _promptDialogModel.CanExecute(CurrentUiAction));
-            _netlistBrowseButtonCommand = new RelayCommand(param => OpenFileCommand());
-            _targetBrowseButtonCommand = new RelayCommand(param => SaveAsCommand());
+            PromptDialogModel = new PromptDialogModel();
+            OkButtonCommand = new RelayCommand(param => InvokeRequestClose(new RequestCloseEventArgs(true)), param => PromptDialogModel.CanExecute(CurrentUiAction));
+            NetlistBrowseButtonCommand = new RelayCommand(param => OpenFileCommand());
+            TargetBrowseButtonCommand = new RelayCommand(param => SaveAsCommand());
             _loadedNetlists = new ObservableCollection<string>();
         }
 
@@ -120,20 +106,20 @@ namespace EdaTools.ViewModel
 
         public string DialogTitle
         {
-            get { return _promptDialogModel.DialogTitle; }
+            get { return PromptDialogModel.DialogTitle; }
             set
             {
-                _promptDialogModel.DialogTitle = value;
+                PromptDialogModel.DialogTitle = value;
                 RaisePropertyChanged("DialogTitle");
             }
         }
 
         public string TargetSaveFile
         {
-            get { return _promptDialogModel.TargetSaveFile; }
+            get { return PromptDialogModel.TargetSaveFile; }
             set
             {
-                _promptDialogModel.TargetSaveFile = value;
+                PromptDialogModel.TargetSaveFile = value;
                 RaisePropertyChanged("TargetSaveFile");
             }
         }
@@ -176,60 +162,61 @@ namespace EdaTools.ViewModel
 
         public int SelectedNetlistIndex
         {
-            get { return _promptDialogModel.SelectedNetlistIndex; }
+            get { return PromptDialogModel.SelectedNetlistIndex; }
             set
             {
-                if (_promptDialogModel.SelectedNetlistIndex == value)
+                if (PromptDialogModel.SelectedNetlistIndex == value)
                     return;
-                _promptDialogModel.SelectedNetlistIndex = value;
+                PromptDialogModel.SelectedNetlistIndex = value;
+                PromptDialogModel.SelectedNetlist = SelectedNetlist;
                 RaisePropertyChanged("SelectedNetlistIndex");
             }
         }
 
         public string UserData1
         {
-            get { return _promptDialogModel.UserData1; }
+            get { return PromptDialogModel.UserData1; }
             set
             {
-                if (_promptDialogModel.UserData1 != null && _promptDialogModel.UserData1.Equals(value))
+                if (PromptDialogModel.UserData1 != null && PromptDialogModel.UserData1.Equals(value))
                     return;
-                _promptDialogModel.UserData1 = value;
+                PromptDialogModel.UserData1 = value;
                 RaisePropertyChanged("UserData1");
             }
         }
 
         public string UserPrompt1
         {
-            get { return _promptDialogModel.UserPrompt1; }
+            get { return PromptDialogModel.UserPrompt1; }
             set
             {
-                if (_promptDialogModel.UserPrompt1 != null && _promptDialogModel.UserPrompt1.Equals(value))
+                if (PromptDialogModel.UserPrompt1 != null && PromptDialogModel.UserPrompt1.Equals(value))
                     return;
-                _promptDialogModel.UserPrompt1 = value;
+                PromptDialogModel.UserPrompt1 = value;
                 RaisePropertyChanged("UserPrompt1");
             }
         }
 
         public string UserData2
         {
-            get { return _promptDialogModel.UserData2; }
+            get { return PromptDialogModel.UserData2; }
             set
             {
-                if (_promptDialogModel.UserData2 != null && _promptDialogModel.UserData2.Equals(value))
+                if (PromptDialogModel.UserData2 != null && PromptDialogModel.UserData2.Equals(value))
                     return;
-                _promptDialogModel.UserData2 = value;
+                PromptDialogModel.UserData2 = value;
                 RaisePropertyChanged("UserData2");
             }
         }
 
         public string UserPrompt2
         {
-            get { return _promptDialogModel.UserPrompt2; }
+            get { return PromptDialogModel.UserPrompt2; }
             set
             {
-                if (_promptDialogModel.UserPrompt2 != null && _promptDialogModel.UserPrompt2.Equals(value))
+                if (PromptDialogModel.UserPrompt2 != null && PromptDialogModel.UserPrompt2.Equals(value))
                     return;
-                _promptDialogModel.UserPrompt2 = value;
+                PromptDialogModel.UserPrompt2 = value;
                 RaisePropertyChanged("UserPrompt2");
             }
         }
@@ -249,8 +236,7 @@ namespace EdaTools.ViewModel
             {
                 DialogResult = true;
             }
-            if (CloseAction != null)
-                CloseAction();
+            CloseAction?.Invoke();
         }
 
         private void SaveAsCommand()
@@ -279,5 +265,24 @@ namespace EdaTools.ViewModel
                 SelectedNetlistIndex = _loadedNetlists.Count - 1;
             }
         }
+
+        // ====================================================
+        // Model Utility Methods.
+        // ====================================================
+
+        public ModuleReplaceRequest MakeModuleReplaceRequest()
+        {
+            return PromptDialogModel.MakeModuleReplaceRequest();
+        }
+
+        public RemoveBufferRequest MakeRemoveBufferRequest()
+        {
+            return PromptDialogModel.MakeRemoveBufferRequest();
+        }
+
+        public string RootModule => PromptDialogModel.RootModule;
+
+        public string ModuleNames =>PromptDialogModel.ModuleNames;
+
     }
 }

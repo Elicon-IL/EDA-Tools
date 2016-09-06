@@ -6,9 +6,6 @@ using EdaTools.Model;
 using EdaTools.Properties;
 using EdaTools.Utility;
 using EdaTools.View;
-using Elicon.Domain.GateLevel.Manipulations;
-using Elicon.Domain.GateLevel.Manipulations.RemoveBuffer;
-using Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule;
 using Microsoft.Win32;
 
 namespace EdaTools.ViewModel
@@ -41,10 +38,9 @@ namespace EdaTools.ViewModel
             return _toolRunner.TaskRunning == false;
         }
 
-        private List<string> LoadedNetlists
-        {
-            get { return _edaToolsModel.LoadedNetlists; }
-        }
+        private List<string> LoadedNetlists => _edaToolsModel.LoadedNetlists;
+        private static Window ParentWindow => Application.Current.MainWindow;
+
 
         public EdaToolsMainViewModel()
         {
@@ -132,11 +128,6 @@ namespace EdaTools.ViewModel
             ReportMenuListUndeclaredModules = new RelayCommand(param => ListUndeclaredModulesCommand(), param => CanExecute());
         }
 
-        private Window ParentWindow
-        {
-            get { return Application.Current.MainWindow; }
-        }
-
         private void ListUndeclaredModulesCommand()
         {
             Window promptDialog = new PromptDialogView(ParentWindow, PromptDialogModel.Actions.ListUndeclaredModules, LoadedNetlists);
@@ -153,7 +144,7 @@ namespace EdaTools.ViewModel
             var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
             if (dataContext.DialogResult)
             {
-                _toolRunner.CountPhysicalInstancesCommand(dataContext.SelectedNetlist, dataContext.UserData1, dataContext.TargetSaveFile);
+                _toolRunner.CountPhysicalInstancesCommand(dataContext.SelectedNetlist, dataContext.RootModule, dataContext.TargetSaveFile);
             }
         }
 
@@ -163,7 +154,7 @@ namespace EdaTools.ViewModel
             var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
             if (dataContext.DialogResult)
             {
-                _toolRunner.ListModulePhysicalInstancesCommand(dataContext.SelectedNetlist, dataContext.UserData1, dataContext.UserData2, dataContext.TargetSaveFile);
+                _toolRunner.ListModulePhysicalInstancesCommand(dataContext.SelectedNetlist, dataContext.RootModule, dataContext.ModuleNames, dataContext.TargetSaveFile);
             }
         }
 
@@ -173,27 +164,9 @@ namespace EdaTools.ViewModel
             var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
             if (dataContext.DialogResult)
             {
-                var oldData = dataContext.UserData1.CommaSeparatedStringToList();
-                var newData = dataContext.UserData2.CommaSeparatedStringToList();
-                var replaceRequest = new ModuleReplaceRequest
-                {
-                    Netlist = dataContext.SelectedNetlist,
-                    NewNetlist = dataContext.TargetSaveFile,
-                    ModuleToReplace = oldData[0],
-                    NewModule = newData[0],
-                    PortsMapping = MakePortMapping(oldData, newData)
-                };
-
+                var replaceRequest = dataContext.MakeModuleReplaceRequest();
                 _toolRunner.ReplaceModuleCommand(replaceRequest);
             }
-        }
-
-        private static PortsMapping MakePortMapping(List<string> oldModule, List<string> newModule)
-        {
-            var pm = new PortsMapping();
-            for (int i = 1; i < oldModule.Count; i++)
-                pm.AddMapping(oldModule[i], newModule[i]);
-            return pm;
         }
 
         private void RemoveBuffersCommand()
@@ -202,15 +175,7 @@ namespace EdaTools.ViewModel
             var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
             if (dataContext.DialogResult)
             {
-                var bufferData = dataContext.UserData1.CommaSeparatedStringToList();
-                var removeBufferRequest = new RemoveBufferRequest
-                {
-                    Netlist = dataContext.SelectedNetlist,
-                    NewNetlist = dataContext.TargetSaveFile,
-                    BufferName = bufferData[0],
-                    InputPort = bufferData[1],
-                    OutputPort = bufferData[2]
-                };
+                var removeBufferRequest = dataContext.MakeRemoveBufferRequest();
                 _toolRunner.RemoveBuffersCommand(removeBufferRequest);
             }
         }
