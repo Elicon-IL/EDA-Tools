@@ -1,6 +1,6 @@
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
 
-namespace Elicon.DataAccess.Files.GateLevel.Write
+namespace Elicon.DataAccess.Files.GateLevel.Write.Netlist
 {
     public interface IStatementDirector
     {

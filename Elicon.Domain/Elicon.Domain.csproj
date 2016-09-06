@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationInfo.cs" />
     <Compile Include="GateLevel\BuildData\BuildState.cs" />
     <Compile Include="GateLevel\BuildData\StatementHandlers\AssignDeclarationStatementHandler.cs" />
     <Compile Include="GateLevel\BuildData\StatementHandlers\MetaStatementHandler.cs" />
@@ -81,9 +82,13 @@
     <Compile Include="GateLevel\Port.cs" />
     <Compile Include="GateLevel\PortWirePair.cs" />
     <Compile Include="GateLevel\Reports\CountNativeModules\CountNativeModulesQuery.cs" />
+    <Compile Include="GateLevel\Contracts\DataAccess\IReportWriter.cs" />
+    <Compile Include="GateLevel\Reports\CountNativeModules\CountNativeModulesReportWriteRequest.cs" />
+    <Compile Include="GateLevel\Reports\IReportWriteRequest.cs" />
     <Compile Include="GateLevel\Reports\NativeModulesPortsList\NativeModulesPortsListAggregator.cs" />
     <Compile Include="GateLevel\Reports\NativeModulesPortsList\NativeModulesPortsListQuery.cs" />
     <Compile Include="GateLevel\Reports\PhysicalModulePath\PhysicalModulePathQuery.cs" />
+    <Compile Include="GateLevel\Reports\PhysicalModulePath\PhysicalModulePathReportWriteRequest.cs" />
     <Compile Include="GateLevel\Traversal\PhysicalTraversal\InstancesPathTracker.cs" />
     <Compile Include="GateLevel\Reports\CountNativeModules\NativeModulesCountAggregator.cs" />
     <Compile Include="GateLevel\Traversal\PhysicalTraversal\NetlistTraverser.cs" />

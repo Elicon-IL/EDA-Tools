@@ -43,9 +43,12 @@
   <ItemGroup>
     <Compile Include="Files\Common\Write\IStreamWriter.cs" />
     <Compile Include="Files\Common\Write\StreamWriterProvider.cs" />
-    <Compile Include="Files\GateLevel\Write\NetlistFileWriter.cs" />
-    <Compile Include="Files\GateLevel\Write\StatementsBuilder.cs" />
-    <Compile Include="Files\GateLevel\Write\StatementsDirector.cs" />
+    <Compile Include="Files\GateLevel\Write\FileTitleBuilder.cs" />
+    <Compile Include="Files\GateLevel\Write\Netlist\NetlistFileWriter.cs" />
+    <Compile Include="Files\GateLevel\Write\Report\ReportBuilder.cs" />
+    <Compile Include="Files\GateLevel\Write\Report\ReportWriter.cs" />
+    <Compile Include="Files\GateLevel\Write\Netlist\StatementsBuilder.cs" />
+    <Compile Include="Files\GateLevel\Write\Netlist\StatementsDirector.cs" />
     <Compile Include="InstanceRepository.cs" />
     <Compile Include="ModuleRepository.cs" />
     <Compile Include="NetlistRemover.cs" />

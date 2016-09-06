@@ -1,9 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Elicon.Framework
 {
     public static class StringExtensions
     {
+        public static string Join(this string separator, IEnumerable<string> values)
+        {
+            return string.Join(separator, values);
+        }
+
         public static string FormatWith(this string target, params object[] args)
         {
             return string.Format(target, args);

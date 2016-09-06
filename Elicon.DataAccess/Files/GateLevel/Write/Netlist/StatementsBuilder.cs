@@ -4,7 +4,7 @@ using System.Text;
 using Elicon.Domain.GateLevel;
 using Elicon.Framework;
 
-namespace Elicon.DataAccess.Files.GateLevel.Write
+namespace Elicon.DataAccess.Files.GateLevel.Write.Netlist
 {
     public class StatementsBuilder : IStatementBuilder
     {
@@ -53,7 +53,7 @@ namespace Elicon.DataAccess.Files.GateLevel.Write
             _result.AppendLine("module " + module.Name + " " + "( " + RemoveLastItemsSeparator(ports) + " );");
         }
 
-        public void BuildMetaStatements(Netlist netlist)
+        public void BuildMetaStatements(Domain.GateLevel.Netlist netlist)
         {
             foreach (var metaStatement in netlist.MetaStatements)
                 _result.AppendLine(metaStatement);
@@ -94,7 +94,7 @@ namespace Elicon.DataAccess.Files.GateLevel.Write
         void BuildAssignDeclarations(Module module);
         void BuildSupplyDeclarations(Module module);
         void BuildModuleDeclaration(Module module);
-        void BuildMetaStatements(Netlist netlist);
+        void BuildMetaStatements(Domain.GateLevel.Netlist netlist);
         void BuildNewLine();
         string GetResult();
     }
