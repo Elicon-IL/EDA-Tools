@@ -33,7 +33,7 @@ namespace Elicon.DataAccess.Files.GateLevel.Write.Report
                 foreach (var path in kvp.Value)
                     result.AppendLine(path);
 
-                result.AppendLine("// {0} has {1} instances:".FormatWith(kvp.Key, kvp.Value.Count));
+                result.AppendLine("// {0} has {1} instances".FormatWith(kvp.Key, kvp.Value.Count));
             }
         }
 
