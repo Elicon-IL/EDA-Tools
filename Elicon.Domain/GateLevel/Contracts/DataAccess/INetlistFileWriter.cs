@@ -2,6 +2,6 @@
 {
     public interface INetlistFileWriter
     {
-        void Write(string source);
+        void Write(string source, string action);
     }
 }

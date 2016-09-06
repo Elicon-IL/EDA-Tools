@@ -26,7 +26,7 @@ namespace Elicon.Domain.GateLevel.Manipulations.UpperCaseNativeModulePorts
 
             _nativeModulePortsReplacer.PortsToUpper(newNetlist);
 
-            _netlistFileWriter.Write(newNetlist);
+            _netlistFileWriter.Write(newNetlist, "Uppercase Native Module Ports");
         }
     }
 }

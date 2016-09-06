@@ -49,8 +49,7 @@
     <Compile Include="Files\GateLevel\Write\Report\PhysicalModulePathReportBuilder.cs" />
     <Compile Include="Files\GateLevel\Write\Report\ReportBuilder.cs" />
     <Compile Include="Files\GateLevel\Write\Report\ReportWriter.cs" />
-    <Compile Include="Files\GateLevel\Write\Netlist\StatementsBuilder.cs" />
-    <Compile Include="Files\GateLevel\Write\Netlist\StatementsDirector.cs" />
+    <Compile Include="Files\GateLevel\Write\Netlist\NetlistFileBuilder.cs" />
     <Compile Include="InstanceRepository.cs" />
     <Compile Include="ModuleRepository.cs" />
     <Compile Include="NetlistRemover.cs" />

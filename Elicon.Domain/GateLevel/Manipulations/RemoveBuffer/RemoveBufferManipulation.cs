@@ -26,7 +26,7 @@ namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
 
             _bufferRemover.Remove(removeBufferRequest.NewNetlist, removeBufferRequest.BufferName, removeBufferRequest.InputPort, removeBufferRequest.OutputPort);
 
-            _netlistFileWriter.Write(removeBufferRequest.NewNetlist);
+            _netlistFileWriter.Write(removeBufferRequest.NewNetlist, "Remove Buffers");
         }
     }
 }
