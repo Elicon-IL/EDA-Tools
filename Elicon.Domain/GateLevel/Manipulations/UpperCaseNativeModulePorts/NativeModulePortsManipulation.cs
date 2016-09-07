@@ -1,4 +1,5 @@
-﻿using Elicon.Domain.GateLevel.Contracts.DataAccess;
+﻿using Elicon.Domain.GateLevel.BuildData;
+using Elicon.Domain.GateLevel.Contracts.DataAccess;
 
 namespace Elicon.Domain.GateLevel.Manipulations.UpperCaseNativeModulePorts
 {
@@ -12,16 +13,19 @@ namespace Elicon.Domain.GateLevel.Manipulations.UpperCaseNativeModulePorts
         private readonly INetlistCloner _netlistCloner;
         private readonly INetlistFileWriter _netlistFileWriter;
         private readonly INativeModulePortsReplacer _nativeModulePortsReplacer;
+        private readonly INetlistDataBuilder _netlistDataBuilder;
 
-        public NativeModulePortsManipulation(INativeModulePortsReplacer nativeModulePortsReplacer, INetlistFileWriter netlistFileWriter, INetlistCloner netlistCloner)
+        public NativeModulePortsManipulation(INativeModulePortsReplacer nativeModulePortsReplacer, INetlistFileWriter netlistFileWriter, INetlistCloner netlistCloner, INetlistDataBuilder netlistDataBuilder)
         {
             _nativeModulePortsReplacer = nativeModulePortsReplacer;
             _netlistFileWriter = netlistFileWriter;
             _netlistCloner = netlistCloner;
+            _netlistDataBuilder = netlistDataBuilder;
         }
 
         public void PortsToUpper(string sourceNetlist, string newNetlist)
         {
+            _netlistDataBuilder.Build(sourceNetlist);
             _netlistCloner.Clone(sourceNetlist, newNetlist);
 
             _nativeModulePortsReplacer.PortsToUpper(newNetlist);
