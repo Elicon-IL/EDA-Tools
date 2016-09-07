@@ -3,23 +3,23 @@ using Elicon.Domain.GateLevel.Contracts.DataAccess;
 
 namespace Elicon.Domain.GateLevel.Reports.NativeModulesPortsList
 {
-    public interface INativeModulesPortsListQuery
+    public interface INativeModulesPortListQuery
     {
         IDictionary<string, string[]> GetNativeModulesPortsList(string netlist);
     }
 
-    public class NativeModulesPortsListQuery : INativeModulesPortsListQuery
+    public class NativeModulesPortListQuery : INativeModulesPortListQuery
     {
         private readonly IInstanceRepository _instanceRepository;
 
-        public NativeModulesPortsListQuery(IInstanceRepository instanceRepository)
+        public NativeModulesPortListQuery(IInstanceRepository instanceRepository)
         {
             _instanceRepository = instanceRepository;
         }
 
         public IDictionary<string, string[]> GetNativeModulesPortsList(string netlist)
         {
-            var aggregator = new NativeModulesPortsListAggregator();
+            var aggregator = new NativeModulesPortListAggregator();
 
             var instances = _instanceRepository.GetBy(netlist);
             foreach (var instance in instances)

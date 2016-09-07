@@ -48,6 +48,8 @@
     <Compile Include="Files\GateLevel\Write\Netlist\NetlistFileWriter.cs" />
     <Compile Include="Files\GateLevel\Write\Report\CountNativeModules\CountNativeModulesReportDirector.cs" />
     <Compile Include="Files\GateLevel\Write\Report\CountNativeModules\CountNativeModulesReportBuilder.cs" />
+    <Compile Include="Files\GateLevel\Write\Report\NativeModulesPortsList\NativeModulesPortsListReportBuilder.cs" />
+    <Compile Include="Files\GateLevel\Write\Report\NativeModulesPortsList\NativeModulesPortsListReportDirector.cs" />
     <Compile Include="Files\GateLevel\Write\Report\PhysicalModulePath\PhysicalModulePathReportBuilder.cs" />
     <Compile Include="Files\GateLevel\Write\Report\PhysicalModulePath\PhysicalModulePathReportDirector.cs" />
     <Compile Include="Files\GateLevel\Write\Report\ReportDirector.cs" />

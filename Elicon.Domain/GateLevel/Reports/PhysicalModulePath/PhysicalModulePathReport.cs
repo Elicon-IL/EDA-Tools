@@ -28,8 +28,7 @@ namespace Elicon.Domain.GateLevel.Reports.PhysicalModulePath
           
             var result = _physicalModulePathQuery.GetPhysicalPaths(source, rootModule, moduleNames);
 
-            _reportWriter.Write(new PhysicalModulePathReportWriteRequest
-            {
+            _reportWriter.Write(new PhysicalModulePathReportWriteRequest {
                 Destination = destination,
                 ModulesToList = moduleNames,
                 Data = result

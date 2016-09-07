@@ -5,14 +5,14 @@ using NUnit.Framework;
 namespace Elicon.Integration.Tests
 {
     [TestFixture]
-    public class NativeModulesPortsListQueryTests : IntegrationTestBase
+    public class NativeModulesPortListQueryTests : IntegrationTestBase
     {
-        private INativeModulesPortsListQuery _target;
+        private INativeModulesPortListQuery _target;
 
         [SetUp]
         public void SetUp()
         {
-            _target = Get<INativeModulesPortsListQuery>();
+            _target = Get<INativeModulesPortListQuery>();
         }
 
         [Test]

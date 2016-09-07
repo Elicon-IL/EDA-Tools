@@ -51,9 +51,9 @@ namespace EdaTools.Utility
         public async void GetNativeModulesPortsList(string netlist, string targetSaveFile)
         {
             InitRunner();
-            var report = Bootstrapper.Get<INativeModulesPortsListReport>();
-            //                                                           , targetSaveFile);    
-            await Task.Run(() => report.GetNativeModulesPortsList(netlist));
+            var report = Bootstrapper.Get<INativeModulesPortListReport>();
+
+            await Task.Run(() => report.GetNativeModulesPortsList(netlist, targetSaveFile));
             OnTaskRunningFinished(_toolRunnerEventArgs);
         }
 
@@ -61,8 +61,8 @@ namespace EdaTools.Utility
         {
             InitRunner();
             var report = Bootstrapper.Get<ICountNativeModulesReport>();
-            //                                           , targetSaveFile
-            await Task.Run(() => report.CountNativeModules(netlist, rootModule,""));
+         
+            await Task.Run(() => report.CountNativeModules(netlist, rootModule, targetSaveFile));
             OnTaskRunningFinished(_toolRunnerEventArgs);
         }
 
@@ -71,8 +71,8 @@ namespace EdaTools.Utility
             InitRunner();
             var modules = moduleNames.CommaSeparatedStringToList();
             var report = Bootstrapper.Get<IPhysicalModulePathReport>();
-            //                                                                       , dataContext.TargetSaveFile
-            await Task.Run(() => report.GetPhysicalPaths(netlist, rootModule, modules,""));
+           
+            await Task.Run(() => report.GetPhysicalPaths(netlist, rootModule, modules, targetSaveFile));
             OnTaskRunningFinished(_toolRunnerEventArgs);
         }
 

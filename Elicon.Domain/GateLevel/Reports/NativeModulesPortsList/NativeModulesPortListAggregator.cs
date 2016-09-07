@@ -4,7 +4,7 @@ using Elicon.Framework;
 
 namespace Elicon.Domain.GateLevel.Reports.NativeModulesPortsList
 {
-    public class NativeModulesPortsListAggregator
+    public class NativeModulesPortListAggregator
     {
         private readonly Dictionary<string, Instance> _result = new Dictionary<string, Instance>();
        

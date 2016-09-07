@@ -50,7 +50,7 @@
     <Compile Include="NetlistClonerTests.cs" />
     <Compile Include="NetlistRemoverTests.cs" />
     <Compile Include="NativeModuleReplacerTests.cs" />
-    <Compile Include="NativeModulesPortsListQueryTests.cs" />
+    <Compile Include="NativeModulesPortListQueryTests.cs" />
     <Compile Include="PhysicalModulePathQueryTests.cs" />
     <Compile Include="CountNativeModulesQueryTests.cs" />
     <Compile Include="IntegrationTestBase.cs" />

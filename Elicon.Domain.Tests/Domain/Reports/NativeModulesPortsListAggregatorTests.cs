@@ -9,12 +9,12 @@ namespace Elicon.Unit.Tests.Domain.Reports
     [TestFixture]
     public class NativeModulesPortsListAggregatorTests
     {
-        private NativeModulesPortsListAggregator _target;
+        private NativeModulesPortListAggregator _target;
 
         [SetUp]
         public void SetUp()
         {
-            _target = new NativeModulesPortsListAggregator();
+            _target = new NativeModulesPortListAggregator();
         }
 
         [Test]
