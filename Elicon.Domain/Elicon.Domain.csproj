@@ -86,6 +86,7 @@
     <Compile Include="GateLevel\Reports\CountNativeModules\CountNativeModulesFileWriteRequest.cs" />
     <Compile Include="GateLevel\IFileWriteRequest.cs" />
     <Compile Include="GateLevel\Reports\CountNativeModules\ModuleCount.cs" />
+    <Compile Include="GateLevel\Reports\NativeModulesPortsList\NativeModulePorts.cs" />
     <Compile Include="GateLevel\Reports\NativeModulesPortsList\NativeModulesPortListFileWriteRequest.cs" />
     <Compile Include="GateLevel\Reports\NativeModulesPortsList\NativeModulesPortListAggregator.cs" />
     <Compile Include="GateLevel\Reports\NativeModulesPortsList\NativeModulesPortListQuery.cs" />

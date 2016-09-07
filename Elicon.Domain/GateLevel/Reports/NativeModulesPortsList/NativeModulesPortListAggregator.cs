@@ -18,14 +18,11 @@ namespace Elicon.Domain.GateLevel.Reports.NativeModulesPortsList
                 instance);           
         }
         
-        public IDictionary<string, string[]> Result()
+        public IList<NativeModulePorts> Result()
         {
-            return _result.ToDictionary(
-                kvp => kvp.Key, 
-                kvp => kvp.Value.Net
-                    .Select(pwp => pwp.Port)
-                    .ToArray()
-                );
+            return _result
+                .Select(kvp => new NativeModulePorts(kvp.Key, kvp.Value.Net.Select(pwp => pwp.Port).ToList()))
+                .ToList();
         }
     }
 }

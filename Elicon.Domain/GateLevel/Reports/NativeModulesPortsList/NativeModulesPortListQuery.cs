@@ -5,7 +5,7 @@ namespace Elicon.Domain.GateLevel.Reports.NativeModulesPortsList
 {
     public interface INativeModulesPortListQuery
     {
-        IDictionary<string, string[]> GetNativeModulesPortsList(string netlist);
+        IList<NativeModulePorts> GetNativeModulesPortsList(string netlist);
     }
 
     public class NativeModulesPortListQuery : INativeModulesPortListQuery
@@ -17,7 +17,7 @@ namespace Elicon.Domain.GateLevel.Reports.NativeModulesPortsList
             _instanceRepository = instanceRepository;
         }
 
-        public IDictionary<string, string[]> GetNativeModulesPortsList(string netlist)
+        public IList<NativeModulePorts> GetNativeModulesPortsList(string netlist)
         {
             var aggregator = new NativeModulesPortListAggregator();
 

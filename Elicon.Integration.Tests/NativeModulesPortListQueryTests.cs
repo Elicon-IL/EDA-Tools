@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Elicon.Domain.GateLevel.Reports.NativeModulesPortsList;
 using NUnit.Framework;
 
@@ -20,24 +21,55 @@ namespace Elicon.Integration.Tests
         {
             var result = _target.GetNativeModulesPortsList(ExampleNetlistFilePath);
 
-            var expected = new Dictionary<string, string[]> {
-                {"an2", new []{"z", "a", "b"}}, {"an3", new []{"z", "a", "b", "c"}}, {"an4", new []{"z", "a", "b", "c", "d"}},
-                { "aoi21", new []{"b", "a2", "a1", "zn"}}, {"aoi22", new []{"b2", "b1", "a2", "a1", "zn"}}, {"aoi31", new []{"b", "a3", "a2", "a1", "zn"}},
-                { "b1", new []{"z", "a"}}, {"bd",  new []{"z", "a"}}, {"cvdd",  new []{"z"}}, {"cvss",  new []{"z"}},
-                { "dspbrs", new []{"q", "c", "d","rn","sd","se", "sn", "qn"}}, {"i1", new []{"zn","a"}}, {"ic", new []{"z","pad"}},
-                { "iobhc", new []{"pad", "z", "a", "e"}}, {"mx21",  new []{"z", "a", "b", "sb"}}, {"mx21i", new []{"zn", "a", "b", "sb"}},
-                { "mx41", new []{"z", "i0", "i1","i2","i3","s0", "s1"}}, {"na2", new []{"zn", "a", "b"}}, {"na3", new []{"c", "b", "a", "zn"}},
-                { "na4", new []{"d","c", "b", "a", "zn"}}, {"no2", new []{"b", "a", "zn"}},{"no3", new []{"c", "b", "a", "zn"}}, {"no4",  new []{"d", "c", "b", "a", "zn"}},
-                { "oai21", new []{"b", "a2", "a1", "zn"}}, {"oai211", new []{"c","b", "a2", "a1", "zn"}}, {"oai22", new []{"b2", "b1", "a2", "a1", "zn"}},
-                { "or2",  new []{"z", "a", "b"}}, {"or3",  new []{"c", "z", "a", "b"}}, {"or4", new []{"d", "c", "z", "a", "b"}},
-                { "oth", new []{"pad", "a", "e"}}, { "por", new []{"zn"}}, {"xn2", new []{"b", "a", "zn"}}, {"xo2", new []{"z", "a", "b"}}
+            var expected = new List<NativeModulePorts>
+            {
+                new NativeModulePorts("an2", new[] {"z", "a", "b"}),
+                new NativeModulePorts("an3", new[] {"z", "a", "b", "c"}),
+                new NativeModulePorts("an4", new[] {"z", "a", "b", "c", "d"}),
+                new NativeModulePorts("aoi21", new[] {"b", "a2", "a1", "zn"}),
+                new NativeModulePorts("aoi22", new[] {"b2", "b1", "a2", "a1", "zn"}),
+                new NativeModulePorts("aoi31", new[] {"b", "a3", "a2", "a1", "zn"}),
+                new NativeModulePorts("b1", new[] {"z", "a"}),
+                new NativeModulePorts("bd", new[] {"z", "a"}),
+                new NativeModulePorts("cvdd", new[] {"z"}),
+                new NativeModulePorts("cvss", new[] {"z"}),
+                new NativeModulePorts("dspbrs", new[] {"q", "c", "d", "rn", "sd", "se", "sn", "qn"}),
+                new NativeModulePorts("i1", new[] {"zn", "a"}),
+                new NativeModulePorts("ic", new[] {"z", "pad"}),
+                new NativeModulePorts("iobhc", new[] {"pad", "z", "a", "e"}),
+                new NativeModulePorts("mx21", new[] {"z", "a", "b", "sb"}),
+                new NativeModulePorts("mx21i", new[] {"zn", "a", "b", "sb"}),
+                new NativeModulePorts("mx41", new[] {"z", "i0", "i1", "i2", "i3", "s0", "s1"}),
+                new NativeModulePorts("na2", new[] {"zn", "a", "b"}),
+                new NativeModulePorts("na3", new[] {"c", "b", "a", "zn"}),
+                new NativeModulePorts("na4", new[] {"d", "c", "b", "a", "zn"}),
+                new NativeModulePorts("no2", new[] {"b", "a", "zn"}),
+                new NativeModulePorts("no3", new[] {"c", "b", "a", "zn"}),
+                new NativeModulePorts("no4", new[] {"d", "c", "b", "a", "zn"}),
+                new NativeModulePorts("oai21", new[] {"b", "a2", "a1", "zn"}),
+                new NativeModulePorts("oai211", new[] {"c", "b", "a2", "a1", "zn"}),
+                new NativeModulePorts("oai22", new[] {"b2", "b1", "a2", "a1", "zn"}),
+                new NativeModulePorts("or2", new[] {"z", "a", "b"}),
+                new NativeModulePorts("or3", new[] {"c", "z", "a", "b"}),
+                new NativeModulePorts("or4", new[] {"d", "c", "z", "a", "b"}),
+                new NativeModulePorts("oth", new[] {"pad", "a", "e"}),
+                new NativeModulePorts("por", new[] {"zn"}),
+                new NativeModulePorts("xn2", new[] {"b", "a", "zn"}),
+                new NativeModulePorts("xo2", new[] {"z", "a", "b"})
             };
 
-            foreach (var kvp in result)
-                Assert.That(kvp.Value, Is.EquivalentTo(expected[kvp.Key]));
+            foreach (var module in result)
+                Assert.That(GetPorts(expected, module.ModuleName),
+                    Is.EquivalentTo(module.Ports));
 
-            foreach (var kvp in expected)
-                Assert.That(kvp.Value, Is.EquivalentTo(result[kvp.Key]));
+            foreach (var module in expected)
+                Assert.That(GetPorts(result, module.ModuleName),
+                    Is.EquivalentTo(module.Ports));
+        }
+
+        private IList<string> GetPorts(IList<NativeModulePorts> list, string moduleName)
+        {
+            return list.First(nmp => nmp.ModuleName == moduleName).Ports;
         }
     }
  }

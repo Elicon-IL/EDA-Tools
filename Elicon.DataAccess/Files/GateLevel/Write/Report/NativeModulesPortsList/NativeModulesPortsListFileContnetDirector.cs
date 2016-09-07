@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using Elicon.DataAccess.Files.GateLevel.Write.Report.CountNativeModules;
-using Elicon.Domain.GateLevel.Reports.NativeModulesPortsList;
+﻿using Elicon.Domain.GateLevel.Reports.NativeModulesPortsList;
 
 namespace Elicon.DataAccess.Files.GateLevel.Write.Report.NativeModulesPortsList
 {
@@ -10,8 +8,8 @@ namespace Elicon.DataAccess.Files.GateLevel.Write.Report.NativeModulesPortsList
         {
             var builder = new NativeModulesPortsListFileContentBuilder();
 
-            foreach (var kvp in typedRequest.Data)
-                builder.ListModulePorts(kvp.Key, kvp.Value);
+            foreach (var module in typedRequest.Data)
+                builder.ListModulePorts(module.ModuleName, module.Ports);
 
             return builder.GetResult();
         }

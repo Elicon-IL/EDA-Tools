@@ -6,7 +6,7 @@ namespace Elicon.Domain.GateLevel.Reports.NativeModulesPortsList
 {
     public interface INativeModulesPortListReport
     {
-        IDictionary<string, string[]> GetNativeModulesPortsList(string source, string destination);
+        IList<NativeModulePorts> GetNativeModulesPortsList(string source, string destination);
     }
 
     public class NativeModulesPortListReport : INativeModulesPortListReport
@@ -22,7 +22,7 @@ namespace Elicon.Domain.GateLevel.Reports.NativeModulesPortsList
             _fileWriter = fileWriter;
         }
 
-        public IDictionary<string, string[]> GetNativeModulesPortsList(string source, string destination)
+        public IList<NativeModulePorts> GetNativeModulesPortsList(string source, string destination)
         {
             _netlistDataBuilder.Build(source);
 
