@@ -7,23 +7,23 @@ namespace Elicon.DataAccess.Files.GateLevel.Write.Netlist
     {
         private readonly IStreamWriterProvider _streamWriterProvider;
         private readonly INetlistFileDirector _netlistFileDirector;
-        private readonly IFileTitleBuilder _fileTitleBuilder;
+        private readonly IFileHeaderBuilder _fileHeaderBuilder;
 
-        public NetlistFileWriter(INetlistFileDirector netlistFileDirector, IStreamWriterProvider streamWriterProvider, IFileTitleBuilder fileTitleBuilder)
+        public NetlistFileWriter(INetlistFileDirector netlistFileDirector, IStreamWriterProvider streamWriterProvider, IFileHeaderBuilder fileHeaderBuilder)
         {
             _netlistFileDirector = netlistFileDirector;
             _streamWriterProvider = streamWriterProvider;
-            _fileTitleBuilder = fileTitleBuilder;
+            _fileHeaderBuilder = fileHeaderBuilder;
         }
 
         public void Write(string source, string action)
         {
             var writer = _streamWriterProvider.Get(source);
 
-            var title = _fileTitleBuilder.BuildTitle(action);
+            var header = _fileHeaderBuilder.BuildHeader(action);
             var content = _netlistFileDirector.Construct(source);
 
-            writer.WriteLine(title);
+            writer.WriteLine(header);
             writer.WriteLine(content);
 
             writer.Close();

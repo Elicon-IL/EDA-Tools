@@ -6,30 +6,32 @@ using Elicon.Framework;
 
 namespace Elicon.DataAccess.Files.GateLevel.Write
 {
-    public interface IFileTitleBuilder
+    public interface IFileHeaderBuilder
     {
-        string BuildTitle(string action);
+        string BuildHeader(string action);
     }
 
-    public class FileTitleBuilder : IFileTitleBuilder
+    public class FileHeaderBuilder : IFileHeaderBuilder
     {
         private readonly IApplicationInfo _applicationInfo;
 
-        public FileTitleBuilder(IApplicationInfo applicationInfo)
+        public FileHeaderBuilder(IApplicationInfo applicationInfo)
         {
             _applicationInfo = applicationInfo;
         }
 
-        public string BuildTitle(string action)
+        public string BuildHeader(string action)
         {
             var sb = new StringBuilder();
 
+            sb.AppendLine();
             sb.AppendLine("//");
             sb.AppendLine("// Type of action = {0}.".FormatWith(action));
             sb.AppendLine("// {0}".FormatWith(DateTime.UtcNow.ToString("F", CultureInfo.CreateSpecificCulture("en-US"))));
             sb.AppendLine("// EdaTools - Verilog Gate-Level Studio - Version {0}"
                 .FormatWith(_applicationInfo.AppVersion()));
             sb.AppendLine("//");
+            sb.AppendLine();
 
             return sb.ToString();
         }

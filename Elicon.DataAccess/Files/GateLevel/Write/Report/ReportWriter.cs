@@ -8,20 +8,25 @@ namespace Elicon.DataAccess.Files.GateLevel.Write.Report
     public class ReportWriter : IReportWriter
     {
         private readonly IStreamWriterProvider _streamWriterProvider;
-        private readonly IReportBuilder[] _reportBuilders;
+        private readonly IFileHeaderBuilder _fileHeaderBuilder;
+        private readonly IReportDirector[] _reportDirectors;
 
-        public ReportWriter(IStreamWriterProvider streamWriterProvider, IReportBuilder[] reportBuilders)
+        public ReportWriter(IStreamWriterProvider streamWriterProvider, IReportDirector[] reportDirectors, IFileHeaderBuilder fileHeaderBuilder)
         {
             _streamWriterProvider = streamWriterProvider;
-            _reportBuilders = reportBuilders;
+            _reportDirectors = reportDirectors;
+            _fileHeaderBuilder = fileHeaderBuilder;
         }
 
         public void Write(IReportWriteRequest reportWriteRequest)
         {
             var writer = _streamWriterProvider.Get(reportWriteRequest.Destination);
-            var reportBuilder = _reportBuilders.Single(r => r.CanBuild(reportWriteRequest));
+            var reportDirector = _reportDirectors.Single(r => r.CanConstruct(reportWriteRequest));
 
-            var content = reportBuilder.Build(reportWriteRequest);
+            var header = _fileHeaderBuilder.BuildHeader(reportWriteRequest.Action);
+            var content = reportDirector.Construct(reportWriteRequest);
+
+            writer.WriteLine(header);
             writer.WriteLine(content);
 
             writer.Close();
