@@ -34,7 +34,6 @@ namespace Elicon.Domain.GateLevel.Manipulations.UpperCaseNativeModulePorts
                 Destination = newNetlist,
                 Action = "Uppercase Native Module Ports"
             });
-
         }
     }
 }

@@ -62,7 +62,6 @@
     <Compile Include="GateLevel\Contracts\DataAccess\INetlistRemover.cs" />
     <Compile Include="GateLevel\Contracts\DataAccess\INetlistCloner.cs" />
     <Compile Include="GateLevel\Contracts\DataAccess\INetlistFileReaderProvider.cs" />
-    <Compile Include="GateLevel\Contracts\DataAccess\INetlistFileWriter.cs" />
     <Compile Include="GateLevel\Contracts\DataAccess\INetlistRepository.cs" />
     <Compile Include="GateLevel\Manipulations\RemoveBuffer\BufferRemover.cs" />
     <Compile Include="GateLevel\Manipulations\RemoveBuffer\BufferWiringVerifier.cs" />
@@ -85,7 +84,7 @@
     <Compile Include="GateLevel\Reports\CountNativeModules\CountNativeModulesQuery.cs" />
     <Compile Include="GateLevel\Contracts\DataAccess\IFileWriter.cs" />
     <Compile Include="GateLevel\Reports\CountNativeModules\CountNativeModulesFileWriteRequest.cs" />
-    <Compile Include="GateLevel\Reports\IFileWriteRequest.cs" />
+    <Compile Include="GateLevel\IFileWriteRequest.cs" />
     <Compile Include="GateLevel\Reports\NativeModulesPortsList\NativeModulesPortListFileWriteRequest.cs" />
     <Compile Include="GateLevel\Reports\NativeModulesPortsList\NativeModulesPortListAggregator.cs" />
     <Compile Include="GateLevel\Reports\NativeModulesPortsList\NativeModulesPortListQuery.cs" />

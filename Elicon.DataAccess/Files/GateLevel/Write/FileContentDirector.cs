@@ -1,14 +1,14 @@
-﻿using Elicon.Domain.GateLevel.Reports;
+﻿using Elicon.Domain.GateLevel;
 
 namespace Elicon.DataAccess.Files.GateLevel.Write
 {
-    public interface IFileContnetDirector
+    public interface IFileContentDirector
     {
         bool CanConstruct(IFileWriteRequest request);
         string Construct(IFileWriteRequest request);
     }
 
-    public abstract class FileContnetDirector<T> : IFileContnetDirector where T : IFileWriteRequest
+    public abstract class FileContentDirector<T> : IFileContentDirector where T : IFileWriteRequest
     {
         public bool CanConstruct(IFileWriteRequest request)
         {

@@ -1,4 +1,4 @@
-﻿namespace Elicon.Domain.GateLevel.Reports
+﻿namespace Elicon.Domain.GateLevel
 {
     public interface IFileWriteRequest
     {

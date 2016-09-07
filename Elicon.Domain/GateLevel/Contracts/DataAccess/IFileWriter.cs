@@ -1,6 +1,4 @@
-﻿using Elicon.Domain.GateLevel.Reports;
-
-namespace Elicon.Domain.GateLevel.Contracts.DataAccess
+﻿namespace Elicon.Domain.GateLevel.Contracts.DataAccess
 {
     public interface IFileWriter
     {

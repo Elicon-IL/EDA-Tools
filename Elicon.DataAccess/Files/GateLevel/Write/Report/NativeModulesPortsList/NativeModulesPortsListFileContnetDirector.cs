@@ -4,7 +4,7 @@ using Elicon.Domain.GateLevel.Reports.NativeModulesPortsList;
 
 namespace Elicon.DataAccess.Files.GateLevel.Write.Report.NativeModulesPortsList
 {
-    public class NativeModulesPortsListFileContnetDirector : FileContnetDirector<NativeModulesPortListFileWriteRequest>
+    public class NativeModulesPortsListFileContentDirector : FileContentDirector<NativeModulesPortListFileWriteRequest>
     {
         protected override string Construct(NativeModulesPortListFileWriteRequest typedRequest)
         {

@@ -3,7 +3,7 @@ using Elicon.Domain.GateLevel.Manipulations;
 
 namespace Elicon.DataAccess.Files.GateLevel.Write.Netlist
 {
-    public class NetlistFileContentDirector : FileContnetDirector<NetlistFileWriteRequest>
+    public class NetlistFileContentDirector : FileContentDirector<NetlistFileWriteRequest>
     {
         private readonly INetlistRepository _netlistRepository;
         private readonly IModuleRepository _moduleRepository;

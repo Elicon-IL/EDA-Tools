@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Elicon.DataAccess.Files.Common.Write;
+using Elicon.Domain.GateLevel;
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
-using Elicon.Domain.GateLevel.Reports;
 
 namespace Elicon.DataAccess.Files.GateLevel.Write
 {
@@ -9,19 +9,19 @@ namespace Elicon.DataAccess.Files.GateLevel.Write
     {
         private readonly IStreamWriterProvider _streamWriterProvider;
         private readonly IFileHeaderBuilder _fileHeaderBuilder;
-        private readonly IFileContnetDirector[] _fileContnetDirectors;
+        private readonly IFileContentDirector[] _fileContentDirectors;
 
-        public FileWriter(IStreamWriterProvider streamWriterProvider, IFileContnetDirector[] fileContnetDirectors, IFileHeaderBuilder fileHeaderBuilder)
+        public FileWriter(IStreamWriterProvider streamWriterProvider, IFileContentDirector[] fileContentDirectors, IFileHeaderBuilder fileHeaderBuilder)
         {
             _streamWriterProvider = streamWriterProvider;
-            _fileContnetDirectors = fileContnetDirectors;
+            _fileContentDirectors = fileContentDirectors;
             _fileHeaderBuilder = fileHeaderBuilder;
         }
 
         public void Write(IFileWriteRequest fileWriteRequest)
         {
             var writer = _streamWriterProvider.Get(fileWriteRequest.Destination);
-            var reportDirector = _fileContnetDirectors.Single(r => r.CanConstruct(fileWriteRequest));
+            var reportDirector = _fileContentDirectors.Single(r => r.CanConstruct(fileWriteRequest));
 
             var header = _fileHeaderBuilder.BuildHeader(fileWriteRequest.Action);
             var content = reportDirector.Construct(fileWriteRequest);

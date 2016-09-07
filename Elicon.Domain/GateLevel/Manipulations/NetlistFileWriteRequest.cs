@@ -1,6 +1,4 @@
-﻿using Elicon.Domain.GateLevel.Reports;
-
-namespace Elicon.Domain.GateLevel.Manipulations
+﻿namespace Elicon.Domain.GateLevel.Manipulations
 {
     public class NetlistFileWriteRequest : IFileWriteRequest
     {

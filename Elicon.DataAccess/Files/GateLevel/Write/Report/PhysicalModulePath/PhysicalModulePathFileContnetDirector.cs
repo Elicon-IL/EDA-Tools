@@ -2,7 +2,7 @@
 
 namespace Elicon.DataAccess.Files.GateLevel.Write.Report.PhysicalModulePath
 {
-    public class PhysicalModulePathFileContnetDirector : FileContnetDirector<PhysicalModulePathFileWriteRequest>
+    public class PhysicalModulePathFileContentDirector : FileContentDirector<PhysicalModulePathFileWriteRequest>
     {
         protected override string Construct(PhysicalModulePathFileWriteRequest typedRequest)
         {
