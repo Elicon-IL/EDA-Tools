@@ -36,7 +36,7 @@ namespace Elicon.Unit.Tests.Domain.Reports
 
             var result = _target.Result();
             Assert.That(result, Has.Count.EqualTo(1));
-            Assert.That(result, Has.Exactly(1).Matches<ModuleCount>(mc => mc.ModuleName == "moduleName" && mc.Count == 1));
+            Assert.That(result, Has.Exactly(1).Matches<NativeModuleCount>(mc => mc.ModuleName == "moduleName" && mc.Count == 1));
         }
 
         [Test]
@@ -51,8 +51,8 @@ namespace Elicon.Unit.Tests.Domain.Reports
 
             var result = _target.Result();
             Assert.That(result, Has.Count.EqualTo(2));
-            Assert.That(result, Has.Exactly(1).Matches<ModuleCount>(mc => mc.ModuleName == "moduleName" && mc.Count == 2));
-            Assert.That(result, Has.Exactly(1).Matches<ModuleCount>(mc => mc.ModuleName == "moduleName2" && mc.Count == 1));
+            Assert.That(result, Has.Exactly(1).Matches<NativeModuleCount>(mc => mc.ModuleName == "moduleName" && mc.Count == 2));
+            Assert.That(result, Has.Exactly(1).Matches<NativeModuleCount>(mc => mc.ModuleName == "moduleName2" && mc.Count == 1));
         }
     }
 }

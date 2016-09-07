@@ -17,10 +17,10 @@ namespace Elicon.Domain.GateLevel.Reports.CountNativeModules
             _result.UpdateValue(traversalState.CurrentInstance.ModuleName, count => ++count, 0);
         }
 
-        public IList<ModuleCount> Result()
+        public IList<NativeModuleCount> Result()
         {
             return _result
-                .Select(kvp => new ModuleCount(kvp.Key, kvp.Value))
+                .Select(kvp => new NativeModuleCount(kvp.Key, kvp.Value))
                 .ToList();
         }
     }
