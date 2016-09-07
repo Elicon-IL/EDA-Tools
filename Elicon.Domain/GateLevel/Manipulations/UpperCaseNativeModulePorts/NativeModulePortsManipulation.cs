@@ -11,15 +11,15 @@ namespace Elicon.Domain.GateLevel.Manipulations.UpperCaseNativeModulePorts
     public class NativeModulePortsManipulation : INativeModulePortsManipulation
     {
         private readonly INetlistCloner _netlistCloner;
-        private readonly INetlistFileWriter _netlistFileWriter;
+        private readonly IFileWriter _fileWriter;
         private readonly INativeModulePortsReplacer _nativeModulePortsReplacer;
         private readonly INetlistDataBuilder _netlistDataBuilder;
 
-        public NativeModulePortsManipulation(INativeModulePortsReplacer nativeModulePortsReplacer, INetlistFileWriter netlistFileWriter, INetlistCloner netlistCloner, INetlistDataBuilder netlistDataBuilder)
+        public NativeModulePortsManipulation(INetlistCloner netlistCloner, IFileWriter fileWriter, INativeModulePortsReplacer nativeModulePortsReplacer, INetlistDataBuilder netlistDataBuilder)
         {
-            _nativeModulePortsReplacer = nativeModulePortsReplacer;
-            _netlistFileWriter = netlistFileWriter;
             _netlistCloner = netlistCloner;
+            _fileWriter = fileWriter;
+            _nativeModulePortsReplacer = nativeModulePortsReplacer;
             _netlistDataBuilder = netlistDataBuilder;
         }
 
@@ -30,7 +30,11 @@ namespace Elicon.Domain.GateLevel.Manipulations.UpperCaseNativeModulePorts
 
             _nativeModulePortsReplacer.PortsToUpper(newNetlist);
 
-            _netlistFileWriter.Write(newNetlist, "Uppercase Native Module Ports");
+            _fileWriter.Write(new NetlistFileWriteRequest {
+                Destination = newNetlist,
+                Action = "Uppercase Native Module Ports"
+            });
+
         }
     }
 }

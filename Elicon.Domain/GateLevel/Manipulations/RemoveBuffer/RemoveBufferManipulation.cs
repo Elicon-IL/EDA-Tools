@@ -11,14 +11,14 @@ namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
     public class RemoveBufferManipulation : IRemoveBufferManipulation
     {
         private readonly INetlistCloner _netlistCloner;
-        private readonly INetlistFileWriter _netlistFileWriter;
+        private readonly IFileWriter _fileWriter;
         private readonly IBufferRemover _bufferRemover;
         private readonly INetlistDataBuilder _netlistDataBuilder;
 
-        public RemoveBufferManipulation(INetlistCloner netlistCloner, INetlistFileWriter netlistFileWriter, IBufferRemover bufferRemover, INetlistDataBuilder netlistDataBuilder)
+        public RemoveBufferManipulation(INetlistCloner netlistCloner, IFileWriter fileWriter, IBufferRemover bufferRemover, INetlistDataBuilder netlistDataBuilder)
         {
             _netlistCloner = netlistCloner;
-            _netlistFileWriter = netlistFileWriter;
+            _fileWriter = fileWriter;
             _bufferRemover = bufferRemover;
             _netlistDataBuilder = netlistDataBuilder;
         }
@@ -30,7 +30,10 @@ namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
 
             _bufferRemover.Remove(removeBufferRequest.NewNetlist, removeBufferRequest.BufferName, removeBufferRequest.InputPort, removeBufferRequest.OutputPort);
 
-            _netlistFileWriter.Write(removeBufferRequest.NewNetlist, "Remove Buffers");
+            _fileWriter.Write(new NetlistFileWriteRequest {
+                Destination = removeBufferRequest.NewNetlist,
+                Action = "Remove Buffers"
+            });
         }
     }
 }

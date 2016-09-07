@@ -4,7 +4,7 @@ using Elicon.Framework;
 
 namespace Elicon.DataAccess.Files.GateLevel.Write.Report.PhysicalModulePath
 {
-    public class PhysicalModulePathReportBuilder : IPhysicalModulePathReportBuilder
+    public class PhysicalModulePathFileContentBuilder : IPhysicalModulePathFileContentBuilder
     {
         private readonly StringBuilder _result = new StringBuilder();
 
@@ -41,7 +41,7 @@ namespace Elicon.DataAccess.Files.GateLevel.Write.Report.PhysicalModulePath
         }   
     }
 
-    public interface IPhysicalModulePathReportBuilder
+    public interface IPhysicalModulePathFileContentBuilder
     {
         void BuildTitle(IList<string> modulesToList);
         void BuildModuleTitle(string moduleName);

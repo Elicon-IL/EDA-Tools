@@ -3,7 +3,7 @@ using Elicon.Framework;
 
 namespace Elicon.DataAccess.Files.GateLevel.Write.Report.CountNativeModules
 {
-    public class CountNativeModulesReportBuilder : ICountNativeModulesReportBuilder
+    public class CountNativeModulesFileContentBuilder : ICountNativeModulesFileContentBuilder
     {
         private readonly StringBuilder _result = new StringBuilder();
 
@@ -30,7 +30,7 @@ namespace Elicon.DataAccess.Files.GateLevel.Write.Report.CountNativeModules
         }   
     }
 
-    public interface ICountNativeModulesReportBuilder
+    public interface ICountNativeModulesFileContentBuilder
     {
         void BuildTitle();
         void BuildModuleCount(string moduleName, long moduleCount);

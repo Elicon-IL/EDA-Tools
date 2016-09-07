@@ -1,30 +1,26 @@
 ﻿using Elicon.Domain.GateLevel.Contracts.DataAccess;
+using Elicon.Domain.GateLevel.Manipulations;
 
 namespace Elicon.DataAccess.Files.GateLevel.Write.Netlist
 {
-    public interface INetlistFileDirector
-    {
-        string Construct(string source);
-    }
-
-    public class NetlistFileDirector : INetlistFileDirector
+    public class NetlistFileContentDirector : FileContnetDirector<NetlistFileWriteRequest>
     {
         private readonly INetlistRepository _netlistRepository;
         private readonly IModuleRepository _moduleRepository;
         private readonly IInstanceRepository _instanceRepository;
 
-        public NetlistFileDirector(INetlistRepository netlistRepository, IModuleRepository moduleRepository, IInstanceRepository instanceRepository)
+        public NetlistFileContentDirector(INetlistRepository netlistRepository, IModuleRepository moduleRepository, IInstanceRepository instanceRepository)
         {
             _netlistRepository = netlistRepository;
             _moduleRepository = moduleRepository;
             _instanceRepository = instanceRepository;
         }
 
-        public string Construct(string source)
+        protected override string Construct(NetlistFileWriteRequest typedRequest)
         {
             var builder = new NetlistFileBuilder();
-            var netlist = _netlistRepository.Get(source);
-            var modules = _moduleRepository.GetAll(source);
+            var netlist = _netlistRepository.Get(typedRequest.Destination);
+            var modules = _moduleRepository.GetAll(netlist.Source);
 
             builder.BuildMetaStatements(netlist);
 
@@ -36,7 +32,7 @@ namespace Elicon.DataAccess.Files.GateLevel.Write.Netlist
                 builder.BuildSupplyDeclarations(module);
                 builder.BuildAssignDeclarations(module);
 
-                foreach (var instance in _instanceRepository.GetByHostModule(source, module.Name))
+                foreach (var instance in _instanceRepository.GetByHostModule(netlist.Source, module.Name))
                     builder.BuildInstanceDeclaration(instance);
 
                 builder.BuildEndModule();

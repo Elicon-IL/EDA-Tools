@@ -14,13 +14,13 @@ namespace Elicon.Domain.GateLevel.Reports.CountNativeModules
     {
         private readonly INetlistDataBuilder _netlistDataBuilder;
         private readonly ICountNativeModulesQuery _countNativeModulesQuery;
-        private readonly IReportWriter _reportWriter;
+        private readonly IFileWriter _fileWriter;
 
-        public CountNativeModulesReport(INetlistDataBuilder netlistDataBuilder, ICountNativeModulesQuery countNativeModulesQuery, IReportWriter reportWriter)
+        public CountNativeModulesReport(INetlistDataBuilder netlistDataBuilder, ICountNativeModulesQuery countNativeModulesQuery, IFileWriter fileWriter)
         {
             _netlistDataBuilder = netlistDataBuilder;
             _countNativeModulesQuery = countNativeModulesQuery;
-            _reportWriter = reportWriter;
+            _fileWriter = fileWriter;
         }
 
         public IDictionary<string, long> CountNativeModules(string source, string rootModule, string destination)
@@ -29,7 +29,7 @@ namespace Elicon.Domain.GateLevel.Reports.CountNativeModules
 
             var result = _countNativeModulesQuery.CountNativeModules(source, rootModule);
 
-            _reportWriter.Write(new CountNativeModulesReportWriteRequest {
+            _fileWriter.Write(new CountNativeModulesFileWriteRequest {
                 Destination = destination,
                 Data = result
             });

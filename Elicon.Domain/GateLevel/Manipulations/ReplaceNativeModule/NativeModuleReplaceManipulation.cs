@@ -12,14 +12,14 @@ namespace Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule
     {
         private readonly INetlistCloner _netlistCloner;
         private readonly INativeModuleReplacer _nativeModuleReplacer;
-        private readonly INetlistFileWriter _netlistFileWriter;
+        private readonly IFileWriter _fileWriter;
         private readonly INetlistDataBuilder _netlistDataBuilder;
 
-        public NativeModuleReplaceManipulation(INetlistCloner netlistCloner, INativeModuleReplacer nativeModuleReplacer, INetlistFileWriter netlistFileWriter, INetlistDataBuilder netlistDataBuilder)
+        public NativeModuleReplaceManipulation(INetlistCloner netlistCloner, INativeModuleReplacer nativeModuleReplacer, IFileWriter fileWriter, INetlistDataBuilder netlistDataBuilder)
         {
             _netlistCloner = netlistCloner;
             _nativeModuleReplacer = nativeModuleReplacer;
-            _netlistFileWriter = netlistFileWriter;
+            _fileWriter = fileWriter;
             _netlistDataBuilder = netlistDataBuilder;
         }
 
@@ -30,7 +30,10 @@ namespace Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule
 
             _nativeModuleReplacer.Replace(replaceRequest.NewNetlist, replaceRequest.ModuleToReplace, replaceRequest.NewModule, replaceRequest.PortsMapping);
 
-            _netlistFileWriter.Write(replaceRequest.NewNetlist, "Replace Native Modules");
+            _fileWriter.Write(new NetlistFileWriteRequest {
+                Destination = replaceRequest.NewNetlist,
+                Action = "Replace Native Modules"
+            });
         }
     }
 }

@@ -3,11 +3,11 @@ using Elicon.Domain.GateLevel.Reports.CountNativeModules;
 
 namespace Elicon.DataAccess.Files.GateLevel.Write.Report.CountNativeModules
 {
-    public class CountNativeModulesReportDirector : ReportDirector<CountNativeModulesReportWriteRequest>
+    public class CountNativeModulesFileContnetDirector : FileContnetDirector<CountNativeModulesFileWriteRequest>
     {
-        protected override string Construct(CountNativeModulesReportWriteRequest typedRequest)
+        protected override string Construct(CountNativeModulesFileWriteRequest typedRequest)
         {
-            var builder = new CountNativeModulesReportBuilder();
+            var builder = new CountNativeModulesFileContentBuilder();
 
             builder.BuildTitle();
             builder.BuildNewLine();

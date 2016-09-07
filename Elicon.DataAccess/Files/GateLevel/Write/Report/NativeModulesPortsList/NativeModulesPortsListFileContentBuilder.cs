@@ -4,7 +4,7 @@ using Elicon.Framework;
 
 namespace Elicon.DataAccess.Files.GateLevel.Write.Report.NativeModulesPortsList
 {
-    public class NativeModulesPortsListReportBuilder : INativeModulesPortsListReportBuilder
+    public class NativeModulesPortsListFileContentBuilder : INativeModulesPortsListFileContentBuilder
     {
         private readonly StringBuilder _result = new StringBuilder();
 
@@ -24,7 +24,7 @@ namespace Elicon.DataAccess.Files.GateLevel.Write.Report.NativeModulesPortsList
         }   
     }
 
-    public interface INativeModulesPortsListReportBuilder
+    public interface INativeModulesPortsListFileContentBuilder
     {
         void ListModulePorts(string moduleName, IList<string> ports);
         void BuildNewLine();

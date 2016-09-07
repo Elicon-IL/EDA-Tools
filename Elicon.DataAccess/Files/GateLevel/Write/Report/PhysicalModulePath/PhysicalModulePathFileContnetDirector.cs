@@ -2,11 +2,11 @@
 
 namespace Elicon.DataAccess.Files.GateLevel.Write.Report.PhysicalModulePath
 {
-    public class PhysicalModulePathReportDirector : ReportDirector<PhysicalModulePathReportWriteRequest>
+    public class PhysicalModulePathFileContnetDirector : FileContnetDirector<PhysicalModulePathFileWriteRequest>
     {
-        protected override string Construct(PhysicalModulePathReportWriteRequest typedRequest)
+        protected override string Construct(PhysicalModulePathFileWriteRequest typedRequest)
         {
-            var builder = new PhysicalModulePathReportBuilder();
+            var builder = new PhysicalModulePathFileContentBuilder();
 
             builder.BuildTitle(typedRequest.ModulesToList);
             builder.BuildNewLine();

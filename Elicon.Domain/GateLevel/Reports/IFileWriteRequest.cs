@@ -1,8 +1,8 @@
 ﻿namespace Elicon.Domain.GateLevel.Reports
 {
-    public interface IReportWriteRequest
+    public interface IFileWriteRequest
     {
         string Destination { get; set; }
-        string Action { get; }
+        string Action { get; set; }
     }
 }

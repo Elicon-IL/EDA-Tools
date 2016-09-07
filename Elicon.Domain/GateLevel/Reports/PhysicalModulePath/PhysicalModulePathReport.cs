@@ -13,13 +13,13 @@ namespace Elicon.Domain.GateLevel.Reports.PhysicalModulePath
     {
         private readonly INetlistDataBuilder _netlistDataBuilder;
         private readonly IPhysicalModulePathQuery _physicalModulePathQuery;
-        private readonly IReportWriter _reportWriter;
+        private readonly IFileWriter _fileWriter;
 
-        public PhysicalModulePathReport(INetlistDataBuilder netlistDataBuilder, IPhysicalModulePathQuery physicalModulePathQuery, IReportWriter reportWriter)
+        public PhysicalModulePathReport(INetlistDataBuilder netlistDataBuilder, IPhysicalModulePathQuery physicalModulePathQuery, IFileWriter fileWriter)
         {
             _netlistDataBuilder = netlistDataBuilder;
             _physicalModulePathQuery = physicalModulePathQuery;
-            _reportWriter = reportWriter;
+            _fileWriter = fileWriter;
         }
 
         public IDictionary<string, IList<string>> GetPhysicalPaths(string source, string rootModule, IList<string> moduleNames, string destination)
@@ -28,7 +28,7 @@ namespace Elicon.Domain.GateLevel.Reports.PhysicalModulePath
           
             var result = _physicalModulePathQuery.GetPhysicalPaths(source, rootModule, moduleNames);
 
-            _reportWriter.Write(new PhysicalModulePathReportWriteRequest {
+            _fileWriter.Write(new PhysicalModulePathFileWriteRequest {
                 Destination = destination,
                 ModulesToList = moduleNames,
                 Data = result

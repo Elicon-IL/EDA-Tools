@@ -13,13 +13,13 @@ namespace Elicon.Domain.GateLevel.Reports.NativeModulesPortsList
     {
         private readonly INetlistDataBuilder _netlistDataBuilder;
         private readonly INativeModulesPortListQuery _nativeModulesPortListQuery;
-        private readonly IReportWriter _reportWriter;
+        private readonly IFileWriter _fileWriter;
 
-        public NativeModulesPortListReport(INativeModulesPortListQuery nativeModulesPortListQuery, INetlistDataBuilder netlistDataBuilder, IReportWriter reportWriter)
+        public NativeModulesPortListReport(INativeModulesPortListQuery nativeModulesPortListQuery, INetlistDataBuilder netlistDataBuilder, IFileWriter fileWriter)
         {
             _nativeModulesPortListQuery = nativeModulesPortListQuery;
             _netlistDataBuilder = netlistDataBuilder;
-            _reportWriter = reportWriter;
+            _fileWriter = fileWriter;
         }
 
         public IDictionary<string, string[]> GetNativeModulesPortsList(string source, string destination)
@@ -28,7 +28,7 @@ namespace Elicon.Domain.GateLevel.Reports.NativeModulesPortsList
 
             var result = _nativeModulesPortListQuery.GetNativeModulesPortsList(source);
 
-            _reportWriter.Write(new NativeModulesPortListReportWriteRequest {
+            _fileWriter.Write(new NativeModulesPortListFileWriteRequest {
                 Destination = destination,
                 Data = result
             });
