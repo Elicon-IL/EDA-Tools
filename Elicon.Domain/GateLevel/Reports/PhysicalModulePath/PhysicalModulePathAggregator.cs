@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Elicon.Domain.GateLevel.Traversal.PhysicalTraversal;
 
 namespace Elicon.Domain.GateLevel.Reports.PhysicalModulePath
@@ -19,9 +20,11 @@ namespace Elicon.Domain.GateLevel.Reports.PhysicalModulePath
                 AddPath(traversalState);
         }
 
-        public IDictionary<string, IList<string>> Result()
+        public IList<ModulePhysiclaPaths> Result()
         {
-            return _result;
+            return _result
+                .Select(kvp => new ModulePhysiclaPaths(kvp.Key, kvp.Value))
+                .ToList();
         }
 
         private void AddPath(TraversalState traversalState)

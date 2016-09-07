@@ -40,8 +40,11 @@ namespace Elicon.Unit.Tests.Domain.Reports
            
             var result = _target.Result();
             Assert.That(result, Has.Count.EqualTo(1));
-            Assert.That(result[moduleNameToCollect], Has.Count.EqualTo(1));
-            Assert.That(result[moduleNameToCollect][0], Is.EqualTo(instancesPathTracker.ToString()));
+            Assert.That(result, Has.Exactly(1).Matches<ModulePhysiclaPaths>(mpp =>
+                mpp.ModuleName == moduleNameToCollect
+                && mpp.Paths.Count == 1
+                && mpp.Paths[0] == instancesPathTracker.ToString()
+                ));
         }
     }
 }

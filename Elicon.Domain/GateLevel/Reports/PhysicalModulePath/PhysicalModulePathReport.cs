@@ -6,7 +6,7 @@ namespace Elicon.Domain.GateLevel.Reports.PhysicalModulePath
 {
     public interface IPhysicalModulePathReport
     {
-        IDictionary<string, IList<string>> GetPhysicalPaths(string source, string rootModule, IList<string> moduleNames, string destination);
+        IList<ModulePhysiclaPaths> GetPhysicalPaths(string source, string rootModule, IList<string> moduleNames, string destination);
     }
         
     public class PhysicalModulePathReport : IPhysicalModulePathReport
@@ -22,7 +22,7 @@ namespace Elicon.Domain.GateLevel.Reports.PhysicalModulePath
             _fileWriter = fileWriter;
         }
 
-        public IDictionary<string, IList<string>> GetPhysicalPaths(string source, string rootModule, IList<string> moduleNames, string destination)
+        public IList<ModulePhysiclaPaths> GetPhysicalPaths(string source, string rootModule, IList<string> moduleNames, string destination)
         {
             _netlistDataBuilder.Build(source);
           

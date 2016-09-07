@@ -90,6 +90,7 @@
     <Compile Include="GateLevel\Reports\NativeModulesPortsList\NativeModulesPortListFileWriteRequest.cs" />
     <Compile Include="GateLevel\Reports\NativeModulesPortsList\NativeModulesPortListAggregator.cs" />
     <Compile Include="GateLevel\Reports\NativeModulesPortsList\NativeModulesPortListQuery.cs" />
+    <Compile Include="GateLevel\Reports\PhysicalModulePath\ModulePhysiclaPaths.cs" />
     <Compile Include="GateLevel\Reports\PhysicalModulePath\PhysicalModulePathQuery.cs" />
     <Compile Include="GateLevel\Reports\PhysicalModulePath\PhysicalModulePathFileWriteRequest.cs" />
     <Compile Include="GateLevel\Traversal\PhysicalTraversal\InstancesPathTracker.cs" />

@@ -11,13 +11,13 @@ namespace Elicon.DataAccess.Files.GateLevel.Write.Report.PhysicalModulePath
             builder.BuildTitle(typedRequest.ModulesToList);
             builder.BuildNewLine();
 
-            foreach (var kvp in typedRequest.Data)
+            foreach (var module in typedRequest.Data)
             {
-                builder.BuildModuleTitle(kvp.Key);
-                foreach (var path in kvp.Value)
+                builder.BuildModuleTitle(module.ModuleName);
+                foreach (var path in module.Paths)
                     builder.BuildPath(path);
 
-                builder.BuildPathsTotalCount(kvp.Key,kvp.Value.Count);
+                builder.BuildPathsTotalCount(module.ModuleName, module.Paths.Count);
                 builder.BuildNewLine();
             }
 

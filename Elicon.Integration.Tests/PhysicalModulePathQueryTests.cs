@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Elicon.Domain.GateLevel.Reports.PhysicalModulePath;
 using NUnit.Framework;
 
@@ -36,8 +37,13 @@ namespace Elicon.Integration.Tests
                 { module, new List<string> { "CDU/SCK_a1_I/tlib000001/tlib000004" } }
             };
             Assert.That(result.Count, Is.EqualTo(2));
-            Assert.That(result[module], Is.EquivalentTo(expected[module]));
-            Assert.That(result[anotherModule], Is.EquivalentTo(expected[anotherModule]));
+            Assert.That(GetPaths(result, module), Is.EquivalentTo(expected[module]));
+            Assert.That(GetPaths(result, anotherModule), Is.EquivalentTo(expected[anotherModule]));
+        }
+
+        private IList<string> GetPaths(IList<ModulePhysiclaPaths> list, string moduleName)
+        {
+            return list.First(nmp => nmp.ModuleName == moduleName).Paths;
         }
     }
 }
