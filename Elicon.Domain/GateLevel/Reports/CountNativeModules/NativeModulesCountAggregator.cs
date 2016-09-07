@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Elicon.Domain.GateLevel.Traversal.PhysicalTraversal;
 using Elicon.Framework;
 
@@ -16,9 +17,11 @@ namespace Elicon.Domain.GateLevel.Reports.CountNativeModules
             _result.UpdateValue(traversalState.CurrentInstance.ModuleName, count => ++count, 0);
         }
 
-        public IDictionary<string, long> Result()
+        public IList<ModuleCount> Result()
         {
-            return _result;
+            return _result
+                .Select(kvp => new ModuleCount(kvp.Key, kvp.Value))
+                .ToList();
         }
     }
 }

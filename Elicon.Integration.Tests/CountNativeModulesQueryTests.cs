@@ -20,12 +20,18 @@ namespace Elicon.Integration.Tests
         {
             var result = _target.CountNativeModules(ExampleNetlistFilePath, ExampleNetlistTopModule);
 
-            var expected = new Dictionary<string, int> {
-                {"an2", 1135}, {"an3", 446}, {"an4", 158}, {"aoi21", 50}, {"aoi22", 4}, {"aoi31", 11}, {"b1", 153},
-                {"bd", 25}, {"cvdd", 11}, {"cvss", 59}, {"dspbrs", 560}, {"i1", 1140}, {"ic", 15}, {"iobhc", 10},
-                {"mx21", 1742}, {"mx21i", 695}, {"mx41", 142}, {"na2", 265}, {"na3", 19}, {"na4", 7}, {"no2", 86},
-                {"no3", 42}, {"no4", 8}, {"oai21", 27}, {"oai211", 1}, {"oai22", 1}, {"or2", 779}, {"or3", 4},
-                {"or4", 7}, {"oth", 23}, {"por", 1}, {"xn2", 9}, {"xo2", 605}
+            var expected = new List<ModuleCount> {
+                new ModuleCount("an2", 1135),new ModuleCount("an3", 446),new ModuleCount("an4", 158),
+                new ModuleCount("aoi21", 50),new ModuleCount("aoi22", 4),new ModuleCount("aoi31", 11),
+                new ModuleCount("b1", 153),new ModuleCount("bd", 25),new ModuleCount("cvdd", 11),
+                new ModuleCount("cvss", 59),new ModuleCount("dspbrs", 560),new ModuleCount("i1", 1140),
+                new ModuleCount("ic", 15),new ModuleCount("iobhc", 10),new ModuleCount("mx21", 1742),
+                new ModuleCount("mx21i", 695),new ModuleCount("mx41", 142),new ModuleCount("na2", 265),
+                new ModuleCount("na3", 19),new ModuleCount("na4", 7),new ModuleCount("no2", 86),
+                new ModuleCount("no3", 42),new ModuleCount("no4", 8),new ModuleCount("oai21", 27),
+                new ModuleCount("or2", 779),new ModuleCount("or3", 4),new ModuleCount("or4", 7),
+                new ModuleCount("oth", 23),new ModuleCount("por", 1),new ModuleCount("xn2", 9),
+                new ModuleCount("xo2", 605),new ModuleCount("oai22", 1),new ModuleCount("oai211", 1)
             };
 
             Assert.That(result, Is.EquivalentTo(expected));

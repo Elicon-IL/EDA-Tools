@@ -5,7 +5,7 @@ namespace Elicon.Domain.GateLevel.Reports.CountNativeModules
 {
     public interface ICountNativeModulesQuery
     {
-        IDictionary<string, long> CountNativeModules(string netlist, string rootModule);
+        IList<ModuleCount> CountNativeModules(string netlist, string rootModule);
     }
 
     public class CountNativeModulesQuery : ICountNativeModulesQuery
@@ -17,7 +17,7 @@ namespace Elicon.Domain.GateLevel.Reports.CountNativeModules
             _netlistTraverser = netlistTraverser;
         }
 
-        public IDictionary<string, long> CountNativeModules(string netlist, string rootModule)
+        public IList<ModuleCount> CountNativeModules(string netlist, string rootModule)
         {
             var aggregator = new NativeModulesCountAggregator();
             foreach (var traversalState in _netlistTraverser.Traverse(netlist, rootModule))

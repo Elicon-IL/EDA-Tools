@@ -12,9 +12,9 @@ namespace Elicon.DataAccess.Files.GateLevel.Write.Report.CountNativeModules
             builder.BuildTitle();
             builder.BuildNewLine();
             
-            var orderedModules = typedRequest.Data.OrderBy(kvp => kvp.Key);
-            foreach (var kvp in orderedModules)
-                builder.BuildModuleCount(kvp.Key, kvp.Value);
+            var orderedModules = typedRequest.Data.OrderBy(el => el.ModuleName);
+            foreach (var module in orderedModules)
+                builder.BuildModuleCount(module.ModuleName, module.Count);
 
             return builder.GetResult();
         }

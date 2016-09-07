@@ -7,7 +7,7 @@ namespace Elicon.Domain.GateLevel.Reports.CountNativeModules
 {
     public interface ICountNativeModulesReport
     {
-        IDictionary<string, long> CountNativeModules(string source, string rootModule, string destination);
+        IList<ModuleCount> CountNativeModules(string source, string rootModule, string destination);
     }
 
     public class CountNativeModulesReport : ICountNativeModulesReport
@@ -23,7 +23,7 @@ namespace Elicon.Domain.GateLevel.Reports.CountNativeModules
             _fileWriter = fileWriter;
         }
 
-        public IDictionary<string, long> CountNativeModules(string source, string rootModule, string destination)
+        public IList<ModuleCount> CountNativeModules(string source, string rootModule, string destination)
         {
             _netlistDataBuilder.Build(source);
 
