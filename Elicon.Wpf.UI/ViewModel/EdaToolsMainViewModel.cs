@@ -50,7 +50,7 @@ namespace EdaTools.ViewModel
             _toolRunner = new ToolRunner(TaskRunningFinished);
             InitAmazingFramework();
             CreateUiCommands();
-            LogWindowContents = $"{DateTime.Now}:  Session started.";
+            LogWindowContents = $"{DateTime.Now}: Session started.";
         }
 
         // =========================================
@@ -80,7 +80,6 @@ namespace EdaTools.ViewModel
                     return;
                 _edaToolsModel.NetlistReadFilePath = value;
                 RaisePropertyChanged("NetlistReadFilePath");
-                LogWindowContents = LogWindowContents.AppendLine($"{DateTime.Now}:  Reading netlist... ({value})");
             }
         }
 
@@ -134,6 +133,7 @@ namespace EdaTools.ViewModel
             var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
             if (dataContext.DialogResult)
             {
+                LogWindowContents = LogWindowContents.AppendLine(NowRunningTool("list undeclared modules tool", dataContext));
                 _toolRunner.GetNativeModulesPortsList(dataContext.SelectedNetlist, dataContext.TargetSaveFile);
             }
         }
@@ -144,6 +144,7 @@ namespace EdaTools.ViewModel
             var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
             if (dataContext.DialogResult)
             {
+                LogWindowContents = LogWindowContents.AppendLine(NowRunningTool("count physical instances tool", dataContext));
                 _toolRunner.CountPhysicalInstancesCommand(dataContext.SelectedNetlist, dataContext.RootModule, dataContext.TargetSaveFile);
             }
         }
@@ -154,6 +155,7 @@ namespace EdaTools.ViewModel
             var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
             if (dataContext.DialogResult)
             {
+                LogWindowContents = LogWindowContents.AppendLine(NowRunningTool("list module physical instances tool", dataContext));
                 _toolRunner.ListModulePhysicalInstancesCommand(dataContext.SelectedNetlist, dataContext.RootModule, dataContext.ModuleNames, dataContext.TargetSaveFile);
             }
         }
@@ -164,6 +166,7 @@ namespace EdaTools.ViewModel
             var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
             if (dataContext.DialogResult)
             {
+                LogWindowContents = LogWindowContents.AppendLine(NowRunningTool("replace module tool", dataContext));
                 var replaceRequest = dataContext.MakeModuleReplaceRequest();
                 _toolRunner.ReplaceModuleCommand(replaceRequest);
             }
@@ -175,6 +178,7 @@ namespace EdaTools.ViewModel
             var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
             if (dataContext.DialogResult)
             {
+                LogWindowContents = LogWindowContents.AppendLine(NowRunningTool("remove buffers tool", dataContext));
                 var removeBufferRequest = dataContext.MakeRemoveBufferRequest();
                 _toolRunner.RemoveBuffersCommand(removeBufferRequest);
             }
@@ -186,6 +190,7 @@ namespace EdaTools.ViewModel
             var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
             if (dataContext.DialogResult)
             {
+                LogWindowContents = LogWindowContents.AppendLine(NowRunningTool("upper-case native module ports tool", dataContext));
                 _toolRunner.UCasePortsCommand(dataContext.SelectedNetlist, dataContext.TargetSaveFile);
             }
         }
@@ -200,6 +205,7 @@ namespace EdaTools.ViewModel
             if (openFileDialog.ShowDialog() == true)
             {
                 NetlistReadFilePath = openFileDialog.FileName;
+                LogWindowContents = LogWindowContents.AppendLine($"{DateTime.Now}: Reading netlist... ({NetlistReadFilePath})");
                 _toolRunner.ReadNetlist(NetlistReadFilePath);
             }
         }
@@ -215,7 +221,8 @@ namespace EdaTools.ViewModel
             var saveFileDialog = new SaveFileDialog
             {
                 Filter = "Log file (*.log)|*.log|Text file (*.txt)|*.txt",
-                InitialDirectory = AppDomain.CurrentDomain.BaseDirectory
+                InitialDirectory = AppDomain.CurrentDomain.BaseDirectory,
+                FileName = $"EdaTools_Session_Log_{DateTime.Now.ToString("dd_MM_yyyy")}"
             };
             if (saveFileDialog.ShowDialog() == true)
             {
@@ -243,11 +250,14 @@ namespace EdaTools.ViewModel
 
         private void TaskRunningFinished(object sender, ToolRunnerEventArgs e)
         {
-            if (e.Error)
-            {
-                LogWindowContents = LogWindowContents.AppendLine($"{DateTime.Now}: ({e.ErrorMessage})");
-            }
+            var message = e.Error ? e.ErrorMessage : "Done.";
+            LogWindowContents = LogWindowContents.AppendLine($"{DateTime.Now}: {message}");
             RefreshFrameworkData(); 
+        }
+
+        private static string NowRunningTool(string tool, PromptDialogViewModel dataContext)
+        {
+            return $"{DateTime.Now}: Running {tool} (netlist = {Path.GetFileName(dataContext.SelectedNetlist)}).";
         }
 
     }

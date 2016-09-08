@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading;
 using System.Threading.Tasks;
 using Elicon.Console.Config;
 using Elicon.Domain.GateLevel;
@@ -21,7 +19,6 @@ namespace EdaTools.Utility
     {
         public ToolRunnerEventArgs():this(false, "")
         {
-            
         }
 
         public ToolRunnerEventArgs(bool error, string errorMessage)
@@ -52,17 +49,35 @@ namespace EdaTools.Utility
         {
             InitRunner();
             var report = Bootstrapper.Get<INativeModulesPortListReport>();
-
-            await Task.Run(() => report.GetNativeModulesPortsList(netlist, targetSaveFile));
+            await Task.Run(() =>
+            {
+                try
+                {
+                    report.GetNativeModulesPortsList(netlist, targetSaveFile);
+                }
+                catch (Exception ex)
+                {
+                    SetErrorData(ex);
+                }
+            });
             OnTaskRunningFinished(_toolRunnerEventArgs);
         }
 
         public async void CountPhysicalInstancesCommand(string netlist, string rootModule, string targetSaveFile)
         {
             InitRunner();
-            var report = Bootstrapper.Get<ICountNativeModulesReport>();
-         
-            await Task.Run(() => report.CountNativeModules(netlist, rootModule, targetSaveFile));
+            var report = Bootstrapper.Get<ICountNativeModulesReport>();        
+            await Task.Run(() =>
+            {
+                try
+                {
+                    report.CountNativeModules(netlist, rootModule, targetSaveFile);
+                }
+                catch (Exception ex)
+                {
+                    SetErrorData(ex);
+                }
+            });
             OnTaskRunningFinished(_toolRunnerEventArgs);
         }
 
@@ -71,8 +86,17 @@ namespace EdaTools.Utility
             InitRunner();
             var modules = moduleNames.CommaSeparatedStringToList();
             var report = Bootstrapper.Get<IPhysicalModulePathReport>();
-           
-            await Task.Run(() => report.GetPhysicalPaths(netlist, rootModule, modules, targetSaveFile));
+            await Task.Run(() =>
+            {
+                try
+                {
+                    report.GetPhysicalPaths(netlist, rootModule, modules, targetSaveFile);
+                }
+                catch (Exception ex)
+                {
+                    SetErrorData(ex);
+                }
+            });
             OnTaskRunningFinished(_toolRunnerEventArgs);
         }
 
@@ -80,7 +104,17 @@ namespace EdaTools.Utility
         {
             InitRunner();
             var action = Bootstrapper.Get<INativeModuleReplaceManipulation>();
-            await Task.Run(() => action.Replace(replaceRequest));
+            await Task.Run(() =>
+            {
+                try
+                {
+                    action.Replace(replaceRequest);
+                }
+                catch (Exception ex)
+                {
+                    SetErrorData(ex);
+                }
+            });
             OnTaskRunningFinished(_toolRunnerEventArgs);
         }
 
@@ -88,7 +122,17 @@ namespace EdaTools.Utility
         {
             InitRunner();
             var action = Bootstrapper.Get<IRemoveBufferManipulation>();
-            await Task.Run(() => action.Remove(removeBufferRequest));
+            await Task.Run(() =>
+            {
+                try
+                {
+                    action.Remove(removeBufferRequest);
+                }
+                catch (Exception ex)
+                {
+                    SetErrorData(ex);
+                }
+            });
             OnTaskRunningFinished(_toolRunnerEventArgs);
         }
 
@@ -96,7 +140,17 @@ namespace EdaTools.Utility
         {
             InitRunner();
             var action = Bootstrapper.Get<INativeModulePortsManipulation>();
-            await Task.Run(() => action.PortsToUpper(netlist, targetSaveFile));
+            await Task.Run(() =>
+            {
+                try
+                {
+                    action.PortsToUpper(netlist, targetSaveFile);
+                }
+                catch (Exception ex)
+                {
+                    SetErrorData(ex);
+                }
+            });
             OnTaskRunningFinished(_toolRunnerEventArgs);
         }
 

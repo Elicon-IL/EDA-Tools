@@ -46,15 +46,14 @@ namespace EdaTools.Utility
             Debug.Assert(childWindows.Contains(view));
 
             var collectionView = CollectionViewSource.GetDefaultView(childWindows);
-            if (collectionView != null)
-                collectionView.MoveCurrentTo(view);
+            collectionView?.MoveCurrentTo(view);
         }
 
         public static void Reload<T>(this ObservableCollection<T> collection, IEnumerable<T> items)
         {
-            // NOTE: If the observable collection might be reloaded with many items a better implementation
+            // NOTE: If the observable collection might be reloaded with many items, a better implementation
             //       should use a IList<T> and implement a custom INotifyCollectionChanged that will raise
-            //       a single CollectionChanged event after the reload is done.
+            //       a single CollectionChanged event after the entire reload is done.
             if (items != null)
                 foreach (var item in items) { collection.Add(item); }
         }
@@ -66,7 +65,7 @@ namespace EdaTools.Utility
 
         public static string FormatMessage(this Exception ex)
         {
-            return ex.InnerException == null ? $"Exception = {ex.Message}\n" : $"Exception = {ex.Message}\nInner Exception = {ex.InnerException.Message}\n";
+            return ex.InnerException == null ? $"ERROR - Exception = {ex.Message}" : $"Exception = {ex.Message}{Environment.NewLine}Inner Exception = {ex.InnerException.Message}";
         }
 
         public static string AppendLine(this string source, string newLine)
