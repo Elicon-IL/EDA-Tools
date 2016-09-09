@@ -36,8 +36,6 @@ namespace Elicon.Domain.GateLevel.Reports.CountNativeModules
 
             return result;
         }
-
-       
     }
 }
 
