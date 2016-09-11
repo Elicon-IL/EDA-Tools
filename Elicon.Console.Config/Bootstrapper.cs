@@ -1,4 +1,6 @@
-﻿using Elicon.DataAccess;
+﻿using System.Collections.Generic;
+using System.Reflection;
+using Elicon.DataAccess;
 using Elicon.Domain;
 using Elicon.Domain.GateLevel;
 using Elicon.Framework;
@@ -11,10 +13,14 @@ namespace Elicon.Console.Config
     {
         private static readonly IKernel Kernel = new StandardKernel();
 
-        public static void Boot()
+        public static void Boot(IList<Assembly> moreAssemblies)
         {
             Kernel.Bind(x =>
             {
+                x.From(moreAssemblies).SelectAllClasses()
+                    .BindDefaultInterfaces()
+                    .Configure(y => y.InSingletonScope());
+
                 // Domain
                 x.FromAssemblyContaining<Instance>()
                     .SelectAllClasses()

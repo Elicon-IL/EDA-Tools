@@ -13,7 +13,7 @@ namespace Elicon.Integration.Tests
 
         static IntegrationTestBase() 
         {
-            Bootstrapper.Boot();
+            Bootstrapper.Boot(new Assembly[0]);
             Bootstrapper.Get<INetlistDataBuilder>().Build(ExampleNetlistFilePath);
         }
 

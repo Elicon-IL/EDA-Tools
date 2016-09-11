@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Windows;
 using EdaTools.Utility;
 using EdaTools.View;
@@ -13,7 +14,7 @@ namespace EdaTools
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            Bootstrapper.Boot();
+            Bootstrapper.Boot(new Assembly[0]);
             var appMainWindow = new EdaToolsMainView();
 
             var viewModel = new EdaToolsMainViewModel();

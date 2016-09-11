@@ -1,14 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Elicon.Console.Config;
+using Elicon.Domain;
 
 namespace Elicon.Console.UI
 {
+   
     class Program
     {
         static void Main(string[] args)
         {
-//            Bootstrapper.Boot();
+            //Bootstrapper.Boot(new Assembly[0]);
+            
 //
 //            System.Console.WriteLine("Please enter netlist file path");
 //            var source = System.Console.ReadLine();
