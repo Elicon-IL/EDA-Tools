@@ -33,7 +33,7 @@ namespace Elicon.DataAccess
                 Update(instance);
         }
 
-        public IEnumerable<Instance> GetByHostModule(string netlist, string hostModuleName)
+        public IList<Instance> GetByHostModule(string netlist, string hostModuleName)
         {
             return _instances.Values
                 .Where(i => i.Netlist == netlist)
@@ -42,7 +42,7 @@ namespace Elicon.DataAccess
                 .ToArray();
         }
 
-        public IEnumerable<Instance> GetByModuleName(string netlist, string moduleName)
+        public IList<Instance> GetByModuleName(string netlist, string moduleName)
         {
             return _instances.Values
                  .Where(i => i.Netlist == netlist)
@@ -51,7 +51,7 @@ namespace Elicon.DataAccess
                  .ToArray();
         }
 
-        public IEnumerable<Instance> GetBy(string netlist)
+        public IList<Instance> GetBy(string netlist)
         {
             return _instances.Values
                 .Where(i => i.Netlist == netlist)
@@ -59,7 +59,7 @@ namespace Elicon.DataAccess
                 .ToArray();
         }
 
-        public IEnumerable<Instance> GetNativeInstances(string netlist)
+        public IList<Instance> GetNativeInstances(string netlist)
         {
             return _instances.Values
                  .Where(i => i.Netlist == netlist && !i.IsModule())

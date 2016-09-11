@@ -8,7 +8,7 @@ namespace Elicon.Domain.GateLevel.Contracts.DataAccess
         void Update(Module module);
         bool Exists(string netlist, string moduleName);
         Module Get(string netlist, string moduleName);
-        IEnumerable<Module> GetAll(string netlist);
+        IList<Module> GetAll(string netlist);
         void RemoveAll(string netlist);
     }
 }
