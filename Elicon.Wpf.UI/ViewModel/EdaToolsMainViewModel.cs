@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using EdaTools.Model;
 using EdaTools.Properties;
 using EdaTools.Utility;
 using EdaTools.View;
+using Elicon.Domain.GateLevel.Read;
 using Microsoft.Win32;
 
 namespace EdaTools.ViewModel
@@ -33,6 +35,7 @@ namespace EdaTools.ViewModel
         private readonly EdaToolsModel _edaToolsModel;
         private readonly ToolRunner _toolRunner;
 
+
         private bool CanExecute()
         {
             return _toolRunner.TaskRunning == false;
@@ -51,7 +54,14 @@ namespace EdaTools.ViewModel
             InitAmazingFramework();
             CreateUiCommands();
             LogWindowContents = $"{DateTime.Now}: Session started.";
+            // Create the progress updating delegate.
+            ProgressUpdater = (result) =>
+            {
+                UpdateProgress(result.Progress);
+            };
         }
+
+        public Action<FileReadProgressEvent> ProgressUpdater;
 
         // =========================================
         // Model Properties Handler.
@@ -107,6 +117,22 @@ namespace EdaTools.ViewModel
             }
         }
 
+        public Visibility ProgressBarVisibility   // _toolRunner.TaskRunning
+        {
+            get { return _toolRunner.TaskRunning ? Visibility.Visible : Visibility.Hidden; }
+            set
+            {
+                // ProgressBarVisibility = value;
+                OnPropertyChanged("ProgressBarVisibility");
+            }
+        }
+
+        private void UpdateProgress(int result)
+        {
+            ProgressBarValue = result;
+        }
+
+
         // =========================================
         // ViewModel Commands Collection Handler.
         // =========================================
@@ -133,7 +159,7 @@ namespace EdaTools.ViewModel
             var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
             if (dataContext.DialogResult)
             {
-                LogWindowContents = LogWindowContents.AppendLine(NowRunningTool("list undeclared modules tool", dataContext));
+                LogNowRunningTool("list undeclared modules tool", dataContext);
                 _toolRunner.GetNativeModulesPortsList(dataContext.SelectedNetlist, dataContext.TargetSaveFile);
             }
         }
@@ -144,7 +170,7 @@ namespace EdaTools.ViewModel
             var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
             if (dataContext.DialogResult)
             {
-                LogWindowContents = LogWindowContents.AppendLine(NowRunningTool("count physical instances tool", dataContext));
+                LogNowRunningTool("count physical instances tool", dataContext);
                 _toolRunner.CountPhysicalInstancesCommand(dataContext.SelectedNetlist, dataContext.RootModule, dataContext.TargetSaveFile);
             }
         }
@@ -155,7 +181,7 @@ namespace EdaTools.ViewModel
             var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
             if (dataContext.DialogResult)
             {
-                LogWindowContents = LogWindowContents.AppendLine(NowRunningTool("list module physical instances tool", dataContext));
+                LogNowRunningTool("list module physical instances tool", dataContext);
                 _toolRunner.ListModulePhysicalInstancesCommand(dataContext.SelectedNetlist, dataContext.RootModule, dataContext.ModuleNames, dataContext.TargetSaveFile);
             }
         }
@@ -166,7 +192,7 @@ namespace EdaTools.ViewModel
             var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
             if (dataContext.DialogResult)
             {
-                LogWindowContents = LogWindowContents.AppendLine(NowRunningTool("replace module tool", dataContext));
+                LogNowRunningTool("replace module tool", dataContext);
                 var replaceRequest = dataContext.MakeModuleReplaceRequest();
                 _toolRunner.ReplaceModuleCommand(replaceRequest);
             }
@@ -178,7 +204,7 @@ namespace EdaTools.ViewModel
             var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
             if (dataContext.DialogResult)
             {
-                LogWindowContents = LogWindowContents.AppendLine(NowRunningTool("remove buffers tool", dataContext));
+                LogNowRunningTool("remove buffers tool", dataContext);
                 var removeBufferRequest = dataContext.MakeRemoveBufferRequest();
                 _toolRunner.RemoveBuffersCommand(removeBufferRequest);
             }
@@ -190,7 +216,7 @@ namespace EdaTools.ViewModel
             var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
             if (dataContext.DialogResult)
             {
-                LogWindowContents = LogWindowContents.AppendLine(NowRunningTool("upper-case native module ports tool", dataContext));
+                LogNowRunningTool("upper-case native module ports tool", dataContext);
                 _toolRunner.UCasePortsCommand(dataContext.SelectedNetlist, dataContext.TargetSaveFile);
             }
         }
@@ -252,12 +278,14 @@ namespace EdaTools.ViewModel
         {
             var message = e.Error ? e.ErrorMessage : "Done.";
             LogWindowContents = LogWindowContents.AppendLine($"{DateTime.Now}: {message}");
+            ProgressBarVisibility = Visibility.Hidden;
             RefreshFrameworkData(); 
         }
 
-        private static string NowRunningTool(string tool, PromptDialogViewModel dataContext)
+        private void LogNowRunningTool(string tool, PromptDialogViewModel dataContext)
         {
-            return $"{DateTime.Now}: Running {tool} (netlist = {Path.GetFileName(dataContext.SelectedNetlist)}).";
+            ProgressBarVisibility = Visibility.Visible;
+            LogWindowContents = LogWindowContents.AppendLine($"{DateTime.Now}: Running {tool} (netlist = {Path.GetFileName(dataContext.SelectedNetlist)}).");
         }
 
     }

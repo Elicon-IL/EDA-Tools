@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 using EdaTools.Model;
 using EdaTools.Properties;
@@ -14,7 +15,7 @@ namespace EdaTools.ViewModel
     public class PromptDialogViewModel : ViewModelBase
     {
         private PromptDialogModel.Actions _currentUiAction;
-        private readonly ObservableCollection<string> _loadedNetlists;
+        private readonly ExtendedObservableCollection<string> _loadedNetlists;
         private string _targetSaveAsFilter = "";
         private Visibility _firstPromptVisibility;
         private Visibility _secondPromptVisibility;
@@ -44,7 +45,7 @@ namespace EdaTools.ViewModel
             OkButtonCommand = new RelayCommand(param => InvokeRequestClose(new RequestCloseEventArgs(true)), param => PromptDialogModel.CanExecute(CurrentUiAction));
             NetlistBrowseButtonCommand = new RelayCommand(param => OpenFileCommand());
             TargetBrowseButtonCommand = new RelayCommand(param => SaveAsCommand());
-            _loadedNetlists = new ObservableCollection<string>();
+            _loadedNetlists = new ExtendedObservableCollection<string>();
         }
 
         // =========================================
@@ -244,7 +245,8 @@ namespace EdaTools.ViewModel
             var saveFileDialog = new SaveFileDialog
             {
                 Filter = _targetSaveAsFilter,
-                InitialDirectory = AppDomain.CurrentDomain.BaseDirectory
+                InitialDirectory = AppDomain.CurrentDomain.BaseDirectory,
+                FileName = Path.GetFileNameWithoutExtension(SelectedNetlist)
             };
             if (saveFileDialog.ShowDialog() == true)
             {

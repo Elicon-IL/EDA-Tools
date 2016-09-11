@@ -5,9 +5,30 @@ using EdaTools.Utility;
 using EdaTools.View;
 using EdaTools.ViewModel;
 using Elicon.Console.Config;
+using Elicon.Domain;
+using Elicon.Domain.GateLevel.Read;
 
 namespace EdaTools
 {
+    public class ProgressUpdater : IEventSubscriber
+    {
+        private readonly EdaToolsMainViewModel _appViewModel;
+
+        public ProgressUpdater(EdaToolsMainViewModel appViewModel)
+        {
+            _appViewModel = appViewModel;
+        }
+
+        public void Init(IPubSub pubSub)
+        {
+            pubSub.Subscribe<FileReadProgressEvent>(ProgressUpdaterDelegate);
+        }
+
+        private void ProgressUpdaterDelegate(FileReadProgressEvent ev)
+        {
+            _appViewModel.ProgressUpdater(ev);
+        }
+    }
 
     public partial class App : Application
     {
@@ -22,6 +43,10 @@ namespace EdaTools
 
             appMainWindow.DataContext = viewModel;
             appMainWindow.Show();
+
+            var pubsub = Bootstrapper.Get<IPubSub>();
+            var pu = new ProgressUpdater(viewModel);
+            pu.Init(pubsub);
         }
 
     }

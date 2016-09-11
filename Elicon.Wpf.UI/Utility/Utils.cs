@@ -49,15 +49,6 @@ namespace EdaTools.Utility
             collectionView?.MoveCurrentTo(view);
         }
 
-        public static void Reload<T>(this ObservableCollection<T> collection, IEnumerable<T> items)
-        {
-            // NOTE: If the observable collection might be reloaded with many items, a better implementation
-            //       should use a IList<T> and implement a custom INotifyCollectionChanged that will raise
-            //       a single CollectionChanged event after the entire reload is done.
-            if (items != null)
-                foreach (var item in items) { collection.Add(item); }
-        }
-
         public static List<string> CommaSeparatedStringToList(this string listOfNames)
         {
             return listOfNames.Split(' ').Select(item => item.Trim()).Where(trimmedItem => trimmedItem.Length > 0).ToList();
