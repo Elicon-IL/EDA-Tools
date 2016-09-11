@@ -1,17 +1,18 @@
-﻿using Elicon.Domain.GateLevel.Reports.PhysicalModulePath;
+﻿using System.Collections.Generic;
+using Elicon.Domain.GateLevel.Reports.PhysicalModulePath;
 
 namespace Elicon.DataAccess.Files.GateLevel.Write.Report.PhysicalModulePath
 {
-    public class PhysicalModulePathFileContentDirector : FileContentDirector<PhysicalModulePathFileWriteRequest>
+    public class PhysicalModulePathFileContentDirector : IPhysicalModulePathFileContentDirector
     {
-        protected override string Construct(PhysicalModulePathFileWriteRequest typedRequest)
+        public string Construct(IList<string> modulesToList, IList<ModulePhysiclaPaths> data)
         {
             var builder = new PhysicalModulePathFileContentBuilder();
 
-            builder.BuildTitle(typedRequest.ModulesToList);
+            builder.BuildTitle(modulesToList);
             builder.BuildNewLine();
 
-            foreach (var module in typedRequest.Data)
+            foreach (var module in data)
             {
                 builder.BuildModuleTitle(module.ModuleName);
                 foreach (var path in module.Paths)

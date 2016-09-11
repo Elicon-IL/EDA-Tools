@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Elicon.Domain.GateLevel.BuildData;
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
 
 namespace Elicon.Domain.GateLevel.Reports.CountNativeModules
 {
+    public interface ICountNativeModulesFileContentDirector
+    {
+        string Construct(IList<NativeModuleCount> data);
+    }
+
     public interface ICountNativeModulesReport
     {
         IList<NativeModuleCount> CountNativeModules(string source, string rootModule, string destination);
@@ -14,13 +18,15 @@ namespace Elicon.Domain.GateLevel.Reports.CountNativeModules
     {
         private readonly INetlistDataBuilder _netlistDataBuilder;
         private readonly ICountNativeModulesQuery _countNativeModulesQuery;
+        private readonly ICountNativeModulesFileContentDirector _countNativeModulesFileContentDirector;
         private readonly IFileWriter _fileWriter;
 
-        public CountNativeModulesReport(INetlistDataBuilder netlistDataBuilder, ICountNativeModulesQuery countNativeModulesQuery, IFileWriter fileWriter)
+        public CountNativeModulesReport(INetlistDataBuilder netlistDataBuilder, ICountNativeModulesQuery countNativeModulesQuery, IFileWriter fileWriter, ICountNativeModulesFileContentDirector countNativeModulesFileContentDirector)
         {
             _netlistDataBuilder = netlistDataBuilder;
             _countNativeModulesQuery = countNativeModulesQuery;
             _fileWriter = fileWriter;
+            _countNativeModulesFileContentDirector = countNativeModulesFileContentDirector;
         }
 
         public IList<NativeModuleCount> CountNativeModules(string source, string rootModule, string destination)
@@ -29,10 +35,8 @@ namespace Elicon.Domain.GateLevel.Reports.CountNativeModules
 
             var result = _countNativeModulesQuery.CountNativeModules(source, rootModule);
 
-            _fileWriter.Write(new CountNativeModulesFileWriteRequest {
-                Destination = destination,
-                Data = result
-            });
+            var content = _countNativeModulesFileContentDirector.Construct(result);
+            _fileWriter.Write(destination, "Count Native Modules", content);
 
             return result;
         }

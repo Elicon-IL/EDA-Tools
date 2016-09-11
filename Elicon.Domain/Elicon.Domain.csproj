@@ -65,7 +65,6 @@
     <Compile Include="GateLevel\Contracts\DataAccess\INetlistRepository.cs" />
     <Compile Include="GateLevel\Manipulations\RemoveBuffer\BufferRemover.cs" />
     <Compile Include="GateLevel\Manipulations\RemoveBuffer\BufferWiringVerifier.cs" />
-    <Compile Include="GateLevel\Manipulations\NetlistFileWriteRequest.cs" />
     <Compile Include="GateLevel\Manipulations\RemoveBuffer\RemoveBufferManipulation.cs" />
     <Compile Include="GateLevel\Manipulations\RemoveBuffer\RemoveBufferRequest.cs" />
     <Compile Include="GateLevel\Manipulations\ReplaceNativeModule\ModuleReplaceRequest.cs" />
@@ -83,16 +82,12 @@
     <Compile Include="GateLevel\PortWirePair.cs" />
     <Compile Include="GateLevel\Reports\CountNativeModules\CountNativeModulesQuery.cs" />
     <Compile Include="GateLevel\Contracts\DataAccess\IFileWriter.cs" />
-    <Compile Include="GateLevel\Reports\CountNativeModules\CountNativeModulesFileWriteRequest.cs" />
-    <Compile Include="GateLevel\IFileWriteRequest.cs" />
     <Compile Include="GateLevel\Reports\CountNativeModules\NativeModuleCount.cs" />
     <Compile Include="GateLevel\Reports\NativeModulesPortsList\NativeModulePorts.cs" />
-    <Compile Include="GateLevel\Reports\NativeModulesPortsList\NativeModulesPortListFileWriteRequest.cs" />
     <Compile Include="GateLevel\Reports\NativeModulesPortsList\NativeModulesPortListAggregator.cs" />
     <Compile Include="GateLevel\Reports\NativeModulesPortsList\NativeModulesPortListQuery.cs" />
     <Compile Include="GateLevel\Reports\PhysicalModulePath\ModulePhysiclaPaths.cs" />
     <Compile Include="GateLevel\Reports\PhysicalModulePath\PhysicalModulePathQuery.cs" />
-    <Compile Include="GateLevel\Reports\PhysicalModulePath\PhysicalModulePathFileWriteRequest.cs" />
     <Compile Include="GateLevel\Traversal\PhysicalTraversal\InstancesPathTracker.cs" />
     <Compile Include="GateLevel\Reports\CountNativeModules\NativeModulesCountAggregator.cs" />
     <Compile Include="GateLevel\Traversal\PhysicalTraversal\NetlistTraverser.cs" />

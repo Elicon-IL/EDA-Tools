@@ -51,7 +51,6 @@
     <Compile Include="Files\GateLevel\Write\Report\NativeModulesPortsList\NativeModulesPortsListFileContnetDirector.cs" />
     <Compile Include="Files\GateLevel\Write\Report\PhysicalModulePath\PhysicalModulePathFileContentBuilder.cs" />
     <Compile Include="Files\GateLevel\Write\Report\PhysicalModulePath\PhysicalModulePathFileContnetDirector.cs" />
-    <Compile Include="Files\GateLevel\Write\FileContentDirector.cs" />
     <Compile Include="Files\GateLevel\Write\FileWriter.cs" />
     <Compile Include="Files\GateLevel\Write\Netlist\NetlistFileBuilder.cs" />
     <Compile Include="InstanceRepository.cs" />

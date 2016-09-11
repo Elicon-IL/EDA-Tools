@@ -1,5 +1,6 @@
 ﻿using Elicon.Domain.GateLevel.BuildData;
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
+using Elicon.Domain.GateLevel.Manipulations.RemoveBuffer;
 
 namespace Elicon.Domain.GateLevel.Manipulations.UpperCaseNativeModulePorts
 {
@@ -14,13 +15,15 @@ namespace Elicon.Domain.GateLevel.Manipulations.UpperCaseNativeModulePorts
         private readonly IFileWriter _fileWriter;
         private readonly INativeModulePortsReplacer _nativeModulePortsReplacer;
         private readonly INetlistDataBuilder _netlistDataBuilder;
-
-        public NativeModulePortsManipulation(INetlistCloner netlistCloner, IFileWriter fileWriter, INativeModulePortsReplacer nativeModulePortsReplacer, INetlistDataBuilder netlistDataBuilder)
+        private readonly INetlistFileContentDirector _netlistFileContentDirector;
+        
+        public NativeModulePortsManipulation(INetlistCloner netlistCloner, IFileWriter fileWriter, INativeModulePortsReplacer nativeModulePortsReplacer, INetlistDataBuilder netlistDataBuilder, INetlistFileContentDirector netlistFileContentDirector)
         {
             _netlistCloner = netlistCloner;
             _fileWriter = fileWriter;
             _nativeModulePortsReplacer = nativeModulePortsReplacer;
             _netlistDataBuilder = netlistDataBuilder;
+            _netlistFileContentDirector = netlistFileContentDirector;
         }
 
         public void PortsToUpper(string sourceNetlist, string newNetlist)
@@ -30,10 +33,8 @@ namespace Elicon.Domain.GateLevel.Manipulations.UpperCaseNativeModulePorts
 
             _nativeModulePortsReplacer.PortsToUpper(newNetlist);
 
-            _fileWriter.Write(new NetlistFileWriteRequest {
-                Destination = newNetlist,
-                Action = "Uppercase Native Module Ports"
-            });
+            var content = _netlistFileContentDirector.Construct(newNetlist);
+            _fileWriter.Write(newNetlist, "Uppercase Native Module Ports", content);
         }
     }
 }

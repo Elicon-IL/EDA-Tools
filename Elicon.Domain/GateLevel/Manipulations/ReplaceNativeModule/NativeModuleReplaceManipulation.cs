@@ -1,5 +1,6 @@
 ﻿using Elicon.Domain.GateLevel.BuildData;
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
+using Elicon.Domain.GateLevel.Manipulations.RemoveBuffer;
 
 namespace Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule
 {
@@ -14,13 +15,15 @@ namespace Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule
         private readonly INativeModuleReplacer _nativeModuleReplacer;
         private readonly IFileWriter _fileWriter;
         private readonly INetlistDataBuilder _netlistDataBuilder;
+        private readonly INetlistFileContentDirector _netlistFileContentDirector;
 
-        public NativeModuleReplaceManipulation(INetlistCloner netlistCloner, INativeModuleReplacer nativeModuleReplacer, IFileWriter fileWriter, INetlistDataBuilder netlistDataBuilder)
+        public NativeModuleReplaceManipulation(INetlistCloner netlistCloner, INativeModuleReplacer nativeModuleReplacer, IFileWriter fileWriter, INetlistDataBuilder netlistDataBuilder, INetlistFileContentDirector netlistFileContentDirector)
         {
             _netlistCloner = netlistCloner;
             _nativeModuleReplacer = nativeModuleReplacer;
             _fileWriter = fileWriter;
             _netlistDataBuilder = netlistDataBuilder;
+            _netlistFileContentDirector = netlistFileContentDirector;
         }
 
         public void Replace(ModuleReplaceRequest replaceRequest)
@@ -30,10 +33,8 @@ namespace Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule
 
             _nativeModuleReplacer.Replace(replaceRequest.NewNetlist, replaceRequest.ModuleToReplace, replaceRequest.NewModule, replaceRequest.PortsMapping);
 
-            _fileWriter.Write(new NetlistFileWriteRequest {
-                Destination = replaceRequest.NewNetlist,
-                Action = "Replace Native Modules"
-            });
+            var content = _netlistFileContentDirector.Construct(replaceRequest.NewNetlist);
+            _fileWriter.Write(replaceRequest.NewNetlist, "Replace Native Modules", content);
         }
     }
 }

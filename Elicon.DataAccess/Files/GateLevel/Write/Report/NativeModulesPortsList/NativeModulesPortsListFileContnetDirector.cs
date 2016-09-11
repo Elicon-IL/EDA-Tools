@@ -1,14 +1,15 @@
-﻿using Elicon.Domain.GateLevel.Reports.NativeModulesPortsList;
+﻿using System.Collections.Generic;
+using Elicon.Domain.GateLevel.Reports.NativeModulesPortsList;
 
 namespace Elicon.DataAccess.Files.GateLevel.Write.Report.NativeModulesPortsList
 {
-    public class NativeModulesPortsListFileContentDirector : FileContentDirector<NativeModulesPortListFileWriteRequest>
+    public class NativeModulesPortsListFileContentDirector : INativeModulesPortListFileContentDirector
     {
-        protected override string Construct(NativeModulesPortListFileWriteRequest typedRequest)
+        public string Construct(IList<NativeModulePorts> data)
         {
             var builder = new NativeModulesPortsListFileContentBuilder();
 
-            foreach (var module in typedRequest.Data)
+            foreach (var module in data)
                 builder.ListModulePorts(module.ModuleName, module.Ports);
 
             return builder.GetResult();
