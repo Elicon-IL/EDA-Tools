@@ -1,9 +1,9 @@
 ﻿using Elicon.Domain.GateLevel.Contracts.DataAccess;
-using Elicon.Domain.GateLevel.Manipulations;
+using Elicon.Domain.GateLevel.Manipulations.RemoveBuffer;
 
 namespace Elicon.DataAccess.Files.GateLevel.Write.Netlist
 {
-    public class NetlistFileContentDirector : FileContentDirector<NetlistFileWriteRequest>
+    public class NetlistFileContentDirector : INetlistFileContentDirector
     {
         private readonly INetlistRepository _netlistRepository;
         private readonly IModuleRepository _moduleRepository;
@@ -16,10 +16,10 @@ namespace Elicon.DataAccess.Files.GateLevel.Write.Netlist
             _instanceRepository = instanceRepository;
         }
 
-        protected override string Construct(NetlistFileWriteRequest typedRequest)
+        public string Construct(string source)
         {
             var builder = new NetlistFileBuilder();
-            var netlist = _netlistRepository.Get(typedRequest.Destination);
+            var netlist = _netlistRepository.Get(source);
             var modules = _moduleRepository.GetAll(netlist.Source);
 
             builder.BuildMetaStatements(netlist);

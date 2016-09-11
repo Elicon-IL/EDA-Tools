@@ -8,7 +8,6 @@ namespace Elicon.DataAccess
     public class InstanceRepository : IInstanceRepository
     {
         private readonly Dictionary<long, Instance> _instances = new Dictionary<long, Instance>();
-
         private readonly IIdGenerator _idGenerator;
 
         public InstanceRepository(IIdGenerator idGenerator)

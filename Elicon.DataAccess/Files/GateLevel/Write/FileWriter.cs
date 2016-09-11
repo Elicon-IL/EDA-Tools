@@ -18,6 +18,18 @@ namespace Elicon.DataAccess.Files.GateLevel.Write
             _fileHeaderBuilder = fileHeaderBuilder;
         }
 
+        public void Write(string dest, string action, string content)
+        {
+            var writer = _streamWriterProvider.Get(dest);
+
+            var header = _fileHeaderBuilder.BuildHeader(action);
+
+            writer.WriteLine(header);
+            writer.WriteLine(content);
+
+            writer.Close();
+        }
+
         public void Write(IFileWriteRequest fileWriteRequest)
         {
             var writer = _streamWriterProvider.Get(fileWriteRequest.Destination);

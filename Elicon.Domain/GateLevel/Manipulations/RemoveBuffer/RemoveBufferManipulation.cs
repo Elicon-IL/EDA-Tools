@@ -8,19 +8,26 @@ namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
         void Remove(RemoveBufferRequest removeBufferRequest);
     }
 
+    public interface INetlistFileContentDirector
+    {
+        string Construct(string source);
+    }
+
     public class RemoveBufferManipulation : IRemoveBufferManipulation
     {
         private readonly INetlistCloner _netlistCloner;
         private readonly IFileWriter _fileWriter;
         private readonly IBufferRemover _bufferRemover;
         private readonly INetlistDataBuilder _netlistDataBuilder;
+        private readonly INetlistFileContentDirector _netlistFileContentDirector;
 
-        public RemoveBufferManipulation(INetlistCloner netlistCloner, IFileWriter fileWriter, IBufferRemover bufferRemover, INetlistDataBuilder netlistDataBuilder)
+        public RemoveBufferManipulation(INetlistCloner netlistCloner, IFileWriter fileWriter, IBufferRemover bufferRemover, INetlistDataBuilder netlistDataBuilder, INetlistFileContentDirector netlistFileContentDirector)
         {
             _netlistCloner = netlistCloner;
             _fileWriter = fileWriter;
             _bufferRemover = bufferRemover;
             _netlistDataBuilder = netlistDataBuilder;
+            _netlistFileContentDirector = netlistFileContentDirector;
         }
 
         public void Remove(RemoveBufferRequest removeBufferRequest)
@@ -30,10 +37,8 @@ namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
 
             _bufferRemover.Remove(removeBufferRequest.NewNetlist, removeBufferRequest.BufferName, removeBufferRequest.InputPort, removeBufferRequest.OutputPort);
 
-            _fileWriter.Write(new NetlistFileWriteRequest {
-                Destination = removeBufferRequest.NewNetlist,
-                Action = "Remove Buffers"
-            });
+            var content = _netlistFileContentDirector.Construct(removeBufferRequest.NewNetlist);
+            _fileWriter.Write(removeBufferRequest.NewNetlist, "Remove Buffers", content);
         }
     }
 }
