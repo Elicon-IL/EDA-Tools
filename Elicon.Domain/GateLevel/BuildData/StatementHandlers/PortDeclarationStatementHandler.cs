@@ -12,12 +12,12 @@ namespace Elicon.Domain.GateLevel.BuildData.StatementHandlers
         private readonly PortsDeclarationStatementParser _parser = new PortsDeclarationStatementParser();
 
         private readonly IModuleRepository _moduleRepository;
-        private readonly IModulePortsTypeUpdater _modulePortsTypeUpdater;
+        private readonly IModuleMutator _moduleMutator;
 
-        public PortDeclarationStatementHandler(IModuleRepository moduleRepository, IModulePortsTypeUpdater modulePortsTypeUpdater)
+        public PortDeclarationStatementHandler(IModuleRepository moduleRepository, IModuleMutator moduleMutator)
         {
             _moduleRepository = moduleRepository;
-            _modulePortsTypeUpdater = modulePortsTypeUpdater;
+            _moduleMutator = moduleMutator;
         }
 
         public void Handle(BuildState state)
@@ -26,7 +26,7 @@ namespace Elicon.Domain.GateLevel.BuildData.StatementHandlers
             var portNames = _parser.GetPorts(state.CurrentStatementTrimmed).Select(p => p.PortName).ToList();
 
             var module = _moduleRepository.Get(state.NetlistSource, state.CurrentModuleName);
-            _modulePortsTypeUpdater.UpdatePortsType(module, portNames, portType);
+            _moduleMutator.UpdatePortsType(module, portNames, portType);
 
             _moduleRepository.Update(module);
         }

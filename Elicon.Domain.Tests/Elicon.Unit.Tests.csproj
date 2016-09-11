@@ -53,7 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\Manipulations\ModulePortsTypeUpdaterTests.cs" />
+    <Compile Include="Domain\Manipulations\ModuleMutatorTests.cs" />
     <Compile Include="Domain\Manipulations\BufferWiringVerifierTests.cs" />
     <Compile Include="Domain\Manipulations\InstanceMutatorTests.cs" />
     <Compile Include="Domain\Reports\PhysicalModulePathAggregatorTests.cs" />

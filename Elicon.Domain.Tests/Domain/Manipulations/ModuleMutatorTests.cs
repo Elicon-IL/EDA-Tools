@@ -6,14 +6,14 @@ using NUnit.Framework;
 namespace Elicon.Unit.Tests.Domain.Manipulations
 {
     [TestFixture]
-    public class ModulePortsTypeUpdaterTests
+    public class ModuleMutatorTests
     {
-        private IModulePortsTypeUpdater _target;
+        private IModuleMutator _target;
 
         [SetUp]
         public void SetUp()
         {
-            _target = new ModulePortsTypeUpdater();
+            _target = new ModuleMutator();
         }
 
         [Test]

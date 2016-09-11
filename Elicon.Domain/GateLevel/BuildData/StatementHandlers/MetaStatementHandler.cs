@@ -12,8 +12,7 @@ namespace Elicon.Domain.GateLevel.BuildData.StatementHandlers
         {
             _netlistRepository = netlistRepository;
         }
-
-
+        
         public void Handle(BuildState state)
         {
            var netlist = _netlistRepository.Get(state.NetlistSource);
