@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using EdaTools.Model;
@@ -12,7 +11,13 @@ using Microsoft.Win32;
 
 namespace EdaTools.ViewModel
 {
-    public sealed class EdaToolsMainViewModel : ViewModelBase
+    public interface IEdaToolsMainViewModel
+    {
+        //x void UpdateProgress(int value);
+        void CreateAppCloseCommand(EdaToolsMainView appMainWindow);
+    }
+
+    public sealed class EdaToolsMainViewModel : ViewModelBase, IEdaToolsMainViewModel
     {
 
         // ====================================================
@@ -55,9 +60,9 @@ namespace EdaTools.ViewModel
             CreateUiCommands();
             LogWindowContents = $"{DateTime.Now}: Session started.";
             // Create the progress updating delegate.
-            ProgressUpdater = (result) =>
+            ProgressUpdater = result =>
             {
-                UpdateProgress(result.Progress);
+                ProgressBarValue = result.Progress;
             };
         }
 
@@ -113,23 +118,25 @@ namespace EdaTools.ViewModel
                 if (value == _edaToolsModel.ProgressBarValue)
                     return;
                 _edaToolsModel.ProgressBarValue = value;
-                OnPropertyChanged("ProgressBarValue");
+                RaisePropertyChanged("ProgressBarValue");
             }
         }
 
-        public Visibility ProgressBarVisibility   // _toolRunner.TaskRunning
+        public Visibility ProgressBarVisibility
         {
-            get { return _toolRunner.TaskRunning ? Visibility.Visible : Visibility.Hidden; }
+            get { return _edaToolsModel.ProgressBarVisibility; }
             set
             {
-                // ProgressBarVisibility = value;
-                OnPropertyChanged("ProgressBarVisibility");
+                if (value == _edaToolsModel.ProgressBarVisibility)
+                    return;
+                _edaToolsModel.ProgressBarVisibility = value;
+                RaisePropertyChanged("ProgressBarVisibility");
             }
         }
 
-        private void UpdateProgress(int result)
+        public void CreateAppCloseCommand(EdaToolsMainView appMainWindow)
         {
-            ProgressBarValue = result;
+            this.CreateViewCloseCommand(appMainWindow);
         }
 
 
@@ -232,6 +239,7 @@ namespace EdaTools.ViewModel
             {
                 NetlistReadFilePath = openFileDialog.FileName;
                 LogWindowContents = LogWindowContents.AppendLine($"{DateTime.Now}: Reading netlist... ({NetlistReadFilePath})");
+                ProgressBarVisibility = Visibility.Visible;
                 _toolRunner.ReadNetlist(NetlistReadFilePath);
             }
         }
@@ -265,15 +273,6 @@ namespace EdaTools.ViewModel
         // ViewModel Event Handlers.
         // ====================================================
 
-        //private void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        //{
-        //    //
-        //    // TODO: Relay progress data to app main window.
-        //    //
-        //    // var pbar = new ProgressBar();
-        //    // pbar.Value = e.ProgressPercentage;
-        //}
-
         private void TaskRunningFinished(object sender, ToolRunnerEventArgs e)
         {
             var message = e.Error ? e.ErrorMessage : "Done.";
@@ -289,4 +288,5 @@ namespace EdaTools.ViewModel
         }
 
     }
+
 }

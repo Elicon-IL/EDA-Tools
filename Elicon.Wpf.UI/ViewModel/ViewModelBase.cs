@@ -18,8 +18,7 @@ namespace EdaTools.ViewModel
 
         private void OnUiCloseRequest()
         {
-            if (UiCloseRequest != null)
-                UiCloseRequest(this, EventArgs.Empty);
+            UiCloseRequest?.Invoke(this, EventArgs.Empty);
         }
 
         public virtual void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)

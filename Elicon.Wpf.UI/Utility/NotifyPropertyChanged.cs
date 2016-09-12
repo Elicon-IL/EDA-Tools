@@ -12,16 +12,13 @@ namespace EdaTools.Utility
             if (this.VerifyProperty(propertyName) && handler != null)
             {
                 var e = new PropertyChangedEventArgs(propertyName);
-                PropertyChanged(this, e);
+                handler(this, e);
             }
         }
 
         protected void RaisePropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

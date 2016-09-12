@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Windows;
 
 namespace EdaTools.Model
 {
@@ -12,12 +13,14 @@ namespace EdaTools.Model
         private string _netlistReadFilePath = "";
         private string _logWindowContents = "";
         private int _progressBarValue;
+        private Visibility _progressBarVisibility;
         private readonly List<string> _loadedNetlists;
 
 
         public EdaToolsModel()
         {
             _loadedNetlists = new List<string>();
+            _progressBarVisibility = Visibility.Hidden;
         }
 
         public int CountNetlists
@@ -37,6 +40,12 @@ namespace EdaTools.Model
             set { _logWindowContents = value; }
         }
 
+        public Visibility ProgressBarVisibility
+        {
+            get { return _progressBarVisibility; }
+            set { _progressBarVisibility = value; }
+        }
+
         public int ProgressBarValue
         {
             get { return _progressBarValue; }
@@ -52,6 +61,7 @@ namespace EdaTools.Model
                 _loadedNetlists.AddRange(value);
             }
         }
+
 
     }
 }

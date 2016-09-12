@@ -1,7 +1,5 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Windows;
-using EdaTools.Utility;
 using EdaTools.View;
 using EdaTools.ViewModel;
 using Elicon.Console.Config;
@@ -10,11 +8,11 @@ using Elicon.Domain.GateLevel.Read;
 
 namespace EdaTools
 {
-    public class ProgressUpdater : IEventSubscriber
+    public class ProgressUpdaterEventSubscriber : IEventSubscriber
     {
         private readonly EdaToolsMainViewModel _appViewModel;
 
-        public ProgressUpdater(EdaToolsMainViewModel appViewModel)
+        public ProgressUpdaterEventSubscriber(EdaToolsMainViewModel appViewModel)
         {
             _appViewModel = appViewModel;
         }
@@ -35,19 +33,13 @@ namespace EdaTools
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            Bootstrapper.Boot(new Assembly[0]);
+            Bootstrapper.Boot(new[] {Assembly.GetExecutingAssembly() });
             var appMainWindow = new EdaToolsMainView();
 
-            var viewModel = new EdaToolsMainViewModel();
-            viewModel.CreateViewCloseCommand(appMainWindow);
-
+            var viewModel = Bootstrapper.Get<IEdaToolsMainViewModel>();
+            viewModel.CreateAppCloseCommand(appMainWindow);
             appMainWindow.DataContext = viewModel;
             appMainWindow.Show();
-
-            var pubsub = Bootstrapper.Get<IPubSub>();
-            var pu = new ProgressUpdater(viewModel);
-            pu.Init(pubsub);
         }
-
     }
 }

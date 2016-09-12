@@ -33,10 +33,10 @@
                 </MenuItem>
             </Menu>
         </DockPanel>
-        <StatusBar x:Name="StatusBar" Height="19" Margin="0" DockPanel.Dock="Bottom" VerticalContentAlignment="Bottom" VerticalAlignment="Center" Background="{DynamicResource GrayBrushBackground}">
-            <TextBlock TextWrapping="Wrap" Text="TextBlock 1" Width="143" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <ProgressBar x:Name="ProgressBar1" Height="17" Width="176" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Visibility="{Binding ProgressBarVisibility}"/>
-            <TextBlock TextWrapping="Wrap" Text="TextBlock 2" Width="168" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <StatusBar x:Name="StatusBar" Height="22" Margin="0" DockPanel.Dock="Bottom" VerticalContentAlignment="Bottom" VerticalAlignment="Center" Background="{DynamicResource GrayBrushBackground}">
+            <TextBlock Text="Working..." Width="58" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="{Binding ProgressBarVisibility, Mode=OneWay}"/>
+            <ProgressBar x:Name="ProgressBar1" Height="22" Width="234" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Visibility="{Binding ProgressBarVisibility, Mode=OneWay}" Value="{Binding ProgressBarValue, Mode=OneWay}" IsIndeterminate="True" BorderThickness="0"/>
+            <TextBlock Text="" Width="55" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         </StatusBar>
         <DockPanel x:Name="AppLogDockPanel">
             <Border  Style="{StaticResource AppBorderStyle}" Height="30" DockPanel.Dock="Top" Margin="0,2" Background="{DynamicResource BlueBrushBackground}">
