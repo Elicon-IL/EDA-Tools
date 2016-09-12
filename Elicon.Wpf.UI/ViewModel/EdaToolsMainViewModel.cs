@@ -13,7 +13,7 @@ namespace EdaTools.ViewModel
 {
     public interface IEdaToolsMainViewModel
     {
-        //x void UpdateProgress(int value);
+        void UpdateProgress(int value);
         void CreateAppCloseCommand(EdaToolsMainView appMainWindow);
     }
 
@@ -62,11 +62,16 @@ namespace EdaTools.ViewModel
             // Create the progress updating delegate.
             ProgressUpdater = result =>
             {
-                ProgressBarValue = result.Progress;
+                UpdateProgress(result.Progress);
             };
         }
 
         public Action<FileReadProgressEvent> ProgressUpdater;
+
+        public void UpdateProgress(int value)
+        {
+            ProgressBarValue = value;
+        }
 
         // =========================================
         // Model Properties Handler.
@@ -94,7 +99,7 @@ namespace EdaTools.ViewModel
                 if (_edaToolsModel.NetlistReadFilePath != null && _edaToolsModel.NetlistReadFilePath.Equals(value))
                     return;
                 _edaToolsModel.NetlistReadFilePath = value;
-                RaisePropertyChanged("NetlistReadFilePath");
+                RaisePropertyChanged();
             }
         }
 
@@ -106,7 +111,7 @@ namespace EdaTools.ViewModel
                 if (_edaToolsModel.LogWindowContents != null && _edaToolsModel.LogWindowContents.Equals(value))
                     return;
                 _edaToolsModel.LogWindowContents = value;
-                RaisePropertyChanged("LogWindowContents");
+                RaisePropertyChanged();
             }
         }
 
@@ -118,7 +123,7 @@ namespace EdaTools.ViewModel
                 if (value == _edaToolsModel.ProgressBarValue)
                     return;
                 _edaToolsModel.ProgressBarValue = value;
-                RaisePropertyChanged("ProgressBarValue");
+                RaisePropertyChanged();
             }
         }
 
@@ -130,7 +135,7 @@ namespace EdaTools.ViewModel
                 if (value == _edaToolsModel.ProgressBarVisibility)
                     return;
                 _edaToolsModel.ProgressBarVisibility = value;
-                RaisePropertyChanged("ProgressBarVisibility");
+                RaisePropertyChanged();
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace EdaTools.Utility
 {
@@ -6,19 +7,19 @@ namespace EdaTools.Utility
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string propertyName)
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             var handler = PropertyChanged;
-            if (this.VerifyProperty(propertyName) && handler != null)
+            if (this.VerifyProperty(propertyName))
             {
-                var e = new PropertyChangedEventArgs(propertyName);
-                handler(this, e);
+                handler?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 
-        protected void RaisePropertyChanged(string propertyName)
+        protected void RaisePropertyChanged([CallerMemberName] string propertyName = "")
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            var handler = PropertyChanged;
+            handler?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

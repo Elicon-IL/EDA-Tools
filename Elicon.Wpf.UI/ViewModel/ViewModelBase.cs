@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows.Input;
 using EdaTools.Utility;
 
@@ -7,6 +6,7 @@ namespace EdaTools.ViewModel
 {
     public abstract class ViewModelBase : NotifyPropertyChanged
     {
+
         public virtual string DisplayName { get; protected set; }
         public event EventHandler UiCloseRequest;
         private RelayCommand _close;
@@ -19,11 +19,6 @@ namespace EdaTools.ViewModel
         private void OnUiCloseRequest()
         {
             UiCloseRequest?.Invoke(this, EventArgs.Empty);
-        }
-
-        public virtual void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            OnPropertyChanged(e.PropertyName);
         }
 
     }

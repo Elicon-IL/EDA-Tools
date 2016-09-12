@@ -10,9 +10,9 @@ namespace EdaTools
 {
     public class ProgressUpdaterEventSubscriber : IEventSubscriber
     {
-        private readonly EdaToolsMainViewModel _appViewModel;
+        private readonly IEdaToolsMainViewModel _appViewModel;
 
-        public ProgressUpdaterEventSubscriber(EdaToolsMainViewModel appViewModel)
+        public ProgressUpdaterEventSubscriber(IEdaToolsMainViewModel appViewModel)
         {
             _appViewModel = appViewModel;
         }
@@ -24,7 +24,7 @@ namespace EdaTools
 
         private void ProgressUpdaterDelegate(FileReadProgressEvent ev)
         {
-            _appViewModel.ProgressUpdater(ev);
+            _appViewModel.UpdateProgress(ev.Progress);
         }
     }
 

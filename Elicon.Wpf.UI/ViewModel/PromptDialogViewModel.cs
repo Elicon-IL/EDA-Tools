@@ -111,7 +111,7 @@ namespace EdaTools.ViewModel
             set
             {
                 PromptDialogModel.DialogTitle = value;
-                RaisePropertyChanged("DialogTitle");
+                RaisePropertyChanged();
             }
         }
 
@@ -121,7 +121,7 @@ namespace EdaTools.ViewModel
             set
             {
                 PromptDialogModel.TargetSaveFile = value;
-                RaisePropertyChanged("TargetSaveFile");
+                RaisePropertyChanged();
             }
         }
 
@@ -131,7 +131,7 @@ namespace EdaTools.ViewModel
             private set
             {
                 _firstPromptVisibility = value;
-                RaisePropertyChanged("FirstPromptVisibility");
+                RaisePropertyChanged();
             }
         }
 
@@ -141,7 +141,7 @@ namespace EdaTools.ViewModel
             private set
             {
                 _secondPromptVisibility = value;
-                RaisePropertyChanged("SecondPromptVisibility");
+                RaisePropertyChanged();
             }
         }
 
@@ -170,7 +170,7 @@ namespace EdaTools.ViewModel
                     return;
                 PromptDialogModel.SelectedNetlistIndex = value;
                 PromptDialogModel.SelectedNetlist = SelectedNetlist;
-                RaisePropertyChanged("SelectedNetlistIndex");
+                RaisePropertyChanged();
             }
         }
 
@@ -182,7 +182,7 @@ namespace EdaTools.ViewModel
                 if (PromptDialogModel.UserData1 != null && PromptDialogModel.UserData1.Equals(value))
                     return;
                 PromptDialogModel.UserData1 = value;
-                RaisePropertyChanged("UserData1");
+                RaisePropertyChanged();
             }
         }
 
@@ -194,7 +194,7 @@ namespace EdaTools.ViewModel
                 if (PromptDialogModel.UserPrompt1 != null && PromptDialogModel.UserPrompt1.Equals(value))
                     return;
                 PromptDialogModel.UserPrompt1 = value;
-                RaisePropertyChanged("UserPrompt1");
+                RaisePropertyChanged();
             }
         }
 
@@ -206,7 +206,7 @@ namespace EdaTools.ViewModel
                 if (PromptDialogModel.UserData2 != null && PromptDialogModel.UserData2.Equals(value))
                     return;
                 PromptDialogModel.UserData2 = value;
-                RaisePropertyChanged("UserData2");
+                RaisePropertyChanged();
             }
         }
 
@@ -218,7 +218,7 @@ namespace EdaTools.ViewModel
                 if (PromptDialogModel.UserPrompt2 != null && PromptDialogModel.UserPrompt2.Equals(value))
                     return;
                 PromptDialogModel.UserPrompt2 = value;
-                RaisePropertyChanged("UserPrompt2");
+                RaisePropertyChanged();
             }
         }
 

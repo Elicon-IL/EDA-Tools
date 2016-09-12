@@ -35,7 +35,7 @@
         </DockPanel>
         <StatusBar x:Name="StatusBar" Height="22" Margin="0" DockPanel.Dock="Bottom" VerticalContentAlignment="Bottom" VerticalAlignment="Center" Background="{DynamicResource GrayBrushBackground}">
             <TextBlock Text="Working..." Width="58" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="{Binding ProgressBarVisibility, Mode=OneWay}"/>
-            <ProgressBar x:Name="ProgressBar1" Height="22" Width="234" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Visibility="{Binding ProgressBarVisibility, Mode=OneWay}" Value="{Binding ProgressBarValue, Mode=OneWay}" IsIndeterminate="True" BorderThickness="0"/>
+            <ProgressBar x:Name="ProgressBar1" Height="22" Width="234" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Visibility="{Binding ProgressBarVisibility, Mode=OneWay}" Value="{Binding ProgressBarValue, Mode=OneWay}" />
             <TextBlock Text="" Width="55" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         </StatusBar>
         <DockPanel x:Name="AppLogDockPanel">
