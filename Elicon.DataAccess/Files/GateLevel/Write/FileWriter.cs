@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using Elicon.DataAccess.Files.Common.Write;
-using Elicon.Domain.GateLevel;
+﻿using Elicon.DataAccess.Files.Common.Write;
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
 
 namespace Elicon.DataAccess.Files.GateLevel.Write

@@ -6,7 +6,6 @@ using Elicon.Domain;
 
 namespace Elicon.Console.UI
 {
-   
     class Program
     {
         static void Main(string[] args)

@@ -8,20 +8,23 @@ namespace Elicon.DataAccess
         private readonly INetlistRepository _netlistRepository;
         private readonly IModuleRepository _moduleRepository;
         private readonly IInstanceRepository _instanceRepository;
+        private readonly INetlistRemover _netlistRemover;
 
-        public NetlistCloner(INetlistRepository netlistRepository, IModuleRepository moduleRepository, IInstanceRepository instanceRepository)
+        public NetlistCloner(INetlistRepository netlistRepository, IModuleRepository moduleRepository, IInstanceRepository instanceRepository, INetlistRemover netlistRemover)
         {
             _netlistRepository = netlistRepository;
             _moduleRepository = moduleRepository;
             _instanceRepository = instanceRepository;
+            _netlistRemover = netlistRemover;
         }
 
         public void Clone(string source, string newSource)
         {
             var netlist = _netlistRepository.Get(source);
-
             if (netlist == null)
                 throw new InvalidOperationException("source netlist does not exists");
+
+            _netlistRemover.Remove(newSource);
 
             netlist.Source = newSource;
             _netlistRepository.Add(netlist);

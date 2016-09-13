@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule;
 
 namespace Elicon.Domain.GateLevel.Manipulations
 {

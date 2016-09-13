@@ -28,13 +28,13 @@ namespace Elicon.Integration.Tests
         }
 
         [Test]
-        public void Clone_NetlistNotExists_ThrowsInvalidOperationException()
+        public void Clone_SourceNetlistNotExists_ThrowsInvalidOperationException()
         {        
            Assert.Throws<InvalidOperationException>(()=> _target.Clone(DummyNetlist, NewDummyNetlist));       
         }
 
         [Test]
-        public void Clone_NetlistExists_Clone()
+        public void Clone_SourceNetlistExists_Clone()
         {
             _netlistRepository.Add(new Netlist(DummyNetlist));
             _moduleRepository.Add(new Module(DummyNetlist,"m1"));
@@ -45,6 +45,35 @@ namespace Elicon.Integration.Tests
 
             _target.Clone(DummyNetlist, NewDummyNetlist);
             
+            var netlist = _netlistRepository.Get(NewDummyNetlist);
+            Assert.That(netlist, Is.Not.Null);
+
+            var modules = _moduleRepository.GetAll(NewDummyNetlist).ToList();
+            Assert.That(modules, Has.Count.EqualTo(2));
+            Assert.That(modules, Has.Exactly(1).Matches<Module>(m => m.Name == "m1"));
+            Assert.That(modules, Has.Exactly(1).Matches<Module>(m => m.Name == "m2"));
+
+            var instances = _instanceRepository.GetBy(NewDummyNetlist).ToList();
+            Assert.That(instances, Has.Exactly(1).Matches<Instance>(i => i.InstanceName == "inst1"));
+            Assert.That(instances, Has.Exactly(1).Matches<Instance>(i => i.InstanceName == "inst2"));
+            Assert.That(instances, Has.Exactly(1).Matches<Instance>(i => i.InstanceName == "inst3"));
+        }
+
+        [Test]
+        public void Clone_TargetNetlistExists_Clone()
+        {
+            _netlistRepository.Add(new Netlist(DummyNetlist));
+            _moduleRepository.Add(new Module(DummyNetlist, "m1"));
+            _moduleRepository.Add(new Module(DummyNetlist, "m2"));
+            _instanceRepository.Add(new Instance(DummyNetlist, "m1", "an2", "inst1"));
+            _instanceRepository.Add(new Instance(DummyNetlist, "m1", "an2", "inst2"));
+            _instanceRepository.Add(new Instance(DummyNetlist, "m2", "an3", "inst3"));
+            _netlistRepository.Add(new Netlist(NewDummyNetlist));
+            _moduleRepository.Add(new Module(NewDummyNetlist, "bla bla module"));
+            _instanceRepository.Add(new Instance(NewDummyNetlist, "bla bla module", "an2", "bla bla inst"));
+
+            _target.Clone(DummyNetlist, NewDummyNetlist);
+
             var netlist = _netlistRepository.Get(NewDummyNetlist);
             Assert.That(netlist, Is.Not.Null);
 
