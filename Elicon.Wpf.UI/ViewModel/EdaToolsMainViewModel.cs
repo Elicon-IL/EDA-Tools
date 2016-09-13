@@ -165,10 +165,14 @@ namespace EdaTools.ViewModel
             ReportMenuListUndeclaredModules = new RelayCommand(param => ListUndeclaredModulesCommand(), param => CanExecute());
         }
 
+        private PromptDialogViewModel GetPromptDialogData(PromptDialogModel.Actions action)
+        {
+            Window promptDialog = new PromptDialogView(ParentWindow, action, LoadedNetlists);
+            return (PromptDialogViewModel)promptDialog.ShowModal();
+        }
         private void ListUndeclaredModulesCommand()
         {
-            Window promptDialog = new PromptDialogView(ParentWindow, PromptDialogModel.Actions.ListUndeclaredModules, LoadedNetlists);
-            var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
+            var dataContext = GetPromptDialogData(PromptDialogModel.Actions.ListUndeclaredModules);
             if (dataContext.DialogResult)
             {
                 LogNowRunningTool("list undeclared modules tool", dataContext);
@@ -178,8 +182,7 @@ namespace EdaTools.ViewModel
 
         private void CountPhysicalInstancesCommand()
         {
-            Window promptDialog = new PromptDialogView(ParentWindow, PromptDialogModel.Actions.CountPhysicalInstances, LoadedNetlists);
-            var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
+            var dataContext = GetPromptDialogData(PromptDialogModel.Actions.CountPhysicalInstances);
             if (dataContext.DialogResult)
             {
                 LogNowRunningTool("count physical instances tool", dataContext);
@@ -189,8 +192,7 @@ namespace EdaTools.ViewModel
 
         private void ListModulePhysicalInstancesCommand()
         {
-            Window promptDialog = new PromptDialogView(ParentWindow, PromptDialogModel.Actions.ListPhysicalInstances, LoadedNetlists);
-            var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
+            var dataContext = GetPromptDialogData(PromptDialogModel.Actions.ListPhysicalInstances);
             if (dataContext.DialogResult)
             {
                 LogNowRunningTool("list module physical instances tool", dataContext);
@@ -200,8 +202,7 @@ namespace EdaTools.ViewModel
 
         private void ReplaceModuleCommand()
         {
-            Window promptDialog = new PromptDialogView(ParentWindow, PromptDialogModel.Actions.ReplaceModule, LoadedNetlists);
-            var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
+            var dataContext = GetPromptDialogData(PromptDialogModel.Actions.ReplaceModule);
             if (dataContext.DialogResult)
             {
                 LogNowRunningTool("replace module tool", dataContext);
@@ -212,8 +213,7 @@ namespace EdaTools.ViewModel
 
         private void RemoveBuffersCommand()
         {
-            Window promptDialog = new PromptDialogView(ParentWindow, PromptDialogModel.Actions.RemoveBuffers, LoadedNetlists);
-            var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
+            var dataContext = GetPromptDialogData(PromptDialogModel.Actions.RemoveBuffers);
             if (dataContext.DialogResult)
             {
                 LogNowRunningTool("remove buffers tool", dataContext);
@@ -224,8 +224,7 @@ namespace EdaTools.ViewModel
 
         private void UCasePortsCommand()
         {
-            Window promptDialog = new PromptDialogView(ParentWindow, PromptDialogModel.Actions.UCasePorts, LoadedNetlists);
-            var dataContext = (PromptDialogViewModel)promptDialog.ShowModal();
+            var dataContext = GetPromptDialogData(PromptDialogModel.Actions.UCasePorts);
             if (dataContext.DialogResult)
             {
                 LogNowRunningTool("upper-case native module ports tool", dataContext);
