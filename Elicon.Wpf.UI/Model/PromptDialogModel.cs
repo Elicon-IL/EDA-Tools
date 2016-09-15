@@ -12,12 +12,12 @@ namespace EdaTools.Model
         public enum Actions
         {
             None,
-            ListPhysicalInstances,
-            CountPhysicalInstances,
-            ListUndeclaredModules,
-            UCasePorts,
+            ListPhysicalPaths,
+            CountLibraryGatesInstances,
+            ListLibraryGates,
+            UpperCaseLibraryGatesPorts,
             RemoveBuffers,
-            ReplaceModule
+            ReplaceLibraryGate
         };
 
         public bool CanExecute(Actions currentUiAction)
@@ -27,14 +27,14 @@ namespace EdaTools.Model
                 {
                     switch (currentUiAction)
                     {
-                        case Actions.UCasePorts:
-                        case Actions.ListUndeclaredModules:
+                        case Actions.UpperCaseLibraryGatesPorts:
+                        case Actions.ListLibraryGates:
                             return true;
                         case Actions.RemoveBuffers:
-                        case Actions.CountPhysicalInstances:
+                        case Actions.CountLibraryGatesInstances:
                             return !string.IsNullOrEmpty(UserData1);
-                        case Actions.ReplaceModule:
-                        case Actions.ListPhysicalInstances:
+                        case Actions.ReplaceLibraryGate:
+                        case Actions.ListPhysicalPaths:
                             if (!string.IsNullOrEmpty(UserData1))
                                 if (!string.IsNullOrEmpty(UserData2))
                                     return true;
@@ -50,7 +50,6 @@ namespace EdaTools.Model
 
         public PromptDialogModel()
         {
-            UserData1 = "multiplier_32x32";
             SelectedNetlist = "";
         }
 

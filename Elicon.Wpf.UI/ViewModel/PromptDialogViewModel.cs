@@ -64,22 +64,22 @@ namespace EdaTools.ViewModel
                 var doReport = false;
                 switch (_currentUiAction)
                 {
-                    case PromptDialogModel.Actions.CountPhysicalInstances:
+                    case PromptDialogModel.Actions.CountLibraryGatesInstances:
                         SecondPromptVisibility = Visibility.Collapsed;
-                        DialogTitle = ViewTitle("Count Physical Instances");
+                        DialogTitle = ViewTitle("Count Library Gates Instances");
                         UserPrompt1 = "Enter Starting (top) Module:";
                         doReport = true;
                         break;
-                    case PromptDialogModel.Actions.ListPhysicalInstances:
+                    case PromptDialogModel.Actions.ListPhysicalPaths:
                         SecondPromptVisibility = Visibility.Visible;
-                        DialogTitle = ViewTitle("List Physical Instances");
+                        DialogTitle = ViewTitle("List Physical Paths");
                         UserPrompt1 = "Enter Starting (top) Module:";
                         UserPrompt2 = "Enter name(s) of modules to list:";
                         doReport = true;
                         break;
-                    case PromptDialogModel.Actions.ReplaceModule:
+                    case PromptDialogModel.Actions.ReplaceLibraryGate:
                         SecondPromptVisibility = Visibility.Visible;
-                        DialogTitle = ViewTitle("Replace Module");
+                        DialogTitle = ViewTitle("Replace Library Gate");
                         UserPrompt1 = "Enter Module to Replace:";
                         UserPrompt2 = "Enter Replacing Module:";
                         break;
@@ -89,16 +89,16 @@ namespace EdaTools.ViewModel
                         UserPrompt1 = "Enter Buffer Definition:";
                         UserData2 = "buf, in, out";
                         break;
-                    case PromptDialogModel.Actions.ListUndeclaredModules:
+                    case PromptDialogModel.Actions.ListLibraryGates:
                         FirstPromptVisibility = Visibility.Collapsed;
                         SecondPromptVisibility = Visibility.Collapsed;
-                        DialogTitle = ViewTitle("List Undeclared Modules");
+                        DialogTitle = ViewTitle("List Library Gates");
                         doReport = true;
                         break;
-                    case PromptDialogModel.Actions.UCasePorts:
+                    case PromptDialogModel.Actions.UpperCaseLibraryGatesPorts:
                         FirstPromptVisibility = Visibility.Collapsed;
                         SecondPromptVisibility = Visibility.Collapsed;
-                        DialogTitle = ViewTitle("Upper Case Ports");
+                        DialogTitle = ViewTitle("Upper Case Library Gates Ports");
                         break;
                 }
                 _targetSaveAsFilter = doReport ? ReportSaveAsFilter : NetlistSaveAsFilter;

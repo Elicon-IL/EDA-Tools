@@ -45,7 +45,7 @@ namespace EdaTools.Utility
         public bool TaskRunning { get; private set; }
 
 
-        public async void GetNativeModulesPortsList(string netlist, string targetSaveFile)
+        public async void ListLibraryGates(string netlist, string targetSaveFile)
         {
             InitRunner();
             var report = Bootstrapper.Get<INativeModulesPortListReport>();
@@ -63,7 +63,7 @@ namespace EdaTools.Utility
             OnTaskRunningFinished(_toolRunnerEventArgs);
         }
 
-        public async void CountPhysicalInstancesCommand(string netlist, string rootModule, string targetSaveFile)
+        public async void CountLibraryGatesInstancesCommand(string netlist, string rootModule, string targetSaveFile)
         {
             InitRunner();
             var report = Bootstrapper.Get<ICountNativeModulesReport>();        
@@ -81,7 +81,7 @@ namespace EdaTools.Utility
             OnTaskRunningFinished(_toolRunnerEventArgs);
         }
 
-        public async void ListModulePhysicalInstancesCommand(string netlist, string rootModule, string moduleNames, string targetSaveFile)
+        public async void ListPhysicalPathsCommand(string netlist, string rootModule, string moduleNames, string targetSaveFile)
         {
             InitRunner();
             var modules = moduleNames.CommaSeparatedStringToList();
@@ -100,7 +100,7 @@ namespace EdaTools.Utility
             OnTaskRunningFinished(_toolRunnerEventArgs);
         }
 
-        public async void ReplaceModuleCommand(ModuleReplaceRequest replaceRequest)
+        public async void ReplaceLibraryGateCommand(ModuleReplaceRequest replaceRequest)
         {
             InitRunner();
             var action = Bootstrapper.Get<INativeModuleReplaceManipulation>();
@@ -136,7 +136,7 @@ namespace EdaTools.Utility
             OnTaskRunningFinished(_toolRunnerEventArgs);
         }
 
-        public async void UCasePortsCommand(string netlist, string targetSaveFile)
+        public async void UpperCaseLibraryGatesPortsCommand(string netlist, string targetSaveFile)
         {
             InitRunner();
             var action = Bootstrapper.Get<INativeModulePortsManipulation>();

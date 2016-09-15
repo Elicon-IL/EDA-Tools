@@ -29,13 +29,13 @@ namespace EdaTools.ViewModel
         public RelayCommand FileMenuSaveLog { get; private set; }
         public RelayCommand FileMenuAbout { get; private set; }
 
-        public RelayCommand UtilityMenuUCasePorts { get; private set; }
+        public RelayCommand UtilityMenuUpperCaseLibraryGatesPorts { get; private set; }
         public RelayCommand UtilityMenuRemoveBuffers { get; private set; }
-        public RelayCommand UtilityMenuReplaceModule { get; private set; }
+        public RelayCommand UtilityMenuReplaceLibraryGate { get; private set; }
 
-        public RelayCommand ReportMenuListPhysicalInstances { get; private set; }
-        public RelayCommand ReportMenuCountPhysicalInstances { get; private set; }
-        public RelayCommand ReportMenuListUndeclaredModules { get; private set; }
+        public RelayCommand ReportMenuListPhysicalPaths { get; private set; }
+        public RelayCommand ReportMenuCountLibraryGatesInstances { get; private set; }
+        public RelayCommand ReportMenuListLibraryGates { get; private set; }
 
         private readonly EdaToolsModel _edaToolsModel;
         private readonly ToolRunner _toolRunner;
@@ -156,13 +156,13 @@ namespace EdaTools.ViewModel
             FileMenuSaveLog = new RelayCommand(param => SaveLogCommand());
             FileMenuAbout = new RelayCommand(param => AboutCommand());
             // =====================================================================
-            UtilityMenuUCasePorts = new RelayCommand(param => UCasePortsCommand(), param => CanExecute());
+            UtilityMenuUpperCaseLibraryGatesPorts = new RelayCommand(param => UpperCaseLibraryGatesPortsCommand(), param => CanExecute());
             UtilityMenuRemoveBuffers = new RelayCommand(param => RemoveBuffersCommand(), param => CanExecute());
-            UtilityMenuReplaceModule = new RelayCommand(param => ReplaceModuleCommand(), param => CanExecute());
+            UtilityMenuReplaceLibraryGate = new RelayCommand(param => ReplaceLibraryGateCommand(), param => CanExecute());
             // =====================================================================
-            ReportMenuListPhysicalInstances = new RelayCommand(param => ListModulePhysicalInstancesCommand(), param => CanExecute());
-            ReportMenuCountPhysicalInstances = new RelayCommand(param => CountPhysicalInstancesCommand(), param => CanExecute());
-            ReportMenuListUndeclaredModules = new RelayCommand(param => ListUndeclaredModulesCommand(), param => CanExecute());
+            ReportMenuListPhysicalPaths = new RelayCommand(param => ListPhysicalPathsCommand(), param => CanExecute());
+            ReportMenuCountLibraryGatesInstances = new RelayCommand(param => CountLibraryGatesInstancesCommand(), param => CanExecute());
+            ReportMenuListLibraryGates = new RelayCommand(param => ListLibraryGatesCommand(), param => CanExecute());
         }
 
         private PromptDialogViewModel GetPromptDialogData(PromptDialogModel.Actions action)
@@ -170,44 +170,44 @@ namespace EdaTools.ViewModel
             Window promptDialog = new PromptDialogView(ParentWindow, action, LoadedNetlists);
             return (PromptDialogViewModel)promptDialog.ShowModal();
         }
-        private void ListUndeclaredModulesCommand()
+        private void ListLibraryGatesCommand()
         {
-            var dataContext = GetPromptDialogData(PromptDialogModel.Actions.ListUndeclaredModules);
+            var dataContext = GetPromptDialogData(PromptDialogModel.Actions.ListLibraryGates);
             if (dataContext.DialogResult)
             {
-                LogNowRunningTool("list undeclared modules tool", dataContext);
-                _toolRunner.GetNativeModulesPortsList(dataContext.SelectedNetlist, dataContext.TargetSaveFile);
+                LogNowRunningTool("list library gates tool", dataContext);
+                _toolRunner.ListLibraryGates(dataContext.SelectedNetlist, dataContext.TargetSaveFile);
             }
         }
 
-        private void CountPhysicalInstancesCommand()
+        private void CountLibraryGatesInstancesCommand()
         {
-            var dataContext = GetPromptDialogData(PromptDialogModel.Actions.CountPhysicalInstances);
+            var dataContext = GetPromptDialogData(PromptDialogModel.Actions.CountLibraryGatesInstances);
             if (dataContext.DialogResult)
             {
-                LogNowRunningTool("count physical instances tool", dataContext);
-                _toolRunner.CountPhysicalInstancesCommand(dataContext.SelectedNetlist, dataContext.RootModule, dataContext.TargetSaveFile);
+                LogNowRunningTool("count library gates physical instances tool", dataContext);
+                _toolRunner.CountLibraryGatesInstancesCommand(dataContext.SelectedNetlist, dataContext.RootModule, dataContext.TargetSaveFile);
             }
         }
 
-        private void ListModulePhysicalInstancesCommand()
+        private void ListPhysicalPathsCommand()
         {
-            var dataContext = GetPromptDialogData(PromptDialogModel.Actions.ListPhysicalInstances);
+            var dataContext = GetPromptDialogData(PromptDialogModel.Actions.ListPhysicalPaths);
             if (dataContext.DialogResult)
             {
-                LogNowRunningTool("list module physical instances tool", dataContext);
-                _toolRunner.ListModulePhysicalInstancesCommand(dataContext.SelectedNetlist, dataContext.RootModule, dataContext.ModuleNames, dataContext.TargetSaveFile);
+                LogNowRunningTool("list physical paths tool", dataContext);
+                _toolRunner.ListPhysicalPathsCommand(dataContext.SelectedNetlist, dataContext.RootModule, dataContext.ModuleNames, dataContext.TargetSaveFile);
             }
         }
 
-        private void ReplaceModuleCommand()
+        private void ReplaceLibraryGateCommand()
         {
-            var dataContext = GetPromptDialogData(PromptDialogModel.Actions.ReplaceModule);
+            var dataContext = GetPromptDialogData(PromptDialogModel.Actions.ReplaceLibraryGate);
             if (dataContext.DialogResult)
             {
-                LogNowRunningTool("replace module tool", dataContext);
+                LogNowRunningTool("replace library gate instances tool", dataContext);
                 var replaceRequest = dataContext.MakeModuleReplaceRequest();
-                _toolRunner.ReplaceModuleCommand(replaceRequest);
+                _toolRunner.ReplaceLibraryGateCommand(replaceRequest);
             }
         }
 
@@ -222,13 +222,13 @@ namespace EdaTools.ViewModel
             }
         }
 
-        private void UCasePortsCommand()
+        private void UpperCaseLibraryGatesPortsCommand()
         {
-            var dataContext = GetPromptDialogData(PromptDialogModel.Actions.UCasePorts);
+            var dataContext = GetPromptDialogData(PromptDialogModel.Actions.UpperCaseLibraryGatesPorts);
             if (dataContext.DialogResult)
             {
                 LogNowRunningTool("upper-case native module ports tool", dataContext);
-                _toolRunner.UCasePortsCommand(dataContext.SelectedNetlist, dataContext.TargetSaveFile);
+                _toolRunner.UpperCaseLibraryGatesPortsCommand(dataContext.SelectedNetlist, dataContext.TargetSaveFile);
             }
         }
 

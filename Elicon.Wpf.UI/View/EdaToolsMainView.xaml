@@ -22,14 +22,14 @@
                     <MenuItem x:Name="ExitApp" Header="Exit Application" Command="{Binding Close, Mode=OneWay}" />
                 </MenuItem>
                 <MenuItem x:Name="UtilitisMenu" Header="Utilities">
-                    <MenuItem x:Name="UpperCaseNativeCellsPorts" Header="Upper Case Native Cell Ports" Command="{Binding UtilityMenuUCasePorts, Mode=OneWay}" />
+                    <MenuItem x:Name="UpperCaseLibraryGatesPorts" Header="Upper Case Library Gates Ports" Command="{Binding UtilityMenuUpperCaseLibraryGatesPorts, Mode=OneWay}" />
                     <MenuItem x:Name="RemoveBuffers" Header="Remove Buffers" Command="{Binding UtilityMenuRemoveBuffers, Mode=OneWay}" />
-                    <MenuItem x:Name="ReplaceModuleInstances" Header="Replace Module Instances" Command="{Binding UtilityMenuReplaceModule, Mode=OneWay}" />
+                    <MenuItem x:Name="ReplaceLibraryGate" Header="Replace Library Gate" Command="{Binding UtilityMenuReplaceLibraryGate, Mode=OneWay}" />
                 </MenuItem>
                 <MenuItem x:Name="ReportsMenu" Header="Reports">
-                    <MenuItem x:Name="ListPhysicalInstances" Header="List Module(s) Physical Instances" Command="{Binding ReportMenuListPhysicalInstances, Mode=OneWay}" />
-                    <MenuItem x:Name="CountPhysicalInstances" Header="Count Physical Instances" Command="{Binding ReportMenuCountPhysicalInstances, Mode=OneWay}" />
-                    <MenuItem x:Name="ListUndeclaredModules" Header="List Undeclared Modules" Command="{Binding ReportMenuListUndeclaredModules, Mode=OneWay}" />
+                    <MenuItem x:Name="ListPhysicalPaths" Header="List Physical Paths" Command="{Binding ReportMenuListPhysicalPaths, Mode=OneWay}" />
+                    <MenuItem x:Name="CountLibraryGatesInstances" Header="Count Library Gates Instances" Command="{Binding ReportMenuCountLibraryGatesInstances, Mode=OneWay}" />
+                    <MenuItem x:Name="ListLibraryGates" Header="List Library Gates" Command="{Binding ReportMenuListLibraryGates, Mode=OneWay}" />
                 </MenuItem>
             </Menu>
         </DockPanel>
