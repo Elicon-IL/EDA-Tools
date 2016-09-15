@@ -281,6 +281,7 @@ namespace EdaTools.ViewModel
         {
             var message = e.Error ? e.ErrorMessage : "Done.";
             LogWindowContents = LogWindowContents.AppendLine($"{DateTime.Now}: {message}");
+            ProgressBarValue = 0;
             ProgressBarVisibility = Visibility.Hidden;
             RefreshFrameworkData(); 
         }

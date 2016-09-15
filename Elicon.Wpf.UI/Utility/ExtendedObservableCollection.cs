@@ -16,11 +16,6 @@ namespace EdaTools.Utility
         {
         }
 
-        public ExtendedObservableCollection(List<T> list)
-            : base(list)
-        {
-        }
-
         public void AddRange(IEnumerable<T> range)
         {
             foreach (var item in range)
