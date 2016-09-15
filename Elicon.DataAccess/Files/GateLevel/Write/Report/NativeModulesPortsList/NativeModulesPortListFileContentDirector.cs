@@ -3,11 +3,11 @@ using Elicon.Domain.GateLevel.Reports.NativeModulesPortsList;
 
 namespace Elicon.DataAccess.Files.GateLevel.Write.Report.NativeModulesPortsList
 {
-    public class NativeModulesPortsListFileContentDirector : INativeModulesPortListFileContentDirector
+    public class NativeModulesPortListFileContentDirector : INativeModulesPortListFileContentDirector
     {
         public string Construct(IList<NativeModulePorts> data)
         {
-            var builder = new NativeModulesPortsListFileContentBuilder();
+            var builder = new NativeModulesPortListFileContentBuilder();
 
             foreach (var module in data)
                 builder.ListModulePorts(module.ModuleName, module.Ports);
