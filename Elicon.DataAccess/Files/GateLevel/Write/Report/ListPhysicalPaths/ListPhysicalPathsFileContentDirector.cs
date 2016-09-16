@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Elicon.Domain.GateLevel.Reports.ListPhysicalPaths;
 
-namespace Elicon.DataAccess.Files.GateLevel.Write.Report.PhysicalModulePath
+namespace Elicon.DataAccess.Files.GateLevel.Write.Report.ListPhysicalPaths
 {
     public class ListPhysicalPathsFileContentDirector : IListPhysicalPathsFileContentDirector
     {
