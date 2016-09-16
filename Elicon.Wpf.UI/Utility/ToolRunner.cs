@@ -10,7 +10,7 @@ using Elicon.Domain.GateLevel.Manipulations.ReplaceLibraryGate;
 using Elicon.Domain.GateLevel.Manipulations.UpperCaseLibraryGatesPorts;
 using Elicon.Domain.GateLevel.Reports.CountLibraryGates;
 using Elicon.Domain.GateLevel.Reports.ListLibraryGates;
-using Elicon.Domain.GateLevel.Reports.PhysicalModulePath;
+using Elicon.Domain.GateLevel.Reports.ListPhysicalPaths;
 
 namespace EdaTools.Utility
 {
@@ -85,7 +85,7 @@ namespace EdaTools.Utility
         {
             InitRunner();
             var modules = moduleNames.CommaSeparatedStringToList();
-            var report = Bootstrapper.Get<IPhysicalModulePathReport>();
+            var report = Bootstrapper.Get<IListPhysicalPathsReport>();
             await Task.Run(() =>
             {
                 try

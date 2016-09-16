@@ -49,8 +49,8 @@
     <Compile Include="Files\GateLevel\Write\Report\CountLibraryGates\CountLibraryGatesFileContentBuilder.cs" />
     <Compile Include="Files\GateLevel\Write\Report\ListLibraryGates\ListLibraryGatesFileContentBuilder.cs" />
     <Compile Include="Files\GateLevel\Write\Report\ListLibraryGates\ListLibraryGatesFileContentDirector.cs" />
-    <Compile Include="Files\GateLevel\Write\Report\PhysicalModulePath\PhysicalModulePathFileContentBuilder.cs" />
-    <Compile Include="Files\GateLevel\Write\Report\PhysicalModulePath\PhysicalModulePathFileContnetDirector.cs" />
+    <Compile Include="Files\GateLevel\Write\Report\ListPhysicalPaths\ListPhysicalPathsFileContentBuilder.cs" />
+    <Compile Include="Files\GateLevel\Write\Report\ListPhysicalPaths\ListPhysicalPathsFileContentDirector.cs" />
     <Compile Include="Files\GateLevel\Write\FileWriter.cs" />
     <Compile Include="Files\GateLevel\Write\Netlist\NetlistFileBuilder.cs" />
     <Compile Include="InstanceRepository.cs" />

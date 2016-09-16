@@ -1,21 +1,21 @@
 ﻿using System.Collections.Generic;
 using Elicon.Domain.GateLevel;
-using Elicon.Domain.GateLevel.Reports.PhysicalModulePath;
+using Elicon.Domain.GateLevel.Reports.ListPhysicalPaths;
 using Elicon.Domain.GateLevel.Traversal.PhysicalTraversal;
 using NUnit.Framework;
 
 namespace Elicon.Unit.Tests.Domain.Reports
 {
     [TestFixture]
-    public class PhysicalModulePathAggregatorTests
+    public class PhysicalPathAggregatorTests
     {
-        private PhysicalModulePathAggregator _target;
+        private PhysicalPathAggregator _target;
 
         [Test]
         public void Collect_NoModuleToCollectSpecified_NotCollected()
         {
             var moduleNamesToCollect = new List<string>();
-            _target = new PhysicalModulePathAggregator(moduleNamesToCollect);
+            _target = new PhysicalPathAggregator(moduleNamesToCollect);
 
             _target.Collect(new TraversalState {
                 CurrentInstance = new Instance("netlist", "host", "moduleName", "instName"),
@@ -35,7 +35,7 @@ namespace Elicon.Unit.Tests.Domain.Reports
             var instancesPathTracker = new InstancesPathTracker().UpdateIn(traversalState.CurrentInstance);
             traversalState.InstancesPathTracker = instancesPathTracker;
 
-            _target = new PhysicalModulePathAggregator(moduleNamesToCollect);
+            _target = new PhysicalPathAggregator(moduleNamesToCollect);
             _target.Collect(traversalState);
            
             var result = _target.Result();

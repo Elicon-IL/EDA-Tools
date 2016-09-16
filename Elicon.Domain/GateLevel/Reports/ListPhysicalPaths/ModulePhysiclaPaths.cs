@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Elicon.Domain.GateLevel.Reports.PhysicalModulePath
+namespace Elicon.Domain.GateLevel.Reports.ListPhysicalPaths
 {
     public class ModulePhysiclaPaths
     {

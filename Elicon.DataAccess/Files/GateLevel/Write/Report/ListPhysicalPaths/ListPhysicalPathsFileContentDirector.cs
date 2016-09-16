@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
-using Elicon.Domain.GateLevel.Reports.PhysicalModulePath;
+using Elicon.Domain.GateLevel.Reports.ListPhysicalPaths;
 
 namespace Elicon.DataAccess.Files.GateLevel.Write.Report.PhysicalModulePath
 {
-    public class PhysicalModulePathFileContentDirector : IPhysicalModulePathFileContentDirector
+    public class ListPhysicalPathsFileContentDirector : IListPhysicalPathsFileContentDirector
     {
         public string Construct(IList<string> modulesToList, IList<ModulePhysiclaPaths> data)
         {
-            var builder = new PhysicalModulePathFileContentBuilder();
+            var builder = new ListPhysicalPathsFileContentBuilder();
 
             builder.BuildTitle(modulesToList);
             builder.BuildNewLine();

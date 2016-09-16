@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Elicon.Domain.GateLevel.Traversal.PhysicalTraversal;
 
-namespace Elicon.Domain.GateLevel.Reports.PhysicalModulePath
+namespace Elicon.Domain.GateLevel.Reports.ListPhysicalPaths
 {
-    public class PhysicalModulePathAggregator
+    public class PhysicalPathAggregator
     {
         private readonly Dictionary<string, IList<string>> _result  = new Dictionary<string, IList<string>>();
 
-        public PhysicalModulePathAggregator(IList<string> moduleNamesToCollect)
+        public PhysicalPathAggregator(IList<string> moduleNamesToCollect)
         {
             foreach (var moduleName in moduleNamesToCollect)
                 _result.Add(moduleName, new List<string>());

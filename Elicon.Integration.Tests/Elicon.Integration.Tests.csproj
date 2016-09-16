@@ -51,7 +51,7 @@
     <Compile Include="NetlistRemoverTests.cs" />
     <Compile Include="LibraryGateReplacerTests.cs" />
     <Compile Include="ListLibraryGatesQueryTests.cs" />
-    <Compile Include="PhysicalModulePathQueryTests.cs" />
+    <Compile Include="PhysicalPathQueryTests.cs" />
     <Compile Include="CountLibraryGatesQueryTests.cs" />
     <Compile Include="IntegrationTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

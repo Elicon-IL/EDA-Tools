@@ -1,23 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Elicon.Domain.GateLevel.Reports.PhysicalModulePath;
+using Elicon.Domain.GateLevel.Reports.ListPhysicalPaths;
 using NUnit.Framework;
 
 namespace Elicon.Integration.Tests
 {
     [TestFixture]
-    public class PhysicalModulePathQueryTests : IntegrationTestBase
+    public class PhysicalPathQueryTests : IntegrationTestBase
     {
-        private IPhysicalModulePathQuery _target;
+        private IPhysicalPathQuery _target;
 
         [SetUp]
         public void SetUp()
         {
-            _target = Get<IPhysicalModulePathQuery>();
+            _target = Get<IPhysicalPathQuery>();
         }
 
         [Test]
-        public void GetPhysicalPaths_NetlistEx_ReturnsPhysicalPaths()
+        public void GetPhysicalPaths_NetlistExists_ReturnsPhysicalPaths()
         {
             const string module = "x_lut4_0xff0c";
             const string anotherModule = "x_lut4_0x6a5f";
