@@ -17,14 +17,14 @@ namespace Elicon.Console.UI
 //            var source = System.Console.ReadLine();
 //
 //            var report = Bootstrapper.Get<ICountLibraryGatesReport>();
-//            var orderedCells = report.CountLibraryGates(source, "patgen_rtl").OrderBy(kvp => kvp.Key);
+//            var orderedCells = report.GenerateReport(source, "patgen_rtl").OrderBy(kvp => kvp.Key);
 //            
 //            foreach (var kvp in orderedCells)
 //                System.Console.WriteLine(($"Cell = {kvp.Key}, count = {kvp.Value}"));
 
             //            var report = Bootstrapper.Get<IListPhysicalPathsReport>();
             //
-            //            var result = report.GetPhysicalPaths("D:\\nlp.v", "y3_asic", new List<string>() { "x_lut4_0x0000" });
+            //            var result = report.GenerateReport("D:\\nlp.v", "y3_asic", new List<string>() { "x_lut4_0x0000" });
             //            foreach (var path in result["x_lut4_0x0000"])
             //                System.Console.WriteLine(path);
 

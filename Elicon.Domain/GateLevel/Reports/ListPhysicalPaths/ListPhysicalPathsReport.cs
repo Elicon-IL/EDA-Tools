@@ -11,7 +11,7 @@ namespace Elicon.Domain.GateLevel.Reports.ListPhysicalPaths
 
     public interface IListPhysicalPathsReport
     {
-        IList<ModulePhysiclaPaths> GetPhysicalPaths(string source, string rootModule, IList<string> moduleNames, string destination);
+       void GenerateReport(string source, string rootModule, IList<string> moduleNames, string destination);
     }
         
     public class ListPhysicalPathsReport : IListPhysicalPathsReport
@@ -29,7 +29,7 @@ namespace Elicon.Domain.GateLevel.Reports.ListPhysicalPaths
             _listPhysicalPathsFileContentDirector = listPhysicalPathsFileContentDirector;
         }
 
-        public IList<ModulePhysiclaPaths> GetPhysicalPaths(string source, string rootModule, IList<string> moduleNames, string destination)
+        public void GenerateReport(string source, string rootModule, IList<string> moduleNames, string destination)
         {
             _netlistDataBuilder.Build(source);
           
@@ -37,8 +37,6 @@ namespace Elicon.Domain.GateLevel.Reports.ListPhysicalPaths
 
             var content = _listPhysicalPathsFileContentDirector.Construct(moduleNames, result);
             _fileWriter.Write(destination, "List Phyisical Paths", content);
-
-            return result;
         }
     }
 }

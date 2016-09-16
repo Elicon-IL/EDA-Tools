@@ -11,7 +11,7 @@ namespace Elicon.Domain.GateLevel.Reports.ListLibraryGates
 
     public interface IListLibraryGatesReport
     {
-        IList<LibraryGate> GetLibraryGates(string source, string destination);
+        void GenerateReport(string source, string destination);
     }
 
     public class ListLibraryGatesLibraryGatesReport : IListLibraryGatesReport
@@ -29,7 +29,7 @@ namespace Elicon.Domain.GateLevel.Reports.ListLibraryGates
             _listLibraryGatesFileContentDirector = listLibraryGatesFileContentDirector;
         }
 
-        public IList<LibraryGate> GetLibraryGates(string source, string destination)
+        public void GenerateReport(string source, string destination)
         {
             _netlistDataBuilder.Build(source);
 
@@ -37,8 +37,6 @@ namespace Elicon.Domain.GateLevel.Reports.ListLibraryGates
 
             var content = _listLibraryGatesFileContentDirector.Construct(result);
             _fileWriter.Write(destination, "LibraryGate Modules Port List", content);
-
-            return result;
         }
     }
 }

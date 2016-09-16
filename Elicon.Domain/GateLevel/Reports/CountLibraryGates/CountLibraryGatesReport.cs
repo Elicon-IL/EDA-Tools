@@ -11,7 +11,7 @@ namespace Elicon.Domain.GateLevel.Reports.CountLibraryGates
 
     public interface ICountLibraryGatesReport
     {
-        IList<LibraryGateCount> CountLibraryGates(string source, string rootModule, string destination);
+        void GenerateReport(string source, string rootModule, string destination);
     }
 
     public class CountLibraryGatesReport : ICountLibraryGatesReport
@@ -29,7 +29,7 @@ namespace Elicon.Domain.GateLevel.Reports.CountLibraryGates
             _countLibraryGatesFileContentDirector = countLibraryGatesFileContentDirector;
         }
 
-        public IList<LibraryGateCount> CountLibraryGates(string source, string rootModule, string destination)
+        public void GenerateReport(string source, string rootModule, string destination)
         {
             _netlistDataBuilder.Build(source);
 
@@ -37,8 +37,6 @@ namespace Elicon.Domain.GateLevel.Reports.CountLibraryGates
 
             var content = _countLibraryGatesFileContentDirector.Construct(result);
             _fileWriter.Write(destination, "Count LibraryGate Modules", content);
-
-            return result;
         }
     }
 }

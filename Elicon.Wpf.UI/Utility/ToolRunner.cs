@@ -53,7 +53,7 @@ namespace EdaTools.Utility
             {
                 try
                 {
-                    report.GetLibraryGates(netlist, targetSaveFile);
+                    report.GenerateReport(netlist, targetSaveFile);
                 }
                 catch (Exception ex)
                 {
@@ -71,7 +71,7 @@ namespace EdaTools.Utility
             {
                 try
                 {
-                    report.CountLibraryGates(netlist, rootModule, targetSaveFile);
+                    report.GenerateReport(netlist, rootModule, targetSaveFile);
                 }
                 catch (Exception ex)
                 {
@@ -90,7 +90,7 @@ namespace EdaTools.Utility
             {
                 try
                 {
-                    report.GetPhysicalPaths(netlist, rootModule, modules, targetSaveFile);
+                    report.GenerateReport(netlist, rootModule, modules, targetSaveFile);
                 }
                 catch (Exception ex)
                 {
