@@ -12,7 +12,6 @@ namespace Elicon.Domain.GateLevel
             Netlist = module.Netlist;
             Ports = module.Ports.Select(p => new Port(p)).ToList();
             SupplyDeclarations = module.SupplyDeclarations.ToList();
-            AssignDeclarations = module.AssignDeclarations.ToList();
         }
 
         public Module(string netlist, string name)
@@ -20,7 +19,6 @@ namespace Elicon.Domain.GateLevel
             Name = name;
             Netlist = netlist;
             SupplyDeclarations = new List<string>();
-            AssignDeclarations = new List<string>();
             Ports = new List<Port>();
         }
 
@@ -29,7 +27,6 @@ namespace Elicon.Domain.GateLevel
         public string Netlist { get; set; }
         public IList<Port> Ports { get; set; }
         public IList<string> SupplyDeclarations { get; set; }
-        public IList<string> AssignDeclarations { get; set; }
     }
 
     public static class ModuleExtensions

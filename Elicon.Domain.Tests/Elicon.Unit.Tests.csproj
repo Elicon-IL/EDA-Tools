@@ -78,7 +78,6 @@
     <Compile Include="Domain\Statements\Criterias\PortDeclarationStatementCriteriaTests.cs" />
     <Compile Include="Domain\Statements\Criterias\SupplyDeclarationStatementCriteriaTests .cs" />
     <Compile Include="Domain\Statements\Criterias\ModuleDeclarationStatementCriteriaTests.cs" />
-    <Compile Include="Domain\Statements\Criterias\AssignDeclarationStatementCriteriaTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Elicon.DataAccess\Elicon.DataAccess.csproj">

@@ -20,6 +20,7 @@ namespace Elicon.Unit.Tests.Domain.Statements.Criterias
         [TestCase("tri0 some bla bla")]
         [TestCase("tri1 some bla bla")]
         [TestCase("tran some bla bla")]
+        [TestCase("assign some bla bla")]
         public void IsSatisfied_FirstTokenIsError_ReturnsTrue(string statement)
         {
             var result = _target.IsSatisfied(statement);

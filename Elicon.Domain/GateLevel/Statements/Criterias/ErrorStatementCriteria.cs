@@ -6,7 +6,7 @@ namespace Elicon.Domain.GateLevel.Statements.Criterias
     public class ErrorStatementCriteria : IStatementCriteria
     {
         private readonly string[] _errorTokens = {
-            "defparam", "initial", "tri", "tri0", "tri1", "tran"
+            "defparam", "initial", "tri", "tri0", "tri1", "tran", "assign"
         };
         
         public bool IsSatisfied(string statement)

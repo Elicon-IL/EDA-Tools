@@ -32,12 +32,6 @@ namespace Elicon.DataAccess.Files.GateLevel.Write.Netlist
             BuildSpecificPortTypeDeclaration(module.Ports, PortType.Inout, "inout");
         }
 
-        public void BuildAssignDeclarations(Module module)
-        {
-            foreach (var assignDeclaration in module.AssignDeclarations)
-                _result.AppendLine(assignDeclaration);
-        }
-
         public void BuildSupplyDeclarations(Module module)
         {
             foreach (var supplyDeclaration in module.SupplyDeclarations)
@@ -91,7 +85,6 @@ namespace Elicon.DataAccess.Files.GateLevel.Write.Netlist
         void BuildInstanceDeclaration(Instance instance);
         void BuildEndModule();
         void BuildPortDeclarations(Module module);
-        void BuildAssignDeclarations(Module module);
         void BuildSupplyDeclarations(Module module);
         void BuildModuleDeclaration(Module module);
         void BuildMetaStatements(Domain.GateLevel.Netlist netlist);

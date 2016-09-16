@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="ApplicationInfo.cs" />
     <Compile Include="GateLevel\BuildData\BuildState.cs" />
-    <Compile Include="GateLevel\BuildData\StatementHandlers\AssignDeclarationStatementHandler.cs" />
     <Compile Include="GateLevel\BuildData\StatementHandlers\MetaStatementHandler.cs" />
     <Compile Include="GateLevel\Manipulations\InstanceMutator.cs" />
     <Compile Include="GateLevel\Manipulations\ModuleMutator.cs" />
@@ -98,7 +97,6 @@
     <Compile Include="GateLevel\Reports\ListLibraryGates\ListLibraryGatesReport.cs" />
     <Compile Include="GateLevel\Reports\PhysicalModulePath\PhysicalModulePathReport.cs" />
     <Compile Include="GateLevel\Statements\Criterias\MetaStatementCriteria.cs" />
-    <Compile Include="GateLevel\Statements\Criterias\AssignDeclarationStatementCriteria .cs" />
     <Compile Include="GateLevel\Statements\Criterias\EmptyStatementCriteria.cs" />
     <Compile Include="GateLevel\Statements\Criterias\EndModuleStatementCriteria.cs" />
     <Compile Include="GateLevel\Statements\Criterias\ErrorStatementCriteria.cs" />
