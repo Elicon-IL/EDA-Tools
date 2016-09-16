@@ -1,18 +1,18 @@
 ﻿using System.Linq;
 using Elicon.Domain.GateLevel;
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
-using Elicon.Domain.GateLevel.Manipulations.UpperCaseNativeModulePorts;
+using Elicon.Domain.GateLevel.Manipulations.UpperCaseLibraryGatesPorts;
 using Elicon.Tests.Framework;
 using NUnit.Framework;
 
 namespace Elicon.Integration.Tests
 {
     [TestFixture]
-    public class NativeModulePortsReplacerTests : IntegrationTestBase
+    public class LibraryGatesPortsReplacerTests : IntegrationTestBase
     {
         private const string DummyNetlist = "MY-DUMMY-NETLIST";
         private INetlistRemover _netlistRemover;
-        private INativeModulePortsReplacer _target;
+        private ILibraryGatesPortsReplacer _target;
         private INetlistRepository _netlistRepository;
         private IModuleRepository _moduleRepository;
         private IInstanceRepository _instanceRepository;
@@ -24,17 +24,17 @@ namespace Elicon.Integration.Tests
             _moduleRepository = Get<IModuleRepository>();
             _instanceRepository = Get<IInstanceRepository>();
             _netlistRemover = Get<INetlistRemover>();
-            _target = Get<INativeModulePortsReplacer>();
+            _target = Get<ILibraryGatesPortsReplacer>();
         }
 
         [Test]
-        public void PortsToUpper_BothNativeAndNonNativeInstances_UppercasePortsOnlyForNativeInstances()
+        public void PortsToUpper_BothLibraryGatesAndNonLibraryGatesInstances_UppercasePortsOnlyForLibraryGatesInstances()
         {
            _netlistRepository.Add(new Netlist(DummyNetlist));
             _moduleRepository.Add(new Module(DummyNetlist,"m1"));
             _moduleRepository.Add(new Module(DummyNetlist, "m2"));
             _instanceRepository.Add(new InstanceBuilder(DummyNetlist, "m1").New("an2","inst1").Add("a","w").Build());
-            _instanceRepository.Add(new InstanceBuilder(DummyNetlist, "m1").New("some-non-native", "inst2",InstanceType.Module).Add("b", "w").Build());
+            _instanceRepository.Add(new InstanceBuilder(DummyNetlist, "m1").New("some-non-library-gate", "inst2", InstanceType.Module).Add("b", "w").Build());
             _instanceRepository.Add(new InstanceBuilder(DummyNetlist, "m2").New("an2", "inst3").Add("c", "w").Build());
 
             _target.PortsToUpper(DummyNetlist);

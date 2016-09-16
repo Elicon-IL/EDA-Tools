@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Elicon.Domain.GateLevel.Reports.CountNativeModules;
+using Elicon.Domain.GateLevel.Reports.CountLibraryGates;
 
-namespace Elicon.DataAccess.Files.GateLevel.Write.Report.CountNativeModules
+namespace Elicon.DataAccess.Files.GateLevel.Write.Report.CountLibraryGates
 {
-    public class CountNativeModulesFileContentDirector : ICountNativeModulesFileContentDirector
+    public class CountLibraryGatesFileContentDirector : ICountLibraryGatesFileContentDirector
     {
-        public string Construct(IList<NativeModuleCount> data)
+        public string Construct(IList<LibraryGateCount> data)
         {
-            var builder = new CountNativeModulesFileContentBuilder();
+            var builder = new CountLibraryGatesFileContentBuilder();
 
             builder.BuildTitle();
             builder.BuildNewLine();

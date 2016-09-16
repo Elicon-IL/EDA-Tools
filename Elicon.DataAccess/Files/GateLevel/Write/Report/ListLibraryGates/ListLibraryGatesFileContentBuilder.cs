@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Text;
 using Elicon.Framework;
 
-namespace Elicon.DataAccess.Files.GateLevel.Write.Report.NativeModulesPortsList
+namespace Elicon.DataAccess.Files.GateLevel.Write.Report.ListLibraryGates
 {
-    public class NativeModulesPortListFileContentBuilder : INativeModulesPortListFileContentBuilder
+    public class ListLibraryGatesLibraryGatesFileContentBuilder : IListLibraryGatesFileContentBuilder
     {
         private readonly StringBuilder _result = new StringBuilder();
 
@@ -24,7 +24,7 @@ namespace Elicon.DataAccess.Files.GateLevel.Write.Report.NativeModulesPortsList
         }   
     }
 
-    public interface INativeModulesPortListFileContentBuilder
+    public interface IListLibraryGatesFileContentBuilder
     {
         void ListModulePorts(string moduleName, IList<string> ports);
         void BuildNewLine();

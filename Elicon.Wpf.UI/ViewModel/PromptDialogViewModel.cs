@@ -7,7 +7,7 @@ using EdaTools.Model;
 using EdaTools.Properties;
 using EdaTools.Utility;
 using Elicon.Domain.GateLevel.Manipulations.RemoveBuffer;
-using Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule;
+using Elicon.Domain.GateLevel.Manipulations.ReplaceLibraryGate;
 using Microsoft.Win32;
 
 namespace EdaTools.ViewModel
@@ -272,7 +272,7 @@ namespace EdaTools.ViewModel
         // Model Utility Methods.
         // ====================================================
 
-        public ModuleReplaceRequest MakeModuleReplaceRequest()
+        public LibraryGateReplaceRequest MakeModuleReplaceRequest()
         {
             return PromptDialogModel.MakeModuleReplaceRequest();
         }

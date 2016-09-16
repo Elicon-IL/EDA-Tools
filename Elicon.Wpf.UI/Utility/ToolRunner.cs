@@ -6,10 +6,10 @@ using Elicon.Domain.GateLevel;
 using Elicon.Domain.GateLevel.BuildData;
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
 using Elicon.Domain.GateLevel.Manipulations.RemoveBuffer;
-using Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule;
-using Elicon.Domain.GateLevel.Manipulations.UpperCaseNativeModulePorts;
-using Elicon.Domain.GateLevel.Reports.CountNativeModules;
-using Elicon.Domain.GateLevel.Reports.NativeModulesPortsList;
+using Elicon.Domain.GateLevel.Manipulations.ReplaceLibraryGate;
+using Elicon.Domain.GateLevel.Manipulations.UpperCaseLibraryGatesPorts;
+using Elicon.Domain.GateLevel.Reports.CountLibraryGates;
+using Elicon.Domain.GateLevel.Reports.ListLibraryGates;
 using Elicon.Domain.GateLevel.Reports.PhysicalModulePath;
 
 namespace EdaTools.Utility
@@ -48,12 +48,12 @@ namespace EdaTools.Utility
         public async void ListLibraryGates(string netlist, string targetSaveFile)
         {
             InitRunner();
-            var report = Bootstrapper.Get<INativeModulesPortListReport>();
+            var report = Bootstrapper.Get<IListLibraryGatesReport>();
             await Task.Run(() =>
             {
                 try
                 {
-                    report.GetNativeModulesPortsList(netlist, targetSaveFile);
+                    report.GetLibraryGates(netlist, targetSaveFile);
                 }
                 catch (Exception ex)
                 {
@@ -66,12 +66,12 @@ namespace EdaTools.Utility
         public async void CountLibraryGatesInstancesCommand(string netlist, string rootModule, string targetSaveFile)
         {
             InitRunner();
-            var report = Bootstrapper.Get<ICountNativeModulesReport>();        
+            var report = Bootstrapper.Get<ICountLibraryGatesReport>();        
             await Task.Run(() =>
             {
                 try
                 {
-                    report.CountNativeModules(netlist, rootModule, targetSaveFile);
+                    report.CountLibraryGates(netlist, rootModule, targetSaveFile);
                 }
                 catch (Exception ex)
                 {
@@ -100,10 +100,10 @@ namespace EdaTools.Utility
             OnTaskRunningFinished(_toolRunnerEventArgs);
         }
 
-        public async void ReplaceLibraryGateCommand(ModuleReplaceRequest replaceRequest)
+        public async void ReplaceLibraryGateCommand(LibraryGateReplaceRequest replaceRequest)
         {
             InitRunner();
-            var action = Bootstrapper.Get<INativeModuleReplaceManipulation>();
+            var action = Bootstrapper.Get<ILibraryGateReplaceManipulation>();
             await Task.Run(() =>
             {
                 try
@@ -139,7 +139,7 @@ namespace EdaTools.Utility
         public async void UpperCaseLibraryGatesPortsCommand(string netlist, string targetSaveFile)
         {
             InitRunner();
-            var action = Bootstrapper.Get<INativeModulePortsManipulation>();
+            var action = Bootstrapper.Get<IUpperCaseLibraryGatesPortsManipulation>();
             await Task.Run(() =>
             {
                 try

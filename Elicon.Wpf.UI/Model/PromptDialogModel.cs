@@ -2,7 +2,7 @@
 using EdaTools.Utility;
 using Elicon.Domain.GateLevel.Manipulations;
 using Elicon.Domain.GateLevel.Manipulations.RemoveBuffer;
-using Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule;
+using Elicon.Domain.GateLevel.Manipulations.ReplaceLibraryGate;
 
 namespace EdaTools.Model
 {
@@ -77,16 +77,16 @@ namespace EdaTools.Model
         public string RootModule => UserData1;
         public string ModuleNames => UserData2;
 
-        public ModuleReplaceRequest MakeModuleReplaceRequest()
+        public LibraryGateReplaceRequest MakeModuleReplaceRequest()
         {
             var oldData = UserData1.CommaSeparatedStringToList();
             var newData = UserData2.CommaSeparatedStringToList();
-            return new ModuleReplaceRequest
+            return new LibraryGateReplaceRequest
             {
                 Netlist = SelectedNetlist,
                 NewNetlist = TargetSaveFile,
-                ModuleToReplace = oldData[0],
-                NewModule = newData[0],
+                GateToReplace = oldData[0],
+                NewGate = newData[0],
                 PortsMapping = MakePortMapping(oldData, newData)
             };
         }

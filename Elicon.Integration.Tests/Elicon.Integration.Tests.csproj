@@ -46,13 +46,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BufferRemoverTests.cs" />
-    <Compile Include="NativeModulePortsReplacerTests.cs" />
+    <Compile Include="LibraryGatesPortsReplacerTests.cs" />
     <Compile Include="NetlistClonerTests.cs" />
     <Compile Include="NetlistRemoverTests.cs" />
-    <Compile Include="NativeModuleReplacerTests.cs" />
-    <Compile Include="NativeModulesPortListQueryTests.cs" />
+    <Compile Include="LibraryGateReplacerTests.cs" />
+    <Compile Include="ListLibraryGatesQueryTests.cs" />
     <Compile Include="PhysicalModulePathQueryTests.cs" />
-    <Compile Include="CountNativeModulesQueryTests.cs" />
+    <Compile Include="CountLibraryGatesQueryTests.cs" />
     <Compile Include="IntegrationTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

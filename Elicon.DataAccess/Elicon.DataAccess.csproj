@@ -45,10 +45,10 @@
     <Compile Include="Files\Common\Write\StreamWriterProvider.cs" />
     <Compile Include="Files\GateLevel\Write\FileHeaderBuilder.cs" />
     <Compile Include="Files\GateLevel\Write\Netlist\NetlistFileDirector.cs" />
-    <Compile Include="Files\GateLevel\Write\Report\CountNativeModules\CountNativeModulesFileContnetDirector.cs" />
-    <Compile Include="Files\GateLevel\Write\Report\CountNativeModules\CountNativeModulesFileContentBuilder.cs" />
-    <Compile Include="Files\GateLevel\Write\Report\NativeModulesPortsList\NativeModulesPortListFileContentBuilder.cs" />
-    <Compile Include="Files\GateLevel\Write\Report\NativeModulesPortsList\NativeModulesPortListFileContentDirector.cs" />
+    <Compile Include="Files\GateLevel\Write\Report\CountLibraryGates\CountLibraryGatesFileContentDirector.cs" />
+    <Compile Include="Files\GateLevel\Write\Report\CountLibraryGates\CountLibraryGatesFileContentBuilder.cs" />
+    <Compile Include="Files\GateLevel\Write\Report\ListLibraryGates\ListLibraryGatesFileContentBuilder.cs" />
+    <Compile Include="Files\GateLevel\Write\Report\ListLibraryGates\ListLibraryGatesFileContentDirector.cs" />
     <Compile Include="Files\GateLevel\Write\Report\PhysicalModulePath\PhysicalModulePathFileContentBuilder.cs" />
     <Compile Include="Files\GateLevel\Write\Report\PhysicalModulePath\PhysicalModulePathFileContnetDirector.cs" />
     <Compile Include="Files\GateLevel\Write\FileWriter.cs" />

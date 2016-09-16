@@ -1,25 +1,25 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Elicon.Domain.GateLevel;
-using Elicon.Domain.GateLevel.Reports.NativeModulesPortsList;
+using Elicon.Domain.GateLevel.Reports.ListLibraryGates;
 using Elicon.Tests.Framework;
 using NUnit.Framework;
 
 namespace Elicon.Unit.Tests.Domain.Reports
 {
     [TestFixture]
-    public class NativeModulesPortsListAggregatorTests
+    public class ListLibraryGatesAggregatorTests
     {
-        private NativeModulesPortListAggregator _target;
+        private ListLibraryGatesAggregator _target;
 
         [SetUp]
         public void SetUp()
         {
-            _target = new NativeModulesPortListAggregator();
+            _target = new ListLibraryGatesAggregator();
         }
 
         [Test]
-        public void Collect_InstanceNotNative_NotCollected()
+        public void Collect_InstanceNotLibraryGate_NotCollected()
         {
             var instance = new InstanceBuilder("netlist", "host").New("moduleName", "instName",InstanceType.Module)
                 .Add("a","w1").Add("b","w2").Build();
@@ -31,7 +31,7 @@ namespace Elicon.Unit.Tests.Domain.Reports
         }
 
         [Test]
-        public void Collect_InstanceIsNative_Collected()
+        public void Collect_InstanceIsLibraryGate_Collected()
         {
             var instance = new InstanceBuilder("netlist", "host").New("moduleName", "instName")
                 .Add("a", "w1").Add("b", "w2").Build();
@@ -44,7 +44,7 @@ namespace Elicon.Unit.Tests.Domain.Reports
         }
 
         [Test]
-        public void Collect_TwoNativeInstanceOfTheSameModule_InstanceWithMorePortsIsCollected()
+        public void Collect_TwoLibraryGateInstanceOfTheSameGate_InstanceWithMorePortsIsCollected()
         {
             var instance = new InstanceBuilder("netlist", "host").New("moduleName", "instName")
                 .Add("a", "w1").Add("b", "w2").Build();
@@ -60,7 +60,7 @@ namespace Elicon.Unit.Tests.Domain.Reports
         }
 
         [Test]
-        public void Collect_TwoNativeInstancesOfDifferentModules_BothAreCollected()
+        public void Collect_TwoLibraryGateInstancesOfDifferentGates_BothAreCollected()
         {
             var instance = new InstanceBuilder("netlist", "host").New("moduleName", "instName")
                .Add("a", "w1").Add("b", "w2").Build();
@@ -76,7 +76,7 @@ namespace Elicon.Unit.Tests.Domain.Reports
             Assert.That(GetPorts(result, instance2.ModuleName),Is.EquivalentTo(new[] { "c", "d" }));
         }
 
-        private IList<string> GetPorts(IList<NativeModulePorts> list, string moduleName)
+        private IList<string> GetPorts(IList<LibraryGate> list, string moduleName)
         {
             return list.First(nmp => nmp.ModuleName == moduleName).Ports;
         }

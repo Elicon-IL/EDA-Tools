@@ -1,8 +1,8 @@
-namespace Elicon.Domain.GateLevel.Reports.CountNativeModules
+namespace Elicon.Domain.GateLevel.Reports.CountLibraryGates
 {
-    public class NativeModuleCount
+    public class LibraryGateCount
     {
-        public NativeModuleCount(string moduleName, long count)
+        public LibraryGateCount(string moduleName, long count)
         {
             ModuleName = moduleName;
             Count = count;
@@ -11,7 +11,7 @@ namespace Elicon.Domain.GateLevel.Reports.CountNativeModules
         public string ModuleName { get; }
         public long Count { get; }
 
-        protected bool Equals(NativeModuleCount other)
+        protected bool Equals(LibraryGateCount other)
         {
             return ModuleName == other.ModuleName && Count == other.Count;
         }
@@ -22,7 +22,7 @@ namespace Elicon.Domain.GateLevel.Reports.CountNativeModules
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
 
-            return Equals((NativeModuleCount)obj);
+            return Equals((LibraryGateCount)obj);
         }
 
         public override int GetHashCode()

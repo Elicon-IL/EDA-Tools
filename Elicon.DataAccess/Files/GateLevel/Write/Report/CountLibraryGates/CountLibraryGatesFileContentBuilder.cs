@@ -1,9 +1,9 @@
 using System.Text;
 using Elicon.Framework;
 
-namespace Elicon.DataAccess.Files.GateLevel.Write.Report.CountNativeModules
+namespace Elicon.DataAccess.Files.GateLevel.Write.Report.CountLibraryGates
 {
-    public class CountNativeModulesFileContentBuilder : ICountNativeModulesFileContentBuilder
+    public class CountLibraryGatesFileContentBuilder : ICountLibraryGatesFileContentBuilder
     {
         private readonly StringBuilder _result = new StringBuilder();
 
@@ -30,7 +30,7 @@ namespace Elicon.DataAccess.Files.GateLevel.Write.Report.CountNativeModules
         }   
     }
 
-    public interface ICountNativeModulesFileContentBuilder
+    public interface ICountLibraryGatesFileContentBuilder
     {
         void BuildTitle();
         void BuildModuleCount(string moduleName, long moduleCount);

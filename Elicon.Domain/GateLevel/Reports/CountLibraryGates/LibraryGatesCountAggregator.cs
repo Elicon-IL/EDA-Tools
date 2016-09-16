@@ -3,9 +3,9 @@ using System.Linq;
 using Elicon.Domain.GateLevel.Traversal.PhysicalTraversal;
 using Elicon.Framework;
 
-namespace Elicon.Domain.GateLevel.Reports.CountNativeModules
+namespace Elicon.Domain.GateLevel.Reports.CountLibraryGates
 {
-    public class NativeModulesCountAggregator
+    public class LibraryGatesCountAggregator
     { 
         private readonly Dictionary<string, long> _result = new Dictionary<string, long>();
 
@@ -17,10 +17,10 @@ namespace Elicon.Domain.GateLevel.Reports.CountNativeModules
             _result.UpdateValue(traversalState.CurrentInstance.ModuleName, count => ++count, 0);
         }
 
-        public IList<NativeModuleCount> Result()
+        public IList<LibraryGateCount> Result()
         {
             return _result
-                .Select(kvp => new NativeModuleCount(kvp.Key, kvp.Value))
+                .Select(kvp => new LibraryGateCount(kvp.Key, kvp.Value))
                 .ToList();
         }
     }

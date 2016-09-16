@@ -6,7 +6,7 @@ namespace Elicon.Domain.GateLevel
     public enum InstanceType
     {
         Unknown = 0,
-        Native,
+        LibraryGate,
         Module
     };
 

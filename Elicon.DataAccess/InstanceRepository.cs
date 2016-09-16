@@ -58,7 +58,7 @@ namespace Elicon.DataAccess
                 .ToArray();
         }
 
-        public IList<Instance> GetNativeInstances(string netlist)
+        public IList<Instance> GetLibraryGateInstances(string netlist)
         {
             return _instances.Values
                  .Where(i => i.Netlist == netlist && !i.IsModule())

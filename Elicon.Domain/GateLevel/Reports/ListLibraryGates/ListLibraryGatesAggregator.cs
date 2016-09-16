@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Elicon.Framework;
 
-namespace Elicon.Domain.GateLevel.Reports.NativeModulesPortsList
+namespace Elicon.Domain.GateLevel.Reports.ListLibraryGates
 {
-    public class NativeModulesPortListAggregator
+    public class ListLibraryGatesAggregator
     {
         private readonly Dictionary<string, Instance> _result = new Dictionary<string, Instance>();
        
@@ -18,10 +18,10 @@ namespace Elicon.Domain.GateLevel.Reports.NativeModulesPortsList
                 instance);           
         }
         
-        public IList<NativeModulePorts> Result()
+        public IList<LibraryGate> Result()
         {
             return _result
-                .Select(kvp => new NativeModulePorts(kvp.Key, kvp.Value.Net.Select(pwp => pwp.Port).ToList()))
+                .Select(kvp => new LibraryGate(kvp.Key, kvp.Value.Net.Select(pwp => pwp.Port).ToList()))
                 .ToList();
         }
     }

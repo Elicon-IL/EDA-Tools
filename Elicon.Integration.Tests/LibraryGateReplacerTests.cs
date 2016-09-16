@@ -1,19 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Elicon.Domain.GateLevel;
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
 using Elicon.Domain.GateLevel.Manipulations;
-using Elicon.Domain.GateLevel.Manipulations.ReplaceNativeModule;
+using Elicon.Domain.GateLevel.Manipulations.ReplaceLibraryGate;
 using NUnit.Framework;
 
 namespace Elicon.Integration.Tests
 {
     [TestFixture]
-    public class NativeModuleReplacerTests : IntegrationTestBase
+    public class LibraryGateReplacerTests : IntegrationTestBase
     {
         private const string DummyNetlist = "MY-DUMMY-NETLIST";
-        private INativeModuleReplacer _target;
+        private ILibraryGateReplacer _target;
         private IInstanceRepository _instanceRepository;
 
         [SetUp]
@@ -21,11 +20,11 @@ namespace Elicon.Integration.Tests
         {
             _instanceRepository = Get<IInstanceRepository>();
             Get<INetlistCloner>().Clone(ExampleNetlistFilePath, DummyNetlist);
-            _target = Get<INativeModuleReplacer>();
+            _target = Get<ILibraryGateReplacer>();
         }
 
         [Test]
-        public void Replace_ModuleIsNativeWithoutMapping_ReplaceModule()
+        public void Replace_LibraryGateWithoutMapping_ReplaceLibraryGate()
         {
             // oai22 inst056453  ( .b2(n37), .b1(i3), .a2(n36), .a1(i1), .zn(o) );
             const string moduleToReplace = "oai22";
@@ -46,7 +45,7 @@ namespace Elicon.Integration.Tests
         }
 
         [Test]
-        public void Replace_ModuleIsNativeWithMapping_ReplaceModuleAndMapPorts()
+        public void Replace_LibraryGateWithMapping_ReplaceLibraryGateAndMapPorts()
         {
             // oai22 inst056453  ( .b2(n37), .b1(i3), .a2(n36), .a1(i1), .zn(o) );
             const string moduleToReplace = "oai22";
@@ -66,7 +65,7 @@ namespace Elicon.Integration.Tests
         }
 
         [Test]
-        public void Replace_ModuleIsNative_ReplaceModuleNameForAllInstacnes()
+        public void Replace_LibraryGate_ReplaceLibraryGateForAllInstacnes()
         {
             const string moduleToReplace = "or3";
             var expectedCount = _instanceRepository.GetByModuleName(DummyNetlist, moduleToReplace).ToList().Count;
@@ -82,13 +81,13 @@ namespace Elicon.Integration.Tests
         }
 
         [Test]
-        public void Replace_ModuleIsNotNative_ThrowsInvalidOperationException()
+        public void Replace_NotLibraryGate_ThrowsInvalidOperationException()
         {
             var portsMap = new PortsMapping().AddMapping("a", "apricot").AddMapping("b", "banana");
-            const string nonNativeModule = "x_lut4_0xfefa";
+            const string nonLibraryGate = "x_lut4_0xfefa";
             const string newModule = "x_lut4_0xfefa_new";
 
-            Assert.Throws<InvalidOperationException>(() => _target.Replace(DummyNetlist, nonNativeModule, newModule, portsMap));
+            Assert.Throws<InvalidOperationException>(() => _target.Replace(DummyNetlist, nonLibraryGate, newModule, portsMap));
         }
 
         [TearDown]

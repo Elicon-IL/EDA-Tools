@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 
-namespace Elicon.Domain.GateLevel.Reports.NativeModulesPortsList
+namespace Elicon.Domain.GateLevel.Reports.ListLibraryGates
 {
-    public class NativeModulePorts
+    public class LibraryGate
     {
-        public NativeModulePorts(string moduleName, IList<string> ports)
+        public LibraryGate(string moduleName, IList<string> ports)
         {
             ModuleName = moduleName;
             Ports = ports;

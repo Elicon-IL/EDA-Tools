@@ -1,19 +1,19 @@
 using System.Linq;
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
 
-namespace Elicon.Domain.GateLevel.Manipulations.UpperCaseNativeModulePorts
+namespace Elicon.Domain.GateLevel.Manipulations.UpperCaseLibraryGatesPorts
 {
-    public interface INativeModulePortsReplacer
+    public interface ILibraryGatesPortsReplacer
     {
         void PortsToUpper(string netlist);
     }
 
-    public class NativeModulePortsReplacer : INativeModulePortsReplacer
+    public class LibraryGatesPortsReplacer : ILibraryGatesPortsReplacer
     {
         private readonly IInstanceRepository _instanceRepository;
         private readonly IInstanceMutator _instanceMutator;
 
-        public NativeModulePortsReplacer(IInstanceRepository instanceRepository, IInstanceMutator instanceMutator)
+        public LibraryGatesPortsReplacer(IInstanceRepository instanceRepository, IInstanceMutator instanceMutator)
         {
             _instanceRepository = instanceRepository;
             _instanceMutator = instanceMutator;
@@ -21,7 +21,7 @@ namespace Elicon.Domain.GateLevel.Manipulations.UpperCaseNativeModulePorts
 
         public void PortsToUpper(string netlist)
         {
-            var instances = _instanceRepository.GetNativeInstances(netlist).ToList();
+            var instances = _instanceRepository.GetLibraryGateInstances(netlist).ToList();
 
             _instanceMutator.Take(instances).PortsToUpper();
 

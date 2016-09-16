@@ -227,7 +227,7 @@ namespace EdaTools.ViewModel
             var dataContext = GetPromptDialogData(PromptDialogModel.Actions.UpperCaseLibraryGatesPorts);
             if (dataContext.DialogResult)
             {
-                LogNowRunningTool("upper-case native module ports tool", dataContext);
+                LogNowRunningTool("upper-case library gates ports tool", dataContext);
                 _toolRunner.UpperCaseLibraryGatesPortsCommand(dataContext.SelectedNetlist, dataContext.TargetSaveFile);
             }
         }

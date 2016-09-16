@@ -2,26 +2,26 @@
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
 using Elicon.Domain.GateLevel.Manipulations.RemoveBuffer;
 
-namespace Elicon.Domain.GateLevel.Manipulations.UpperCaseNativeModulePorts
+namespace Elicon.Domain.GateLevel.Manipulations.UpperCaseLibraryGatesPorts
 {
-    public interface INativeModulePortsManipulation
+    public interface IUpperCaseLibraryGatesPortsManipulation
     {
         void PortsToUpper(string sourceNetlist, string newNetlist);
     }
 
-    public class NativeModulePortsManipulation : INativeModulePortsManipulation
+    public class UpperCaseLibraryGatesPortsManipulation : IUpperCaseLibraryGatesPortsManipulation
     {
         private readonly INetlistCloner _netlistCloner;
         private readonly IFileWriter _fileWriter;
-        private readonly INativeModulePortsReplacer _nativeModulePortsReplacer;
+        private readonly ILibraryGatesPortsReplacer _libraryGatesPortsReplacer;
         private readonly INetlistDataBuilder _netlistDataBuilder;
         private readonly INetlistFileContentDirector _netlistFileContentDirector;
         
-        public NativeModulePortsManipulation(INetlistCloner netlistCloner, IFileWriter fileWriter, INativeModulePortsReplacer nativeModulePortsReplacer, INetlistDataBuilder netlistDataBuilder, INetlistFileContentDirector netlistFileContentDirector)
+        public UpperCaseLibraryGatesPortsManipulation(INetlistCloner netlistCloner, IFileWriter fileWriter, ILibraryGatesPortsReplacer libraryGatesPortsReplacer, INetlistDataBuilder netlistDataBuilder, INetlistFileContentDirector netlistFileContentDirector)
         {
             _netlistCloner = netlistCloner;
             _fileWriter = fileWriter;
-            _nativeModulePortsReplacer = nativeModulePortsReplacer;
+            _libraryGatesPortsReplacer = libraryGatesPortsReplacer;
             _netlistDataBuilder = netlistDataBuilder;
             _netlistFileContentDirector = netlistFileContentDirector;
         }
@@ -31,10 +31,10 @@ namespace Elicon.Domain.GateLevel.Manipulations.UpperCaseNativeModulePorts
             _netlistDataBuilder.Build(sourceNetlist);
             _netlistCloner.Clone(sourceNetlist, newNetlist);
 
-            _nativeModulePortsReplacer.PortsToUpper(newNetlist);
+            _libraryGatesPortsReplacer.PortsToUpper(newNetlist);
 
             var content = _netlistFileContentDirector.Construct(newNetlist);
-            _fileWriter.Write(newNetlist, "Uppercase Native Module Ports", content);
+            _fileWriter.Write(newNetlist, "Uppercase LibraryGate Module Ports", content);
         }
     }
 }
