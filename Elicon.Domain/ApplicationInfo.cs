@@ -7,13 +7,16 @@ namespace Elicon.Domain
     {
         Version AppVersion();
         string AppName { get; }
+        string AppDescription { get; }
         string CompanyName { get; }
         string CompanyLink { get; }
     }
 
     public class ApplicationInfo : IApplicationInfo
     {
-        public string AppName => "Verilog Gate-Level Studio";
+        public string AppName => "EDA Tools";
+
+        public string AppDescription => "Verilog Gate-Level Studio";
 
         public string CompanyName => "Elicon";
 

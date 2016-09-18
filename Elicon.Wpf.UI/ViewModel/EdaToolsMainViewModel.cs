@@ -6,7 +6,10 @@ using EdaTools.Model;
 using EdaTools.Properties;
 using EdaTools.Utility;
 using EdaTools.View;
+using Elicon.Config;
+using Elicon.Domain;
 using Elicon.Domain.GateLevel.Read;
+using Elicon.Domain.GateLevel.Reports.ListLibraryGates;
 using Microsoft.Win32;
 
 namespace EdaTools.ViewModel
@@ -52,8 +55,8 @@ namespace EdaTools.ViewModel
 
         public EdaToolsMainViewModel()
         {
-            var vi = new VersionInfo();
-            DisplayName = $"{Resources.MainWindowViewModel_DisplayName} - {vi.Description}  Version {vi.Version}";
+            var vi = Bootstrapper.Get<IApplicationInfo>();
+            DisplayName = $"{vi.AppName} - {vi.AppDescription}, Version {vi.AppVersion()} by {vi.CompanyName}";
             _edaToolsModel = new EdaToolsModel();
             _toolRunner = new ToolRunner(TaskRunningFinished);
             InitAmazingFramework();

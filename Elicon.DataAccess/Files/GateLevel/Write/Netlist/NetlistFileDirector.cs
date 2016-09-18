@@ -34,6 +34,7 @@ namespace Elicon.DataAccess.Files.GateLevel.Write.Netlist
                 foreach (var instance in _instanceRepository.GetByHostModule(netlist.Source, module.Name))
                     builder.BuildInstanceDeclaration(instance);
 
+                builder.BuildNewLine();
                 builder.BuildEndModule();
                 builder.BuildNewLine();
             }

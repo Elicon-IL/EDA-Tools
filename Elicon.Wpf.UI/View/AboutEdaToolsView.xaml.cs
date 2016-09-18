@@ -3,6 +3,8 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Navigation;
 using EdaTools.Utility;
+using Elicon.Config;
+using Elicon.Domain;
 
 namespace EdaTools.View
 {
@@ -19,12 +21,12 @@ namespace EdaTools.View
         {
             InitializeComponent();
             DataContext = this;
-            var vi = new VersionInfo();
-            DlgTitle = "About " + vi.Product;
-            Version = String.Format("Version {0}", vi.Version);
-            Description = vi.Description;
-            Copyright = vi.Copyright;
-            Company = vi.Company;
+            var ai = Bootstrapper.Get<IApplicationInfo>();
+            Copyright = $"Copyright ©  2016 By {ai.CompanyName}";
+            DlgTitle = "About " + ai.AppName;
+            Company = ai.CompanyName;
+            Version = $"Version {ai.AppVersion()}";
+            Description = $"{ai.AppName} - {ai.AppDescription} for HW engineers";
         }
 
         public AboutEdaToolsView(Window parent)

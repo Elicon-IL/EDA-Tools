@@ -43,7 +43,7 @@
                     <ColumnDefinition Width="379*"/>
                 </Grid.ColumnDefinitions>
                 <Image HorizontalAlignment="Left" VerticalAlignment="Bottom" Source="/Resources/IC_Icon.ICO" RenderTransformOrigin="0.81,0.844" Margin="10,0,0,14" Stretch="None" Height="32"/>
-                <Label Content="About EDA tools" Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="32" FontSize="20" Foreground="#FF0C0202" FontFamily="Arial"/>
+                <Label Content="About EDA Tools" Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="32" FontSize="20" Foreground="#FF0C0202" FontFamily="Arial"/>
             </Grid>
             <Label Content="{Binding Description}" Style="{Binding Mode=OneWay, Source={StaticResource LabelStyle}}" VerticalContentAlignment="Center"/>
             <Label Content="{Binding Version}" Style="{Binding Mode=OneWay, Source={StaticResource LabelStyle}}"/>

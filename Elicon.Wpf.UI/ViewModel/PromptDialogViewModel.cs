@@ -224,7 +224,7 @@ namespace EdaTools.ViewModel
 
         private string ViewTitle(string uiCommand)
         {
-            return String.Format("{0} - {1} ", Resources.MainWindowViewModel_DisplayName, uiCommand);
+            return $"{Resources.MainWindowViewModel_DisplayName} - {uiCommand} ";
         }
 
         // =========================================

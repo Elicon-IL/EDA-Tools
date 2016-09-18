@@ -84,7 +84,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Utility\VersionInfo.cs" />
     <Compile Include="View\AboutEdaToolsView.xaml.cs">
       <DependentUpon>AboutEdaToolsView.xaml</DependentUpon>
       <SubType>Code</SubType>
