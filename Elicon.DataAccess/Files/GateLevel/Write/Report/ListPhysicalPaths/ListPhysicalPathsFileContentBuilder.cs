@@ -10,7 +10,7 @@ namespace Elicon.DataAccess.Files.GateLevel.Write.Report.ListPhysicalPaths
 
         public void BuildTitle(IList<string> modulesToList)
         {
-            _result.AppendLine("// Modules to list: {0}".FormatWith(",".Join(modulesToList)));
+            _result.AppendLine("// Modules to list: {0}".FormatWith(", ".Join(modulesToList)));
         }
 
         public void BuildModuleTitle(string moduleName)

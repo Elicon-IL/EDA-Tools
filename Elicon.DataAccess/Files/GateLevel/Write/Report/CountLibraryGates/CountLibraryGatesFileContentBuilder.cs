@@ -9,14 +9,14 @@ namespace Elicon.DataAccess.Files.GateLevel.Write.Report.CountLibraryGates
 
         public void BuildModuleCount(string moduleName, long moduleCount)
         {
-            _result.AppendLine("Module = {0}, Count = {1}".FormatWith(moduleName, moduleCount));
+            _result.AppendLine("{0}{1}".FormatWith(moduleName.PadRight(26), moduleCount));
         }
 
         public void BuildTitle()
         {
-            _result.AppendLine("==========================");
-            _result.AppendLine("Module         Count");
-            _result.AppendLine("==========================");
+            _result.AppendLine("==============================");
+            _result.AppendLine("Module                   Count");
+            _result.AppendLine("==============================");
         }
 
         public void BuildNewLine()

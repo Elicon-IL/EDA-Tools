@@ -28,7 +28,7 @@ namespace Elicon.DataAccess.Files.GateLevel.Write.Netlist
             {
                 builder.BuildModuleDeclaration(module);
                 builder.BuildNewLine();
-                builder.BuildPortDeclarations(module);
+                builder.BuildModulePortDeclarations(module);
                 builder.BuildSupplyDeclarations(module);
                
                 foreach (var instance in _instanceRepository.GetByHostModule(netlist.Source, module.Name))

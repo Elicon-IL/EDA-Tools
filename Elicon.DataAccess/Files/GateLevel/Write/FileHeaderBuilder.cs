@@ -28,8 +28,9 @@ namespace Elicon.DataAccess.Files.GateLevel.Write
             sb.AppendLine("//");
             sb.AppendLine("// Type of action = {0}.".FormatWith(action));
             sb.AppendLine("// {0}".FormatWith(Time.Now().ToString("F", CultureInfo.CreateSpecificCulture("en-US"))));
-            sb.AppendLine("// EdaTools - Verilog Gate-Level Studio - Version {0}"
-                .FormatWith(_applicationInfo.AppVersion()));
+            sb.AppendLine("// {0} - Version {1} by {2}"
+                .FormatWith(_applicationInfo.AppName, _applicationInfo.AppVersion(), _applicationInfo.CompanyName));
+            sb.AppendLine("// Visit us here - {0}".FormatWith(_applicationInfo.CompanyLink));
             sb.AppendLine("//");
             sb.AppendLine();
 

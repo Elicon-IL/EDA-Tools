@@ -10,7 +10,7 @@ namespace Elicon.DataAccess.Files.GateLevel.Write.Report.ListLibraryGates
 
         public void ListModulePorts(string moduleName, IList<string> ports)
         {
-            _result.AppendLine("Module = {0}, Ports = ( {1} )".FormatWith(moduleName, ", ".Join(ports)));
+            _result.AppendLine("module {0} ( {1} );".FormatWith(moduleName, " , ".Join(ports)));
         }
 
         public void BuildNewLine()

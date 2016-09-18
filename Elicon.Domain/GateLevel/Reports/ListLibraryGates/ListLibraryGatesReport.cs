@@ -14,14 +14,14 @@ namespace Elicon.Domain.GateLevel.Reports.ListLibraryGates
         void GenerateReport(string source, string destination);
     }
 
-    public class ListLibraryGatesLibraryGatesReport : IListLibraryGatesReport
+    public class ListLibraryGatesReport : IListLibraryGatesReport
     {
         private readonly INetlistDataBuilder _netlistDataBuilder;
         private readonly IListLibraryGatesQuery _listLibraryGatesQuery;
         private readonly IListLibraryGatesFileContentDirector _listLibraryGatesFileContentDirector;
         private readonly IFileWriter _fileWriter;
 
-        public ListLibraryGatesLibraryGatesReport(IListLibraryGatesQuery listLibraryGatesQuery, INetlistDataBuilder netlistDataBuilder, IFileWriter fileWriter, IListLibraryGatesFileContentDirector listLibraryGatesFileContentDirector)
+        public ListLibraryGatesReport(IListLibraryGatesQuery listLibraryGatesQuery, INetlistDataBuilder netlistDataBuilder, IFileWriter fileWriter, IListLibraryGatesFileContentDirector listLibraryGatesFileContentDirector)
         {
             _listLibraryGatesQuery = listLibraryGatesQuery;
             _netlistDataBuilder = netlistDataBuilder;
