@@ -8,7 +8,7 @@ using Elicon.Framework;
 using Ninject;
 using Ninject.Extensions.Conventions;
 
-namespace Elicon.Console.Config
+namespace Elicon.Config
 {
     public static class Bootstrapper
     {

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elicon.Domain", "Elicon.Domain\Elicon.Domain.csproj", "{5FBAEE42-C988-4DAD-A631-DC37584502ED}"
 EndProject
@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elicon.DataAccess", "Elicon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elicon.Console.UI", "Elicon.Console.UI\Elicon.Console.UI.csproj", "{0D3B6D02-ED86-4F73-B20E-D3FDB79F907F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elicon.Console.Config", "Elicon.Console.Config\Elicon.Console.Config.csproj", "{342A4E45-2363-44A7-AAEA-F4A6E91C58E9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elicon.Config", "Elicon.Console.Config\Elicon.Config.csproj", "{342A4E45-2363-44A7-AAEA-F4A6E91C58E9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elicon.Framework", "Elicon.Framework\Elicon.Framework.csproj", "{3D3BA074-754A-4AA5-9790-DBE1184D5A7B}"
 EndProject

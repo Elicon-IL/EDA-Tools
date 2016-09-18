@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Elicon.Console.Config;
+using Elicon.Config;
 using Elicon.Domain.GateLevel;
 using Elicon.Domain.GateLevel.BuildData;
 using Elicon.Domain.GateLevel.Contracts.DataAccess;

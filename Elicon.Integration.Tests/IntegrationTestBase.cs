@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using Elicon.Console.Config;
+using Elicon.Config;
 using Elicon.Domain.GateLevel.BuildData;
 
 namespace Elicon.Integration.Tests

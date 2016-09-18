@@ -2,7 +2,7 @@
 using System.Windows;
 using EdaTools.View;
 using EdaTools.ViewModel;
-using Elicon.Console.Config;
+using Elicon.Config;
 using Elicon.Domain;
 using Elicon.Domain.GateLevel.Read;
 

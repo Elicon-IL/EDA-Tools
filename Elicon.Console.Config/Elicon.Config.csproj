@@ -7,8 +7,8 @@
     <ProjectGuid>{342A4E45-2363-44A7-AAEA-F4A6E91C58E9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Elicon.Console.Config</RootNamespace>
-    <AssemblyName>Elicon.Console.Config</AssemblyName>
+    <RootNamespace>Elicon.Config</RootNamespace>
+    <AssemblyName>Elicon..Config</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

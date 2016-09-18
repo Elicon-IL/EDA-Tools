@@ -133,9 +133,9 @@
     <Resource Include="Resources\AboutLogo.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Elicon.Console.Config\Elicon.Console.Config.csproj">
+    <ProjectReference Include="..\Elicon.Console.Config\Elicon.Config.csproj">
       <Project>{342a4e45-2363-44a7-aaea-f4a6e91c58e9}</Project>
-      <Name>Elicon.Console.Config</Name>
+      <Name>Elicon.Config</Name>
     </ProjectReference>
     <ProjectReference Include="..\Elicon.Domain\Elicon.Domain.csproj">
       <Project>{5fbaee42-c988-4dad-a631-dc37584502ed}</Project>
