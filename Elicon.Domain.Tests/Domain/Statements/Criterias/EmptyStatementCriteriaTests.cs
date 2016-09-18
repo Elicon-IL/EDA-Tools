@@ -17,7 +17,7 @@ namespace Elicon.Unit.Tests.Domain.Statements.Criterias
         [Test]
         public void IsSatisfied_Empty_ReturnsTrue()
         {
-            var statement = "";
+            const string statement = "";
 
             var result = _target.IsSatisfied(statement);
 
