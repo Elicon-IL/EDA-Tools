@@ -22,12 +22,17 @@ namespace EdaTools.Utility
 
         public static DependencyProperty MakeStringDependencyProperty(Type owner, string propertyName)
         {
-            return DependencyProperty.Register(propertyName, typeof(string), owner, new UIPropertyMetadata(String.Empty));
+            return DependencyProperty.Register(propertyName, typeof(string), owner, new UIPropertyMetadata(string.Empty));
         }
 
-        public static DependencyProperty MakeBooleanDependencyProperty(Type owner, string propertyName)
+        public static DependencyProperty MakeBooleanDependencyProperty(Type owner, string propertyName, bool init = false)
         {
-            return DependencyProperty.Register(propertyName, typeof(bool), owner, new UIPropertyMetadata(false));
+            return DependencyProperty.Register(propertyName, typeof(bool), owner, new UIPropertyMetadata(init));
+        }
+
+        public static DependencyProperty MakeTypedDependencyProperty(Type owner, string propertyName, Type propertyType)
+        {
+            return DependencyProperty.Register(propertyName, propertyType, owner, new UIPropertyMetadata(null));
         }
 
         public static void CreateViewCloseCommand(this ViewModelBase viewModelBase, Window view)

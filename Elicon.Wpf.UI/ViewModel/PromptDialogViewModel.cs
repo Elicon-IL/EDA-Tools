@@ -68,26 +68,31 @@ namespace EdaTools.ViewModel
                         SecondPromptVisibility = Visibility.Collapsed;
                         DialogTitle = ViewTitle("Count Library Gates Instances");
                         UserPrompt1 = "Enter Starting (top) Module:";
+                        Hint1 = "top_module_name";
                         doReport = true;
                         break;
                     case PromptDialogModel.Actions.ListPhysicalPaths:
                         SecondPromptVisibility = Visibility.Visible;
                         DialogTitle = ViewTitle("List Physical Paths");
                         UserPrompt1 = "Enter Starting (top) Module:";
+                        Hint1 = @"top_module_name";
                         UserPrompt2 = "Enter name(s) of modules to list:";
+                        Hint2 = "multiplex81 dspmod16";
                         doReport = true;
                         break;
                     case PromptDialogModel.Actions.ReplaceLibraryGate:
                         SecondPromptVisibility = Visibility.Visible;
                         DialogTitle = ViewTitle("Replace Library Gate");
                         UserPrompt1 = "Enter Module to Replace:";
+                        Hint1 = "an3  i1 i2 i3 o";
                         UserPrompt2 = "Enter Replacing Module:";
+                        Hint2 = "and3 in1 in2 in3 out"; 
                         break;
                     case PromptDialogModel.Actions.RemoveBuffers:
                         SecondPromptVisibility = Visibility.Collapsed;
                         DialogTitle = ViewTitle("Remove Buffers");
                         UserPrompt1 = "Enter Buffer Definition:";
-                        UserData2 = "buf, in, out";
+                        Hint1 = "buf1, in, out";
                         break;
                     case PromptDialogModel.Actions.ListLibraryGates:
                         FirstPromptVisibility = Visibility.Collapsed;
@@ -198,6 +203,8 @@ namespace EdaTools.ViewModel
             }
         }
 
+        public string Hint1 { get; set; }
+
         public string UserData2
         {
             get { return PromptDialogModel.UserData2; }
@@ -221,6 +228,8 @@ namespace EdaTools.ViewModel
                 RaisePropertyChanged();
             }
         }
+
+        public string Hint2 { get; set; }
 
         private string ViewTitle(string uiCommand)
         {

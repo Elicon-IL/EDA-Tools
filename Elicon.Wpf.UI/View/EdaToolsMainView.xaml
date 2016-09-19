@@ -21,12 +21,12 @@
                     <Separator/>
                     <MenuItem x:Name="ExitApp" Header="Exit Application" Command="{Binding Close, Mode=OneWay}" />
                 </MenuItem>
-                <MenuItem x:Name="UtilitisMenu" Header="Utilities">
+                <MenuItem x:Name="UtilitisMenu" Header="Manipulation Tools">
                     <MenuItem x:Name="UpperCaseLibraryGatesPorts" Header="Upper Case Library Gates Ports" Command="{Binding UtilityMenuUpperCaseLibraryGatesPorts, Mode=OneWay}" />
                     <MenuItem x:Name="RemoveBuffers" Header="Remove Buffers" Command="{Binding UtilityMenuRemoveBuffers, Mode=OneWay}" />
                     <MenuItem x:Name="ReplaceLibraryGate" Header="Replace Library Gate" Command="{Binding UtilityMenuReplaceLibraryGate, Mode=OneWay}" />
                 </MenuItem>
-                <MenuItem x:Name="ReportsMenu" Header="Reports">
+                <MenuItem x:Name="ReportsMenu" Header="Reporting Tools">
                     <MenuItem x:Name="ListPhysicalPaths" Header="List Physical Paths" Command="{Binding ReportMenuListPhysicalPaths, Mode=OneWay}" />
                     <MenuItem x:Name="CountLibraryGatesInstances" Header="Count Library Gates Instances" Command="{Binding ReportMenuCountLibraryGatesInstances, Mode=OneWay}" />
                     <MenuItem x:Name="ListLibraryGates" Header="List Library Gates" Command="{Binding ReportMenuListLibraryGates, Mode=OneWay}" />
