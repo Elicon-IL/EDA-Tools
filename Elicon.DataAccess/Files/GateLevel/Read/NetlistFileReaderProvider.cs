@@ -50,6 +50,11 @@ namespace Elicon.DataAccess.Files.GateLevel.Read
                 return _currentStatement;
             }
 
+            public void Close()
+            {
+                _streamReader.Close();
+            }
+
             private void ReadTillStatementEnd()
             {
                 var multiLineStatement = new StringBuilder(_currentStatement);

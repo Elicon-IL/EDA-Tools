@@ -47,10 +47,12 @@ namespace Elicon.DataAccess.Files.Common.Read
                 var currentLine = _reader.ReadLine();
                 PublishProgress();
 
-                if (currentLine == null)
-                    _reader.Close();
-
                 return currentLine;
+            }
+
+            public void Close()
+            {
+                _reader.Close();    
             }
 
             private void PublishProgress()

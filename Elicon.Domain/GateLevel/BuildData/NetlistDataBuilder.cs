@@ -1,4 +1,5 @@
-﻿using Elicon.Domain.GateLevel.BuildData.StatementHandlers;
+﻿using System;
+using Elicon.Domain.GateLevel.BuildData.StatementHandlers;
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
 
 namespace Elicon.Domain.GateLevel.BuildData
@@ -35,8 +36,13 @@ namespace Elicon.Domain.GateLevel.BuildData
             var netlistFileReader = _netlistFileReaderProvider.GetReaderFor(source);
             var buildState = new BuildState { NetlistSource = source };
 
-            while ((buildState.CurrentStatementTrimmed = netlistFileReader.ReadTrimmedStatement()) != null)
-                _statementHandlersInvoker.Handle(buildState);
+            try 
+            {
+                while ((buildState.CurrentStatementTrimmed = netlistFileReader.ReadTrimmedStatement()) != null)
+                    _statementHandlersInvoker.Handle(buildState);
+            }
+            catch (Exception e) { throw e; }
+            finally { netlistFileReader.Close(); }
            
             UpdateInstancesType(source);
         }
