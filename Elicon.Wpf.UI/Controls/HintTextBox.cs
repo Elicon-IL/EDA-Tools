@@ -61,13 +61,13 @@ namespace EdaTools.Controls
         {
             if (HasText)
             {
-                // Hide the hint Label.
+                // Hide the hint text.
                 ToolTip = HintText;
                 _controlAdornerLayer.Remove(_controlTextBlockAdorner);
             }
             else
             {
-                // Show the hint Label.
+                // Show the hint text.
                 ToolTip = null;
                 if (_controlAdornerLayer.GetAdorners(this) == null)
                     _controlAdornerLayer.Add(_controlTextBlockAdorner);

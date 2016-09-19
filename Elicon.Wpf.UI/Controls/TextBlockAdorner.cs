@@ -10,10 +10,10 @@ namespace EdaTools.Controls
         private readonly TextBlock _textBlock;
 
         // Be sure to call the base class constructor.
-        public TextBlockAdorner(UIElement adornedElement, string hint, Style labelStyle)
+        public TextBlockAdorner(UIElement adornedElement, string hint, Style textBlockStyle)
             : base(adornedElement)
         {
-            _textBlock = new TextBlock {Style = labelStyle, Text = hint};
+            _textBlock = new TextBlock {Style = textBlockStyle, Text = hint};
         }
 
         protected override Size MeasureOverride(Size constraint)
