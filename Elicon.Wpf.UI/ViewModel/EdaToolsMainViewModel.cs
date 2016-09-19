@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using EdaTools.Model;
-using EdaTools.Properties;
 using EdaTools.Utility;
 using EdaTools.View;
 using Elicon.Config;
 using Elicon.Domain;
 using Elicon.Domain.GateLevel.Read;
-using Elicon.Domain.GateLevel.Reports.ListLibraryGates;
 using Microsoft.Win32;
 
 namespace EdaTools.ViewModel

@@ -169,20 +169,8 @@ namespace EdaTools.Utility
                     SetErrorData(ex);
                 }
             });
-            // Debug.Print("Read Done");
-            // string details = await ProcessItemAsync(20);
             OnTaskRunningFinished(_toolRunnerEventArgs);
         }
-
-        //private async Task<string> ProcessItemAsync(int fakeDelay)
-        //{
-        //    for (var i = 1; i < fakeDelay; i++)
-        //    {
-        //        Thread.Sleep(50);
-        //        Debug.Print(i.ToString());
-        //    }
-        //    return "RESULT";
-        //}
 
         public IEnumerable<Netlist> GetNetlists()
         {

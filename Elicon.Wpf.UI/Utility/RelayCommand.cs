@@ -20,7 +20,7 @@ namespace EdaTools.Utility
         public RelayCommand(Action<object> commandLogic, Predicate<object> canExecute)
         {
             if (commandLogic == null)
-                throw new ArgumentNullException("commandLogic");
+                throw new ArgumentNullException(nameof(commandLogic));
 
             _commandLogic = commandLogic;
             _canExecute = canExecute;           
