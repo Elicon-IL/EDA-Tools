@@ -92,7 +92,7 @@ namespace EdaTools.ViewModel
                         SecondPromptVisibility = Visibility.Collapsed;
                         DialogTitle = ViewTitle("Remove Buffers");
                         UserPrompt1 = "Enter Buffer Definition:";
-                        Hint1 = "buf1, in, out";
+                        Hint1 = "buffer_name  input_port  output_port";
                         break;
                     case PromptDialogModel.Actions.ListLibraryGates:
                         FirstPromptVisibility = Visibility.Collapsed;

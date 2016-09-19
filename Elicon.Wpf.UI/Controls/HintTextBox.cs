@@ -10,7 +10,7 @@ namespace EdaTools.Controls
     {
 
         AdornerLayer _controlAdornerLayer;
-        AdornerTextBlock _controlAdornerTextBlock;
+        TextBlockAdorner _controlTextBlockAdorner;
 
         public override void OnApplyTemplate()
         {
@@ -18,7 +18,7 @@ namespace EdaTools.Controls
 
             // Bind an adorner to the hint text-box.
             _controlAdornerLayer = AdornerLayer.GetAdornerLayer(this);
-            _controlAdornerTextBlock = new AdornerTextBlock(this, HintText, TextBlockStyle);
+            _controlTextBlockAdorner = new TextBlockAdorner(this, HintText, TextBlockStyle);
             UpdateAdorner();
 
             // Attach the text-change event handler.
@@ -63,14 +63,14 @@ namespace EdaTools.Controls
             {
                 // Hide the hint Label.
                 ToolTip = HintText;
-                _controlAdornerLayer.Remove(_controlAdornerTextBlock);
+                _controlAdornerLayer.Remove(_controlTextBlockAdorner);
             }
             else
             {
                 // Show the hint Label.
                 ToolTip = null;
                 if (_controlAdornerLayer.GetAdorners(this) == null)
-                    _controlAdornerLayer.Add(_controlAdornerTextBlock);
+                    _controlAdornerLayer.Add(_controlTextBlockAdorner);
 
             }
         }

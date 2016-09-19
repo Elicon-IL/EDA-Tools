@@ -5,12 +5,12 @@ using System.Windows.Documents;
 namespace EdaTools.Controls
 {
 
-    public class AdornerTextBlock : Adorner
+    public class TextBlockAdorner : Adorner
     {
         private readonly TextBlock _textBlock;
 
         // Be sure to call the base class constructor.
-        public AdornerTextBlock(UIElement adornedElement, string hint, Style labelStyle)
+        public TextBlockAdorner(UIElement adornedElement, string hint, Style labelStyle)
             : base(adornedElement)
         {
             _textBlock = new TextBlock {Style = labelStyle, Text = hint};
