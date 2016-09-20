@@ -18,6 +18,11 @@ namespace Elicon.Domain.GateLevel.Manipulations
 
     public class InstanceMutator : IInstanceMutator
     {
+        public IInstanceMutations Take(IList<Instance> instances)
+        {
+            return new InstanceMutations(instances);
+        }
+
         private class InstanceMutations : IInstanceMutations
         {
             private readonly IList<Instance> _instances;
@@ -70,11 +75,6 @@ namespace Elicon.Domain.GateLevel.Manipulations
                     foreach (var pwp in instance.Net)
                         mutation(pwp);
             }
-        }
-
-        public IInstanceMutations Take(IList<Instance> instances)
-        {
-            return new InstanceMutations(instances);
         }
     }
 }
