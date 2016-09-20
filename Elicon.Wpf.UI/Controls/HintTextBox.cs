@@ -9,21 +9,21 @@ namespace EdaTools.Controls
     public class HintTextBox : TextBox
     {
 
-        AdornerLayer _controlAdornerLayer;
-        TextBlockAdorner _controlTextBlockAdorner;
+        AdornerLayer _hintTextBoxAdornerLayer;
+        LabelAdorner _hintTextBoxLabelAdorner;
 
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
 
-            // Bind the text-block adorner to the hint text-box.
-            _controlAdornerLayer = AdornerLayer.GetAdornerLayer(this);
-            _controlTextBlockAdorner = new TextBlockAdorner(this, HintText, TextBlockStyle);
+            // Bind the label adorner to the hint text-box.
+            _hintTextBoxAdornerLayer = AdornerLayer.GetAdornerLayer(this);
+            _hintTextBoxLabelAdorner = new LabelAdorner(this, HintText, TextBlockStyle);
             UpdateAdorner();
 
             // Attach the text-change event handler.
-            var containsTextProp = DependencyPropertyDescriptor.FromProperty(HasTextProperty, typeof(HintTextBox));
-            containsTextProp?.AddValueChanged(this, (sender, args) => UpdateAdorner());
+            var hasTextPropertyDescriptor = DependencyPropertyDescriptor.FromProperty(HasTextProperty, typeof(HintTextBox));
+            hasTextPropertyDescriptor?.AddValueChanged(this, (sender, args) => UpdateAdorner());
         }
 
         public string HintText
@@ -63,43 +63,46 @@ namespace EdaTools.Controls
             {
                 // Hide the hint text.
                 ToolTip = HintText;
-                _controlAdornerLayer.Remove(_controlTextBlockAdorner);
+                _hintTextBoxAdornerLayer.Remove(_hintTextBoxLabelAdorner);
             }
             else
             {
                 // Show the hint text.
                 ToolTip = null;
-                if (_controlAdornerLayer.GetAdorners(this) == null)
-                    _controlAdornerLayer.Add(_controlTextBlockAdorner);
+                if (_hintTextBoxAdornerLayer.GetAdorners(this) == null)
+                    _hintTextBoxAdornerLayer.Add(_hintTextBoxLabelAdorner);
 
             }
         }
 
-        private class TextBlockAdorner : Adorner
+        private class LabelAdorner : Adorner
         {
-            private readonly TextBlock _textBlock;
+            private readonly Label _label;
+            private readonly UIElement _owner;
 
-            public TextBlockAdorner(UIElement adornedElement, string hint, Style textBlockStyle)
-                : base(adornedElement)
+            public LabelAdorner(UIElement owner, string hint, Style labelStyle)
+                : base(owner)
             {
-                _textBlock = new TextBlock { Style = textBlockStyle, Text = hint };
+                _owner = owner;
+                _label = new Label { Style = labelStyle, Content = hint };
             }
 
             protected override Size MeasureOverride(Size constraint)
             {
-                _textBlock.Measure(constraint);
-                return constraint;
+                _label.Measure(constraint);
+                // This will make the adorner cover the whole owner control.
+                return _owner.RenderSize;
             }
 
             protected override Size ArrangeOverride(Size finalSize)
             {
-                _textBlock.Arrange(new Rect(finalSize));
+                _label.Arrange(new Rect(finalSize));
                 return finalSize;
             }
 
             protected override System.Windows.Media.Visual GetVisualChild(int index)
             {
-                return _textBlock;
+                return _label;
             }
 
             protected override int VisualChildrenCount => 1;

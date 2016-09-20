@@ -52,14 +52,16 @@
             </Style.Triggers>
         </Style>
 
-        <Style x:Key="ShadowedLabelStyle">
+        <Style x:Key="HintLabelStyle">
             <Setter Property="Label.Foreground" Value="{x:Static SystemColors.ControlDarkBrush}" />
             <Setter Property="FrameworkElement.Opacity" Value="0.8" />
             <Setter Property="Label.FontStyle" Value="Italic" />
-            <Setter Property="Label.Margin" Value="2,2,0,0" />
+            <Setter Property="Label.Margin" Value="2,-2,0,0" />
+            <Setter Property="Label.VerticalContentAlignment" Value = "Center"/>
         </Style>
         <Style TargetType="{x:Type local:HintTextBox}">
-            <Setter Property="TextBlockStyle" Value="{StaticResource ShadowedLabelStyle}" />
+            <Setter Property="VerticalContentAlignment" Value = "Center"/>
+            <Setter Property="TextBlockStyle" Value="{StaticResource HintLabelStyle}" />
         </Style>
 
         <Style x:Key="NiceButton" TargetType="{x:Type Button}" BasedOn="{x:Null}">
