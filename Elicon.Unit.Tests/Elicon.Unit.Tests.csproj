@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\Write\NetlistFileBuilderTests.cs" />
     <Compile Include="Domain\Manipulations\ModuleMutatorTests.cs" />
     <Compile Include="Domain\Manipulations\BufferWiringVerifierTests.cs" />
     <Compile Include="Domain\Manipulations\InstanceMutatorTests.cs" />
@@ -68,8 +69,8 @@
     <Compile Include="Framework\StringExtensionsTests.cs" />
     <Compile Include="Framework\DictionaryExtensionsTests.cs" />
     <Compile Include="Framework\PrecentageCalculatorTests.cs" />
-    <Compile Include="DataAccess\ReadFiles\MultiLineStatementVerifierTests.cs" />
-    <Compile Include="DataAccess\ReadFiles\StatementTrimmerTests.cs" />
+    <Compile Include="DataAccess\Read\MultiLineStatementVerifierTests.cs" />
+    <Compile Include="DataAccess\Read\StatementTrimmerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Domain\Statements\Criterias\EmptyStatementCriteriaTests.cs" />
     <Compile Include="Domain\Statements\Criterias\MetaStatementCriteriaTests .cs" />
