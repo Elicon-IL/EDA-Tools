@@ -1,5 +1,4 @@
-﻿using System;
-using Elicon.Domain.GateLevel.Contracts.DataAccess;
+﻿using Elicon.Domain.GateLevel.Contracts.DataAccess;
 
 namespace Elicon.Domain.GateLevel.BuildData
 {
