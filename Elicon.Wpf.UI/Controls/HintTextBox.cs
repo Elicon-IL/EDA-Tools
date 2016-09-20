@@ -16,7 +16,7 @@ namespace EdaTools.Controls
         {
             base.OnApplyTemplate();
 
-            // Bind an adorner to the hint text-box.
+            // Bind the text-block adorner to the hint text-box.
             _controlAdornerLayer = AdornerLayer.GetAdornerLayer(this);
             _controlTextBlockAdorner = new TextBlockAdorner(this, HintText, TextBlockStyle);
             UpdateAdorner();
@@ -73,6 +73,36 @@ namespace EdaTools.Controls
                     _controlAdornerLayer.Add(_controlTextBlockAdorner);
 
             }
+        }
+
+        private class TextBlockAdorner : Adorner
+        {
+            private readonly TextBlock _textBlock;
+
+            public TextBlockAdorner(UIElement adornedElement, string hint, Style textBlockStyle)
+                : base(adornedElement)
+            {
+                _textBlock = new TextBlock { Style = textBlockStyle, Text = hint };
+            }
+
+            protected override Size MeasureOverride(Size constraint)
+            {
+                _textBlock.Measure(constraint);
+                return constraint;
+            }
+
+            protected override Size ArrangeOverride(Size finalSize)
+            {
+                _textBlock.Arrange(new Rect(finalSize));
+                return finalSize;
+            }
+
+            protected override System.Windows.Media.Visual GetVisualChild(int index)
+            {
+                return _textBlock;
+            }
+
+            protected override int VisualChildrenCount => 1;
         }
     }
 }

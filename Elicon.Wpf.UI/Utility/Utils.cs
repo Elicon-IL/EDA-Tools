@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -14,11 +13,6 @@ namespace EdaTools.Utility
 {
     public static class Utils
     {
-
-        public static bool VerifyProperty(this object component, string propertyName)
-        {
-            return TypeDescriptor.GetProperties(component)[propertyName] == null;
-        }
 
         public static DependencyProperty MakeStringDependencyProperty(Type owner, string propertyName)
         {

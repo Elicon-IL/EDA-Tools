@@ -10,7 +10,7 @@ namespace EdaTools.Utility
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             var handler = PropertyChanged;
-            if (this.VerifyProperty(propertyName))
+            if (TypeDescriptor.GetProperties(this)[propertyName] == null)
             {
                 handler?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }

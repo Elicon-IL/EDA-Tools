@@ -59,7 +59,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controls\TextBlockAdorner.cs" />
     <Compile Include="Controls\HintTextBox.cs" />
     <Compile Include="Model\EdaToolsModel.cs" />
     <Compile Include="Utility\ExtendedObservableCollection.cs" />
