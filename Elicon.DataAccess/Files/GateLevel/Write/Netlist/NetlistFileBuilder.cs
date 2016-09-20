@@ -15,7 +15,7 @@ namespace Elicon.DataAccess.Files.GateLevel.Write.Netlist
         {
             var net = ItemsSeparator.Join(instance.Net.Select(pwp => "." + pwp.Port + " ( " + pwp.Wire + " )"));
      
-            _result.AppendLine(instance.ModuleName + " " + instance.InstanceName + " ( " + net + " );");
+            _result.Append(instance.ModuleName + " " + instance.InstanceName + " ( " + net + " );");
         }
 
         public void BuildEndModule()
@@ -63,8 +63,8 @@ namespace Elicon.DataAccess.Files.GateLevel.Write.Netlist
         {
             var ports = ItemsSeparator.Join(modulePorts.Where(p => p.PortType == portType).Select(p => p.PortName));
         
-            if (ports.Length > 0)
-                _result.AppendLine(title + " " + ports + ";");
+            if (ports.Any())
+                _result.AppendLine(title + " " + ports + " ;");
         }
     }
 
