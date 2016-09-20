@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="ApplicationInfo.cs" />
     <Compile Include="GateLevel\BuildData\BuildState.cs" />
+    <Compile Include="GateLevel\BuildData\InstancesTypeUpdater.cs" />
     <Compile Include="GateLevel\BuildData\StatementHandlers\MetaStatementHandler.cs" />
     <Compile Include="GateLevel\Manipulations\InstanceMutator.cs" />
     <Compile Include="GateLevel\Manipulations\ModuleMutator.cs" />

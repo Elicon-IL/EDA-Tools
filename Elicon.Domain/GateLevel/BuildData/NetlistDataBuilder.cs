@@ -8,21 +8,19 @@ namespace Elicon.Domain.GateLevel.BuildData
     {
         void Build(string source);
     }
-
+    
     public class NetlistDataBuilder : INetlistDataBuilder
     {
         private readonly INetlistFileReaderProvider _netlistFileReaderProvider;
         private readonly IStatementHandlersInvoker _statementHandlersInvoker;
-        private readonly IInstanceRepository _instanceRepository;
-        private readonly IModuleRepository _moduleRepository;
+        private readonly IInstancesTypeUpdater _instancesTypeUpdater;
         private readonly INetlistRepository _netlistRepository;
 
-        public NetlistDataBuilder(INetlistFileReaderProvider netlistFileReaderProvider, IStatementHandlersInvoker statementHandlersInvoker, IInstanceRepository instanceRepository, IModuleRepository moduleRepository, INetlistRepository netlistRepository)
+        public NetlistDataBuilder(INetlistFileReaderProvider netlistFileReaderProvider, IStatementHandlersInvoker statementHandlersInvoker, IInstancesTypeUpdater instancesTypeUpdater, INetlistRepository netlistRepository)
         {
             _netlistFileReaderProvider = netlistFileReaderProvider;
             _statementHandlersInvoker = statementHandlersInvoker;
-            _instanceRepository = instanceRepository;
-            _moduleRepository = moduleRepository;
+            _instancesTypeUpdater = instancesTypeUpdater;
             _netlistRepository = netlistRepository;
         }
 
@@ -31,32 +29,19 @@ namespace Elicon.Domain.GateLevel.BuildData
             if (_netlistRepository.Exists(source))
                 return;
 
-            _netlistRepository.Add(new Netlist(source));
-
             var netlistFileReader = _netlistFileReaderProvider.GetReaderFor(source);
             var buildState = new BuildState { NetlistSource = source };
 
             try 
             {
+                _netlistRepository.Add(new Netlist(source));
                 while ((buildState.CurrentStatementTrimmed = netlistFileReader.ReadTrimmedStatement()) != null)
                     _statementHandlersInvoker.Handle(buildState);
             }
             catch (Exception e) { throw e; }
             finally { netlistFileReader.Close(); }
-           
-            UpdateInstancesType(source);
-        }
 
-        private void UpdateInstancesType(string source)
-        {
-            foreach (var instance in _instanceRepository.GetBy(source))
-            {
-                if (!_moduleRepository.Exists(source, instance.ModuleName))
-                    continue;
-
-                instance.Type = InstanceType.Module;
-                _instanceRepository.Update(instance);
-            }
+            _instancesTypeUpdater.UpdateInstancesType(source);
         }
     }
 }
