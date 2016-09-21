@@ -53,15 +53,14 @@
         </Style>
 
         <Style x:Key="HintLabelStyle">
-            <Setter Property="Label.Foreground" Value="{x:Static SystemColors.ControlDarkBrush}" />
+            <Setter Property="TextBlock.Foreground" Value="{x:Static SystemColors.ControlDarkBrush}" />
             <Setter Property="FrameworkElement.Opacity" Value="0.8" />
-            <Setter Property="Label.FontStyle" Value="Italic" />
-            <Setter Property="Label.Margin" Value="2,-2,0,0" />
-            <Setter Property="Label.VerticalContentAlignment" Value = "Center"/>
+            <Setter Property="TextBlock.FontStyle" Value="Italic" />
+            <Setter Property="TextBlock.Margin" Value="5,0,0,0" />
         </Style>
         <Style TargetType="{x:Type local:HintTextBox}">
             <Setter Property="VerticalContentAlignment" Value = "Center"/>
-            <Setter Property="TextBlockStyle" Value="{StaticResource HintLabelStyle}" />
+            <Setter Property="HintTextStyle" Value="{StaticResource HintLabelStyle}" />
         </Style>
 
         <Style x:Key="NiceButton" TargetType="{x:Type Button}" BasedOn="{x:Null}">

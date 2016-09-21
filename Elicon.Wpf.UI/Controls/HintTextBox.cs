@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Media;
 using EdaTools.Utility;
 
 namespace EdaTools.Controls
@@ -10,7 +11,7 @@ namespace EdaTools.Controls
     {
 
         AdornerLayer _hintTextBoxAdornerLayer;
-        LabelAdorner _hintTextBoxLabelAdorner;
+        TextBlockAdorner _hintTextBlockAdorner;
 
         public override void OnApplyTemplate()
         {
@@ -18,7 +19,7 @@ namespace EdaTools.Controls
 
             // Bind the label adorner to the hint text-box.
             _hintTextBoxAdornerLayer = AdornerLayer.GetAdornerLayer(this);
-            _hintTextBoxLabelAdorner = new LabelAdorner(this, HintText, TextBlockStyle);
+            _hintTextBlockAdorner = new TextBlockAdorner(this, HintText, HintTextStyle);
             UpdateAdorner();
 
             // Attach the text-change event handler.
@@ -34,13 +35,13 @@ namespace EdaTools.Controls
 
         public static readonly DependencyProperty HintTextProperty = Utils.MakeStringDependencyProperty(typeof(HintTextBox), "HintText");
 
-        public Style TextBlockStyle
+        public Style HintTextStyle
         {
-            get { return (Style)GetValue(TextBlockStyleProperty); }
-            set { SetValue(TextBlockStyleProperty, value); }
+            get { return (Style)GetValue(HintTextStyleProperty); }
+            set { SetValue(HintTextStyleProperty, value); }
         }
 
-        public static readonly DependencyProperty TextBlockStyleProperty = Utils.MakeTypedDependencyProperty(typeof (HintTextBox), "TextBlockStyle", typeof(Style));
+        public static readonly DependencyProperty HintTextStyleProperty = Utils.MakeTypedDependencyProperty(typeof (HintTextBox), "HintTextStyle", typeof(Style));
 
         public bool HasText
         {
@@ -63,46 +64,48 @@ namespace EdaTools.Controls
             {
                 // Hide the hint text.
                 ToolTip = HintText;
-                _hintTextBoxAdornerLayer.Remove(_hintTextBoxLabelAdorner);
+                _hintTextBoxAdornerLayer.Remove(_hintTextBlockAdorner);
             }
             else
             {
                 // Show the hint text.
                 ToolTip = null;
                 if (_hintTextBoxAdornerLayer.GetAdorners(this) == null)
-                    _hintTextBoxAdornerLayer.Add(_hintTextBoxLabelAdorner);
+                    _hintTextBoxAdornerLayer.Add(_hintTextBlockAdorner);
 
             }
         }
 
-        private class LabelAdorner : Adorner
+        private class TextBlockAdorner : Adorner
         {
-            private readonly Label _label;
+            private readonly Border _border;
+            private readonly TextBlock _textBlock;
             private readonly UIElement _owner;
 
-            public LabelAdorner(UIElement owner, string hint, Style labelStyle)
+            public TextBlockAdorner(UIElement owner, string hint, Style hintTextStyle)
                 : base(owner)
             {
                 _owner = owner;
-                _label = new Label { Style = labelStyle, Content = hint };
+                _textBlock = new TextBlock { Style = hintTextStyle, Text = hint, VerticalAlignment = VerticalAlignment.Center };
+                _border = new Border { Child = _textBlock };
             }
 
             protected override Size MeasureOverride(Size constraint)
             {
-                _label.Measure(constraint);
+                _textBlock.Measure(constraint);
                 // This will make the adorner cover the whole owner control.
                 return _owner.RenderSize;
             }
 
             protected override Size ArrangeOverride(Size finalSize)
             {
-                _label.Arrange(new Rect(finalSize));
+                _textBlock.Arrange(new Rect(finalSize));
                 return finalSize;
             }
 
-            protected override System.Windows.Media.Visual GetVisualChild(int index)
+            protected override Visual GetVisualChild(int index)
             {
-                return _label;
+                return _border;
             }
 
             protected override int VisualChildrenCount => 1;
