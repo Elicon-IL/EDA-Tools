@@ -45,6 +45,7 @@
     <Compile Include="GateLevel\BuildData\BuildState.cs" />
     <Compile Include="GateLevel\BuildData\InstancesTypeUpdater.cs" />
     <Compile Include="GateLevel\BuildData\StatementHandlers\MetaStatementHandler.cs" />
+    <Compile Include="GateLevel\BuildData\StatementHandlers\WireDeclarationStatementHandler.cs" />
     <Compile Include="GateLevel\Manipulations\InstanceMutator.cs" />
     <Compile Include="GateLevel\Manipulations\ModuleMutator.cs" />
     <Compile Include="GateLevel\BuildData\StatementHandlers\StatementHandlersOrderer.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="GateLevel\Reports\ListLibraryGates\ListLibraryGatesQuery.cs" />
     <Compile Include="GateLevel\Reports\ListPhysicalPaths\ModulePhysiclaPaths.cs" />
     <Compile Include="GateLevel\Reports\ListPhysicalPaths\PhysicalPathQuery.cs" />
+    <Compile Include="GateLevel\Statements\Criterias\WireDeclarationStatementCriteria.cs" />
     <Compile Include="GateLevel\Traversal\PhysicalTraversal\InstancesPathTracker.cs" />
     <Compile Include="GateLevel\Reports\CountLibraryGates\LibraryGatesCountAggregator.cs" />
     <Compile Include="GateLevel\Traversal\PhysicalTraversal\NetlistTraverser.cs" />

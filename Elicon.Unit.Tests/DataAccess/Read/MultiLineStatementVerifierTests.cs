@@ -1,7 +1,7 @@
 ﻿using Elicon.DataAccess.Files.GateLevel.Read;
 using NUnit.Framework;
 
-namespace Elicon.Unit.Tests.DataAccess.ReadFiles
+namespace Elicon.Unit.Tests.DataAccess.Read
 {
     [TestFixture]
     public class MultiLineStatementVerifierTests

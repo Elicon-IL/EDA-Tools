@@ -65,6 +65,7 @@
     <Compile Include="Domain\PubSubTests.cs" />
     <Compile Include="Domain\Parse\ModuleDeclarationStatementParserTests.cs" />
     <Compile Include="Domain\Parse\InstanceStatementParserTests.cs" />
+    <Compile Include="Domain\Statements\Criterias\WireDeclarationStatementCriteriaTests.cs" />
     <Compile Include="Domain\Traversal\InstancesPathTrackerTests.cs" />
     <Compile Include="Framework\StringExtensionsTests.cs" />
     <Compile Include="Framework\DictionaryExtensionsTests.cs" />

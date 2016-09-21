@@ -1,7 +1,7 @@
 ﻿using Elicon.DataAccess.Files.GateLevel.Read;
 using NUnit.Framework;
 
-namespace Elicon.Unit.Tests.DataAccess.ReadFiles
+namespace Elicon.Unit.Tests.DataAccess.Read
 {
     [TestFixture]
     public class StatementTrimmerTests
@@ -55,17 +55,6 @@ namespace Elicon.Unit.Tests.DataAccess.ReadFiles
 
             const string expectedResult = "module x_lut4_0x5050 ( i0, i2, o );";
             Assert.That(result, Is.EqualTo(expectedResult));
-        }
-
-
-        [Test]
-        [TestCase("wire vcond1 = ((rn_buf==1'b1) && (sn_buf==1'b1)); ")]
-        [TestCase("  wire vcond1 = ((rn_buf==1'b1) && (sn_buf==1'b1)); ")]
-        public void Trim_WireDeclarationStatment_ReturnsEmpty(string statement)
-        {
-            var result = _target.Trim(statement);
-
-            Assert.That(result, Is.Empty);
         }
     }
 }

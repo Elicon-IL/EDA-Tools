@@ -11,15 +11,9 @@ namespace Elicon.DataAccess.Files.GateLevel.Read
     {
         public string Trim(string statement)
         {
-            statement = statement.Trim();
-
-            if (statement.FirstTokenIs("wire"))
-                return string.Empty;
-
-            if (HasComment(statement))
-                return RemoveComment(statement);
-
-            return statement;
+            return HasComment(statement) ? 
+                RemoveComment(statement) : 
+                statement.Trim();
         }
 
         private string RemoveComment(string statement)
