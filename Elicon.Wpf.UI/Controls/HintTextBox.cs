@@ -16,6 +16,7 @@ namespace EdaTools.Controls
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
+            VerticalContentAlignment = VerticalAlignment.Center;
 
             // Bind the label adorner to the hint text-box.
             _hintTextBoxAdornerLayer = AdornerLayer.GetAdornerLayer(this);
