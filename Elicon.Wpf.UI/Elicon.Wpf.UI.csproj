@@ -142,6 +142,10 @@
       <Project>{5fbaee42-c988-4dad-a631-dc37584502ed}</Project>
       <Name>Elicon.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Elicon.Framework\Elicon.Framework.csproj">
+      <Project>{3d3ba074-754a-4aa5-9790-dbe1184d5a7b}</Project>
+      <Name>Elicon.Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
