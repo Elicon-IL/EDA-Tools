@@ -1,8 +1,6 @@
 # EDA-Tools
 
-Verilog Gate-Level Studio for hardware engineers.
-
-Developed by [http://www.elicon.biz/]
+Verilog Gate-Level Studio for hardware engineers. Developed by http://www.elicon.biz/
 
 **Manipulations**  - Manipulate and save the netlist.
 
