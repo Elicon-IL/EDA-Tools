@@ -63,3 +63,34 @@ module oai211 ( c , b , a2 , a1 , zn );
 module or3 ( c , b , a , z );
 module por ( zn );
 ```
+
+
+###List Physical Paths
+
+This report generates a list of all **physical paths** for each module you specify.
+
+Report Example - 
+```
+//
+// EDA Tools - Verilog Gate-Level Studio, Version 1.0.2.1 by Elicon
+// Visit us here - http://www.elicon.biz/
+//
+
+// Modules to list: x_lut4_0xff0c, x_lut4_0x6a5f
+
+//
+// x_lut4_0xff0c instances:
+//
+CDU/SCK_a1_I/tlib000001/tlib000004
+// x_lut4_0xff0c has 1 instance
+
+//
+// x_lut4_0x6a5f instances:
+//
+CDU/BITCOUNT_BLOCK/COUNT_rtl_0_aauto_generated_acounter_cella7/tlib000001/tlib000073
+CDU/BITCOUNT_BLOCK/COUNT_rtl_0_aauto_generated_acounter_cella7/tlib000001/tlib000074
+CDU/BITCOUNT_BLOCK/COUNT_rtl_0_aauto_generated_acounter_cella7/tlib000001/tlib000075
+CDU/BITCOUNT_BLOCK/COUNT_rtl_0_aauto_generated_acounter_cella3/tlib000001/tlib000062
+// x_lut4_0x6a5f has 4 instances
+```
+
