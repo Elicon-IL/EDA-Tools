@@ -2,7 +2,10 @@
 
 Verilog Gate-Level Studio for hardware engineers.
 
+Developed by [http://www.elicon.biz/]
+
 **Manipulations**  - Manipulate and save the netlist.
+
 **Reports** - Generate many helpfull reports on the netlist.
 
 ##Manipultaions
