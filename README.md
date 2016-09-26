@@ -107,7 +107,7 @@ CDU/BITCOUNT_BLOCK/COUNT_rtl_0_aauto_generated_acounter_cella3/tlib000001/tlib00
 ```
 
 ## Future Release
-- Add support for vendor specific gates libraries
+- Add support for vendor specific gate libraries
 - Fanout report
 - Floating inputs report
 - Eliminate assign statements manipulation
