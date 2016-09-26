@@ -36,7 +36,7 @@ namespace Elicon.Domain.GateLevel.Reports.CountLibraryGates
             var result = _countLibraryGatesQuery.CountLibraryGates(source, rootModule);
 
             var content = _countLibraryGatesFileContentDirector.Construct(result);
-            _fileWriter.Write(destination, "Count LibraryGate Modules", content);
+            _fileWriter.Write(destination, "Count Library Gates", content);
         }
     }
 }

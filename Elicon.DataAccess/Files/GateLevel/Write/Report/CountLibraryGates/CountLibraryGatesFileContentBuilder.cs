@@ -15,7 +15,7 @@ namespace Elicon.DataAccess.Files.GateLevel.Write.Report.CountLibraryGates
         public void BuildTitle()
         {
             _result.AppendLine("==============================");
-            _result.AppendLine("Module                   Count");
+            _result.AppendLine("Gate                   Count");
             _result.AppendLine("==============================");
         }
 

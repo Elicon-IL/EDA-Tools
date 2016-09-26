@@ -36,7 +36,7 @@ namespace Elicon.Domain.GateLevel.Reports.ListLibraryGates
             var result = _listLibraryGatesQuery.GetLibraryGates(source);
 
             var content = _listLibraryGatesFileContentDirector.Construct(result);
-            _fileWriter.Write(destination, "LibraryGate Modules Port List", content);
+            _fileWriter.Write(destination, "List Library Gates", content);
         }
     }
 }
