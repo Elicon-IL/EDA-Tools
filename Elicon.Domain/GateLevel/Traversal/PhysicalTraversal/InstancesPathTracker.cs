@@ -37,7 +37,7 @@ namespace Elicon.Domain.GateLevel.Traversal.PhysicalTraversal
 
         public override string ToString()
         {
-            return string.Join("/", _path);
+            return "/".Join(_path);
         }
     }
 }
