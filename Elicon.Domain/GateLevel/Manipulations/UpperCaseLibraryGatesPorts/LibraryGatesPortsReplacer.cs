@@ -25,7 +25,7 @@ namespace Elicon.Domain.GateLevel.Manipulations.UpperCaseLibraryGatesPorts
 
             _instanceMutator.Take(instances).PortsToUpper();
 
-            _instanceRepository.Update(instances);
+            _instanceRepository.UpdateMany(instances);
         }
     }
 }

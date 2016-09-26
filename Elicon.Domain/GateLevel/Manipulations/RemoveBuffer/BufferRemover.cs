@@ -42,7 +42,7 @@ namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
                     _instanceMutator.Take(instances).ReplaceWires(oldWire, newWire);
                 }
 
-                _instanceRepository.Update(instances);
+                _instanceRepository.UpdateMany(instances);
             }
         }
         

@@ -33,7 +33,7 @@ namespace Elicon.Domain.GateLevel.Manipulations.ReplaceLibraryGate
                 .MutateModuleName(newGate)
                 .ReplacePorts(portsMapping);
 
-            _instanceRepository.Update(instances);    
+            _instanceRepository.UpdateMany(instances);    
         }
     }
 }

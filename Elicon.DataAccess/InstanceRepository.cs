@@ -26,7 +26,7 @@ namespace Elicon.DataAccess
             _instances[instance.Id] = new Instance(instance);
         }
 
-        public void Update(IEnumerable<Instance> instances)
+        public void UpdateMany(IEnumerable<Instance> instances)
         {
             foreach (var instance in instances)
                 Update(instance);
