@@ -2,17 +2,30 @@
 
 Verilog Gate-Level Studio for hardware engineers.
 
+**Manipulations**  - Manipulate and save the netlist.
 **Reports** - Generate many helpfull reports on the netlist.
 
-**Manipulations**  - Manipulate and save the netlist.
+##Manipultaions
+
+###Uppercase Library Gate Ports
+With this manpulation you can fix common casing errors. It will upper case all ports for all library gaets.
+
+###Remove Buffers
+* You supply the buffer name and the buffer input port and the output port.
+* The manpulation will remove the buffer from the netlist, and will do all the rewiring.
+* Only non pass through buffers are removed
+
+###Replace Library Gates
+* You supply the old gate, new gate, and specify how ports should be replaced.
+* The manpulation will replace the old gate with the new gate, and will do all the rewiring.
+
 
 ##Reports
 
 ###Count Library Gates
 
-This report generates an accurate count of all the library gates within the module you choose.
-
-If you run it on the **top module** you will get an accurate count of all the libraray gates in the netlist
+*This report generates an accurate count of all the library gates within the module you choose.
+*If you run it on the **top module** you will get an accurate count of all the libraray gates in the netlist
 
 Report Example - 
 ```
@@ -41,9 +54,8 @@ xo2                       605
 
 ###List Library Gates
 
-This report generates a list of all the library gates in the netlist.
-
-For any of the gates we enusre to show all of its ports.
+*This report generates a list of all the library gates in the netlist.
+*For any of the gates we enusre to show all of its ports.
 
 Report Example - 
 ```
@@ -93,4 +105,3 @@ CDU/BITCOUNT_BLOCK/COUNT_rtl_0_aauto_generated_acounter_cella7/tlib000001/tlib00
 CDU/BITCOUNT_BLOCK/COUNT_rtl_0_aauto_generated_acounter_cella3/tlib000001/tlib000062
 // x_lut4_0x6a5f has 4 instances
 ```
-
