@@ -54,8 +54,8 @@ xo2                       605
 
 ###List Library Gates
 
-*This report generates a list of all the library gates in the netlist.
-*For any of the gates we enusre to show all of its ports.
+- This report generates a list of all the library gates in the netlist.
+- For any of the gates we enusre to show all of its ports.
 
 Report Example - 
 ```
