@@ -27,6 +27,8 @@ namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
             while (TryGetBufferToRemove(netlist, bufferName, inputPort, outputPort, out buffer))
             {
                 _instanceRepository.Remove(buffer);
+                if (!buffer.HasPort(outputPort))
+                    continue;
 
                 var instances = _instanceRepository.GetByHostModule(buffer.Netlist, buffer.HostModuleName).ToList();
                 if (_bufferWiringVerifier.HostModuleDrivesBuffer(buffer, inputPort))
