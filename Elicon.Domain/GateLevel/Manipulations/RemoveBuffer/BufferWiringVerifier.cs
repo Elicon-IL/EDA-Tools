@@ -27,9 +27,6 @@ namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
 
         public bool IsPassThroughBuffer(Instance buffer, string inputPort, string outputPort)
         {
-            if (!buffer.HasPort(outputPort))
-                return false;
-
             var module = _moduleRepository.Get(buffer.Netlist, buffer.HostModuleName);
             return module.HasPort(buffer.GetWire(inputPort)) && module.HasPort(buffer.GetWire(outputPort));
         }
