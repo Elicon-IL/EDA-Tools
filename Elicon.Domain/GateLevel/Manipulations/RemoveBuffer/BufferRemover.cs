@@ -30,24 +30,29 @@ namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
                 if (!buffer.HasPort(outputPort))
                     continue;
 
-                var instances = _instanceRepository.GetByHostModule(buffer.Netlist, buffer.HostModuleName).ToList();
-                if (_bufferWiringVerifier.HostModuleDrivesBuffer(buffer, inputPort))
-                {
-                    var moduleInputPort = buffer.GetWire(inputPort);
-                    var bufferOutputWire = buffer.GetWire(outputPort);
-                    _instanceMutator.Take(instances).ReplaceWires(bufferOutputWire, moduleInputPort);
-                }
-                else
-                {
-                    var oldWire = buffer.GetWire(inputPort);
-                    var newWire = buffer.GetWire(outputPort);
-                    _instanceMutator.Take(instances).ReplaceWires(oldWire, newWire);
-                }
-
-                _instanceRepository.UpdateMany(instances);
+                ReplaceWires(buffer, inputPort, outputPort);
             }
         }
-        
+
+        private void ReplaceWires(Instance buffer, string inputPort, string outputPort)
+        {
+            var instances = _instanceRepository.GetByHostModule(buffer.Netlist, buffer.HostModuleName).ToList();
+            if (_bufferWiringVerifier.HostModuleDrivesBuffer(buffer, inputPort))
+            {
+                var moduleInputPort = buffer.GetWire(inputPort);
+                var bufferOutputWire = buffer.GetWire(outputPort);
+                _instanceMutator.Take(instances).ReplaceWires(bufferOutputWire, moduleInputPort);
+            }
+            else
+            {
+                var oldWire = buffer.GetWire(inputPort);
+                var newWire = buffer.GetWire(outputPort);
+                _instanceMutator.Take(instances).ReplaceWires(oldWire, newWire);
+            }
+
+            _instanceRepository.UpdateMany(instances);
+        }
+
         private bool TryGetBufferToRemove(string netlist, string bufferName, string inputPort, string outputPort, out Instance buffer)
         {
             buffer = _instanceRepository
