@@ -51,7 +51,7 @@ namespace Elicon.Domain.GateLevel
 
         public static string GetWire(this Instance target, string port)
         {
-            return target.Net.Single(pwp => pwp.Port == port).Wire;
+            return target.Net.SingleOrDefault(pwp => pwp.Port == port)?.Wire;
         }
 
         public static bool HasPort(this Instance target, string port)
