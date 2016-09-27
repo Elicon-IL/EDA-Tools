@@ -15,7 +15,7 @@ namespace Elicon.DataAccess.Files.GateLevel.Write.Netlist
         {
             var net = ItemsSeparator.Join(instance.Net.Select(pwp => "." + pwp.Port + " ( " + pwp.Wire + " )"));
      
-            _result.Append(instance.ModuleName + " " + instance.InstanceName + " ( " + net + " );");
+            _result.AppendLine(instance.ModuleName + " " + instance.InstanceName + " ( " + net + " );");
         }
 
         public void BuildEndModule()
