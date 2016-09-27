@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Elicon.Domain.GateLevel.Manipulations
 {
@@ -71,9 +72,8 @@ namespace Elicon.Domain.GateLevel.Manipulations
 
             private void MutatePorts(Action<PortWirePair> mutation)
             {
-                foreach (var instance in _instances)
-                    foreach (var pwp in instance.Net)
-                        mutation(pwp);
+                foreach (var pwp in _instances.SelectMany(instance => instance.Net))
+                    mutation(pwp);
             }
         }
     }
