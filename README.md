@@ -9,16 +9,16 @@ Verilog Gate-Level Studio for hardware engineers.
 ##Manipultaions
 
 ###Uppercase Library Gate Ports
-With this manpulation you can fix common casing errors. It will upper case all ports for all library gaets.
+With this manipulation you can fix common casing errors. It will upper case all ports for all library gaets.
 
 ###Remove Buffers
 - You supply the buffer name and the buffer input port and the output port.
-- The manpulation will remove the buffer from the netlist, and will do all the rewiring.
+- The manipulation will remove the buffer from the netlist, and will do all the rewiring.
 - Only non pass through buffers are removed
 
 ###Replace Library Gates
 - You supply the old gate, new gate, and specify how ports should be replaced.
-- The manpulation will replace the old gate with the new gate, and will do all the rewiring.
+- The manipulation will replace the old gate with the new gate, and will do all the rewiring.
 
 ##Reports
 
