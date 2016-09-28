@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
 
@@ -13,31 +14,42 @@ namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
         private readonly IInstanceRepository _instanceRepository;
         private readonly IBufferWiringVerifier _bufferWiringVerifier;
         private readonly IInstanceMutator _instanceMutator;
+        private readonly IModuleRepository _moduleRepository;
 
-        public BufferRemover(IInstanceMutator instanceMutator, IInstanceRepository instanceRepository, IBufferWiringVerifier bufferWiringVerifier)
+        public BufferRemover(IInstanceMutator instanceMutator, IInstanceRepository instanceRepository, IBufferWiringVerifier bufferWiringVerifier, IModuleRepository moduleRepository)
         {
             _instanceMutator = instanceMutator;
             _instanceRepository = instanceRepository;
             _bufferWiringVerifier = bufferWiringVerifier;
+            _moduleRepository = moduleRepository;
         }
 
         public void Remove(string netlist, string bufferName, string inputPort, string outputPort)
         {
-            Instance buffer;
-            while (TryGetBufferToRemove(netlist, bufferName, inputPort, outputPort, out buffer))
+            var buffers = _instanceRepository.GetByModuleName(netlist, bufferName);
+            var buffersMapping = buffers.Select((b, i) => new {Index = i, Buffer = b})
+                .ToDictionary(el => el.Buffer.Id, el => el.Index);
+
+            var hostsMap = _moduleRepository
+                .GetMany(netlist, buffers.Select(b => b.HostModuleName).ToList())
+                .ToDictionary(m => m.Name, m => m);
+
+            foreach (var buffer in buffers)
             {
-                _instanceRepository.Remove(buffer);
-                if (!buffer.HasPort(outputPort))
+                var hostModule = hostsMap[buffer.HostModuleName];
+                if (_bufferWiringVerifier.IsPassThroughBuffer(hostModule, buffer, inputPort, outputPort))
                     continue;
 
-                ReplaceWires(buffer, inputPort, outputPort);
+                _instanceRepository.Remove(buffer);
+                if (buffer.HasPort(outputPort))
+                    ReplaceWires(hostModule, buffer, inputPort, outputPort, buffers, buffersMapping);
             }
         }
 
-        private void ReplaceWires(Instance buffer, string inputPort, string outputPort)
+        private void ReplaceWires(Module hostModule, Instance buffer, string inputPort, string outputPort, IList<Instance> buffers, Dictionary<long, int> buffersMapping)
         {
             var instances = _instanceRepository.GetByHostModule(buffer.Netlist, buffer.HostModuleName).ToList();
-            if (_bufferWiringVerifier.HostModuleDrivesBuffer(buffer, inputPort))
+            if (_bufferWiringVerifier.HostModuleDrivesBuffer(hostModule, buffer, inputPort))
             {
                 var moduleInputPort = buffer.GetWire(inputPort);
                 var bufferOutputWire = buffer.GetWire(outputPort);
@@ -51,15 +63,14 @@ namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
             }
 
             _instanceRepository.UpdateMany(instances);
+            UpdateLocalBufferList(buffer, instances, buffers, buffersMapping);
         }
 
-        private bool TryGetBufferToRemove(string netlist, string bufferName, string inputPort, string outputPort, out Instance buffer)
+        private void UpdateLocalBufferList(Instance buffer, List<Instance> instances, IList<Instance> buffers, Dictionary<long, int> buffersMapping)
         {
-            buffer = _instanceRepository
-                .GetByModuleName(netlist, bufferName)
-                .FirstOrDefault(b => !_bufferWiringVerifier.IsPassThroughBuffer(b, inputPort, outputPort));
-            
-            return buffer != null;
+            foreach (var instance in instances.Where(instance => instance.ModuleName == buffer.ModuleName))
+                buffers[buffersMapping[instance.Id]] = instance;
+
         }
     }
 }
