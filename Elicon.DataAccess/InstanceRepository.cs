@@ -28,7 +28,7 @@ namespace Elicon.DataAccess
         public void Update(Instance instance)
         {
             if (instance.HostModuleName != _instances[instance.Id].HostModuleName)
-                throw new InvalidOperationException("Host module name field is not updateble.");
+                throw new InvalidOperationException("Instance object host module name field is not updateble.");
 
             _instances[instance.Id] = new Instance(instance);
         }
