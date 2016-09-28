@@ -47,6 +47,14 @@ namespace Elicon.DataAccess
             return new Module(result);
         }
 
+        public IList<Module> GetMany(string netlist, IList<string> moduleNames)
+        {
+            return _modules.Values
+                  .Where(m => m.Netlist == netlist  && moduleNames.Contains(m.Name))
+                  .Select(m => new Module(m))
+                  .ToList();
+        }
+
         public IList<Module> GetAll(string netlist)
         {
             return _modules.Values
