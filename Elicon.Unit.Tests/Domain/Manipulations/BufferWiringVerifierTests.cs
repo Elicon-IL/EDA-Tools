@@ -11,12 +11,12 @@ namespace Elicon.Unit.Tests.Domain.Manipulations
     [TestFixture]
     public class BufferWiringVerifierTests
     {
-        private Mock<IModuleRepository> _moduleRepository;
-        
+        private IBufferWiringVerifier _target;
+
         [SetUp]
         public void SetUp()
         {
-            _moduleRepository = new Mock<IModuleRepository>();
+            _target = new BufferWiringVerifier();
         }
 
         [Test]
@@ -26,9 +26,8 @@ namespace Elicon.Unit.Tests.Domain.Manipulations
                 .Add("a", "ina").Add("b", "w3").Build();
             var module = new Module("some netlist", "some host");
             module.Ports.Add(new Port("w3"));
-            StubBufferHostModule(buffer, module);
 
-            var result = new BufferWiringVerifier(_moduleRepository.Object).HostModuleDrivesBuffer(buffer, "a");
+            var result = _target.HostModuleDrivesBuffer(module, buffer, "a");
             Assert.That(result, Is.False);
         }
 
@@ -39,9 +38,8 @@ namespace Elicon.Unit.Tests.Domain.Manipulations
                .Add("a", "w1").Add("b", "w2").Build();
             var module = new Module("some netlist", "some host");
             module.Ports.Add(new Port("w1"));
-            StubBufferHostModule(buffer, module);
 
-            var result = new BufferWiringVerifier(_moduleRepository.Object).HostModuleDrivesBuffer(buffer, "a");
+            var result = _target.HostModuleDrivesBuffer(module, buffer, "a");
 
             Assert.That(result, Is.True);
         }
@@ -54,9 +52,8 @@ namespace Elicon.Unit.Tests.Domain.Manipulations
             var module = new Module("some netlist", "some host");
             module.Ports.Add(new Port("w1"));
             module.Ports.Add(new Port("w2"));
-            StubBufferHostModule(buffer, module);
 
-            var result = new BufferWiringVerifier(_moduleRepository.Object).IsPassThroughBuffer(buffer, "a", "b");
+            var result = _target.IsPassThroughBuffer(module, buffer, "a", "b");
 
             Assert.That(result, Is.True);
         }
@@ -69,9 +66,8 @@ namespace Elicon.Unit.Tests.Domain.Manipulations
             var module = new Module("some netlist", "some host");
             module.Ports.Add(new Port("w1"));
             module.Ports.Add(new Port("w2"));
-            StubBufferHostModule(buffer, module);
 
-            var result = new BufferWiringVerifier(_moduleRepository.Object).IsPassThroughBuffer(buffer, "a", "b");
+            var result = _target.IsPassThroughBuffer(module, buffer, "a", "b");
 
             Assert.That(result, Is.False);
         }
@@ -84,16 +80,10 @@ namespace Elicon.Unit.Tests.Domain.Manipulations
             var module = new Module("some netlist", "some host");
             module.Ports.Add(new Port("w1"));
             module.Ports.Add(new Port("w2"));
-            StubBufferHostModule(buffer, module);
 
-            var result = new BufferWiringVerifier(_moduleRepository.Object).IsPassThroughBuffer(buffer, "a", "b");
+            var result = _target.IsPassThroughBuffer(module, buffer, "a", "b");
 
             Assert.That(result, Is.False);
-        }
-
-        private void StubBufferHostModule(Instance buffer, Module module)
-        {
-            _moduleRepository.Setup(mr => mr.Get(buffer.Netlist, buffer.HostModuleName)).Returns(module);
         }
     }
 }
