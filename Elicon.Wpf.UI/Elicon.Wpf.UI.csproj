@@ -59,7 +59,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\AttachedAdorner.cs" />
     <Compile Include="Controls\HintTextBox.cs" />
+    <Compile Include="Controls\Spinner.xaml.cs">
+      <DependentUpon>Spinner.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\EdaToolsModel.cs" />
     <Compile Include="Utility\ExtendedObservableCollection.cs" />
     <Compile Include="Utility\NotifyPropertyChanged.cs" />
@@ -74,6 +78,10 @@
     <Compile Include="View\PromptDialogView.xaml.cs">
       <DependentUpon>PromptDialogView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\Spinner.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\AboutEdaToolsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
