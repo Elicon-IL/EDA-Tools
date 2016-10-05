@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
-using EdaTools.Controls;
 using EdaTools.Model;
 using EdaTools.Utility;
 using EdaTools.View;
@@ -16,6 +15,7 @@ namespace EdaTools.ViewModel
     public interface IEdaToolsMainViewModel
     {
         void UpdateProgress(int value);
+        void UpdateLog(FileReadProgressEvent ev);
         void CreateAppCloseCommand(EdaToolsMainView appMainWindow);
     }
 
@@ -41,7 +41,10 @@ namespace EdaTools.ViewModel
 
         private readonly EdaToolsModel _edaToolsModel;
         private readonly ToolRunner _toolRunner;
-        private bool _spinnerActive = false;
+        private bool _spinnerActive;
+        private bool _netlistReadCommand;
+        private bool _netlistIsNew;
+        private string _currentTool;
 
 
         private bool CanExecute()
@@ -71,10 +74,26 @@ namespace EdaTools.ViewModel
 
         public Action<FileReadProgressEvent> ProgressUpdater;
 
+        public void UpdateLog(FileReadProgressEvent ev)
+        {
+            if (ev.Progress == 0)
+                LogWindowContents = LogWindowContents.AppendLine($"{DateTime.Now}: Reading netlist... ({ev.FileName})");
+            if (ev.Progress == 100 && !_netlistReadCommand)
+            {
+                LogNowRunningTool(ev.FileName);
+                SpinnerActive = true;
+            }
+        }
+
         public void UpdateProgress(int value)
         {
             ProgressBarValue = value;
+            if (value == 0)
+                ProgressBarVisibility = Visibility.Visible;
+            if (value==100)
+                ProgressBarVisibility=Visibility.Hidden;
         }
+
 
         // =========================================
         // Model Properties Handler.
@@ -123,6 +142,7 @@ namespace EdaTools.ViewModel
             get { return _edaToolsModel.ProgressBarValue; }
             set
             {
+            
                 if (value == _edaToolsModel.ProgressBarValue)
                     return;
                 _edaToolsModel.ProgressBarValue = value;
@@ -183,14 +203,16 @@ namespace EdaTools.ViewModel
         private PromptDialogViewModel GetPromptDialogData(PromptDialogModel.Actions action)
         {
             Window promptDialog = new PromptDialogView(ParentWindow, action, LoadedNetlists);
-            return (PromptDialogViewModel)promptDialog.ShowModal();
+            var result = (PromptDialogViewModel)promptDialog.ShowModal();
+            _netlistIsNew = !LoadedNetlists.Contains(result.SelectedNetlist);
+            return result;
         }
         private void ListLibraryGatesCommand()
         {
             var dataContext = GetPromptDialogData(PromptDialogModel.Actions.ListLibraryGates);
             if (dataContext.DialogResult)
             {
-                LogNowRunningTool("list library gates tool", dataContext);
+                PreRunActions("list library gates tool", dataContext.SelectedNetlist);
                 _toolRunner.ListLibraryGates(dataContext.SelectedNetlist, dataContext.TargetSaveFile);
             }
         }
@@ -200,7 +222,7 @@ namespace EdaTools.ViewModel
             var dataContext = GetPromptDialogData(PromptDialogModel.Actions.CountLibraryGatesInstances);
             if (dataContext.DialogResult)
             {
-                LogNowRunningTool("count library gates physical instances tool", dataContext);
+                PreRunActions("count library gates physical instances tool", dataContext.SelectedNetlist);
                 _toolRunner.CountLibraryGatesInstancesCommand(dataContext.SelectedNetlist, dataContext.RootModule, dataContext.TargetSaveFile);
             }
         }
@@ -210,7 +232,7 @@ namespace EdaTools.ViewModel
             var dataContext = GetPromptDialogData(PromptDialogModel.Actions.ListPhysicalPaths);
             if (dataContext.DialogResult)
             {
-                LogNowRunningTool("list physical paths tool", dataContext);
+                PreRunActions("list physical paths tool", dataContext.SelectedNetlist);
                 _toolRunner.ListPhysicalPathsCommand(dataContext.SelectedNetlist, dataContext.RootModule, dataContext.ModuleNames, dataContext.TargetSaveFile);
             }
         }
@@ -220,7 +242,9 @@ namespace EdaTools.ViewModel
             var dataContext = GetPromptDialogData(PromptDialogModel.Actions.ReplaceLibraryGate);
             if (dataContext.DialogResult)
             {
-                LogNowRunningTool("replace library gate instances tool", dataContext);
+                _currentTool="replace library gate instances tool";
+                PreRunActions("list library gates tool", dataContext.SelectedNetlist);
+
                 var replaceRequest = dataContext.MakeModuleReplaceRequest();
                 _toolRunner.ReplaceLibraryGateCommand(replaceRequest);
             }
@@ -231,7 +255,7 @@ namespace EdaTools.ViewModel
             var dataContext = GetPromptDialogData(PromptDialogModel.Actions.RemoveBuffers);
             if (dataContext.DialogResult)
             {
-                LogNowRunningTool("remove buffers tool", dataContext);
+                PreRunActions("remove buffers tool", dataContext.SelectedNetlist);
                 var removeBufferRequest = dataContext.MakeRemoveBufferRequest();
                 _toolRunner.RemoveBuffersCommand(removeBufferRequest);
             }
@@ -242,7 +266,7 @@ namespace EdaTools.ViewModel
             var dataContext = GetPromptDialogData(PromptDialogModel.Actions.UpperCaseLibraryGatesPorts);
             if (dataContext.DialogResult)
             {
-                LogNowRunningTool("upper-case library gates ports tool", dataContext);
+                PreRunActions("upper-case library gates ports tool", dataContext.SelectedNetlist);
                 _toolRunner.UpperCaseLibraryGatesPortsCommand(dataContext.SelectedNetlist, dataContext.TargetSaveFile);
             }
         }
@@ -257,8 +281,7 @@ namespace EdaTools.ViewModel
             if (openFileDialog.ShowDialog() == true)
             {
                 NetlistReadFilePath = openFileDialog.FileName;
-                LogWindowContents = LogWindowContents.AppendLine($"{DateTime.Now}: Reading netlist... ({NetlistReadFilePath})");
-                ProgressBarVisibility = Visibility.Visible;
+                _netlistReadCommand = true;
                 _toolRunner.ReadNetlist(NetlistReadFilePath);
             }
         }
@@ -297,14 +320,25 @@ namespace EdaTools.ViewModel
             var message = e.Error ? e.ErrorMessage : "Done.";
             LogWindowContents = LogWindowContents.AppendLine($"{DateTime.Now}: {message}");
             ProgressBarValue = 0;
+            SpinnerActive = false;
+            _netlistReadCommand = false;
             ProgressBarVisibility = Visibility.Hidden;
             RefreshFrameworkData(); 
         }
 
-        private void LogNowRunningTool(string tool, PromptDialogViewModel dataContext)
+        private void PreRunActions(string currentTool, string netlist)
         {
-            ProgressBarVisibility = Visibility.Visible;
-            LogWindowContents = LogWindowContents.AppendLine($"{DateTime.Now}: Running {tool} (netlist = {Path.GetFileName(dataContext.SelectedNetlist)}).");
+            _currentTool = currentTool;
+            if (!_netlistIsNew)
+            {
+                SpinnerActive = true;
+                LogNowRunningTool(netlist);
+            }
+        }
+
+        private void LogNowRunningTool(string netlist)
+        {
+            LogWindowContents = LogWindowContents.AppendLine($"{DateTime.Now}: Running {_currentTool} (netlist = {Path.GetFileName(netlist)}).");
         }
 
     }

@@ -25,6 +25,7 @@ namespace EdaTools
         private void ProgressUpdaterDelegate(FileReadProgressEvent ev)
         {
             _appViewModel.UpdateProgress(ev.Progress);
+            _appViewModel.UpdateLog(ev);
         }
     }
 
