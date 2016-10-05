@@ -1,9 +1,6 @@
 ﻿using Elicon.Tests.Framework;
-using System.Collections.Generic;
 using Elicon.Domain.GateLevel;
-using Elicon.Domain.GateLevel.Contracts.DataAccess;
 using Elicon.Domain.GateLevel.Manipulations.RemoveBuffer;
-using Moq;
 using NUnit.Framework;
 
 namespace Elicon.Unit.Tests.Domain.Manipulations

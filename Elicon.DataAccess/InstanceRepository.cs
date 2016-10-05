@@ -10,7 +10,7 @@ namespace Elicon.DataAccess
     public class InstanceRepository : IInstanceRepository
     {
         private readonly Dictionary<long, Instance> _instances = new Dictionary<long, Instance>();
-        private readonly Dictionary<string, List<long>> _hostModuleInstancesMap = new Dictionary<string, List<long>>();
+        private readonly Dictionary<string, List<long>> _hostModuleToInstancesMap = new Dictionary<string, List<long>>();
         private readonly IIdGenerator _idGenerator;
 
         public InstanceRepository(IIdGenerator idGenerator)
@@ -22,7 +22,7 @@ namespace Elicon.DataAccess
         {
             instance.Id = _idGenerator.GenerateId();
             _instances.Add(instance.Id, new Instance(instance));
-            _hostModuleInstancesMap.ValueOrNew(instance.HostModuleName).Add(instance.Id);
+            _hostModuleToInstancesMap.ValueOrNew(instance.HostModuleName).Add(instance.Id);
         }
 
         public void Update(Instance instance)
@@ -41,7 +41,7 @@ namespace Elicon.DataAccess
 
         public IList<Instance> GetByHostModule(string netlist, string hostModuleName)
         {
-            return _hostModuleInstancesMap.ValueOrNew(hostModuleName)
+            return _hostModuleToInstancesMap.ValueOrNew(hostModuleName)
                 .Select(id => _instances[id])
                 .Where(instance => instance.Netlist == netlist)
                 .Select(instance => new Instance(instance))
@@ -76,7 +76,7 @@ namespace Elicon.DataAccess
         public void Remove(Instance instance)
         {
             _instances.Remove(instance.Id);
-            _hostModuleInstancesMap.ValueOrNew(instance.HostModuleName).Remove(instance.Id);
+            _hostModuleToInstancesMap.ValueOrNew(instance.HostModuleName).Remove(instance.Id);
         }
 
         public void RemoveAll(string netlist)
