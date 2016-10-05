@@ -40,6 +40,7 @@ namespace Elicon.DataAccess.Files.Common.Read
                 _source = source;
                 _pubSub = pubSub;
                 _precentageCalculator = precentageCalculator;
+                _prevProgress = -1;
             }
 
             public string ReadLine()
