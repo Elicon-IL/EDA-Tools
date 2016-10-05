@@ -15,9 +15,15 @@ namespace EdaTools.Controls
             : base(owner)
         {
             _owner = owner;
+            _owner.SizeChanged += owner_SizeChanged;
             _element = element;
-            _element.Focusable = false;
+            _element.IsHitTestVisible = false;
             AddVisualChild(_element);
+        }
+
+        private void owner_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            InvalidateMeasure();
         }
 
         protected override Size MeasureOverride(Size constraint)
@@ -28,7 +34,7 @@ namespace EdaTools.Controls
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            _element?.Arrange(new Rect(new Point(0, 0), _owner.DesiredSize));
+            _element?.Arrange(new Rect(new Point(0, 0), new Point(_owner.ActualWidth, _owner.ActualHeight)));
             return finalSize;
         }
 
@@ -72,13 +78,10 @@ namespace EdaTools.Controls
                 var adornerLayer = AdornerLayer.GetAdornerLayer(frameworkElement);
                 if (adornerLayer != null)
                 {
-                    // If GetSpinner() returns a type.
-                    //x var spinner = (Spinner) Activator.CreateInstance(GetSpinner(frameworkElement)); //, frameworkElement);
                     var adorner = GetAdorner(frameworkElement);
                     SetAdorningElement(frameworkElement, adorner);
                     var attachedAdorner = new AttachedAdorner(frameworkElement, adorner);
                     adornerLayer.Add(attachedAdorner);
-                 //x   adorner.Visibility = Visibility.Visible;
                 }
             }
         }
@@ -104,8 +107,6 @@ namespace EdaTools.Controls
                 adorner.Visibility = Visibility.Visible;
             else
                 adorner.Visibility = Visibility.Hidden;
-            //x ((Spinner)adorner).SetVisible((bool)e.NewValue);
-
         }
         #endregion
 

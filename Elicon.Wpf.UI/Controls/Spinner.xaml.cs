@@ -87,18 +87,17 @@ namespace EdaTools.Controls
             SpinnerRotate.Angle = (SpinnerRotate.Angle + 36) % 360;
         }
 
-        private static void SetCirclePosition(DependencyObject ellipse, double sequence)
+        private static void SetCirclePosition(DependencyObject ellipse, double circleIndex)
         {
-            ellipse.SetValue(Canvas.LeftProperty, 50.0 + (Math.Sin(Math.PI * ((0.2 * sequence) + 1)) * 50.0));
-            ellipse.SetValue(Canvas.TopProperty, 50.0 + (Math.Cos(Math.PI * ((0.2 * sequence) + 1)) * 50.0));
+            ellipse.SetValue(Canvas.LeftProperty, 50.0 + (Math.Sin(Math.PI * ((0.2 * circleIndex) + 1)) * 50.0));
+            ellipse.SetValue(Canvas.TopProperty, 50.0 + (Math.Cos(Math.PI * ((0.2 * circleIndex) + 1)) * 50.0));
         }
 
         public void HandleVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this) == false)
             {
-                var isVisible = (bool)e.NewValue;
-                if (isVisible)
+                if ((bool)e.NewValue)
                     Start();
                 else
                     Stop();

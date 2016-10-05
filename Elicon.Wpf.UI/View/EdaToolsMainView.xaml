@@ -1,10 +1,15 @@
 ﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:viewModel="clr-namespace:EdaTools.ViewModel" x:Class="EdaTools.View.EdaToolsMainView"
+        xmlns:viewModel="clr-namespace:EdaTools.ViewModel"
+        xmlns:controls="clr-namespace:EdaTools.Controls"
+        x:Class="EdaTools.View.EdaToolsMainView"
         Title="{Binding DisplayName, Mode=OneWay}" Height="561.065" Width="777.072" 
         MinWidth="650" MinHeight="500"
         ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <controls:Spinner x:Key="Spinner" />
+    </Window.Resources>
     <Window.DataContext>
         <viewModel:EdaToolsMainViewModel/>
     </Window.DataContext>
@@ -34,11 +39,11 @@
             </Menu>
         </DockPanel>
         <StatusBar x:Name="StatusBar" Height="22" Margin="0" DockPanel.Dock="Bottom" VerticalContentAlignment="Bottom" VerticalAlignment="Center" Background="{DynamicResource GrayBrushBackground}">
-            <TextBlock Text="Working..." Width="58" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="{Binding ProgressBarVisibility, Mode=OneWay}"/>
+            <TextBlock Text="Reading..." Width="58" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="{Binding ProgressBarVisibility, Mode=OneWay}"/>
             <ProgressBar x:Name="ProgressBar1" Height="22" Width="234" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Visibility="{Binding ProgressBarVisibility, Mode=OneWay}" Value="{Binding ProgressBarValue, Mode=OneWay}" />
             <TextBlock Text="" Width="55" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         </StatusBar>
-        <DockPanel x:Name="AppLogDockPanel">
+        <DockPanel x:Name="AppLogDockPanel" controls:AttachedAdorner.Adorner="{StaticResource Spinner}" controls:AttachedAdorner.AdornerVisible="{Binding SpinnerActive}">
             <Border  Style="{StaticResource AppBorderStyle}" Height="30" DockPanel.Dock="Top" Margin="0,2" Background="{DynamicResource BlueBrushBackground}">
                 <TextBlock 
                           FontSize="18"

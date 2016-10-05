@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
+using EdaTools.Controls;
 using EdaTools.Model;
 using EdaTools.Utility;
 using EdaTools.View;
@@ -40,6 +41,7 @@ namespace EdaTools.ViewModel
 
         private readonly EdaToolsModel _edaToolsModel;
         private readonly ToolRunner _toolRunner;
+        private bool _spinnerActive = false;
 
 
         private bool CanExecute()
@@ -136,6 +138,18 @@ namespace EdaTools.ViewModel
                 if (value == _edaToolsModel.ProgressBarVisibility)
                     return;
                 _edaToolsModel.ProgressBarVisibility = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool SpinnerActive
+        {
+            get { return _spinnerActive; }
+            set
+            {
+                if (value == _spinnerActive)
+                    return;
+                _spinnerActive = value;
                 RaisePropertyChanged();
             }
         }
