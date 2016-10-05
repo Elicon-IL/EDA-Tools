@@ -10,9 +10,6 @@ namespace Elicon.Domain.GateLevel.Reports.ListLibraryGates
        
         public void Collect(Instance instance)
         {
-            if (instance.IsModule())
-                return;
-            
             _result.UpdateValue(instance.ModuleName, 
                 i => instance.Net.Count <= i.Net.Count ? i : instance, 
                 instance);           

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Elicon.Domain.GateLevel;
 using Elicon.Domain.GateLevel.Reports.ListLibraryGates;
 using Elicon.Tests.Framework;
 using NUnit.Framework;
@@ -19,18 +18,6 @@ namespace Elicon.Unit.Tests.Domain.Reports
         }
 
         [Test]
-        public void Collect_InstanceNotLibraryGate_NotCollected()
-        {
-            var instance = new InstanceBuilder("netlist", "host").New("moduleName", "instName",InstanceType.Module)
-                .Add("a","w1").Add("b","w2").Build();
-
-            _target.Collect(instance);
-
-            var result = _target.Result();
-            Assert.That(result,Is.Empty);
-        }
-
-        [Test]
         public void Collect_InstanceIsLibraryGate_Collected()
         {
             var instance = new InstanceBuilder("netlist", "host").New("moduleName", "instName")
@@ -44,7 +31,7 @@ namespace Elicon.Unit.Tests.Domain.Reports
         }
 
         [Test]
-        public void Collect_TwoLibraryGateInstanceOfTheSameGate_InstanceWithMorePortsIsCollected()
+        public void Collect_TwoLibraryGatesOfTheSameGate_InstanceWithMorePortsIsCollected()
         {
             var instance = new InstanceBuilder("netlist", "host").New("moduleName", "instName")
                 .Add("a", "w1").Add("b", "w2").Build();
@@ -60,7 +47,7 @@ namespace Elicon.Unit.Tests.Domain.Reports
         }
 
         [Test]
-        public void Collect_TwoLibraryGateInstancesOfDifferentGates_BothAreCollected()
+        public void Collect_TwoLibraryGatesOfDifferentGates_BothAreCollected()
         {
             var instance = new InstanceBuilder("netlist", "host").New("moduleName", "instName")
                .Add("a", "w1").Add("b", "w2").Build();

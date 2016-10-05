@@ -21,7 +21,7 @@ namespace Elicon.Domain.GateLevel.Reports.ListLibraryGates
         {
             var aggregator = new ListLibraryGatesAggregator();
 
-            var instances = _instanceRepository.GetBy(netlist);
+            var instances = _instanceRepository.GetLibraryGateInstances(netlist);
             foreach (var instance in instances)
                 aggregator.Collect(instance);
        
