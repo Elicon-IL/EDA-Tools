@@ -57,6 +57,7 @@
     <Compile Include="Domain\Manipulations\ModuleMutatorTests.cs" />
     <Compile Include="Domain\Manipulations\BufferWiringVerifierTests.cs" />
     <Compile Include="Domain\Manipulations\InstanceMutatorTests.cs" />
+    <Compile Include="Domain\InstanceExtensionsTests.cs" />
     <Compile Include="Domain\Reports\PhysicalPathAggregatorTests.cs" />
     <Compile Include="Domain\Reports\ListLibraryGatesAggregatorTests.cs" />
     <Compile Include="Domain\Reports\LibraryGatesCountAggregatorTests.cs" />
