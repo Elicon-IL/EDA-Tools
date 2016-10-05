@@ -50,8 +50,7 @@ namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
 
                 _instanceRepository.Remove(buffer);
 
-                var instances = ReplaceWires(module, inputPort, outputPort, buffer);
-                var buffersToUpdate = instances.Where(instance => instance.ModuleName == buffer.ModuleName).ToList();
+                var buffersToUpdate = ReplaceWires(module, inputPort, outputPort, buffer);
                 foreach (var bufferToUpdate in buffersToUpdate)
                     bufferIdsToBuffersMap[bufferToUpdate.Id] = bufferToUpdate;
             }
@@ -68,7 +67,7 @@ namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
 
             _instanceRepository.UpdateMany(instances);
 
-            return instances;
+            return instances.Where(instance => instance.ModuleName == buffer.ModuleName).ToList();
         }
     }
 }
