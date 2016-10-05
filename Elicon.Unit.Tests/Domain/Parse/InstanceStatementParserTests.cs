@@ -18,7 +18,7 @@ namespace Elicon.Unit.Tests.Domain.Parse
         [Test]
         public void GetModuleName_InstanceStatement_ReturnsModuleName()
         {
-            var statement = "no2 inst100408  ( .b(n36), .a(i0), .zn(o) );";
+            const string statement = "no2 inst100408  ( .b(n36), .a(i0), .zn(o) );";
 
             var result = _target.GetModuleName(statement);
 
@@ -38,7 +38,7 @@ namespace Elicon.Unit.Tests.Domain.Parse
         [Test]
         public void GetInstanceName_InstanceStatementWithEscapedName_ReturnsInstanceName()
         {
-            var statement = "no2 \\inst1004(08  ( .b(n36), .a(i0), .zn(o) );";
+            const string statement = "no2 \\inst1004(08  ( .b(n36), .a(i0), .zn(o) );";
 
             var result = _target.GeInstanceName(statement);
 
@@ -48,7 +48,7 @@ namespace Elicon.Unit.Tests.Domain.Parse
         [Test]
         public void GetNet_StatementWithNoConnections_ReturnsEmpty()
         {
-            var statement = "cell1 inst1 ();";
+            const string statement = "cell1 inst1 ();";
 
             var result = _target.GetNet(statement);
 
@@ -85,7 +85,7 @@ namespace Elicon.Unit.Tests.Domain.Parse
         [Test]
         public void GetNet_StatementWithTwoPortWireAndEscapedNotation_ReturnsTwoPortWire()
         {
-            var statement = @"cell2 inst2 ( . \p1(2) (\wire[8] ), .\port[2] (wire2));";
+            const string statement = @"cell2 inst2 ( . \p1(2) (\wire[8] ), .\port[2] (wire2));";
 
             var result = _target.GetNet(statement).ToList();
 
@@ -99,7 +99,7 @@ namespace Elicon.Unit.Tests.Domain.Parse
         [Test]
         public void GetNet_StatementWithTwoPortWireAndBusNotation_ReturnsTwoPortWire()
         {
-            var statement = @"cell3 inst3 ( . p1 (\wire [8] ), .\port[2] ( wire[2]));";
+            const string statement = @"cell3 inst3 ( . p1 (\wire [8] ), .\port[2] ( wire[2]));";
 
             var result = _target.GetNet(statement).ToList();
 
@@ -113,8 +113,7 @@ namespace Elicon.Unit.Tests.Domain.Parse
         [Test]
         public void GetNet_StatementWithTwoPortWireAndOpenedWireBusNotation_ReturnsTwoPortWire()
         {
-         
-            var statement = @"cell4 inst4 ( . p1 ({\wire[8], , w2} ), .\port[2] ( wire2));";
+            const string statement = @"cell4 inst4 ( . p1 ({\wire[8], , w2} ), .\port[2] ( wire2));";
 
             var result = _target.GetNet(statement).ToList();
 
@@ -128,7 +127,7 @@ namespace Elicon.Unit.Tests.Domain.Parse
         [Test]
         public void GetNet_StatementWithOnePortWireAndEscapedOpenedWireBusNotation_ReturnsPortWire()
         {
-            var statement = @"cell4 inst4 ( . p1 ({\wire[8], ,\w2} } ));";
+            const string statement = @"cell4 inst4 ( . p1 ({\wire[8], ,\w2} } ));";
 
             var result = _target.GetNet(statement).ToList();
 
