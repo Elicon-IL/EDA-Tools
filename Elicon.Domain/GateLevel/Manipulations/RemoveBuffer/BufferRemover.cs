@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
 
 namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
@@ -15,62 +16,59 @@ namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
         private readonly IBufferWiringVerifier _bufferWiringVerifier;
         private readonly IInstanceMutator _instanceMutator;
         private readonly IModuleRepository _moduleRepository;
+        private readonly IOpenOutputModuleRemover _openOutputModuleRemover;
 
-        public BufferRemover(IInstanceMutator instanceMutator, IInstanceRepository instanceRepository, IBufferWiringVerifier bufferWiringVerifier, IModuleRepository moduleRepository)
+        public BufferRemover(IInstanceMutator instanceMutator, IInstanceRepository instanceRepository, IBufferWiringVerifier bufferWiringVerifier, IModuleRepository moduleRepository, IOpenOutputModuleRemover openOutputModuleRemover)
         {
             _instanceMutator = instanceMutator;
             _instanceRepository = instanceRepository;
             _bufferWiringVerifier = bufferWiringVerifier;
             _moduleRepository = moduleRepository;
+            _openOutputModuleRemover = openOutputModuleRemover;
         }
 
         public void Remove(string netlist, string bufferName, string inputPort, string outputPort)
         {
-            var buffers = _instanceRepository.GetByModuleName(netlist, bufferName);
-            var buffersMapping = buffers.Select((b, i) => new {Index = i, Buffer = b})
-                .ToDictionary(el => el.Buffer.Id, el => el.Index);
+            _openOutputModuleRemover.Remove(netlist, bufferName, outputPort);
 
-            var hostsMap = _moduleRepository
-                .GetMany(netlist, buffers.Select(b => b.HostModuleName).ToList())
-                .ToDictionary(m => m.Name, m => m);
+            Parallel.ForEach(_moduleRepository.GetAll(netlist), module => 
+                RemoveBuffers(module, bufferName, inputPort, outputPort)
+            );
+        }
 
-            foreach (var buffer in buffers)
+        private void RemoveBuffers(Module module, string bufferName, string inputPort, string outputPort)
+        {
+            var bufferIdsToBuffersMap = _instanceRepository
+                .GetByModuleName(module.Netlist, bufferName)
+                .ToDictionary(i => i.Id, i => i);
+
+            foreach (var bufferId in bufferIdsToBuffersMap.Keys.ToList())
             {
-                var hostModule = hostsMap[buffer.HostModuleName];
-                if (_bufferWiringVerifier.IsPassThroughBuffer(hostModule, buffer, inputPort, outputPort))
+                var buffer = bufferIdsToBuffersMap[bufferId];
+                if (_bufferWiringVerifier.IsPassThroughBuffer(module, buffer, inputPort, outputPort))
                     continue;
 
                 _instanceRepository.Remove(buffer);
-                if (buffer.HasPort(outputPort))
-                    ReplaceWires(hostModule, buffer, inputPort, outputPort, buffers, buffersMapping);
+
+                var instances = ReplaceWires(module, inputPort, outputPort, buffer);
+                var buffersToUpdate = instances.Where(instance => instance.ModuleName == buffer.ModuleName).ToList();
+                foreach (var bufferToUpdate in buffersToUpdate)
+                    bufferIdsToBuffersMap[bufferToUpdate.Id] = bufferToUpdate;
             }
         }
 
-        private void ReplaceWires(Module hostModule, Instance buffer, string inputPort, string outputPort, IList<Instance> buffers, Dictionary<long, int> buffersMapping)
+        private List<Instance> ReplaceWires(Module module, string inputPort, string outputPort, Instance buffer)
         {
-            var instances = _instanceRepository.GetByHostModule(buffer.Netlist, buffer.HostModuleName).ToList();
-            if (_bufferWiringVerifier.HostModuleDrivesBuffer(hostModule, buffer, inputPort))
-            {
-                var moduleInputPort = buffer.GetWire(inputPort);
-                var bufferOutputWire = buffer.GetWire(outputPort);
-                _instanceMutator.Take(instances).ReplaceWires(bufferOutputWire, moduleInputPort);
-            }
+            var instances = _instanceRepository.GetByHostModule(module.Netlist, module.Name).ToList();
+
+            if (_bufferWiringVerifier.HostModuleDrivesBuffer(module, buffer, inputPort))
+                _instanceMutator.Take(instances).ReplaceWires(buffer.GetWire(outputPort), buffer.GetWire(inputPort));
             else
-            {
-                var oldWire = buffer.GetWire(inputPort);
-                var newWire = buffer.GetWire(outputPort);
-                _instanceMutator.Take(instances).ReplaceWires(oldWire, newWire);
-            }
+                _instanceMutator.Take(instances).ReplaceWires(buffer.GetWire(inputPort), buffer.GetWire(outputPort));
 
             _instanceRepository.UpdateMany(instances);
-            UpdateLocalBufferList(buffer, instances, buffers, buffersMapping);
-        }
 
-        private void UpdateLocalBufferList(Instance buffer, List<Instance> instances, IList<Instance> buffers, Dictionary<long, int> buffersMapping)
-        {
-            foreach (var instance in instances.Where(instance => instance.ModuleName == buffer.ModuleName))
-                buffers[buffersMapping[instance.Id]] = instance;
-
+            return instances;
         }
     }
 }

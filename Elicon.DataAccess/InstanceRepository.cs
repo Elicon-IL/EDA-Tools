@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using Elicon.Domain.GateLevel;
@@ -9,8 +10,8 @@ namespace Elicon.DataAccess
 {
     public class InstanceRepository : IInstanceRepository
     {
-        private readonly Dictionary<long, Instance> _instances = new Dictionary<long, Instance>();
-        private readonly Dictionary<string, List<long>> _hostModuleToInstancesMap = new Dictionary<string, List<long>>();
+        private readonly ConcurrentDictionary<long, Instance> _instances = new ConcurrentDictionary<long, Instance>();
+        private readonly ConcurrentDictionary<string, List<long>> _hostModuleToInstancesMap = new ConcurrentDictionary<string, List<long>>();
         private readonly IIdGenerator _idGenerator;
 
         public InstanceRepository(IIdGenerator idGenerator)
@@ -21,7 +22,7 @@ namespace Elicon.DataAccess
         public void Add(Instance instance)
         {
             instance.Id = _idGenerator.GenerateId();
-            _instances.Add(instance.Id, new Instance(instance));
+            _instances.TryAdd(instance.Id, new Instance(instance));
             _hostModuleToInstancesMap.ValueOrNew(instance.HostModuleName).Add(instance.Id);
         }
 
@@ -75,7 +76,8 @@ namespace Elicon.DataAccess
 
         public void Remove(Instance instance)
         {
-            _instances.Remove(instance.Id);
+            Instance value;
+            _instances.TryRemove(instance.Id, out value);
             _hostModuleToInstancesMap.ValueOrNew(instance.HostModuleName).Remove(instance.Id);
         }
 

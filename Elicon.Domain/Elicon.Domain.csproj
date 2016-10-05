@@ -66,6 +66,7 @@
     <Compile Include="GateLevel\Contracts\DataAccess\INetlistRepository.cs" />
     <Compile Include="GateLevel\Manipulations\RemoveBuffer\BufferRemover.cs" />
     <Compile Include="GateLevel\Manipulations\RemoveBuffer\BufferWiringVerifier.cs" />
+    <Compile Include="GateLevel\Manipulations\RemoveBuffer\OpenOutputModuleRemover.cs" />
     <Compile Include="GateLevel\Manipulations\RemoveBuffer\RemoveBufferManipulation.cs" />
     <Compile Include="GateLevel\Manipulations\RemoveBuffer\RemoveBufferRequest.cs" />
     <Compile Include="GateLevel\Manipulations\ReplaceLibraryGate\LibraryGateReplaceRequest.cs" />
