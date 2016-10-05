@@ -38,9 +38,9 @@ namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
 
         private void RemoveBuffers(Module module, string bufferName, string inputPort, string outputPort)
         {
-            var bufferIdsToBuffersMap = _instanceRepository
-                .GetByModuleName(module.Netlist, bufferName)
-                .ToDictionary(i => i.Id, i => i);
+            var bufferIdsToBuffersMap = _instanceRepository.GetByHostModule(module.Netlist, module.Name)
+                 .Where(i => i.ModuleName == bufferName)
+                 .ToDictionary(i => i.Id, i => i);
 
             foreach (var bufferId in bufferIdsToBuffersMap.Keys.ToList())
             {
