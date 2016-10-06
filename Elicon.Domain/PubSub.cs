@@ -22,7 +22,7 @@ namespace Elicon.Domain
     public class PubSub : IPubSub
     {
         private readonly Dictionary<Type, List<Delegate>> _subscriptions = new Dictionary<Type, List<Delegate>>();
-        private readonly ReaderWriterLockSlim _lock =  new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
+        private readonly ReaderWriterLockSlim _lock =  new ReaderWriterLockSlim();
 
         public void Publish<T>(T eventToPublish) where T : IEvent
         {
@@ -37,8 +37,8 @@ namespace Elicon.Domain
                 _lock.ExitReadLock();
             }
 
-            foreach (var action in actions)
-                ((Action<T>)action)(eventToPublish);
+            foreach (var action in actions.Cast<Action<T>>())
+                action(eventToPublish);
         }
 
         public void Subscribe<T>(Action<T> action) where T : IEvent
