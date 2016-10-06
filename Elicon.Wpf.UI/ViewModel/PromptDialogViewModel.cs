@@ -254,7 +254,7 @@ namespace EdaTools.ViewModel
             var saveFileDialog = new SaveFileDialog
             {
                 Filter = _targetSaveAsFilter,
-                InitialDirectory = AppDomain.CurrentDomain.BaseDirectory,
+                InitialDirectory = !string.IsNullOrEmpty(SelectedNetlist) ? Path.GetDirectoryName(SelectedNetlist) : AppDomain.CurrentDomain.BaseDirectory,
                 FileName = Path.GetFileNameWithoutExtension(SelectedNetlist)
             };
             if (saveFileDialog.ShowDialog() == true)

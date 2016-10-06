@@ -17,7 +17,7 @@ namespace EdaTools.Controls
         {
             InitializeComponent();
             IsVisibleChanged += HandleVisibleChanged;
-            _spinnerTimer = new DispatcherTimer(DispatcherPriority.Normal, Dispatcher) { Interval = new TimeSpan(0, 0, 0, 0, 100) };
+            _spinnerTimer = new DispatcherTimer(DispatcherPriority.Normal, Dispatcher) { Interval = new TimeSpan(0, 0, 0, 0, 120) };
             _circles = new Ellipse[9];
             _brush = new RadialGradientBrush
                 {

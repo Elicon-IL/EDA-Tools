@@ -242,9 +242,7 @@ namespace EdaTools.ViewModel
             var dataContext = GetPromptDialogData(PromptDialogModel.Actions.ReplaceLibraryGate);
             if (dataContext.DialogResult)
             {
-                _currentTool="replace library gate instances tool";
-                PreRunActions("list library gates tool", dataContext.SelectedNetlist);
-
+                PreRunActions("replace library gate instances tool", dataContext.SelectedNetlist);
                 var replaceRequest = dataContext.MakeModuleReplaceRequest();
                 _toolRunner.ReplaceLibraryGateCommand(replaceRequest);
             }
