@@ -1,15 +1,5 @@
-using Elicon.Domain.GateLevel.Contracts.DataAccess;
-
 namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
 {
-    public enum BufferWiring
-    {
-        PassThroughBuffer,
-        DrivenByHostModule,
-        DrivesHostModule,
-        NotConnectedToHostModule
-    }
-
     public interface IBufferWiringVerifier
     {
         bool IsPassThroughBuffer(Module hostModule, Instance buffer, string inputPort, string outputPort);
