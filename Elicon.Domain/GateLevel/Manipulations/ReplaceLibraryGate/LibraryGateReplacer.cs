@@ -27,7 +27,7 @@ namespace Elicon.Domain.GateLevel.Manipulations.ReplaceLibraryGate
             if (_moduleRepository.Exists(netlist, gateToReplace))
                 throw new InvalidOperationException("can replace only library gates");
 
-            var instances = _instanceRepository.GetByModuleName(netlist, gateToReplace).ToList();
+            var instances = _instanceRepository.GetByModuleName(netlist, gateToReplace);
 
             _instanceMutator.Take(instances)
                 .MutateModuleName(newGate)

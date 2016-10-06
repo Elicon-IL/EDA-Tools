@@ -58,7 +58,7 @@ namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
 
         private List<Instance> ReplaceWires(Module module, string inputPort, string outputPort, Instance buffer)
         {
-            var instances = _instanceRepository.GetByHostModule(module.Netlist, module.Name).ToList();
+            var instances = _instanceRepository.GetByHostModule(module.Netlist, module.Name);
 
             if (_bufferWiringVerifier.HostModuleDrivesBuffer(module, buffer, inputPort))
                 _instanceMutator.Take(instances).ReplaceWires(buffer.GetWire(outputPort), buffer.GetWire(inputPort));

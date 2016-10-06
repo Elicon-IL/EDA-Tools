@@ -1,4 +1,3 @@
-using System.Linq;
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
 
 namespace Elicon.Domain.GateLevel.Manipulations.UpperCaseLibraryGatesPorts
@@ -21,7 +20,7 @@ namespace Elicon.Domain.GateLevel.Manipulations.UpperCaseLibraryGatesPorts
 
         public void PortsToUpper(string netlist)
         {
-            var instances = _instanceRepository.GetLibraryGateInstances(netlist).ToList();
+            var instances = _instanceRepository.GetLibraryGateInstances(netlist);
 
             _instanceMutator.Take(instances).PortsToUpper();
 
