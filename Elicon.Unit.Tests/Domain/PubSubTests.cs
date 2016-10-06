@@ -18,7 +18,7 @@ namespace Elicon.Unit.Tests.Domain
         public void Publish_OneEvent_SubscriberExecutes()
         {
             var result = "";
-            var excpectedText = "Bla Bla";
+            const string excpectedText = "Bla Bla";
             _target.Subscribe<DummyEvent>(ev => result = excpectedText);
          
             _target.Publish(new DummyEvent());
@@ -31,8 +31,8 @@ namespace Elicon.Unit.Tests.Domain
         {
             var result = "";
             var anotherResult = "";
-            var excpectedText = "Bla Bla";
-            var anotherText = "Yada Yada";
+            const string excpectedText = "Bla Bla";
+            const string anotherText = "Yada Yada";
             _target.Subscribe<DummyEvent>(ev => result = excpectedText);
             _target.Subscribe<AnotherDummyEvent>(ev => anotherResult = anotherText);
 
@@ -47,8 +47,8 @@ namespace Elicon.Unit.Tests.Domain
         {
             var result = "";
             var anotherResult = "";
-            var excpectedText = "Bla Bla";
-            var anotherExpectedText = "Yada Yada";
+            const string excpectedText = "Bla Bla";
+            const string anotherExpectedText = "Yada Yada";
             _target.Subscribe<DummyEvent>(ev => result = excpectedText);
             _target.Subscribe<DummyEvent>(ev => anotherResult = anotherExpectedText);
 
@@ -63,8 +63,8 @@ namespace Elicon.Unit.Tests.Domain
         {
             var result = "";
             var anotherResult = "";
-            var excpectedText = "Bla Bla";
-            var anotherExpectedText = "Yada Yada";
+            const string excpectedText = "Bla Bla";
+            const string anotherExpectedText = "Yada Yada";
             _target.Subscribe<DummyEvent>(ev => result = excpectedText);
             _target.Subscribe<AnotherDummyEvent>(ev => anotherResult = anotherExpectedText);
 
