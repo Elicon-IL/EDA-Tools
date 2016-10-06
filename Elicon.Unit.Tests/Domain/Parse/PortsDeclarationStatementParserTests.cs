@@ -18,7 +18,7 @@ namespace Elicon.Unit.Tests.Domain.Parse
         [Test]
         public void GetPortType_InputType_ReturnsInput()
         {
-            var statement = "input w1, w2, w3, w4, w5, w6, w7, w8, w9 , w10 , w11 , clk ;";
+            const string statement = "input w1, w2, w3, w4, w5, w6, w7, w8, w9 , w10 , w11 , clk ;";
 
             var result = _target.GetPortType(statement);
 
@@ -26,9 +26,9 @@ namespace Elicon.Unit.Tests.Domain.Parse
         }
 
         [Test]
-        public void GetPortType_OutputType_ReturnsInput()
+        public void GetPortType_OutputType_ReturnsOutput()
         {
-            var statement = "output w1, w2, w3, w4, w5, w6, w7, w8, w9 , w10 , w11 , clk ;";
+            const string statement = "output w1, w2, w3, w4, w5, w6, w7, w8, w9 , w10 , w11 , clk ;";
 
             var result = _target.GetPortType(statement);
 
@@ -38,7 +38,7 @@ namespace Elicon.Unit.Tests.Domain.Parse
         [Test]
         public void GetPortType_InoutType_ReturnsInout()
         {
-            var statement = "inout w1, w2, w3, w4, w5, w6, w7, w8, w9 , w10 , w11 , clk ;";
+            const string statement = "inout w1, w2, w3, w4, w5, w6, w7, w8, w9 , w10 , w11 , clk ;";
 
             var result = _target.GetPortType(statement);
 
@@ -48,7 +48,7 @@ namespace Elicon.Unit.Tests.Domain.Parse
         [Test]
         public void GetPorts_OnePort_ReturnsPort()
         {
-            var statement = "input w1;";
+            const string statement = "input w1;";
 
             var result = _target.GetPorts(statement);
 
@@ -60,7 +60,7 @@ namespace Elicon.Unit.Tests.Domain.Parse
         [Test]
         public void GetPorts_TwoPortsNoEscape_ReturnsTwoPort()
         {
-            var statement = "inout w1, w2 ;";
+            const string statement = "inout w1, w2 ;";
 
             var result = _target.GetPorts(statement);
 
@@ -74,7 +74,7 @@ namespace Elicon.Unit.Tests.Domain.Parse
         [Test]
         public void GetPorts_TwoPortsWithEscape_ReturnsTwoPort()
         {
-            var statement = "inout \\w1,(; , w2 ;";
+            const string statement = "inout \\w1,(; , w2 ;";
 
             var result = _target.GetPorts(statement);
 
