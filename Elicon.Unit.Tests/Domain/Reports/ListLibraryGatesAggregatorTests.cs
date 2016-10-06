@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Elicon.Domain.GateLevel;
 using Elicon.Domain.GateLevel.Reports.ListLibraryGates;
 using Elicon.Tests.Framework;
 using NUnit.Framework;
@@ -15,6 +16,18 @@ namespace Elicon.Unit.Tests.Domain.Reports
         public void SetUp()
         {
             _target = new ListLibraryGatesAggregator();
+        }
+
+        [Test]
+        public void Collect_InstanceNotLibraryGate_NotCollected()
+        {
+            var instance = new InstanceBuilder("netlist", "host").New("moduleName", "instName", InstanceType.Module)
+                .Add("a", "w1").Add("b", "w2").Build();
+
+            _target.Collect(instance);
+
+            var result = _target.Result();
+            Assert.That(result, Is.Empty);
         }
 
         [Test]
