@@ -19,11 +19,6 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center" 
             Unloaded="HandleUnloaded" >
-            <Canvas.RenderTransform>
-                <RotateTransform 
-                    x:Name="SpinnerRotate"
-                    Angle="0" />
-            </Canvas.RenderTransform>
         </Canvas>
     </Viewbox>
         

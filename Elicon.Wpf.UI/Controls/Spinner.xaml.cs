@@ -12,13 +12,14 @@ namespace EdaTools.Controls
         private readonly DispatcherTimer _spinnerTimer;
         private readonly Ellipse[] _circles;
         private readonly RadialGradientBrush _brush;
+        private int _offset;
 
         public Spinner()
         {
             InitializeComponent();
             IsVisibleChanged += HandleVisibleChanged;
-            _spinnerTimer = new DispatcherTimer(DispatcherPriority.Normal, Dispatcher) { Interval = new TimeSpan(0, 0, 0, 0, 120) };
-            _circles = new Ellipse[9];
+            _spinnerTimer = new DispatcherTimer(DispatcherPriority.Send, Dispatcher) { Interval = new TimeSpan(0, 0, 0, 0, 150) };
+            _circles = new Ellipse[10];
             _brush = new RadialGradientBrush
                 {
                     GradientOrigin = new Point(0.5, 0.5),
@@ -44,7 +45,7 @@ namespace EdaTools.Controls
 
         private void CreateSpinnerCircles()
         {
-            for (var i = 0; i < 9; i++)
+            for (var i = 0; i < _circles.Length; i++)
             {
                 _circles[i] = new Ellipse
                     {
@@ -59,6 +60,16 @@ namespace EdaTools.Controls
             }
         }
 
+        private void UpdateOpacity()
+        {
+            for (var i = 0; i < _circles.Length; i++)
+            {
+                _circles[i].Opacity = 1 - ((i + _offset) % _circles.Length) * 0.11;
+            }
+            _offset = (_offset + 1) % _circles.Length;
+
+        }
+
         public void SetVisible(bool visible)
         {
             if (visible)
@@ -71,7 +82,7 @@ namespace EdaTools.Controls
         {
             _spinnerTimer.Tick += OnSpinnerTick;
             _spinnerTimer.Start();
-            SpinnerRotate.Angle = 0;
+            _offset = 0;
             Opacity = 1;
         }
 
@@ -84,13 +95,13 @@ namespace EdaTools.Controls
 
         private void OnSpinnerTick(object sender, EventArgs e)
         {
-            SpinnerRotate.Angle = (SpinnerRotate.Angle + 36) % 360;
+            UpdateOpacity();
         }
 
         private static void SetCirclePosition(DependencyObject ellipse, double circleIndex)
         {
-            ellipse.SetValue(Canvas.LeftProperty, 50.0 + (Math.Sin(Math.PI * ((0.2 * circleIndex) + 1)) * 50.0));
-            ellipse.SetValue(Canvas.TopProperty, 50.0 + (Math.Cos(Math.PI * ((0.2 * circleIndex) + 1)) * 50.0));
+            ellipse.SetValue(Canvas.LeftProperty, 50.0 * (1 + Math.Sin(Math.PI * (1 + 0.2 * circleIndex))));
+            ellipse.SetValue(Canvas.TopProperty, 50.0 * (1 + Math.Cos(Math.PI * (1 + 0.2 * circleIndex))));
         }
 
         public void HandleVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
