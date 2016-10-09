@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using EdaTools.Model;
@@ -29,7 +30,6 @@ namespace EdaTools.ViewModel
         public RelayCommand FileMenuReadNetlist { get; private set; }
         public RelayCommand FileMenuCopyLog { get; private set; }
         public RelayCommand FileMenuSaveLog { get; private set; }
-        public RelayCommand FileMenuAbout { get; private set; }
 
         public RelayCommand UtilityMenuUpperCaseLibraryGatesPorts { get; private set; }
         public RelayCommand UtilityMenuRemoveBuffers { get; private set; }
@@ -38,6 +38,9 @@ namespace EdaTools.ViewModel
         public RelayCommand ReportMenuListPhysicalPaths { get; private set; }
         public RelayCommand ReportMenuCountLibraryGatesInstances { get; private set; }
         public RelayCommand ReportMenuListLibraryGates { get; private set; }
+
+        public RelayCommand HelpMenuAbout { get; private set; }
+        public RelayCommand HelpMenuSendFeedback { get; private set; }
 
         private readonly EdaToolsModel _edaToolsModel;
         private readonly ToolRunner _toolRunner;
@@ -189,7 +192,6 @@ namespace EdaTools.ViewModel
             FileMenuReadNetlist = new RelayCommand(param => OpenFileCommand(), param => CanExecute());
             FileMenuCopyLog = new RelayCommand(param => CopyLogCommand());
             FileMenuSaveLog = new RelayCommand(param => SaveLogCommand());
-            FileMenuAbout = new RelayCommand(param => AboutCommand());
             // =====================================================================
             UtilityMenuUpperCaseLibraryGatesPorts = new RelayCommand(param => UpperCaseLibraryGatesPortsCommand(), param => CanExecute());
             UtilityMenuRemoveBuffers = new RelayCommand(param => RemoveBuffersCommand(), param => CanExecute());
@@ -198,6 +200,9 @@ namespace EdaTools.ViewModel
             ReportMenuListPhysicalPaths = new RelayCommand(param => ListPhysicalPathsCommand(), param => CanExecute());
             ReportMenuCountLibraryGatesInstances = new RelayCommand(param => CountLibraryGatesInstancesCommand(), param => CanExecute());
             ReportMenuListLibraryGates = new RelayCommand(param => ListLibraryGatesCommand(), param => CanExecute());
+            // =====================================================================
+            HelpMenuAbout = new RelayCommand(param => AboutCommand());
+            HelpMenuSendFeedback = new RelayCommand(param => SendFeedbackCommand());
         }
 
         private PromptDialogViewModel GetPromptDialogData(PromptDialogModel.Actions action)
@@ -288,6 +293,12 @@ namespace EdaTools.ViewModel
         {
             Window aboutDlg = new AboutEdaToolsView(ParentWindow);
             aboutDlg.ShowDialog();
+        }
+
+
+        private void SendFeedbackCommand()
+        {
+            Process.Start(new ProcessStartInfo("http://www.elicon.biz"));
         }
 
         private void SaveLogCommand()

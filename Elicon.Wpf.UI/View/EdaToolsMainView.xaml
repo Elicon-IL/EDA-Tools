@@ -22,8 +22,6 @@
                     <MenuItem x:Name="CopyLog" Header="Copy Log Window" Command="{Binding FileMenuCopyLog, Mode=OneWay}"/>
                     <MenuItem x:Name="SaveLog" Header="Save Log Window..." Command="{Binding FileMenuSaveLog, Mode=OneWay}"/>
                     <Separator/>
-                    <MenuItem x:Name="About" Header="About EDA Tools..." Command="{Binding FileMenuAbout, Mode=OneWay}"/>
-                    <Separator/>
                     <MenuItem x:Name="ExitApp" Header="Exit Application" Command="{Binding Close, Mode=OneWay}" />
                 </MenuItem>
                 <MenuItem x:Name="UtilitisMenu" Header="Manipulation Tools">
@@ -36,6 +34,11 @@
                     <MenuItem x:Name="CountLibraryGatesInstances" Header="Count Library Gates Instances" Command="{Binding ReportMenuCountLibraryGatesInstances, Mode=OneWay}" />
                     <MenuItem x:Name="ListLibraryGates" Header="List Library Gates" Command="{Binding ReportMenuListLibraryGates, Mode=OneWay}" />
                 </MenuItem>
+                <MenuItem x:Name="HelpMenu" Header="Help">
+                    <MenuItem x:Name="SendFeedback" Header="Send Feedback" Command="{Binding HelpMenuSendFeedback, Mode=OneWay}"/>
+                    <Separator/>
+                    <MenuItem x:Name="About" Header="About EDA Tools..." Command="{Binding HelpMenuAbout, Mode=OneWay}"/>
+                </MenuItem>    
             </Menu>
         </DockPanel>
         <StatusBar x:Name="StatusBar" Height="22" Margin="0" DockPanel.Dock="Bottom" VerticalContentAlignment="Bottom" VerticalAlignment="Center" Background="{DynamicResource GrayBrushBackground}">
