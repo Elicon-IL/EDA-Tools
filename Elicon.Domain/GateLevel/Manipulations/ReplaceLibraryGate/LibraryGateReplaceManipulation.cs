@@ -34,7 +34,7 @@ namespace Elicon.Domain.GateLevel.Manipulations.ReplaceLibraryGate
             _libraryGateReplacer.Replace(replaceRequest.NewNetlist, replaceRequest.GateToReplace, replaceRequest.NewGate, replaceRequest.PortsMapping);
 
             var content = _netlistFileContentDirector.Construct(replaceRequest.NewNetlist);
-            _fileWriter.Write(replaceRequest.NewNetlist, "Replace LibraryGate Modules", content);
+            _fileWriter.Write(replaceRequest.NewNetlist, "Replace Library Gates Modules", content);
         }
     }
 }

@@ -12,24 +12,36 @@ namespace EdaTools.Controls
         private readonly DispatcherTimer _spinnerTimer;
         private readonly Ellipse[] _circles;
         private readonly RadialGradientBrush _brush;
+        private readonly RotateTransform _rotateTransform;
+        private readonly bool _useOpacity;
         private int _offset;
 
         public Spinner()
         {
             InitializeComponent();
             IsVisibleChanged += HandleVisibleChanged;
-            _spinnerTimer = new DispatcherTimer(DispatcherPriority.Send, Dispatcher) { Interval = new TimeSpan(0, 0, 0, 0, 150) };
-            _circles = new Ellipse[10];
+            _spinnerTimer = new DispatcherTimer(DispatcherPriority.Send, Dispatcher) { Interval = new TimeSpan(0, 0, 0, 0, 180) };
+            _useOpacity = true;
             _brush = new RadialGradientBrush
-                {
-                    GradientOrigin = new Point(0.5, 0.5),
-                    Center = new Point(0.5, 0.5),
-                    RadiusX = 0.5,
-                    RadiusY = 0.5,
-                    GradientStops = new GradientStopCollection()
-                };
+            {
+                GradientOrigin = new Point(0.5, 0.5),
+                Center = new Point(0.5, 0.5),
+                RadiusX = 0.5,
+                RadiusY = 0.5,
+                GradientStops = new GradientStopCollection()
+            };
             _brush.GradientStops.Add(new GradientStop(Colors.Transparent, 0.0));
             _brush.GradientStops.Add(new GradientStop(Color.FromRgb(90, 90, 90), 1.0));
+            if (_useOpacity)
+            {
+                _circles = new Ellipse[10];
+            }
+            else
+            {
+                _circles = new Ellipse[9];
+                _rotateTransform = new RotateTransform { Angle = 0 };
+                Canvas1.RenderTransform = _rotateTransform;
+            }
         }
 
         public override void OnApplyTemplate()
@@ -48,26 +60,29 @@ namespace EdaTools.Controls
             for (var i = 0; i < _circles.Length; i++)
             {
                 _circles[i] = new Ellipse
-                    {
-                        Stretch = Stretch.Fill,
-                        Width = 20,
-                        Height = 20,
-                        Fill = _brush,
-                        Opacity = 1 - i * 0.11
-                    };
+                {
+                    Stretch = Stretch.Fill,
+                    Width = 20,
+                    Height = 20,
+                    Fill = _brush,
+                    Opacity = 1 - i * 0.11
+                };
                 Canvas1.Children.Add(_circles[i]);
                 SetCirclePosition(_circles[i], i);
             }
         }
 
-        private void UpdateOpacity()
+        private void UpdateCircles()
         {
-            for (var i = 0; i < _circles.Length; i++)
+            if (_useOpacity)
             {
-                _circles[i].Opacity = 1 - ((i + _offset) % _circles.Length) * 0.11;
+                for (var i = 0; i < _circles.Length; i++)
+                    _circles[i].Opacity = 1 - ((i + _offset) % _circles.Length) * 0.11;
+                _offset = (_offset + 1) % _circles.Length;
             }
-            _offset = (_offset + 1) % _circles.Length;
-
+            else
+                _rotateTransform.Angle = (_rotateTransform.Angle + 36) % 360;
+            Canvas1.InvalidateVisual();
         }
 
         public void SetVisible(bool visible)
@@ -82,7 +97,10 @@ namespace EdaTools.Controls
         {
             _spinnerTimer.Tick += OnSpinnerTick;
             _spinnerTimer.Start();
-            _offset = 0;
+            if (_useOpacity)
+                _offset = 0;
+            else
+                _rotateTransform.Angle = 0;
             Opacity = 1;
         }
 
@@ -95,7 +113,7 @@ namespace EdaTools.Controls
 
         private void OnSpinnerTick(object sender, EventArgs e)
         {
-            UpdateOpacity();
+            UpdateCircles();
         }
 
         private static void SetCirclePosition(DependencyObject ellipse, double circleIndex)

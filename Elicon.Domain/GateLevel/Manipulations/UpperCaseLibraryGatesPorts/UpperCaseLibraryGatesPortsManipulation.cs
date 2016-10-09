@@ -34,7 +34,7 @@ namespace Elicon.Domain.GateLevel.Manipulations.UpperCaseLibraryGatesPorts
             _libraryGatesPortsReplacer.PortsToUpper(newNetlist);
 
             var content = _netlistFileContentDirector.Construct(newNetlist);
-            _fileWriter.Write(newNetlist, "Uppercase LibraryGate Module Ports", content);
+            _fileWriter.Write(newNetlist, "Uppercase Library Gates Module Ports", content);
         }
     }
 }
