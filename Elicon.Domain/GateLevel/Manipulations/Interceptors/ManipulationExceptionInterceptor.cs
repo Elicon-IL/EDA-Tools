@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using Elicon.Domain.GateLevel.Contracts.DataAccess;
-using Elicon.Domain.GateLevel.Manipulations.RemoveBuffer;
 using Ninject.Extensions.Interception;
 
 namespace Elicon.Domain.GateLevel.Manipulations.Interceptors
