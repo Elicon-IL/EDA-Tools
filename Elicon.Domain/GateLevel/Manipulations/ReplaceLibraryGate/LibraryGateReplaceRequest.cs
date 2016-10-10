@@ -1,5 +1,3 @@
-using Elicon.Domain.GateLevel.Manipulations.RemoveBuffer;
-
 namespace Elicon.Domain.GateLevel.Manipulations.ReplaceLibraryGate
 {
     public class LibraryGateReplaceRequest : IManipultaionRequest

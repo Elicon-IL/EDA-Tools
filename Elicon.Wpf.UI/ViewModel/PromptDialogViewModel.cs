@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
-using System.Windows.Input;
 using EdaTools.Model;
 using EdaTools.Properties;
 using EdaTools.Utility;
