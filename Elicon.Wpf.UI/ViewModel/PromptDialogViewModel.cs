@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Input;
 using EdaTools.Model;
 using EdaTools.Properties;
 using EdaTools.Utility;
@@ -42,7 +43,7 @@ namespace EdaTools.ViewModel
         public PromptDialogViewModel()
         {
             PromptDialogModel = new PromptDialogModel();
-            OkButtonCommand = new RelayCommand(param => InvokeRequestClose(new RequestCloseEventArgs(true)), param => PromptDialogModel.CanExecute(CurrentUiAction));
+            OkButtonCommand = new RelayCommand(param => InvokeRequestClose(new RequestCloseEventArgs(true)), param => CanExecute());
             NetlistBrowseButtonCommand = new RelayCommand(param => OpenFileCommand());
             TargetBrowseButtonCommand = new RelayCommand(param => SaveAsCommand());
             _loadedNetlists = new ExtendedObservableCollection<string>();
@@ -51,6 +52,14 @@ namespace EdaTools.ViewModel
         // =========================================
         // Model Properties Handler.
         // =========================================
+
+        private bool CanExecute()
+        {
+            var result = (PromptDialogModel.CanExecute(CurrentUiAction));
+            OkButtonIsDefault = result;
+            CancelButtonIsDefault = !result;
+            return result;
+        }
 
         public PromptDialogModel.Actions CurrentUiAction
         {
@@ -107,6 +116,28 @@ namespace EdaTools.ViewModel
                         break;
                 }
                 _targetSaveAsFilter = doReport ? ReportSaveAsFilter : NetlistSaveAsFilter;
+            }
+        }
+
+        private bool _okButtonIsDefault;
+        public bool OkButtonIsDefault
+        {
+            get { return _okButtonIsDefault; }
+            set
+            {
+                _okButtonIsDefault = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool _cancelButtonIsDefault;
+        public bool CancelButtonIsDefault
+        {
+            get { return _cancelButtonIsDefault; }
+            set
+            {
+                _cancelButtonIsDefault = value;
+                RaisePropertyChanged();
             }
         }
 
