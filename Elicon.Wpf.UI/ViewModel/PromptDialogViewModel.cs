@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Input;
+using System.Windows.Threading;
 using EdaTools.Model;
 using EdaTools.Properties;
 using EdaTools.Utility;
@@ -48,9 +50,41 @@ namespace EdaTools.ViewModel
             _loadedNetlists = new ExtendedObservableCollection<string>();
         }
 
+
         // =========================================
-        // Model Properties Handler.
+        // OK Button State and Focus Handler.
         // =========================================
+        public static readonly DependencyProperty IsFocusedProperty =
+                DependencyProperty.RegisterAttached(
+                "IsFocused", typeof(bool), typeof(PromptDialogViewModel),
+                new UIPropertyMetadata(false, OnIsFocusedPropertyChanged));
+
+        private static void OnIsFocusedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool) e.NewValue)
+            {
+                var target = (UIElement)d;
+                target.Dispatcher.BeginInvoke(
+                (Action)(() =>
+                {
+                    if (target.Focusable)
+                    {
+                        target.Focus();
+                        Keyboard.Focus(target);
+                    }
+                }), DispatcherPriority.Input);
+            }
+        }
+
+        public static bool GetIsFocused(DependencyObject obj)
+        {
+            return (bool)obj.GetValue(IsFocusedProperty);
+        }
+
+        public static void SetIsFocused(DependencyObject obj, bool value)
+        {
+            obj.SetValue(IsFocusedProperty, value);
+        }
 
         private bool CanExecute()
         {
@@ -59,6 +93,11 @@ namespace EdaTools.ViewModel
             CancelButtonIsDefault = !result;
             return result;
         }
+
+
+        // =========================================
+        // Model Properties Handler.
+        // =========================================
 
         public PromptDialogModel.Actions CurrentUiAction
         {
@@ -94,7 +133,7 @@ namespace EdaTools.ViewModel
                         UserPrompt1 = "Enter Module to Replace:";
                         Hint1 = "an3  i1 i2 i3 o";
                         UserPrompt2 = "Enter Replacing Module:";
-                        Hint2 = "and3 in1 in2 in3 out"; 
+                        Hint2 = "and3 in1 in2 in3 out";
                         break;
                     case PromptDialogModel.Actions.RemoveBuffers:
                         SecondPromptVisibility = Visibility.Collapsed;
@@ -272,7 +311,7 @@ namespace EdaTools.ViewModel
 
         private void InvokeRequestClose(RequestCloseEventArgs e)
         {
-            if ((bool) e.ViewModelOutputData)
+            if ((bool)e.ViewModelOutputData)
             {
                 DialogResult = true;
             }
@@ -323,7 +362,7 @@ namespace EdaTools.ViewModel
 
         public string RootModule => PromptDialogModel.RootModule;
 
-        public string ModuleNames =>PromptDialogModel.ModuleNames;
+        public string ModuleNames => PromptDialogModel.ModuleNames;
 
     }
 }

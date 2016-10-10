@@ -53,7 +53,7 @@
 
         <!-- <Border  Style="{StaticResource AppBorderStyle}"  Margin="10"> -->
         <Grid Height="45" Width="524" Margin="3">
-            <Button Style="{DynamicResource NiceButton}" Content="OK" IsDefault="{Binding OkButtonIsDefault}" Command="{Binding OkButtonCommand}" Margin="311,8,0,0" VerticalAlignment="Top" Width="75" HorizontalAlignment="Left" />
+            <Button Style="{DynamicResource NiceButton}" Content="OK" viewModel:PromptDialogViewModel.IsFocused="{Binding OkButtonIsDefault}" Command="{Binding OkButtonCommand}" Margin="311,8,0,0" VerticalAlignment="Top" Width="75" HorizontalAlignment="Left" />
             <Button Style="{DynamicResource NiceButton}" Content="Cancel" IsDefault="{Binding CancelButtonIsDefault}" IsCancel="true" Margin="439,8,0,0" VerticalAlignment="Top" Width="75" HorizontalAlignment="Left" />
         </Grid>
         <!-- </Border> -->
