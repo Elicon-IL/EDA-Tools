@@ -55,7 +55,7 @@ namespace EdaTools.Utility
 
         public static string FormatMessage(this Exception ex)
         {
-            return ex.InnerException == null ? $"ERROR - Exception = {ex.Message}" : $"Exception = {ex.Message}{Environment.NewLine}Inner Exception = {ex.InnerException.Message}";
+            return ex.InnerException == null ? $"ERROR - Exception = {ex.Message}" : $"ERROR - Exception = {ex.Message}{Environment.NewLine}Inner Exception = {ex.InnerException.Message}";
         }
 
         public static string AppendLine(this string source, string newLine)

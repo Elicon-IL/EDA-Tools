@@ -298,7 +298,7 @@ namespace EdaTools.ViewModel
 
         private void SendFeedbackCommand()
         {
-            Process.Start(new ProcessStartInfo("http://www.elicon.biz"));
+            Process.Start(new ProcessStartInfo("http://www.elicon.biz/community"));
         }
 
         private void SaveLogCommand()

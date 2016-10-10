@@ -187,7 +187,9 @@ namespace EdaTools.Utility
         private void SetErrorData(Exception ex)
         {
             _toolRunnerEventArgs.Error = true;
-            _toolRunnerEventArgs.ErrorMessage = ex.FormatMessage();
+            _toolRunnerEventArgs.ErrorMessage = ex.GetType() == typeof (OutOfMemoryException) ? 
+                $"ERROR - Unexpected failure (probably due to your system configuration).{Environment.NewLine}Let us help and fix this issue ! Please send us (HW, OS, Input files) to elicon/comunity." : 
+                ex.FormatMessage();
         }
 
         private void OnTaskRunningFinished(ToolRunnerEventArgs e)
