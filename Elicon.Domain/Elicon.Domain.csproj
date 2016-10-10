@@ -31,6 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Interception, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Extensions.Interception.3.0.0.8\lib\net45-full\Ninject.Extensions.Interception.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -47,6 +55,7 @@
     <Compile Include="GateLevel\BuildData\StatementHandlers\MetaStatementHandler.cs" />
     <Compile Include="GateLevel\BuildData\StatementHandlers\WireDeclarationStatementHandler.cs" />
     <Compile Include="GateLevel\Manipulations\InstanceMutator.cs" />
+    <Compile Include="GateLevel\Manipulations\Interceptors\ManipulationExceptionInterceptor.cs" />
     <Compile Include="GateLevel\Manipulations\ModuleMutator.cs" />
     <Compile Include="GateLevel\BuildData\StatementHandlers\StatementHandlersOrderer.cs" />
     <Compile Include="GateLevel\BuildData\StatementHandlers\EmptyStatementHandler.cs" />
@@ -66,6 +75,7 @@
     <Compile Include="GateLevel\Contracts\DataAccess\INetlistRepository.cs" />
     <Compile Include="GateLevel\Manipulations\RemoveBuffer\BufferRemover.cs" />
     <Compile Include="GateLevel\Manipulations\RemoveBuffer\BufferWiringVerifier.cs" />
+    <Compile Include="GateLevel\Manipulations\IManipultaionRequest.cs" />
     <Compile Include="GateLevel\Manipulations\RemoveBuffer\OpenOutputModuleRemover.cs" />
     <Compile Include="GateLevel\Manipulations\RemoveBuffer\RemoveBufferManipulation.cs" />
     <Compile Include="GateLevel\Manipulations\RemoveBuffer\RemoveBufferRequest.cs" />
@@ -73,6 +83,7 @@
     <Compile Include="GateLevel\Manipulations\ReplaceLibraryGate\LibraryGateReplaceManipulation.cs" />
     <Compile Include="GateLevel\Manipulations\ReplaceLibraryGate\LibraryGateReplacer.cs" />
     <Compile Include="GateLevel\Manipulations\PortsMapping.cs" />
+    <Compile Include="GateLevel\Manipulations\UpperCaseLibraryGatesPorts\UpperCasePortsRequest.cs" />
     <Compile Include="GateLevel\Manipulations\UpperCaseLibraryGatesPorts\LibraryGatesPortsReplacer.cs" />
     <Compile Include="GateLevel\Manipulations\UpperCaseLibraryGatesPorts\UpperCaseLibraryGatesPortsManipulation.cs" />
     <Compile Include="GateLevel\Netlist.cs" />
@@ -123,7 +134,9 @@
       <Name>Elicon.Framework</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
