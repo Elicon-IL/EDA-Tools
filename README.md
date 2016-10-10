@@ -12,7 +12,7 @@ Currently the following tools are available:
 
 **Reports** - Generate many helpfull reports on the netlist.
 
-##Manipulaions
+##Manipulations
 
 ###Uppercase Library Gate Ports
 With this manipulation you can fix common casing errors. It will upper case all ports for all library gaets.
