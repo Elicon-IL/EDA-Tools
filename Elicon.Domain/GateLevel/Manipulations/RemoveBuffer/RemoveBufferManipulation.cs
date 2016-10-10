@@ -32,13 +32,13 @@ namespace Elicon.Domain.GateLevel.Manipulations.RemoveBuffer
 
         public void Remove(RemoveBufferRequest removeBufferRequest)
         {
-            _netlistDataBuilder.Build(removeBufferRequest.Netlist);
-            _netlistCloner.Clone(removeBufferRequest.Netlist, removeBufferRequest.NewNetlist);
+            _netlistDataBuilder.Build(removeBufferRequest.SourceNetlist);
+            _netlistCloner.Clone(removeBufferRequest.SourceNetlist, removeBufferRequest.TargetNetlist);
 
-            _bufferRemover.Remove(removeBufferRequest.NewNetlist, removeBufferRequest.BufferName, removeBufferRequest.InputPort, removeBufferRequest.OutputPort);
+            _bufferRemover.Remove(removeBufferRequest.TargetNetlist, removeBufferRequest.BufferName, removeBufferRequest.InputPort, removeBufferRequest.OutputPort);
 
-            var content = _netlistFileContentDirector.Construct(removeBufferRequest.NewNetlist);
-            _fileWriter.Write(removeBufferRequest.NewNetlist, "Remove Buffers", content);
+            var content = _netlistFileContentDirector.Construct(removeBufferRequest.TargetNetlist);
+            _fileWriter.Write(removeBufferRequest.TargetNetlist, "Remove Buffers", content);
         }
     }
 }

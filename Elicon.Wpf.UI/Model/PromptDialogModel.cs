@@ -83,8 +83,8 @@ namespace EdaTools.Model
             var newData = UserData2.CommaSeparatedStringToList();
             return new LibraryGateReplaceRequest
             {
-                Netlist = SelectedNetlist,
-                NewNetlist = TargetSaveFile,
+                SourceNetlist = SelectedNetlist,
+                TargetNetlist = TargetSaveFile,
                 GateToReplace = oldData[0],
                 NewGate = newData[0],
                 PortsMapping = MakePortMapping(oldData, newData)
@@ -96,8 +96,8 @@ namespace EdaTools.Model
             var bufferData = UserData1.CommaSeparatedStringToList();
             return new RemoveBufferRequest
             {
-                Netlist = SelectedNetlist,
-                NewNetlist = TargetSaveFile,
+                SourceNetlist = SelectedNetlist,
+                TargetNetlist = TargetSaveFile,
                 BufferName = bufferData[0],
                 InputPort = bufferData[1],
                 OutputPort = bufferData[2]

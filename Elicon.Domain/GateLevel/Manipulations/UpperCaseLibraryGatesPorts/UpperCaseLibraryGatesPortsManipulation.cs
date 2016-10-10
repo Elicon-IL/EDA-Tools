@@ -6,7 +6,7 @@ namespace Elicon.Domain.GateLevel.Manipulations.UpperCaseLibraryGatesPorts
 {
     public interface IUpperCaseLibraryGatesPortsManipulation
     {
-        void PortsToUpper(string sourceNetlist, string newNetlist);
+        void PortsToUpper(UpperCasePortsRequest request);
     }
 
     public class UpperCaseLibraryGatesPortsManipulation : IUpperCaseLibraryGatesPortsManipulation
@@ -26,15 +26,15 @@ namespace Elicon.Domain.GateLevel.Manipulations.UpperCaseLibraryGatesPorts
             _netlistFileContentDirector = netlistFileContentDirector;
         }
 
-        public void PortsToUpper(string sourceNetlist, string newNetlist)
+        public void PortsToUpper(UpperCasePortsRequest request)
         {
-            _netlistDataBuilder.Build(sourceNetlist);
-            _netlistCloner.Clone(sourceNetlist, newNetlist);
+            _netlistDataBuilder.Build(request.SourceNetlist);
+            _netlistCloner.Clone(request.SourceNetlist, request.TargetNetlist);
+         
+            _libraryGatesPortsReplacer.PortsToUpper(request.TargetNetlist);
 
-            _libraryGatesPortsReplacer.PortsToUpper(newNetlist);
-
-            var content = _netlistFileContentDirector.Construct(newNetlist);
-            _fileWriter.Write(newNetlist, "Uppercase Library Gates Module Ports", content);
+            var content = _netlistFileContentDirector.Construct(request.TargetNetlist);
+            _fileWriter.Write(request.TargetNetlist, "Uppercase Library Gates Ports", content);
         }
     }
 }

@@ -28,13 +28,13 @@ namespace Elicon.Domain.GateLevel.Manipulations.ReplaceLibraryGate
 
         public void Replace(LibraryGateReplaceRequest replaceRequest)
         {
-            _netlistDataBuilder.Build(replaceRequest.Netlist);
-            _netlistCloner.Clone(replaceRequest.Netlist, replaceRequest.NewNetlist);
+            _netlistDataBuilder.Build(replaceRequest.SourceNetlist);
+            _netlistCloner.Clone(replaceRequest.SourceNetlist, replaceRequest.TargetNetlist);
 
-            _libraryGateReplacer.Replace(replaceRequest.NewNetlist, replaceRequest.GateToReplace, replaceRequest.NewGate, replaceRequest.PortsMapping);
+            _libraryGateReplacer.Replace(replaceRequest.TargetNetlist, replaceRequest.GateToReplace, replaceRequest.NewGate, replaceRequest.PortsMapping);
 
-            var content = _netlistFileContentDirector.Construct(replaceRequest.NewNetlist);
-            _fileWriter.Write(replaceRequest.NewNetlist, "Replace Library Gates Modules", content);
+            var content = _netlistFileContentDirector.Construct(replaceRequest.TargetNetlist);
+            _fileWriter.Write(replaceRequest.TargetNetlist, "Replace Library Gate", content);
         }
     }
 }

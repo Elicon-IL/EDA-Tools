@@ -144,7 +144,7 @@ namespace EdaTools.Utility
             {
                 try
                 {
-                    action.PortsToUpper(netlist, targetSaveFile);
+                    action.PortsToUpper(new UpperCasePortsRequest {SourceNetlist = netlist, TargetNetlist = targetSaveFile});
                 }
                 catch (Exception ex)
                 {
