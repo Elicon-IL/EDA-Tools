@@ -64,15 +64,14 @@ namespace EdaTools.ViewModel
             if ((bool) e.NewValue)
             {
                 var target = (UIElement)d;
-                target.Dispatcher.BeginInvoke(
-                (Action)(() =>
-                {
-                    if (target.Focusable)
+                target.Dispatcher.BeginInvoke(new Action(() =>
                     {
-                        target.Focus();
-                        Keyboard.Focus(target);
-                    }
-                }), DispatcherPriority.Input);
+                        if (target.Focusable)
+                        {
+                            target.Focus();
+                            Keyboard.Focus(target);
+                        }
+                    }), DispatcherPriority.Input);
             }
         }
 
