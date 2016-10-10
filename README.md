@@ -12,6 +12,8 @@ Currently the following tools are available:
 
 **Reports** - Generate many helpfull reports on the netlist.
 
+**Installer** - http://www.elicon.biz/community
+
 ##Manipulations
 
 ###Uppercase Library Gate Ports
