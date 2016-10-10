@@ -2,23 +2,104 @@
 
 Verilog Gate-Level Studio for hardware engineers.
 
+EDA-Tools is a user-friendly HW engineering studio comprising of an array of tools specially designed for performing reports and manipulation on Verilog gate-level netlists.
+
+The current release of EDA-Tools is a 'generic' engineering tool – it operates without the need of loading a vendor library of cells. You can perform the manipulations and reports on 'semi-finished' designs and defer the decision on the technology and vendor - the tools are smart enough to differentiate between instances of modules and library gates without a loaded library.
+
+Currently the following tools are available:
+
 **Manipulations**  - Manipulate and save the netlist.
 
 **Reports** - Generate many helpfull reports on the netlist.
 
-##Manipultaions
+##Manipulaions
 
 ###Uppercase Library Gate Ports
 With this manipulation you can fix common casing errors. It will upper case all ports for all library gaets.
+
+Uppercase Library Gate Ports Example - 
+```
+Source Netlist:
+
+module main (clkin, rst_in, out);
+input clkin , rst_in  ;
+output out ;
+  sec inst001(.clkin ( clkin ), .rst_in ( rst_in ), .out ( outwire ) );
+  x_buf inst002 ( .i ( outwire ), .o ( out ) );
+endmodule
+
+module sec ( clkin, rst_in, out);
+input clkin , rst_in  ;
+output out ;
+  x_buf inst002 ( .i ( clkin ), .o ( out ) );
+  x_inv inst003 ( .i ( rst_in ), .o ( nc_wire ) );
+endmodule
+```
+Netlist After Uppercase Manipulation:
+```
+module main ( clkin , rst_in , out );
+input clkin , rst_in ;
+output out ;
+  sec inst001 ( .clkin ( clkin ) , .rst_in ( rst_in ) , .out ( outwire ) );
+  x_buf inst002 ( .I ( outwire ) , .O ( out ) );
+endmodule
+
+module sec ( clkin , rst_in , out );
+input clkin , rst_in ;
+output out ;
+  x_buf inst002 ( .I ( clkin ) , .O ( out ) );
+  x_inv inst003 ( .I ( rst_in ) , .O ( nc_wire ) );
+endmodule
+```
 
 ###Remove Buffers
 - You supply the buffer name and the buffer input port and the output port.
 - The manipulation will remove the buffer from the netlist, and will do all the rewiring.
 - Only non pass through buffers are removed
 
+Remove Buffers Example - 
+```
+Source Netlist:
+
+module top (clkin, rst_in, out);
+input clkin , rst_in  ;
+output out ;
+	x_inv inst001 ( .i ( outwire ), .o ( clkout ) );
+	x_buf inst002 ( .i ( clkout ), .o ( out ) );
+	x_buf inst002 ( .i ( clkin ), .o ( outwire ) );
+endmodule
+```
+Netlist After Remove Buffers Manipulation:
+```
+module top ( clkin , rst_in , out );
+input clkin , rst_in ;
+output out ;
+	x_inv inst001 ( .i ( clkin ) , .o ( out ) );
+endmodule
+```
+
 ###Replace Library Gates
 - You supply the old gate, new gate, and specify how ports should be replaced.
 - The manipulation will replace the old gate with the new gate, and will do all the rewiring.
+
+Replace Library Gates Example -
+```
+Source Netlist:
+
+module top ( clkin , rst_in , out );
+input clkin , rst_in ;
+output out ;
+	x_inv inst001 ( .i ( clkin ) , .o ( out ) );
+endmodule
+```
+Netlist After Replace Library Gates Manipulation:
+```
+module top ( clkin , rst_in , out );
+input clkin , rst_in ;
+output out ;
+	not inst001 ( .in ( clkin ) , .out ( out ) );
+endmodule
+```
 
 ##Reports
 
