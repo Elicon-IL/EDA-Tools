@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
-using System.Windows.Input;
+using System.Windows.Controls;
 using System.Windows.Threading;
 using EdaTools.Model;
 using EdaTools.Properties;
@@ -51,38 +51,31 @@ namespace EdaTools.ViewModel
         }
 
 
-        // =========================================
-        // OK Button State and Focus Handler.
-        // =========================================
-        public static readonly DependencyProperty IsFocusedProperty =
+        // ================================================
+        // OK / Cancel buttons IsDefault property Handler.
+        // ================================================
+        public static readonly DependencyProperty DefaultButtonProperty =
                 DependencyProperty.RegisterAttached(
-                "IsFocused", typeof(bool), typeof(PromptDialogViewModel),
-                new UIPropertyMetadata(false, OnIsFocusedPropertyChanged));
+                "DefaultButton", typeof(bool), typeof(PromptDialogViewModel),
+                new UIPropertyMetadata(false, OnDefaultButtonPropertyChanged));
 
-        private static void OnIsFocusedPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnDefaultButtonPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if ((bool) e.NewValue)
-            {
-                var target = (UIElement)d;
-                target.Dispatcher.BeginInvoke(new Action(() =>
-                    {
-                        if (target.Focusable)
-                        {
-                            target.Focus();
-                            Keyboard.Focus(target);
-                        }
-                    }), DispatcherPriority.Input);
-            }
+            var target = (Button)d;
+            target.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                   target.IsDefault = (bool)e.NewValue;
+                }), DispatcherPriority.Input);
         }
 
-        public static bool GetIsFocused(DependencyObject obj)
+        public static bool GetDefaultButton(DependencyObject obj)
         {
-            return (bool)obj.GetValue(IsFocusedProperty);
+            return (bool)obj.GetValue(DefaultButtonProperty);
         }
 
-        public static void SetIsFocused(DependencyObject obj, bool value)
+        public static void SetDefaultButton(DependencyObject obj, bool value)
         {
-            obj.SetValue(IsFocusedProperty, value);
+            obj.SetValue(DefaultButtonProperty, value);
         }
 
         private bool CanExecute()
