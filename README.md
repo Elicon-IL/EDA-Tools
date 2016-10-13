@@ -6,7 +6,7 @@ EDA-Tools is a user-friendly HW engineering studio comprising of an array of too
 
 The current release of EDA-Tools is a 'generic' engineering tool – it operates without the need of loading a vendor library of cells. You can perform the manipulations and reports on 'semi-finished' designs and defer the decision on the technology and vendor - the tools are smart enough to differentiate between instances of modules and library gates without a loaded library.
 
-Currently the following tools are available:
+Currently the following tools are available (**NOTE: Bus notation is currently not supported**):
 
 **Manipulations**  - Manipulate and save the netlist.
 
