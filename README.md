@@ -4,7 +4,9 @@ Verilog Gate-Level Studio for hardware engineers.
 
 EDA-Tools is a user-friendly HW engineering studio comprising of an array of tools specially designed for performing reports and manipulation on Verilog gate-level netlists.
 
-The current release of EDA-Tools is a 'generic' engineering tool – it operates without the need of loading a vendor library of cells. You can perform the manipulations and reports on 'semi-finished' designs and defer the decision on the technology and vendor - the tools are smart enough to differentiate between instances of modules and library gates without a loaded library.
+- EDA-Tools assume a valid Verilog Gate-Level file as input, Bus notation is not supported.
+- The current release of EDA-Tools is a 'generic' engineering tool – it operates without the need of loading a vendor library of cells.
+- EDA-Tools is designed to operate as a quick prototyping tool (before the sign-off tool). You can perform the manipulations and reports on 'semi-finished' designs and defer the decision on the technology and vendor - the tools are smart enough to differentiate between instances of modules and library gates without a loaded library.
 
 Currently the following tools are available (**NOTE: Bus notation is currently not supported**):
 
@@ -189,13 +191,36 @@ CDU/BITCOUNT_BLOCK/COUNT_rtl_0_aauto_generated_acounter_cella3/tlib000001/tlib00
 // x_lut4_0x6a5f has 4 instances
 ```
 
-## Future Release
-- Add support for vendor specific gate libraries
-- Fanout report
-- Floating inputs report
-- Eliminate assign statements manipulation
-- Remove open output gates manipulation
+## Feature requests
 
-## Team
+We're always excited to hear your ideas. Here are a few things people have asked us to add to EDA-Tools.
+ 
+Email your vote for any you'd like to see 
 
-Developed by http://www.elicon.biz/
+- Selective Flattening Tools:
+    - Flatten modules by number of library gates.
+    - Flatten modules of conversion library.
+
+- Reduction Tools:
+    - Reduce gates with tied inputs.
+    - Remove instances of library gates with open outputs.
+    - Reduce chains of one-input gates.
+    
+- Netlist Editing Tools:
+    - Propagate global-reset from a defined module till the top of the design.
+    - Propagate a specific output port from a defined module till the top of the design.
+ 
+- Reporting Tools:
+    - Fan-out Report.
+    - Floating / Multi-driven Inputs Report. 
+    - Gated Clock Report.
+    - Long Data-Paths Report.
+ 
+- Additional Tools:
+    - Bus opener tool.
+    - Preliminary power and size estimation tool.
+
+Have a new idea for EDA-Tools? Want to Suggest something or get our help ?
+We're always excited to hear you
+
+http://www.elicon.biz/community
