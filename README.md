@@ -220,7 +220,7 @@ Email your vote for any you'd like to see
     - Bus opener tool.
     - Preliminary power and size estimation tool.
 
-Have a new idea for EDA-Tools? Want to Suggest something or get our help ?
-We're always excited to hear you
+Have another new idea for EDA-Tools?
+Share your idea with us here
 
 http://www.elicon.biz/community
