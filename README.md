@@ -4,7 +4,7 @@ Verilog Gate-Level Studio for hardware engineers.
 
 EDA-Tools is a user-friendly HW engineering studio comprising of an array of tools specially designed for performing reports and manipulation on Verilog gate-level netlists.
 
-- EDA-Tools assume a valid Verilog Gate-Level file as input, Bus notation is not supported.
+- EDA-Tools assume a valid Verilog gate-level file as input, Bus notation is not supported.
 - The current release of EDA-Tools is a 'generic' engineering tool – it operates without the need of loading a vendor library of cells.
 - EDA-Tools is designed to operate as a quick prototyping tool (before the sign-off tool). You can perform the manipulations and reports on 'semi-finished' designs and defer the decision on the technology and vendor - the tools are smart enough to differentiate between instances of modules and library gates without a loaded library.
 
