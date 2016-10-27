@@ -12,7 +12,7 @@ Currently the following tools are available (**NOTE: Bus notation is currently n
 
 **Manipulations**  - Manipulate and save the netlist.
 
-**Reports** - Generate many helpfull reports on the netlist.
+**Reports** - Generate many helpful reports on the netlist.
 
 **Installer** - http://www.elicon.biz/community
 
