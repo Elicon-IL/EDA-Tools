@@ -41,6 +41,7 @@ namespace EdaTools.ViewModel
 
         public RelayCommand HelpMenuAbout { get; private set; }
         public RelayCommand HelpMenuSendFeedback { get; private set; }
+        public RelayCommand HelpMenuQuickStartGuide { get; private set; }
 
         private readonly EdaToolsModel _edaToolsModel;
         private readonly ToolRunner _toolRunner;
@@ -203,6 +204,7 @@ namespace EdaTools.ViewModel
             // =====================================================================
             HelpMenuAbout = new RelayCommand(param => AboutCommand());
             HelpMenuSendFeedback = new RelayCommand(param => SendFeedbackCommand());
+            HelpMenuQuickStartGuide = new RelayCommand(param => QuickStartGuideCommand());
         }
 
         private PromptDialogViewModel GetPromptDialogData(PromptDialogModel.Actions action)
@@ -299,6 +301,11 @@ namespace EdaTools.ViewModel
         private void SendFeedbackCommand()
         {
             Process.Start(new ProcessStartInfo("http://www.elicon.biz/community"));
+        }
+
+        private void QuickStartGuideCommand()
+        {
+            Process.Start(new ProcessStartInfo("EDA Tools Quick Guide.pdf"));
         }
 
         private void SaveLogCommand()

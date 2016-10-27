@@ -35,6 +35,7 @@
                     <MenuItem x:Name="ListLibraryGates" Header="List Library Gates" Command="{Binding ReportMenuListLibraryGates, Mode=OneWay}" />
                 </MenuItem>
                 <MenuItem x:Name="HelpMenu" Header="Help">
+                    <MenuItem x:Name="QuickStartGuide" Header="Quick Start Guide" Command="{Binding HelpMenuQuickStartGuide, Mode=OneWay}"/>
                     <MenuItem x:Name="SendFeedback" Header="Send Feedback" Command="{Binding HelpMenuSendFeedback, Mode=OneWay}"/>
                     <Separator/>
                     <MenuItem x:Name="About" Header="About EDA Tools..." Command="{Binding HelpMenuAbout, Mode=OneWay}"/>
