@@ -19,7 +19,7 @@ Currently the following tools are available (**NOTE: Bus notation is currently n
 ##Manipulations
 
 ###Uppercase Library Gate Ports
-With this manipulation you can fix common casing errors. It will upper case all ports for all library gaets.
+With this manipulation you can fix common casing errors. It will upper case all ports for all library gates.
 
 Uppercase Library Gate Ports Example - 
 ```
@@ -58,7 +58,8 @@ endmodule
 
 ###Remove Buffers
 - You supply the buffer name and the buffer input port and the output port.
-- The manipulation will remove the buffer from the netlist, and will do all the rewiring.
+- The manipulation will remove the buffer from the netlist, and will do all the necessary rewiring.
+- The format of the buffer definition is : Buffer_Name SPACE Input_port_Name SPACE Output_port_Name
 - Only non pass through buffers are removed
 
 Remove Buffers Example - 
@@ -84,6 +85,7 @@ endmodule
 
 ###Replace Library Gates
 - You supply the old gate, new gate, and specify how ports should be replaced.
+- The definitions of the new and old gates must comply with the following format: Gate_Name SPACE Input1_Name SPACE … Output1_Name
 - The manipulation will replace the old gate with the new gate, and will do all the rewiring.
 
 Replace Library Gates Example -
@@ -110,7 +112,7 @@ endmodule
 ###Count Library Gates
 
 - This report generates an accurate count of all the library gates within the module you choose.
-- If you run it on the **top module** you will get an accurate count of all the libraray gates in the netlist
+- If you run it on the **top module** you will get an accurate count of all the library gates in the netlist
 
 Report Example - 
 ```
@@ -140,7 +142,7 @@ xo2                       605
 ###List Library Gates
 
 - This report generates a list of all the library gates in the netlist.
-- For any of the gates we enusre to show all of its ports.
+- For any of the gates we ensure that all the ports are shown.
 
 Report Example - 
 ```
