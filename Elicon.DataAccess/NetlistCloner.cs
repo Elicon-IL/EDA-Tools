@@ -24,6 +24,9 @@ namespace Elicon.DataAccess
             if (netlist == null)
                 throw new InvalidOperationException("source netlist does not exists");
 
+            if (source == newSource)
+                return;
+
             _netlistRemover.Remove(newSource);
 
             netlist.Source = newSource;
