@@ -69,14 +69,7 @@ namespace EdaTools.ViewModel
             InitAmazingFramework();
             CreateUiCommands();
             LogWindowContents = $"{DateTime.Now}: Session started.";
-            // Create the progress updating delegate.
-            ProgressUpdater = result =>
-            {
-                UpdateProgress(result.Progress);
-            };
         }
-
-        public Action<FileReadProgressEvent> ProgressUpdater;
 
         public void UpdateLog(FileReadProgressEvent ev)
         {

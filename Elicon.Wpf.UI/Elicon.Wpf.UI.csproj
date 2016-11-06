@@ -65,6 +65,7 @@
       <DependentUpon>Spinner.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\EdaToolsModel.cs" />
+    <Compile Include="Utility\Converters.cs" />
     <Compile Include="Utility\ExtendedObservableCollection.cs" />
     <Compile Include="Utility\NotifyPropertyChanged.cs" />
     <Compile Include="Model\PromptDialogModel.cs" />

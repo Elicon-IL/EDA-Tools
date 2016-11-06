@@ -3,8 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:viewModel="clr-namespace:EdaTools.ViewModel"
         xmlns:controls="clr-namespace:EdaTools.Controls"
+        xmlns:utility="clr-namespace:EdaTools.Utility"
         x:Class="EdaTools.View.EdaToolsMainView"
-        Title="{Binding DisplayName, Mode=OneWay}" Height="561.065" Width="777.072" 
+        Title="{Binding DisplayName, Mode=OneWay}" 
+        Height="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={utility:RatioConverter}, ConverterParameter='0.8' }" 
+        Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={utility:RatioConverter}, ConverterParameter='0.7' }" 
         MinWidth="650" MinHeight="500"
         ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
     <Window.Resources>
