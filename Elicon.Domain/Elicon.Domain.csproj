@@ -41,6 +41,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,6 +56,13 @@
     <Compile Include="GateLevel\BuildData\InstancesTypeUpdater.cs" />
     <Compile Include="GateLevel\BuildData\StatementHandlers\MetaStatementHandler.cs" />
     <Compile Include="GateLevel\BuildData\StatementHandlers\WireDeclarationStatementHandler.cs" />
+    <Compile Include="GateLevel\Library\LibraryGate.cs" />
+    <Compile Include="GateLevel\Library\LibraryGatePortType.cs" />
+    <Compile Include="GateLevel\Library\LibraryGateType.cs" />
+    <Compile Include="GateLevel\Library\ILibrary.cs" />
+    <Compile Include="GateLevel\Library\Library.cs" />
+    <Compile Include="GateLevel\Library\LibraryLoader.cs" />
+    <Compile Include="GateLevel\Library\LibraryRepository.cs" />
     <Compile Include="GateLevel\Manipulations\InstanceMutator.cs" />
     <Compile Include="GateLevel\Manipulations\Interceptors\ManipulationExceptionInterceptor.cs" />
     <Compile Include="GateLevel\Manipulations\ModuleMutator.cs" />

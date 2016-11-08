@@ -15,6 +15,12 @@ namespace Elicon.Framework
             return target[key];
         }
 
+        public static TValue ValueOrDefault<TKey, TValue>(this Dictionary<TKey, TValue> dic, TKey key)
+        {
+            TValue value;
+            return dic.TryGetValue(key, out value) ? value : default(TValue);
+        }
+
         public static void UpdateValue<TKey, TValue>(this IDictionary<TKey, TValue> target, TKey key, Func<TValue,TValue> updater, TValue intialValue)
         {
             TValue value;
