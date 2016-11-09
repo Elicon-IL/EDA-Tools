@@ -33,6 +33,10 @@ namespace Elicon.Domain.GateLevel.Library
 
         private static Dictionary<string, LibraryGate> CreateLibraryGates(object libraryObject)
         {
+            //
+            // IMPORTANT IMPLEMENTATION NOTE: To enable a reasonable error margin in the process of building
+            //                                a library all key-lookups and type-parsing are case-insensitive.
+            //
             var gates = new Dictionary<string, LibraryGate>();
             var libraryGates = libraryObject as IEnumerable;
             if (libraryGates != null)
@@ -49,7 +53,7 @@ namespace Elicon.Domain.GateLevel.Library
                         var size = 0;
                         foreach (KeyValuePair<string, object> info in gateInfo)
                         {
-                            // NOTE: Key lookups and type-parsing are case-insensitive.
+                            // NOTE: Key lookups are case-insensitive.
                             switch (info.Key.ToUpperInvariant())
                             {
                                 case "NAME":
@@ -82,7 +86,7 @@ namespace Elicon.Domain.GateLevel.Library
             {
                 foreach (Dictionary<string, object> port in ports)
                 {
-                    // NOTE: Key lookups and type-parsing are case-insensitive.
+                    // NOTE: Key lookups and enum type-parsing are case-insensitive.
                     var portsDict = new Dictionary<string, object>(port, StringComparer.OrdinalIgnoreCase);
                     gatePorts.Add((string)portsDict["Name"], ParsePortType((string)portsDict["Type"]));
                 }
