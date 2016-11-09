@@ -16,7 +16,7 @@ namespace Elicon.Unit.Tests.Domain.Traversal
         }
 
         [Test]
-        public void UpdateIn_InstanceWithoutInstanceName_NoUpdate()
+        public void UpdateIn_InstanceWithoutInstanceName_EmptyPath()
         {
             var instance = new Instance("netlist", "hostModule", "moduleName", "");
 
@@ -27,7 +27,7 @@ namespace Elicon.Unit.Tests.Domain.Traversal
         }
 
         [Test]
-        public void UpdateIn_InstanceWithInstanceName_Update()
+        public void UpdateIn_InstanceWithInstanceName_PathWithOneInstance()
         {
             var instance = new Instance("netlist", "hostModule", "moduleName", "inst1");
 
@@ -38,7 +38,7 @@ namespace Elicon.Unit.Tests.Domain.Traversal
         }
 
         [Test]
-        public void UpdateIn_TwoInstancesWithInstanceName_Update()
+        public void UpdateIn_TwoInstances_PathWithTwoInstances()
         {
             var instance = new Instance("netlist", "hostModule", "moduleName", "inst1");
             var instance2 = new Instance("netlist", "hostModule2", "moduleName", "inst2");
@@ -57,7 +57,7 @@ namespace Elicon.Unit.Tests.Domain.Traversal
         }
 
         [Test]
-        public void UpdateOut_OneInstance_Update()
+        public void UpdateOut_OneInstance_EmptyPath()
         {
             var instance = new Instance("netlist", "hostModule", "moduleName", "inst1");
             _target.UpdateIn(instance);
@@ -69,7 +69,7 @@ namespace Elicon.Unit.Tests.Domain.Traversal
         }
 
         [Test]
-        public void UpdateOut_TwoInstances_Update()
+        public void UpdateOut_TwoInstances_PathWithOneInstance()
         {
             var instance = new Instance("netlist", "hostModule", "moduleName", "inst1");
             var instance2 = new Instance("netlist", "hostModule2", "moduleName", "inst2");
