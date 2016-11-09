@@ -37,6 +37,27 @@ namespace Elicon.Unit.Tests.Framework
         }
 
         [Test]
+        public void ValueOrDefault_KeyNotInDictionary_ReturnsNewValue()
+        {
+            var result = _target.ValueOrDefault(1);
+
+            Assert.That(result, Is.Null);
+        }
+
+        [Test]
+        public void ValueOrDefault_KeyInDictionary_ReturnsExistingValue()
+        {
+            var value = new List<string> { "value1" };
+            const int key = 1;
+            _target.Add(key, value);
+
+            var result = _target.ValueOrDefault(key);
+
+            Assert.That(result, Has.Count.EqualTo(1));
+            Assert.That(result[0], Is.EqualTo("value1"));
+        }
+
+        [Test]
         public void UpdateValue_KeyNotInDictionary_UpdateIntialValue()
         {
             const int key = 1;
