@@ -37,7 +37,7 @@ namespace Elicon.Unit.Tests.Framework
         }
 
         [Test]
-        public void ValueOrDefault_KeyNotInDictionary_ReturnsNewValue()
+        public void ValueOrDefault_KeyNotInDictionary_ReturnsDefaultValue()
         {
             var result = _target.ValueOrDefault(1);
 
