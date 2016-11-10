@@ -5,9 +5,9 @@ namespace Elicon.Framework
 {
     public static class StringExtensions
     {
-        public static string Join(this string separator, IEnumerable<string> values)
+        public static string Join(this string target, IEnumerable<string> values)
         {
-            return string.Join(separator, values);
+            return string.Join(target, values);
         }
 
         public static string FormatWith(this string target, params object[] args)
