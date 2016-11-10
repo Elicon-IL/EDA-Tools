@@ -65,8 +65,10 @@
     <Compile Include="GateLevel\VendorLibraryGates\LibraryGate.cs" />
     <Compile Include="GateLevel\VendorLibraryGates\LibraryGatePort.cs" />
     <Compile Include="GateLevel\VendorLibraryGates\LibraryGatePortType.cs" />
+    <Compile Include="GateLevel\VendorLibraryGates\LibraryGatePortTypeExtensions.cs" />
     <Compile Include="GateLevel\VendorLibraryGates\LibraryGateType.cs" />
     <Compile Include="GateLevel\VendorLibraryGates\Library.cs" />
+    <Compile Include="GateLevel\VendorLibraryGates\LibraryGateTypeExtensions.cs" />
     <Compile Include="GateLevel\VendorLibraryGates\LibraryLoader.cs" />
     <Compile Include="GateLevel\Manipulations\InstanceMutator.cs" />
     <Compile Include="GateLevel\Manipulations\Interceptors\ManipulationExceptionInterceptor.cs" />

@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 
 namespace Elicon.Domain.GateLevel.VendorLibraryGates
 {
-
     public interface ILibraryLoader
     {
         void Load(string source);
@@ -33,7 +32,5 @@ namespace Elicon.Domain.GateLevel.VendorLibraryGates
             _libraryRepository.Add(lib);
 
         }
-        
     }
-
 }
