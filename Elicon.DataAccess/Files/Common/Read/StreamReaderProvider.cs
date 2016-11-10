@@ -1,14 +1,11 @@
 using Elicon.Domain;
 using Elicon.Framework;
 using System.IO;
+using Elicon.Domain.GateLevel.Contracts.DataAccess;
 using Elicon.Domain.GateLevel.Read;
 
 namespace Elicon.DataAccess.Files.Common.Read
 {
-    public interface IStreamReaderProvider
-    {
-        IStreamReader Get(string source);
-    }
 
     public class StreamReaderProvider : IStreamReaderProvider
     {
@@ -49,6 +46,11 @@ namespace Elicon.DataAccess.Files.Common.Read
                 PublishProgress();
 
                 return currentLine;
+            }
+
+            public string ReadToEnd()
+            {
+                return _reader.ReadToEnd();
             }
 
             public void Close()

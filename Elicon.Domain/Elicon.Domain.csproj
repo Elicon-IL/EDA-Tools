@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
       <Private>True</Private>
@@ -56,13 +59,15 @@
     <Compile Include="GateLevel\BuildData\InstancesTypeUpdater.cs" />
     <Compile Include="GateLevel\BuildData\StatementHandlers\MetaStatementHandler.cs" />
     <Compile Include="GateLevel\BuildData\StatementHandlers\WireDeclarationStatementHandler.cs" />
-    <Compile Include="GateLevel\Library\LibraryGate.cs" />
-    <Compile Include="GateLevel\Library\LibraryGatePortType.cs" />
-    <Compile Include="GateLevel\Library\LibraryGateType.cs" />
-    <Compile Include="GateLevel\Library\ILibrary.cs" />
-    <Compile Include="GateLevel\Library\Library.cs" />
-    <Compile Include="GateLevel\Library\LibraryLoader.cs" />
-    <Compile Include="GateLevel\Library\LibraryRepository.cs" />
+    <Compile Include="GateLevel\Contracts\DataAccess\ILibraryRepository.cs" />
+    <Compile Include="GateLevel\Contracts\DataAccess\IStreamReader.cs" />
+    <Compile Include="GateLevel\Contracts\DataAccess\IStreamReaderProvider.cs" />
+    <Compile Include="GateLevel\VendorLibraryGates\LibraryGate.cs" />
+    <Compile Include="GateLevel\VendorLibraryGates\LibraryGatePort.cs" />
+    <Compile Include="GateLevel\VendorLibraryGates\LibraryGatePortType.cs" />
+    <Compile Include="GateLevel\VendorLibraryGates\LibraryGateType.cs" />
+    <Compile Include="GateLevel\VendorLibraryGates\Library.cs" />
+    <Compile Include="GateLevel\VendorLibraryGates\LibraryLoader.cs" />
     <Compile Include="GateLevel\Manipulations\InstanceMutator.cs" />
     <Compile Include="GateLevel\Manipulations\Interceptors\ManipulationExceptionInterceptor.cs" />
     <Compile Include="GateLevel\Manipulations\ModuleMutator.cs" />
