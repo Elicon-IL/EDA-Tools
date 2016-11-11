@@ -18,14 +18,24 @@ namespace Elicon.DataAccess
         public void Add(Library library)
         {
             library.Id = _idGenerator.GenerateId();
-            _libraries.Add(library.Id, library);
+            _libraries.Add(library.Id, new Library(library));
         }
 
         public Library Get(string source)
         {
-            return _libraries.Values.SingleOrDefault(lib => lib.Source == source);
+            var result =_libraries.Values.SingleOrDefault(lib => lib.Source == source);
+
+            if (result != null)
+                return new Library(result);
+
+            return null;
         }
-        
+
+        public IList<Library> GetAll()
+        {
+            return _libraries.Values.Select(lib => new Library(lib)).ToList();
+        }
+
         public void Remove(string source)
         {
             var key = _libraries.Single(kvp => kvp.Value.Source == source).Key;

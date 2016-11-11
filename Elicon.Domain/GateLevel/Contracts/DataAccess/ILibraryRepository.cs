@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Elicon.Domain.GateLevel.VendorLibraryGates;
 
 namespace Elicon.Domain.GateLevel.Contracts.DataAccess
@@ -6,6 +7,7 @@ namespace Elicon.Domain.GateLevel.Contracts.DataAccess
     {
         void Add(Library library);
         Library Get(string source);
+        IList<Library> GetAll();
         void Remove(string source);
         bool Exists(string source);
     }
