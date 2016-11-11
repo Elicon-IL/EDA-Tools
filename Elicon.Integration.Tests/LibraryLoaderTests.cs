@@ -1,4 +1,5 @@
-﻿using Elicon.Domain.GateLevel.Contracts.DataAccess;
+﻿using System.Linq;
+using Elicon.Domain.GateLevel.Contracts.DataAccess;
 using Elicon.Domain.GateLevel.VendorLibraryGates;
 using NUnit.Framework;
 
@@ -25,10 +26,27 @@ namespace Elicon.Integration.Tests
             var result = _libraryRepository.Get(ExampleLibraryGateFilePath);
 
             Assert.That(result.Gates, Has.Count.EqualTo(2));
-            Assert.That(result.Gates, Has.Exactly(1).Matches<LibraryGate>(gate => gate.Name.Equals("an2") && 
-                        gate.Nd2Size == 2 && gate.Type == LibraryGateType.And));
-            Assert.That(result.Gates, Has.Exactly(1).Matches<LibraryGate>(gate => gate.Name.Equals("or3") && 
-                        gate.Nd2Size == 3 && gate.Type == LibraryGateType.Or));
+
+            Assert.That(result.Gates, Has.Exactly(1).Matches<LibraryGate>(gate => 
+                gate.Name.Equals("an2") 
+                && gate.Nd2Size == 2 
+                && gate.Type == LibraryGateType.And
+                && gate.Ports.Count == 3
+                && gate.Ports.Any(p => p.Name == "a" && p.Type == LibraryGatePortType.Input)
+                && gate.Ports.Any(p => p.Name == "b" && p.Type == LibraryGatePortType.Input)
+                && gate.Ports.Any(p => p.Name == "z" && p.Type == LibraryGatePortType.Output)
+             ));
+
+            Assert.That(result.Gates, Has.Exactly(1).Matches<LibraryGate>(gate => 
+                gate.Name.Equals("or3") 
+                && gate.Nd2Size == 3 
+                && gate.Type == LibraryGateType.Or
+                && gate.Ports.Count == 4
+                && gate.Ports.Any(p => p.Name =="a" && p.Type==LibraryGatePortType.Input)
+                && gate.Ports.Any(p => p.Name == "b" && p.Type == LibraryGatePortType.Input)
+                && gate.Ports.Any(p => p.Name == "c" && p.Type == LibraryGatePortType.Input)
+                && gate.Ports.Any(p => p.Name == "z" && p.Type == LibraryGatePortType.Output)
+            ));
         }
 
         [Test]
@@ -47,6 +65,5 @@ namespace Elicon.Integration.Tests
         {
             _libraryRepository.Remove(ExampleLibraryGateFilePath);
         }
-
     }
 }
