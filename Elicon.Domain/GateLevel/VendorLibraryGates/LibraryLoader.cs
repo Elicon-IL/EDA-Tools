@@ -1,5 +1,5 @@
-﻿using Elicon.Domain.GateLevel.Contracts.DataAccess;
-using Newtonsoft.Json;
+﻿using System.Web.Script.Serialization;
+using Elicon.Domain.GateLevel.Contracts.DataAccess;
 
 namespace Elicon.Domain.GateLevel.VendorLibraryGates
 {
@@ -28,7 +28,10 @@ namespace Elicon.Domain.GateLevel.VendorLibraryGates
             var jsonContents = reader.ReadToEnd();
             reader.Close();
 
-            var lib = JsonConvert.DeserializeObject<Library>(jsonContents);
+            var deserializer = new JavaScriptSerializer();
+            var lib = deserializer.Deserialize<Library>(jsonContents);
+
+            lib.Source = sourcePath;
             _libraryRepository.Add(lib);
 
         }
