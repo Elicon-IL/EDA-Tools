@@ -1,5 +1,4 @@
-﻿using Elicon.Domain;
-using Elicon.Domain.GateLevel;
+﻿using Elicon.Domain.GateLevel;
 using NUnit.Framework;
 
 namespace Elicon.Unit.Tests.Domain
@@ -13,7 +12,6 @@ namespace Elicon.Unit.Tests.Domain
         public void IsModule_InstanceTypeIsModule_ReturnTrue()
         {
             _target = new Instance("netlist","host","m1","inst1") {Type = InstanceType.Module};
-
 
             var result = _target.IsModule();
 

@@ -1,0 +1,46 @@
+{
+	"Gates" : [
+		{
+    "name": "an2",
+    "Ports": [
+      {
+        "Name": "z",
+        "Type": "output"
+      },
+      {
+        "Name": "a",
+        "Type": "input"
+      },
+	  {
+        "Name": "b",
+        "Type": "input"
+      }
+    ],
+    "type": "and",
+    "Nd2Size": 2
+  	},
+  	{
+    "Name": "or3",
+    "Ports": [
+      {
+        "Name": "z",
+        "Type": "output"
+      },
+      {
+        "Name": "a",
+        "Type": "input"
+      },
+      {
+        "Name": "b",
+        "Type": "input"
+      },
+	  {
+        "Name": "c",
+        "Type": "input"
+      }
+    ],
+    "Type": "or",
+    "Nd2Size": 3
+  }
+	] 
+}

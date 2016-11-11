@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BufferRemoverTests.cs" />
+    <Compile Include="LibraryLoaderTests.cs" />
     <Compile Include="OpenOutputModuleRemoverTests.cs" />
     <Compile Include="LibraryGatesPortsReplacerTests.cs" />
     <Compile Include="NetlistClonerTests.cs" />
@@ -80,6 +81,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="example_library.json" />
     <None Include="example_netlist.v" />
     <None Include="packages.config" />
   </ItemGroup>
