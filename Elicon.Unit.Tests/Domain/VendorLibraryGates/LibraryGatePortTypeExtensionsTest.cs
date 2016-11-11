@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Elicon.Domain.GateLevel.VendorLibraryGates;
+﻿using Elicon.Domain.GateLevel.VendorLibraryGates;
 using NUnit.Framework;
 
 namespace Elicon.Unit.Tests.Domain.VendorLibraryGates
