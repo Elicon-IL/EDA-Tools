@@ -6,25 +6,44 @@ namespace Elicon.Unit.Tests.Domain.VendorLibraryGates
     [TestFixture]
     public class LibraryGateTypeExtensionsTest
     {
-
         [TestCase(LibraryGateType.Cvdd)]
         [TestCase(LibraryGateType.Cvss)]
         [TestCase(LibraryGateType.PullDown)]
         [TestCase(LibraryGateType.PullUp)]
         [TestCase(LibraryGateType.BusRepeater)]
         [TestCase(LibraryGateType.PowerOnReset)]
-        public void LibraryGateType_IsOutputOnlyGate_ReturnTrue(LibraryGateType type)
+        public void IsOutputOnlyGate_LibraryGateTypeIsOutputOnlyGate_ReturnTrue(LibraryGateType type)
         {
             var result = type.IsOutputOnlyGate();
+
             Assert.That(result, Is.True);
+        }
+
+        [TestCase(LibraryGateType.SyncScanPos)]
+        [TestCase(LibraryGateType.Xor)]
+        public void IsOutputOnlyGate_LibraryGateTypeIsNotOutputOnlyGate_ReturnFalse(LibraryGateType type)
+        {
+            var result = type.IsOutputOnlyGate();
+
+            Assert.That(result, Is.False);
         }
 
         [TestCase(LibraryGateType.ClockBuffer)]
         [TestCase(LibraryGateType.BufferDelay)]
-        public void LibraryGateType_IsSpecialBufferGate_ReturnTrue(LibraryGateType type)
+        public void IsSpecialBufferGate_LibraryGateTypeIsSpecialBufferGate_ReturnTrue(LibraryGateType type)
         {
             var result = type.IsSpecialBufferGate();
+
             Assert.That(result, Is.True);
+        }
+
+        [TestCase(LibraryGateType.SyncScanPos)]
+        [TestCase(LibraryGateType.Inverter)]
+        public void IsSpecialBufferGate_LibraryGateTypeIsNotSpecialBufferGate_ReturnFalse(LibraryGateType type)
+        {
+            var result = type.IsSpecialBufferGate();
+
+            Assert.That(result, Is.False);
         }
 
         [TestCase(LibraryGateType.Buffer)]
@@ -38,12 +57,22 @@ namespace Elicon.Unit.Tests.Domain.VendorLibraryGates
         [TestCase(LibraryGateType.Xnor)]
         [TestCase(LibraryGateType.Xor)]
         [TestCase(LibraryGateType.Multiplexer)]
-        public void LibraryGateType_IsCombinatorialGate_ReturnTrue(LibraryGateType type)
+        public void IsCombinatorialGate_LibraryGateTypeIsCombinatorialGate_ReturnTrue(LibraryGateType type)
         {
             var result = type.IsCombinatorialGate();
+
             Assert.That(result, Is.True);
         }
 
+        [TestCase(LibraryGateType.TsBufLow)]
+        [TestCase(LibraryGateType.SyncScanPos)]
+        public void IsCombinatorialGate_LibraryGateTypeIsNotCombinatorialGate_ReturnFalse(LibraryGateType type)
+        {
+            var result = type.IsCombinatorialGate();
+
+            Assert.That(result, Is.False);
+        }
+        
         [TestCase(LibraryGateType.SyncNeg)]
         [TestCase(LibraryGateType.SyncPos)]
         [TestCase(LibraryGateType.SyncScanNeg)]
@@ -51,28 +80,58 @@ namespace Elicon.Unit.Tests.Domain.VendorLibraryGates
         [TestCase(LibraryGateType.SyncLatchHi)]
         [TestCase(LibraryGateType.SyncLatchLow)]
         [TestCase(LibraryGateType.SyncScanGatedPos)]
-        public void LibraryGateType_IsStateStorageGate_ReturnTrue(LibraryGateType type)
+        public void IsStateStorageGate_LibraryGateTypeIsStateStorageGate_ReturnTrue(LibraryGateType type)
         {
             var result = type.IsStateStorageGate();
+
             Assert.That(result, Is.True);
+        }
+
+        [TestCase(LibraryGateType.IoBidir)]
+        [TestCase(LibraryGateType.IoOutput)]
+        public void IsStateStorageGate_LibraryGateTypeIsNotStateStorageGate_ReturnFalse(LibraryGateType type)
+        {
+            var result = type.IsStateStorageGate();
+
+            Assert.That(result, Is.False);
         }
 
         [TestCase(LibraryGateType.TsBufLow)]
         [TestCase(LibraryGateType.TsBufHigh)]
-        public void LibraryGateType_Is3StateBufferGate_ReturnTrue(LibraryGateType type)
+        public void Is3StateBufferGate_LibraryGateTypeIs3StateBufferGate_ReturnTrue(LibraryGateType type)
         {
             var result = type.Is3StateBufferGate();
+
             Assert.That(result, Is.True);
+        }
+
+        [TestCase(LibraryGateType.IoOutTsOd)]
+        [TestCase(LibraryGateType.IoPad)]
+        public void Is3StateBufferGate_LibraryGateTypeIsNot3StateBufferGate_ReturnFalse(LibraryGateType type)
+        {
+            var result = type.Is3StateBufferGate();
+
+            Assert.That(result, Is.False);
         }
 
         [TestCase(LibraryGateType.IoInput)]
         [TestCase(LibraryGateType.IoBidir)]
         [TestCase(LibraryGateType.IoOutput)]
         [TestCase(LibraryGateType.IoOutTs)]
-        public void LibraryGateType_IsIoGate_ReturnTrue(LibraryGateType type)
+        public void IsIoGate_LibraryGateTypeIsIoGate_ReturnTrue(LibraryGateType type)
         {
             var result = type.IsIoGate();
+
             Assert.That(result, Is.True);
+        }
+
+        [TestCase(LibraryGateType.IoOutTsHl)]
+        [TestCase(LibraryGateType.IoBidirHlNand)]
+        public void IsIoGate_LibraryGateTypeIsNotIoGate_ReturnFalse(LibraryGateType type)
+        {
+            var result = type.IsIoGate();
+
+            Assert.That(result, Is.False);
         }
 
         [TestCase(LibraryGateType.IoDiffInput)]
@@ -83,11 +142,20 @@ namespace Elicon.Unit.Tests.Domain.VendorLibraryGates
         [TestCase(LibraryGateType.IoOutTsHl)]
         [TestCase(LibraryGateType.IoBidirHlNand)]
         [TestCase(LibraryGateType.IoOutTsDiff)]
-        public void LibraryGateType_IsSpecialIoGateGate_ReturnTrue(LibraryGateType type)
+        public void IsSpecialIoGateGate_LibraryGateTypeIsSpecialIoGateGate_ReturnTrue(LibraryGateType type)
         {
             var result = type.IsSpecialIoGateGate();
+
             Assert.That(result, Is.True);
         }
 
+        [TestCase(LibraryGateType.Nand)]
+        [TestCase(LibraryGateType.Nor)]
+        public void IsSpecialIoGateGate_LibraryGateTypeIsNotSpecialIoGateGate_ReturnFalse(LibraryGateType type)
+        {
+            var result = type.IsSpecialIoGateGate();
+
+            Assert.That(result, Is.False);
+        }
     }
 }
